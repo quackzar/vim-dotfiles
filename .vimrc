@@ -3,10 +3,11 @@ filetype off                  " required
 set encoding=utf8
 set fileencoding=utf8
 set runtimepath+="~/.vim/"
-" set pythonhome=$HOME/.pyenv/versions/2.7.11
-" set pythondll=$HOME/.pyenv/versions/2.7.11/lib/libpython2.7.dylib
-set pythonthreehome=/Library/Frameworks/Python.framework/Versions/3.6
-set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
+
+if has('macunix')
+  set pythonthreehome=/Library/Frameworks/Python.framework/Versions/3.6
+  set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
+endif
 
 call plug#begin('~/.vim/plugged/')
   Plug 'w0rp/ale'
@@ -74,6 +75,7 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
 " =========== NERDTree ==============
 autocmd FileType nerdtree setlocal nolist
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
@@ -211,11 +213,15 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_highlighting_cache = 1
 if has('gui_running')
   colorscheme molokai
-  set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h12
   let g:airline_powerline_fonts = 1
   let g:webdevicons_enable_ctrlp = 1
   let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-  set transparency=1
+  if has('macunix')
+    set transparency=3
+    set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h12
+  elseif has('win32')
+    set guifont=DejaVuSansMono_Nerd_Font_Mono:h9
+  endif
   hi Normal ctermbg=none
   hi NonText ctermbg=none
   hi LineNr ctermbg=none
@@ -304,12 +310,25 @@ set foldmethod=expr
 set foldexpr=vimtex#fold#level(v:lnum)
 set foldtext=vimtex#fold#text()
 
-let g:vimtex_view_general_viewer
-      \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
-let g:vimtex_view_general_options = '-r @line @pdf @tex'
-let g:vimtex_latexmk_callback_hooks = ['UpdateSkim']
-
+if has('macunix')
+  let g:vimtex_view_general_viewer
+        \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+  let g:vimtex_view_general_options = '-r @line @pdf @tex'
+  let g:vimtex_latexmk_callback_hooks = ['UpdateSkim']
+elseif has('win32')
+  let g:vimtex_view_general_viewer = 'C:/PROGRA~1/SumatraPDF/SumatraPDF.exe'
+  let g:vimtex_view_general_options
+      \ = ' -forward-search @tex @line @pdf'
+      \ . ' -inverse-search "gvim --servername ' . v:servername
+      \ . ' --remote-send \"^<C-\^>^<C-n^>'
+      \ . ':drop \%f^<CR^>:\%l^<CR^>:normal\! zzzv^<CR^>'
+      \ . ':execute ''drop '' . fnameescape(''\%f'')^<CR^>'
+      \ . ':\%l^<CR^>:normal\! zzzv^<CR^>'
+      \ . ':call remote_foreground('''.v:servername.''')^<CR^>^<CR^>\""'
+  let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+endif
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+
 
 " === Fix, needs to be here ===
 if exists("g:loaded_webdevicons")
