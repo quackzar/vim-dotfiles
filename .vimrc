@@ -123,8 +123,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " ====== Snippets and Completion ======
-let g:UltiSnipsSnippetDirectories=["custom_snips", "UltiSnips"]
-
+set runtimepath+=~/.vim/custom_snips/
 function! g:UltiSnips_Complete()
   call UltiSnips#ExpandSnippet()
   if g:ulti_expand_res == 0
