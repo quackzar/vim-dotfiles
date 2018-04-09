@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
