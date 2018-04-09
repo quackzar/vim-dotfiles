@@ -47,6 +47,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'mbbill/undotree'
   Plug 'lifepillar/vim-cheat40'
+  Plug 'sedm0784/vim-you-autocorrect'
 call plug#end()            " required
 
 set guioptions-=m  "remove menu bar
