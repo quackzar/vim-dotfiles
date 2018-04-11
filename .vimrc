@@ -78,10 +78,6 @@ let g:AutoPairsShortcutFastWrap=''
 let g:AutoPairsShortcutBackInsert=''
 let g:AutoPairsShortcutJump=''
 
-let g:AutoPairsShortcutFastWrap=''
-let g:AutoPairsShortcutBackInsert=''
-let g:AutoPairsShortcutJump=''
-
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
