@@ -71,7 +71,11 @@ map Q <Nop>
 let mapleader = ","
 
 nnoremap <leader>m :TagbarToggle<CR>
-map <C-å> <C-]>
+map <C-8> <C-]>
+map <C-9> <C-[>
+let g:AutoPairsShortcutFastWrap=''
+let g:AutoPairsShortcutBackInsert=''
+let g:AutoPairsShortcutJump=''
 
 if has("persistent_undo")
     set undodir=~/.undodir/
