@@ -38,6 +38,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-endwise'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'python-mode/python-mode'
   Plug 'vim-scripts/indentpython.vim'
@@ -72,6 +73,10 @@ let mapleader = ","
 
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-å> <C-]>
+
+let g:AutoPairsShortcutFastWrap=''
+let g:AutoPairsShortcutBackInsert=''
+let g:AutoPairsShortcutJump=''
 
 if has("persistent_undo")
     set undodir=~/.undodir/
