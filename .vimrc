@@ -65,7 +65,7 @@ set infercase
 set wildmenu
 set wildmode=full
 set title
-set conceallevel=3
+set conceallevel=2
 set mouse=a
 set ts=4 sw=4 et
 map Q <Nop>
@@ -240,6 +240,7 @@ else
   let g:webdevicons_enable = 0
 endif
 
+highlight Conceal guifg=#66d9ef guibg=#272822
 
 " ====== Save Session on exit ======
 if has("gui_running")
