@@ -166,6 +166,10 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
+let b:surround_{char2nr('e')}
+      \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+let b:surround_{char2nr('c')} = "\\\1command: \1{\r}"
+
 " ===== YCM Settings =====
 let g:ycm_min_num_of_chars_for_completion = 3
 function! YCMToggle()
