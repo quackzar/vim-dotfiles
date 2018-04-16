@@ -50,6 +50,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'mbbill/undotree'
   Plug 'lifepillar/vim-cheat40'
   Plug 'sedm0784/vim-you-autocorrect'
+  Plug 'MattesGroeger/vim-bookmarks'
 call plug#end()            " required
 
 set guioptions-=m  "remove menu bar
@@ -82,6 +83,7 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
 
 " =========== NERDTree ==============
 autocmd FileType nerdtree setlocal nolist
@@ -166,6 +168,10 @@ endif
 au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
 au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
+" ======= Bookmarks =======
+let g:bookmark_save_per_working_dir = 1
+let g:bookmark_auto_save = 1
+highlight SignColumn ctermbg=none
 " ===== YCM Settings =====
 let g:ycm_min_num_of_chars_for_completion = 3
 function! YCMToggle()
