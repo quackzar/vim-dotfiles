@@ -1,2 +1,6 @@
 plugged/*
 tags
+*.swp
+*.netrwhist
+*.lock
+*.temp

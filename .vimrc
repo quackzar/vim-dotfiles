@@ -49,8 +49,8 @@ call plug#begin('~/.vim/plugged/')
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'mbbill/undotree'
   Plug 'lifepillar/vim-cheat40'
-  Plug 'sedm0784/vim-you-autocorrect'
   Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
 call plug#end()            " required
 
 set guioptions-=m  "remove menu bar
@@ -66,7 +66,7 @@ set infercase
 set wildmenu
 set wildmode=full
 set title
-set conceallevel=3
+set conceallevel=2
 set mouse=a
 set ts=4 sw=4 et
 map Q <Nop>
@@ -172,6 +172,12 @@ au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger 
 let g:bookmark_save_per_working_dir = 1
 let g:bookmark_auto_save = 1
 highlight SignColumn ctermbg=none
+
+" ======= Surround =======
+let b:surround_{char2nr('e')}
+      \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+let b:surround_{char2nr('c')} = "\\\1command: \1{\r}"
+
 " ===== YCM Settings =====
 let g:ycm_min_num_of_chars_for_completion = 3
 function! YCMToggle()
@@ -242,6 +248,7 @@ else
   let g:webdevicons_enable = 0
 endif
 
+highlight Conceal guifg=#66d9ef guibg=#272822
 
 " ====== Save Session on exit ======
 if has("gui_running")
