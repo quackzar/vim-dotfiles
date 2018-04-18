@@ -53,6 +53,10 @@ call plug#begin('~/.vim/plugged/')
   Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
 call plug#end()            " required
 
+" All of your Plugs must be added before the following line
+filetype plugin indent on    " required
+
+set nu
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove tool bar
 set guioptions-=r  "remove right scroll bar
@@ -71,6 +75,8 @@ set mouse=a
 set ts=4 sw=4 et
 map Q <Nop>
 let mapleader = ","
+syntax on
+set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-8> <C-]>
@@ -84,6 +90,14 @@ if has("persistent_undo")
     set undofile
 endif
 
+"split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" ============= CtrlP ===============
+let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
 
 " =========== NERDTree ==============
 autocmd FileType nerdtree setlocal nolist
@@ -110,34 +124,23 @@ nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 
 " ============ ALE ===========
 let g:ale_fixers = {
-            \'latex': ['remove_trailong_lines', 'trim_whitespace'],
+            \'latex': ['remove_trailing_lines', 'trim_whitespace'],
             \}
 
 " ======= Python stuff =======
 hi pythonSelf  ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
 set clipboard=unnamed
 let python_highlight_all=1
-syntax on
-set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
-  filetype plugin indent on
+
+filetype plugin indent on
   au FileType py set autoindent
   au FileType py set smartindent
   au FileType py set textwidth=79 " PEP-8 Friendly
 autocmd BufWritePost *.py call Flake8()
 
-set nu
-
-" All of your Plugs must be added before the following line
-filetype plugin indent on    " required
-
-"split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
+
 function! g:UltiSnips_Complete()
   call UltiSnips#ExpandSnippet()
   if g:ulti_expand_res == 0
@@ -345,9 +348,7 @@ endif
 " ====== LaTeX =======
 let g:tex_flavor = "latex"
 let g:tex_comment_nospell=1
-let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : 'build',
-    \}
+
 
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
