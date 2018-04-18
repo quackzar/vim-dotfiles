@@ -339,9 +339,15 @@ endif
 
 " ====== LaTeX =======
 let g:tex_flavor = "latex"
+let g:tex_comment_nospell=1
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : 'build',
+    \}
+
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
 endif
+
 let g:ycm_semantic_triggers.tex = [
       \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
       \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
@@ -352,6 +358,7 @@ let g:ycm_semantic_triggers.tex = [
       \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
       \ ]
+
 set foldmethod=expr
 set foldexpr=vimtex#fold#level(v:lnum)
 set foldtext=vimtex#fold#text()
