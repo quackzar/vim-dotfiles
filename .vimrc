@@ -108,6 +108,11 @@ endfunction
 
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 
+" ============ ALE ===========
+let g:ale_fixers = {
+            \'latex': ['remove_trailong_lines', 'trim_whitespace'],
+            \}
+
 " ======= Python stuff =======
 hi pythonSelf  ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
 set clipboard=unnamed
