@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged/')
     let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
     let g:ale_lint_on_enter=0
   Plug 'tmhedberg/SimpylFold'
+  Plug 'ervandew/supertervandew/supertabb'
   Plug 'easymotion/vim-easymotion'
   Plug 'haya14busa/vim-easyoperator-line'
   Plug 'justinmk/vim-sneak'
@@ -141,40 +142,14 @@ autocmd BufWritePost *.py call Flake8()
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
 
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
-      endif
-    endif
-  endif
-  return ""
-endfunction
 
-function! g:UltiSnips_Reverse()
-  call UltiSnips#JumpBackwards()
-  if g:ulti_jump_backwards_res == 0
-    return "\<C-P>"
-  endif
-
-  return ""
-endfunction
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger     . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " .     g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+let g:UltiSnipsExpandTrigger           = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
+let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
 
 " ======= Bookmarks =======
 let g:bookmark_save_per_working_dir = 1
