@@ -1,3 +1,4 @@
+## -- GREEK LETTERS -- ##
 # Alpha
 snippet ,a "alpha" w
 \\alpha
@@ -8,39 +9,90 @@ snippet ,b "beta" w
 \\beta
 endsnippet
 
+# Gamma (small)
+snippet ,g "gamma" w
+\\gamma
+endsnippet
+
+# Gamma (capital)
+snippet ,G "Gamma" w
+\\Gamma
+endsnippet
+
+# Delta (small)
+snippet ,d "delta" w
+\\delta
+endsnippet
+
+# Delta (capital)
+snippet ,D "Delta" w
+\\Delta
+endsnippet
+
+# Epsilon
+snippet ,e "epsilon" w
+\\epsilon
+endsnippet
+
+# Lambda (small)
+snippet ,l "lambda" w
+\\lambda
+endsnippet
+
+# Lambda (capital)
+snippet ,L "Lambda" w
+\\Lambda
+endsnippet
+
+# Omega (small)
+snippet ,o "omega" w
+\\omega
+endsnippet
+
+# Omega (capital)
+snippet ,O "Omega" w
+\\Omega
+endsnippet
+
 # Pi
 snippet ,p "pi" w
 \\pi
 endsnippet
 
+
+## -- VECTORS -- ##
+
 # Vector
 snippet vec "vector" b
-\\vec{${1}} ${0}
+\\vec{${1}}${0}
 endsnippet
 
 # Vector Bold
 snippet vb "Vector Bold" w
-\\vb{${1}} ${0}
+\\vb{${1}}${0}
 endsnippet
 
 # Vector Unit
 snippet vu "Vector Unit" w
-\\vu{${1}} ${0}
+\\vu{${1}}${0}
 endsnippet
+
+
+## -- MISC -- ##
 
 # Raise
 snippet ^^ "Raise" w
-^{${1}} ${0}
+^{${1}}${0}
 endsnippet
 
 # Lower
 snippet __ "Lower" w
-_{${1}} ${0}
+_{${1}}${0}
 endsnippet
 
 # Sqaureroot
 snippet sqrt "Squareroot" w
-\\sqrt{${1}} ${0}
+\\sqrt{${1}}${0}
 endsnippet
 
 # Infinity
@@ -49,21 +101,30 @@ snippet inf "infity" w
 endsnippet
 
 # Integral
-snippet int "integral" w
+snippet int "integral"
 \\int_{${1}}^{${2}} ${4} \\dd{${3}} ${0}
 endsnippet
 
 # Differential
-snippet dd "differential" w
+snippet dd "differential"
 \\dd{${1}} ${0}
 endsnippet
 
 # Derivative
-snippet diff "derivative" w
+snippet diff "derivative"
 \\dv{${1}}{${2}} ${0}
 endsnippet
 
 # Partialderivative
-snippet pdiff "partialderivative" w
+snippet pdiff "partialderivative"
 \\pdv{${1}{${2}}} ${0}
+endsnippet
+
+## -- SYMBOLS -- ##
+snippet ax= "approx"
+\\approx
+endsnippet
+
+snippet si= "similiar"
+\\simeq
 endsnippet

@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged/')
     let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
     let g:ale_lint_on_enter=0
   Plug 'tmhedberg/SimpylFold'
-  Plug 'ervandew/supertervandew/supertabb'
+  Plug 'ervandew/supertab'
   Plug 'easymotion/vim-easymotion'
   Plug 'haya14busa/vim-easyoperator-line'
   Plug 'justinmk/vim-sneak'
@@ -104,8 +104,8 @@ let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
 autocmd FileType nerdtree setlocal nolist
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '>'
+let g:NERDTreeDirArrowCollapsible = 'v'
 let g:root#patterns = ['.git', 'tags']
 let NERDTreeIgnore = ['\.DAT$', '\.LOG1$', '\.LOG1$', '.pyc$', '\~$']
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -141,7 +141,7 @@ autocmd BufWritePost *.py call Flake8()
 
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
-
+let g:UltiSnipsSnippetsDir = '~/.vim/custom_snips/UltiSnips'
 
 let g:SuperTabDefaultCompletionType    = '<C-n>'
 let g:SuperTabCrMapping                = 0
