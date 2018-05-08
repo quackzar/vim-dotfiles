@@ -42,6 +42,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'tpope/vim-endwise'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'python-mode/python-mode'
+  Plug 'anntzer/vim-cython'
   Plug 'vim-scripts/indentpython.vim'
   Plug 'skywind3000/asyncrun.vim'
   Plug 'pedsm/sprint'
@@ -52,6 +53,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'lifepillar/vim-cheat40'
   Plug 'MattesGroeger/vim-bookmarks'
   Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
+  Plug 'wesQ3/vim-windowswap'
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
@@ -96,6 +98,11 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+nnoremap <CR> :
+
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ============= CtrlP ===============
 let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
