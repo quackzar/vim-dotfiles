@@ -22,6 +22,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'majutsushi/tagbar'
   Plug 'Valloric/YouCompleteMe'
+  Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
   Plug 'scrooloose/nerdtree'
@@ -35,6 +36,8 @@ call plug#begin('~/.vim/plugged/')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
   Plug 'gregsexton/gitv'
+  Plug 'christoomey/vim-conflicted'
+  Plug 'sodapopcan/vim-twiggy'
   Plug 'jiangmiao/auto-pairs'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-speeddating'
@@ -54,6 +57,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'MattesGroeger/vim-bookmarks'
   Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
   Plug 'wesQ3/vim-windowswap'
+  Plug 'wincent/terminus'
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
