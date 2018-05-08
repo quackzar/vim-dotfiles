@@ -58,6 +58,8 @@ call plug#begin('~/.vim/plugged/')
   Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
   Plug 'wesQ3/vim-windowswap'
   Plug 'wincent/terminus'
+  Plug 'junegunn/goyo.vim'
+  Plug 'junegunn/limelight.vim'
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
