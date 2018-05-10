@@ -4,7 +4,7 @@ set encoding=utf8
 set fileencoding=utf8
 set runtimepath+="~/.vim/"
 
-if has('macunix')
+if has('macunix') && !has('nvim')
   set pythonthreehome=/Library/Frameworks/Python.framework/Versions/3.6
   set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
 endif
@@ -25,8 +25,6 @@ call plug#begin('~/.vim/plugged/')
   Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
   Plug 'SirVer/ultisnips'
   Plug 'honza/vim-snippets'
-  Plug 'scrooloose/nerdtree'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'dylanaraps/root.vim'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'nvie/vim-flake8'
@@ -55,11 +53,15 @@ call plug#begin('~/.vim/plugged/')
   Plug 'mbbill/undotree'
   Plug 'lifepillar/vim-cheat40'
   Plug 'MattesGroeger/vim-bookmarks'
-  Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'} " for VimPlug
+  Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
   Plug 'wesQ3/vim-windowswap'
   Plug 'wincent/terminus'
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/limelight.vim'
+  if ! has('gui_vimr')
+    Plug 'scrooloose/nerdtree'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+  endif
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
@@ -86,6 +88,7 @@ map Q <Nop>
 let mapleader = ","
 syntax on
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+set linespace=5
 
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-8> <C-]>
@@ -107,22 +110,52 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <CR> :
 
-let g:AutoPairsFlyMode = 1
+let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ============= CtrlP ===============
 let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
 
 " =========== NERDTree ==============
-autocmd FileType nerdtree setlocal nolist
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:NERDTreeDirArrowExpandable = '>'
-let g:NERDTreeDirArrowCollapsible = 'v'
-let g:root#patterns = ['.git', 'tags']
-let NERDTreeIgnore = ['\.DAT$', '\.LOG1$', '\.LOG1$', '.pyc$', '\~$']
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
+if ! has('gui_vimr')
+  map <F3> :NERDTreeToggle<CR>
+  autocmd FileType nerdtree setlocal nolist
+  let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  let g:NERDTreeDirArrowExpandable = '>'
+  let g:NERDTreeDirArrowCollapsible = 'v'
+  let g:root#patterns = ['.git', 'tags']
+  let NERDTreeIgnore = ['\.DAT$', '\.LOG1$', '\.LOG1$', '.pyc$', '\~$']
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:DevIconsEnableFoldersOpenClose = 1
+  let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
+  " NERDTree Fix
+  function! BookmarkMapKeys()
+      nmap mm :BookmarkToggle<CR>
+      nmap mi :BookmarkAnnotate<CR>
+      nmap mn :BookmarkNext<CR>
+      nmap mp :BookmarkPrev<CR>
+      nmap ma :BookmarkShowAll<CR>
+      nmap mc :BookmarkClear<CR>
+      nmap mx :BookmarkClearAll<CR>
+      nmap mkk :BookmarkMoveUp
+      nmap mjj :BookmarkMoveDown
+  endfunction
+  function! BookmarkUnmapKeys()
+      unmap mm
+      unmap mi
+      unmap mn
+      unmap mp
+      unmap ma
+      unmap mc
+      unmap mx
+      unmap mkk
+      unmap mjj
+  endfunction
+  autocmd BufEnter * :call BookmarkMapKeys()
+  autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+  let g:airline#extensions#tabline#enabled = 1
+endif
 
 " ===== Toggle spellchecking ======
 function! ToggleSpellCheck()
@@ -137,9 +170,10 @@ endfunction
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 
 " ============ ALE ===========
-let g:ale_fixers = {
-            \'latex': ['remove_trailing_lines', 'trim_whitespace'],
-            \}
+
+let g:ale_fixers = {}
+let g:ale_fixers.latex = ['remove_trailing_lines', 'trim)whitespace']
+let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
 
 " ======= Python stuff =======
 hi pythonSelf  ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
@@ -169,31 +203,6 @@ let g:bookmark_save_per_working_dir = 1
 let g:bookmark_auto_save = 1
 let g:bookmark_no_default_key_mappings = 1
 
-" NERDTree Fix
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap ma :BookmarkShowAll<CR>
-    nmap mc :BookmarkClear<CR>
-    nmap mx :BookmarkClearAll<CR>
-    nmap mkk :BookmarkMoveUp
-    nmap mjj :BookmarkMoveDown
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap mi
-    unmap mn
-    unmap mp
-    unmap ma
-    unmap mc
-    unmap mx
-    unmap mkk
-    unmap mjj
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 
 " ======= Surround =======
 let b:surround_{char2nr('e')}
@@ -235,28 +244,25 @@ nnoremap <space> za
 
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 let $PYTHONUNBUFFERED=1
-map <F3> :NERDTreeToggle<CR>
 map <F5> :AsyncRun -raw python3 %<CR>
-noremap <F7> :AsyncRun gcc "%" -o "%<" <cr> 
+noremap <F7> :AsyncRun gcc "%" -o "%<" <cr>
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 let g:pymode_python = 'python3'
 
 " ====== Visuals ======
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='molokai'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_highlighting_cache = 1
-if has('gui_running')
+if has('gui_running') || has('gui_vimr')
   colorscheme molokai
   let g:airline_powerline_fonts = 1
   let g:webdevicons_enable_ctrlp = 1
   let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
-  if has('macunix')
+  if has('macunix') && ! has('gui_vimr')
     set transparency=3
     set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h12
   elseif has('win32')
@@ -378,6 +384,6 @@ let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status
 
 
 " === Fix, needs to be here ===
-if exists("g:loaded_webdevicons")
+if exists("g:loaded_webdevicons") && ! has('gui_vimr')
   call webdevicons#refresh()
 endif
