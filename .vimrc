@@ -58,6 +58,8 @@ call plug#begin('~/.vim/plugged/')
   Plug 'wincent/terminus'
   Plug 'junegunn/goyo.vim'
   Plug 'junegunn/limelight.vim'
+  Plug 'wting/gitsessions.vim'
+  Plug 'tpope/vim-obsession'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -88,7 +90,6 @@ map Q <Nop>
 let mapleader = ","
 syntax on
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
-set linespace=5
 
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-8> <C-]>
@@ -264,7 +265,7 @@ if has('gui_running') || has('gui_vimr')
   let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
   if has('macunix') && ! has('gui_vimr')
     set transparency=3
-    set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h12
+    set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h13
   elseif has('win32')
     set guifont=DejaVuSansMono_Nerd_Font_Mono:h9
   endif
