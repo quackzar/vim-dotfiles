@@ -11,9 +11,6 @@ endif
 
 call plug#begin('~/.vim/plugged/')
   Plug 'w0rp/ale'
-    let ale_python_pylint_options='--max-line-length=120 --load-plugins pylint_django'
-    let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
-    let g:ale_lint_on_enter=0
   Plug 'tmhedberg/SimpylFold'
   Plug 'ervandew/supertab'
   Plug 'easymotion/vim-easymotion'
@@ -60,6 +57,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'junegunn/limelight.vim'
   Plug 'wting/gitsessions.vim'
   Plug 'tpope/vim-obsession'
+  Plug 'tpope/vim-commentary'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -171,10 +169,14 @@ endfunction
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 
 " ============ ALE ===========
-
+let ale_python_pylint_options='--max-line-length=120 --load-plugins pylint_django'
+let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
+let g:ale_lint_on_enter=0
 let g:ale_fixers = {}
 let g:ale_fixers.latex = ['remove_trailing_lines', 'trim)whitespace']
 let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
 
 " ======= Python stuff =======
 hi pythonSelf  ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
@@ -344,7 +346,6 @@ endif
 let g:tex_flavor = "latex"
 let g:tex_comment_nospell=1
 
-
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
 endif
@@ -363,6 +364,10 @@ let g:ycm_semantic_triggers.tex = [
 set foldmethod=expr
 set foldexpr=vimtex#fold#level(v:lnum)
 set foldtext=vimtex#fold#text()
+
+if has('nvim')
+    let g:vimtex_compiler_progname = 'nvr'
+endif
 
 if has('macunix')
   let g:vimtex_view_general_viewer
