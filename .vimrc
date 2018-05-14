@@ -113,7 +113,7 @@ nnoremap <CR> :
 
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
-
+set diffopt=vertical
 " ============= CtrlP ===============
 let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
 
@@ -258,7 +258,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_highlighting_cache = 1
-if has('gui_running') || has('gui_vimr')
+if has('gui_running') || has('gui_vimr') || has("nvim")
   colorscheme molokai
   let g:airline_powerline_fonts = 1
   let g:webdevicons_enable_ctrlp = 1
@@ -267,7 +267,7 @@ if has('gui_running') || has('gui_vimr')
     set transparency=3
     set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h13
   elseif has('win32')
-    set guifont=DejaVuSansMono_Nerd_Font_Mono:h9
+    set guifont=DejaVuSansMono_Nerd_Font_Mono:h10
   endif
   hi Normal ctermbg=none
   hi NonText ctermbg=none
