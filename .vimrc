@@ -108,6 +108,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <CR> :
+vnoremap <CR> :
 
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
@@ -173,8 +174,9 @@ let ale_python_pylint_options='--max-line-length=120 --load-plugins pylint_djang
 let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
 let g:ale_lint_on_enter=0
 let g:ale_fixers = {}
-let g:ale_fixers.latex = ['remove_trailing_lines', 'trim)whitespace']
+let g:ale_fixers.tex = ['remove_trailing_lines', 'trim_whitespace']
 let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers.python = ['autopep8', 'isort', 'yapf']
 let g:ale_sign_error = ''
 let g:ale_sign_warning = ''
 
