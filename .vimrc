@@ -58,6 +58,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'wting/gitsessions.vim'
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-commentary'
+  Plug 'sagarrakshe/toggle-bool'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -109,6 +110,9 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <CR> :
 vnoremap <CR> :
+
+nnoremap <leader>r :ToggleBool<CR>
+vnoremap <leader>r :ToggleBool<CR>
 
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
