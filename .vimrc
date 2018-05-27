@@ -59,10 +59,16 @@ call plug#begin('~/.vim/plugged/')
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-commentary'
   Plug 'sagarrakshe/toggle-bool'
+  Plug 'markonm/traces.vim'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   endif
+  Plug 'reedes/vim-textobj-sentence'
+  Plug 'reedes/vim-litecorrect'
+  Plug 'reedes/vim-lexical'
+  Plug 'reedes/vim-pencil'
+  Plug 'tpope/vim-abolish'
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
@@ -89,6 +95,7 @@ map Q <Nop>
 let mapleader = ","
 syntax on
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+set updatetime=100
 
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-8> <C-]>
@@ -117,6 +124,8 @@ vnoremap <leader>r :ToggleBool<CR>
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 set diffopt=vertical
+let g:gitgutter_diff_args = '-w'
+
 " ============= CtrlP ===============
 let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
 
