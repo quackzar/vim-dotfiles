@@ -10,6 +10,7 @@ if has('macunix') && !has('nvim')
 endif
 
 call plug#begin('~/.vim/plugged/')
+  Plug 'junegunn/fzf'
   Plug 'w0rp/ale'
   Plug 'tmhedberg/SimpylFold'
   Plug 'ervandew/supertab'
@@ -108,6 +109,10 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 "split navigation
 nnoremap <C-J> <C-W><C-J>
