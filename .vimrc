@@ -10,7 +10,13 @@ if has('macunix') && !has('nvim')
 endif
 
 call plug#begin('~/.vim/plugged/')
-  Plug 'junegunn/fzf'
+  if has('win32')
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf.vim'
+  else
+    Plug '/usr/local/opt/fzf'
+    Plug 'junegunn/fzf.vim'
+  endif
   Plug 'w0rp/ale'
   Plug 'tmhedberg/SimpylFold'
   Plug 'ervandew/supertab'
@@ -59,7 +65,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'wting/gitsessions.vim'
   Plug 'tpope/vim-obsession'
   Plug 'tpope/vim-commentary'
-  Plug 'sagarrakshe/toggle-bool'
+  Plug 'AndrewRadev/switch.vim'
   Plug 'markonm/traces.vim'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
@@ -101,6 +107,7 @@ set updatetime=100
 nnoremap <leader>m :TagbarToggle<CR>
 map <C-8> <C-]>
 map <C-9> <C-[>
+noremap <silent> <C-/> :noh<CR>
 let g:AutoPairsShortcutFastWrap=''
 let g:AutoPairsShortcutBackInsert=''
 let g:AutoPairsShortcutJump=''
@@ -123,8 +130,8 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <CR> :
 vnoremap <CR> :
 
-nnoremap <leader>r :ToggleBool<CR>
-vnoremap <leader>r :ToggleBool<CR>
+nnoremap <leader>r :Switch<CR>
+vnoremap <leader>r :Switch<CR>
 
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
@@ -408,6 +415,24 @@ elseif has('win32')
 endif
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
+autocmd FileType tex,plaintex let b:switch_custom_definitions =
+    \ [
+    \    [ '\\tiny', '\\scriptsize', '\\footnotesize', '\\small', '\\normalsize', '\\large', '\\Large', '\\LARGE', '\\huge', '\\Huge' ],
+    \    [ '\\displaystyle', '\\scriptstyle', '\\scriptscriptstyle', '\\textstyle' ],
+    \    [ '\\part', '\\chapter', '\\section', '\\subsection', '\\subsubsection', '\\paragraph', '\\subparagraph' ],
+    \    [ 'part:', 'chap:', 'sec:', 'subsec:', 'subsubsec:' ],
+    \    [ 'article', 'report', 'book', 'letter', 'slides' ],
+    \    [ 'a4paper', 'a5paper', 'b5paper', 'executivepaper', 'legalpaper', 'letterpaper', 'beamer', 'subfiles', 'standalone' ],
+    \    [ 'onecolumn', 'twocolumn' ],
+    \    [ 'oneside', 'twoside' ],
+    \    [ 'draft', 'final' ],
+    \    [ 'AnnArbor', 'Antibes', 'Bergen', 'Berkeley',
+    \      'Berlin', 'Boadilla', 'CambridgeUS', 'Copenhagen', 'Darmstadt',
+    \      'Dresden', 'Frankfurt', 'Goettingen', 'Hannover', 'Ilmenau',
+    \      'JuanLesPins', 'Luebeck', 'Madrid', 'Malmoe', 'Marburg',
+    \      'Montpellier', 'PaloAlto', 'Pittsburgh', 'Rochester', 'Singapore',
+    \      'Szeged', 'Warsaw' ]
+    \ ]
 
 " === Fix, needs to be here ===
 if exists("g:loaded_webdevicons") && ! has('gui_vimr')
