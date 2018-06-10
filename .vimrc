@@ -9,7 +9,7 @@ if has('macunix') && !has('nvim')
   set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
 endif
 
-source plugins.vim
+source ~/.vim/plugins.vim
 
 " ====== SETTINGS ======
 let mapleader = ","
@@ -45,12 +45,12 @@ set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
 
 " ======= Sub-settings =======
-source misc.vim
-source visual.vim
-source latex.vim
-source python.vim
-source nerdtree.vim
-source screenrestore.vim
+source ~/.vim/misc.vim
+source ~/.vim/visual.vim
+source ~/.vim/latex.vim
+source ~/.vim/python.vim
+source ~/.vim/nerdtree.vim
+source ~/.vim/screenrestore.vim
 
 " ====== MAPPINGS ======
 nnoremap <CR> :
