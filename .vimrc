@@ -128,6 +128,7 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+let $FZF_DEFAULT_COMMAND = 'ag --hidden -l -g ""'
 
 "split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -148,6 +149,18 @@ let g:gitgutter_diff_args = '-w'
 
 " ============= CtrlP ===============
 let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
+autocmd! VimEnter * command! -nargs=* -complete=file Ag :call
+    \fzf#vim#ag_raw(<q-args>, fzf#wrap('ag-raw',
+    \ {'options': "--preview 'coderay $(cut -d: -f1 <<< {}) 2> /dev/null | sed -n $(cut -d: -f2 <<< {}),\\$p | head -".&lines."'"}))
+
+command! -bang Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 
 " =========== NERDTree ==============
 if ! has('gui_vimr')
@@ -441,6 +454,7 @@ autocmd FileType tex,plaintex let b:switch_custom_definitions =
     \      'Montpellier', 'PaloAlto', 'Pittsburgh', 'Rochester', 'Singapore',
     \      'Szeged', 'Warsaw' ]
     \ ]
+
 
 " === Fix, needs to be here ===
 if exists("g:loaded_webdevicons") && ! has('gui_vimr')
