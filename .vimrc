@@ -24,6 +24,7 @@ set backspace=indent,eol,start
 set autoread
 set gdefault
 set infercase
+set smartcase
 set wildmenu
 set wildmode=full
 set title
@@ -53,31 +54,39 @@ source ~/.vim/nerdtree.vim
 source ~/.vim/screenrestore.vim
 
 " ====== MAPPINGS ======
+" Basics
 nnoremap <CR> :
 vnoremap <CR> :
 map Q <Nop>
 
-"split navigation
+" Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <leader>m :TagbarToggle<CR>
-map <C-8> <C-]>
-map <C-9> <C-[>
-noremap <silent> <C-/> :noh<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <leader>r :Switch<CR>
-vnoremap <leader>r :Switch<CR>
+" Motion
+map  f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
 
+" Toggles
+nnoremap <leader>m :TagbarToggle<CR>
 nnoremap <leader>y :call YCMToggle()<CR>
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>nt :call NumberToggle()<cr>
+nnoremap <leader>r :Switch<CR>
+vnoremap <leader>r :Switch<CR>
+
+" Stop highlighting
+noremap <silent> <C-/> :noh<CR>
+
+" Fuzzy finding
+nnoremap <silent> <leader>f :Files<CR>
 
 " Enable folding with the space bar
 nnoremap <space> za
 
+" Completion
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
