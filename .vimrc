@@ -47,6 +47,7 @@ let g:gitgutter_diff_args = '-w'
 
 " ======= Sub-settings =======
 source ~/.vim/misc.vim
+source ~/.vim/fzf.vim
 source ~/.vim/visual.vim
 source ~/.vim/latex.vim
 source ~/.vim/python.vim
