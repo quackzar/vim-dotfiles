@@ -11,7 +11,7 @@ if has('gui_running') || has('gui_vimr') || has("nvim")
   let g:webdevicons_enable_ctrlp = 1
   let g:WebDevIconsNerdTreeAfterGlyphPadding = '  '
   if has('macunix') && ! has('gui_vimr')
-    set transparency=3
+    " set transparency=3
     set guifont=DejaVu_Sans_Mono_Nerd_Font_Complete_Mono:h13
   elseif has('win32')
     set guifont=DejaVuSansMono_Nerd_Font_Mono:h10
