@@ -81,7 +81,7 @@ vnoremap <leader>r :Switch<CR>
 noremap <silent> <C-/> :noh<CR>
 
 " Fuzzy finding
-nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>f :call Fzf_dev()<cr>
 
 " Enable folding with the space bar
 nnoremap <space> za
