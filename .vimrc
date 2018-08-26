@@ -44,6 +44,7 @@ let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
+let g:table_mode_corner='|'
 
 " ======= Sub-settings =======
 source ~/.vim/misc.vim

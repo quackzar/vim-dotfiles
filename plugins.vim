@@ -65,6 +65,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'reedes/vim-lexical'
   Plug 'reedes/vim-pencil'
   Plug 'tpope/vim-abolish'
+  Plug 'dhruvasagar/vim-table-mode'
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
