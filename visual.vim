@@ -5,6 +5,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline_highlighting_cache = 1
+
 if has('gui_running') || has('gui_vimr') || has("nvim")
   colorscheme molokai
   let g:airline_powerline_fonts = 1

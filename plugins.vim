@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'ervandew/supertab'
   Plug 'easymotion/vim-easymotion'
   Plug 'haya14busa/vim-easyoperator-line'
+  Plug 'junegunn/vim-easy-align'
   Plug 'justinmk/vim-sneak'
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'majutsushi/tagbar'
@@ -56,6 +57,7 @@ call plug#begin('~/.vim/plugged/')
   Plug 'tpope/vim-commentary'
   Plug 'AndrewRadev/switch.vim'
   Plug 'markonm/traces.vim'
+  Plug 'kchmck/vim-coffee-script'
   if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'

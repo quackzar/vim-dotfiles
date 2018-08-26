@@ -1,8 +1,11 @@
+" ======= TSV & CSV =======
+autocmd Filetype tsv setlocal noexpandtab, shiftwidth=20
+            \, softtabstop=20, tabstop=20
+
 " ======= Bookmarks =======
 let g:bookmark_save_per_working_dir = 1
 let g:bookmark_auto_save = 1
 let g:bookmark_no_default_key_mappings = 1
-
 
 " ======= Surround =======
 let b:surround_{char2nr('e')}
