@@ -2,11 +2,15 @@ if has('nvim')
     set inccommand=nosplit
 endif
 
+" ======= TSV & CSV =======
+autocmd Filetype tsv setlocal noexpandtab, shiftwidth=20
+            \, softtabstop=20, tabstop=20
+>>>>>>> 107befb8d9c8ed4f5d294121c9f857c2c8a1ccfd
+
 " ======= Bookmarks =======
 let g:bookmark_save_per_working_dir = 1
 let g:bookmark_auto_save = 1
 let g:bookmark_no_default_key_mappings = 1
-
 
 " ======= Surround =======
 let b:surround_{char2nr('e')}

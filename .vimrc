@@ -8,6 +8,10 @@ if has('macunix') && !has('nvim')
   set pythonthreehome=/Library/Frameworks/Python.framework/Versions/3.6
   set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
 endif
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+set tgc
 
 source ~/.vim/plugins.vim
 
@@ -40,11 +44,13 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
-let g:AutoPairsFlyMode = 0
-let g:AutoPairsShortcutBackInsert = '<M-b>'
+
 set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
 let g:table_mode_corner='|'
+
+let g:AutoPairsFlyMode = 0
+let g:AutoPairsShortcutBackInsert = '<M-b>'
 
 " ======= Sub-settings =======
 source ~/.vim/misc.vim
@@ -90,7 +96,6 @@ nnoremap <space> za
 
 " Completion
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 
 " === Fix, needs to be here ===
 if exists("g:loaded_webdevicons") && ! has('gui_vimr')
