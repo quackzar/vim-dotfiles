@@ -5,7 +5,6 @@ endif
 " ======= TSV & CSV =======
 autocmd Filetype tsv setlocal noexpandtab, shiftwidth=20
             \, softtabstop=20, tabstop=20
->>>>>>> 107befb8d9c8ed4f5d294121c9f857c2c8a1ccfd
 
 " ======= Bookmarks =======
 let g:bookmark_save_per_working_dir = 1
