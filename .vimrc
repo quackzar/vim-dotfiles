@@ -10,7 +10,10 @@ if has('macunix') && !has('nvim')
 endif
 
 source ~/.vim/plugins.vim
-
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+set tgc
 " ====== SETTINGS ======
 let mapleader = ","
 set nu
@@ -44,6 +47,7 @@ let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
+let g:table_mode_corner='|'
 
 " ======= Sub-settings =======
 source ~/.vim/misc.vim
