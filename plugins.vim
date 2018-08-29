@@ -1,73 +1,94 @@
 call plug#begin('~/.vim/plugged/')
-  if has('win32')
+
+" FZF and fuzzy finding
+if has('win32')
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
-  else
+else
     Plug '/usr/local/opt/fzf'
     Plug 'junegunn/fzf.vim'
-  endif
-  Plug 'w0rp/ale'
-  Plug 'tmhedberg/SimpylFold'
-  Plug 'ervandew/supertab'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'haya14busa/vim-easyoperator-line'
-  Plug 'junegunn/vim-easy-align'
-  Plug 'justinmk/vim-sneak'
-  Plug 'ludovicchabant/vim-gutentags'
-  Plug 'majutsushi/tagbar'
-  Plug 'Valloric/YouCompleteMe'
-  Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
-  Plug 'SirVer/ultisnips'
-  Plug 'honza/vim-snippets'
-  Plug 'dylanaraps/root.vim'
-  Plug 'Xuyuanp/nerdtree-git-plugin'
-  Plug 'nvie/vim-flake8'
-  Plug 'terryma/vim-multiple-cursors'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'tpope/vim-fugitive'
-  Plug 'gregsexton/gitv'
-  Plug 'christoomey/vim-conflicted'
-  Plug 'sodapopcan/vim-twiggy'
-  Plug 'jiangmiao/auto-pairs'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-speeddating'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-endwise'
-  Plug 'ctrlpvim/ctrlp.vim'
-  Plug 'python-mode/python-mode'
-  Plug 'anntzer/vim-cython'
-  Plug 'vim-scripts/indentpython.vim'
-  Plug 'skywind3000/asyncrun.vim'
-  Plug 'pedsm/sprint'
-  Plug 'lervag/vimtex'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'mbbill/undotree'
-  Plug 'lifepillar/vim-cheat40'
-  Plug 'MattesGroeger/vim-bookmarks'
-  Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
-  Plug 'wesQ3/vim-windowswap'
-  Plug 'wincent/terminus'
-  Plug 'junegunn/goyo.vim'
-  Plug 'junegunn/limelight.vim'
-  Plug 'wting/gitsessions.vim'
-  Plug 'tpope/vim-obsession'
-  Plug 'tpope/vim-commentary'
-  Plug 'AndrewRadev/switch.vim'
-  Plug 'markonm/traces.vim'
-  Plug 'kchmck/vim-coffee-script'
-  if ! has('gui_vimr')
+endif
+
+" Autocomplete, linting and tags
+Plug 'Valloric/YouCompleteMe'
+Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
+Plug 'w0rp/ale'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'ervandew/supertab'
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Visuals
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Git specific
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
+Plug 'christoomey/vim-conflicted'
+Plug 'sodapopcan/vim-twiggy'
+Plug 'wting/gitsessions.vim'
+
+" Running scripts, etc. in vim
+Plug 'skywind3000/asyncrun.vim'
+Plug 'pedsm/sprint'
+
+" Stuff I maybe use
+Plug 'lifepillar/vim-cheat40'
+Plug 'wesQ3/vim-windowswap'
+Plug 'wincent/terminus'
+Plug 'terryma/vim-multiple-cursors'
+
+" Nice stuff you almost can't live without
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
+Plug 'AndrewRadev/switch.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'markonm/traces.vim'
+Plug 'dylanaraps/root.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/vim-easyoperator-line'
+Plug 'junegunn/vim-easy-align'
+Plug 'justinmk/vim-sneak'
+Plug 'mbbill/undotree'
+
+" Language specific
+Plug 'lervag/vimtex'
+Plug 'python-mode/python-mode'
+Plug 'nvie/vim-flake8'
+Plug 'kchmck/vim-coffee-script'
+Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
+Plug 'gabrielelana/vim-markdown'
+Plug 'vim-scripts/indentpython.vim'
+
+" Nerdtree and stuff not used in vimr
+if ! has('gui_vimr')
     Plug 'scrooloose/nerdtree'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-  endif
-  Plug 'reedes/vim-textobj-sentence'
-  Plug 'reedes/vim-litecorrect'
-  Plug 'reedes/vim-lexical'
-  Plug 'reedes/vim-pencil'
-  Plug 'tpope/vim-abolish'
-  Plug 'dhruvasagar/vim-table-mode'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+endif
+
+" For reading and writing text in markdown and the like
+Plug 'reedes/vim-textobj-sentence'
+Plug 'reedes/vim-litecorrect'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-pencil'
+Plug 'tpope/vim-abolish'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'tmhedberg/SimpylFold'
+
 call plug#end()            " required
 
 " All of your Plugs must be added before the following line
