@@ -22,7 +22,7 @@ endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-let $FZF_DEFAULT_COMMAND = 'ag --hidden -l -g ""'
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 autocmd! VimEnter * command! -nargs=* -complete=file Ag :call
     \fzf#vim#ag_raw(<q-args>, fzf#wrap('ag-raw',
     \ {'options': "--preview 'coderay $(cut -d: -f1 <<< {}) 2> /dev/null | sed -n $(cut -d: -f2 <<< {}),\\$p | head -".&lines."'"}))
