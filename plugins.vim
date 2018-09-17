@@ -10,14 +10,20 @@ else
 endif
 
 " Autocomplete, linting and tags
-Plug 'Valloric/YouCompleteMe'
 Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
-Plug 'w0rp/ale'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'ervandew/supertab'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+Plug 'Shougo/echodoc.vim'
 
 " Snippets
+" Plug 'roxma/nvim-completion-manager'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -44,6 +50,7 @@ Plug 'lifepillar/vim-cheat40'
 Plug 'wesQ3/vim-windowswap'
 Plug 'wincent/terminus'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
@@ -64,19 +71,17 @@ Plug 'mbbill/undotree'
 
 " Language specific
 Plug 'lervag/vimtex'
-Plug 'python-mode/python-mode'
 Plug 'nvie/vim-flake8'
 Plug 'kchmck/vim-coffee-script'
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'jceb/vim-orgmode'
 
 " Nerdtree and stuff not used in vimr
-if ! has('gui_vimr')
-    Plug 'scrooloose/nerdtree'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-endif
+Plug 'scrooloose/nerdtree'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " For reading and writing text in markdown and the like
 Plug 'reedes/vim-textobj-sentence'

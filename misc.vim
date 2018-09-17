@@ -6,28 +6,23 @@ endif
 autocmd Filetype tsv setlocal noexpandtab, shiftwidth=20
             \, softtabstop=20, tabstop=20
 
-" ======= Bookmarks =======
-let g:bookmark_save_per_working_dir = 1
-let g:bookmark_auto_save = 1
-let g:bookmark_no_default_key_mappings = 1
+autocmd Filetype .vim setlocal tw=0
+
+" ======= Python stuff =======
+hi pythonSelf  ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
+set clipboard=unnamed
+let python_highlight_all=1
+
+filetype plugin indent on
+  au FileType py set autoindent
+  au FileType py set smartindent
+  au FileType py set textwidth=79 " PEP-8 Friendly
+let $PYTHONUNBUFFERED=1
 
 " ======= Surround =======
 let b:surround_{char2nr('e')}
       \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
 let b:surround_{char2nr('c')} = "\\\1command: \1{\r}"
-
-" ===== YCM Settings =====
-let g:ycm_min_num_of_chars_for_completion = 3
-function! YCMToggle()
-  if(g:ycm_auto_trigger == 1)
-    echo "YCM Manual Trigger"
-    let g:ycm_auto_trigger=0
-  else
-    echo "YCM Auto Trigger"
-    let g:ycm_auto_trigger=1
-  endif
-endfunc
-let g:ycm_autoclose_preview_window_after_completion=1
 
 " ====== Switch relative numbers =======
 set showcmd
@@ -59,15 +54,15 @@ set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
 
 " ============ ALE ===========
-let ale_python_pylint_options='--max-line-length=120 --load-plugins pylint_django'
-let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
-let g:ale_lint_on_enter=0
-let g:ale_fixers = {}
-let g:ale_fixers.tex = ['remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers.python = ['autopep8', 'isort', 'yapf']
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
+" let ale_python_pylint_options='--max-line-length=120 --load-plugins pylint_django'
+" let ale_python_flake8_options='--max-line-length=120 --load-plugins pylint_django'
+" let g:ale_lint_on_enter=0
+" let g:ale_fixers = {}
+" let g:ale_fixers.tex = ['remove_trailing_lines', 'trim_whitespace']
+" let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
+" let g:ale_fixers.python = ['autopep8', 'isort', 'yapf']
+" let g:ale_sign_error = ''
+" let g:ale_sign_warning = ''
 
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
@@ -78,9 +73,3 @@ let g:SuperTabCrMapping                = 0
 let g:UltiSnipsExpandTrigger           = '<tab>'
 let g:UltiSnipsJumpForwardTrigger      = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
-let g:ycm_key_list_select_completion   = ['<C-j>', '<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-
-" ============= CtrlP ===============
-let g:ctrlp_exentions = ['tag', 'buffertag', 'bookmarkdir']
-
