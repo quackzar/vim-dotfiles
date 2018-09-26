@@ -28,7 +28,7 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_loadSettings = 1 
 let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
 set completefunc=LanguageClient#complete
-
+au BufRead,BufNewFile *.ts   setfiletype typescript
 " ====== SETTINGS ======
 let mapleader = ","
 set nu
@@ -78,6 +78,10 @@ source ~/.vim/screenrestore.vim
 nnoremap <CR> :
 vnoremap <CR> :
 map Q <Nop>
+
+map gb :bn<CR>
+map gB :bp<CR>
+map ,b :Buffers<CR>
 
 "" Split navigation
 " nnoremap <C-J> <C-W><C-J>

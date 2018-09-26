@@ -3,16 +3,15 @@
 let g:tex_flavor = "latex"
 let g:tex_comment_nospell=1
 
-let g:ycm_semantic_triggers.tex = [
-      \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
-      \ 're!\\hyperref\[[^]]*',
-      \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\(include(only)?|input){[^}]*',
-      \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
-      \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
-      \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
-      \ ]
+" Surround
+" l
+autocmd FileType tex let g:surround_108
+            \= "\\begin{\1environment: \1}\r\\end{\1\r}.*\r\1}"
+" d
+autocmd FileType tex let g:surround_100 = "$\r$"
+autocmd FileType tex let g:AutoPairs['$']='$'
+autocmd FileType tex let b:surround_{char2nr('q')} = "`\r'"
+autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 
 set foldexpr=vimtex#fold#level(v:lnum)
 set foldtext=vimtex#fold#text()
