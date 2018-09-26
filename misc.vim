@@ -61,8 +61,8 @@ let g:gitgutter_diff_args = '-w'
 " let g:ale_fixers.tex = ['remove_trailing_lines', 'trim_whitespace']
 " let g:ale_fixers.vim = ['remove_trailing_lines', 'trim_whitespace']
 " let g:ale_fixers.python = ['autopep8', 'isort', 'yapf']
-" let g:ale_sign_error = ''
-" let g:ale_sign_warning = ''
+" let g:ale_sign_error = '!'
+" let g:ale_sign_warning = '?'
 
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
