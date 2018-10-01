@@ -13,7 +13,8 @@ endif
 Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
+Plug 'w0rp/ale' " Maybe this will be removed later
 
 if has('win32')
     Plug 'autozimu/LanguageClient-neovim', {
@@ -36,6 +37,8 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 Plug 'Shougo/echodoc.vim'
+Plug 'thalesmello/webcomplete.vim'
+
 
 " Snippets
 " Plug 'roxma/nvim-completion-manager'
@@ -64,8 +67,9 @@ Plug 'pedsm/sprint'
 Plug 'lifepillar/vim-cheat40'
 Plug 'wesQ3/vim-windowswap'
 Plug 'wincent/terminus'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/vim-slash'
+Plug 'tpope/vim-eunuch'
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
@@ -83,6 +87,7 @@ Plug 'haya14busa/vim-easyoperator-line'
 Plug 'junegunn/vim-easy-align'
 Plug 'justinmk/vim-sneak'
 Plug 'mbbill/undotree'
+Plug 'Konfekt/FastFold'
 
 " Language specific
 Plug 'lervag/vimtex'
@@ -108,6 +113,10 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'tmhedberg/SimpylFold'
+Plug 'junegunn/vim-emoji'
+if has('macunix')
+    Plug 'junegunn/vim-xmark', { 'do': 'make' }
+endif
 
 call plug#end()            " required
 
