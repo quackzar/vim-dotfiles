@@ -17,6 +17,10 @@ augroup pencil
                 " \| call textobj#sentence#init()
 augroup END
 
+
+autocmd FileType tex
+            \let g:grammarous#languagetool_cmd = '~/.vim/detex-languagetool'
+
 " ======= TSV & CSV =======
 autocmd Filetype tsv setlocal noexpandtab, shiftwidth=20
             \, softtabstop=20, tabstop=20
@@ -79,14 +83,3 @@ let g:ale_sign_error = '!'
 let g:ale_sign_warning = '?'
 let g:airline#extensions#ale#enabled = 1
 nnoremap <leader>a :ALEToggle<cr>
-
-
-" ====== Snippets and Completion ======
-set runtimepath+=~/.vim/custom_snips/
-let g:UltiSnipsSnippetsDir = '~/.vim/custom_snips/UltiSnips'
-
-let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabCrMapping                = 0
-let g:UltiSnipsExpandTrigger           = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
