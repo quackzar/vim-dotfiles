@@ -80,15 +80,14 @@ source ~/.vim/screenrestore.vim
 
 " ====== MAPPINGS ======
 " Basics
-nnoremap <CR> :
-vnoremap <CR> :
+noremap <CR> :
 map Q <Nop>
-nnoremap x "_x
+noremap x "_x
 
 " Buffer magic
-map gb :bn<CR>
-map gB :bp<CR>
-map ,b :Buffers<CR>
+noremap gb :bn<CR>
+noremap gB :bp<CR>
+noremap ,b :Buffers<CR>
 
 " Fuzzy finding
 nnoremap <silent> <leader>f :call Fzf_dev()<cr>
@@ -112,6 +111,10 @@ nnoremap <space> za
 map  f <Plug>(easymotion-bd-f)
 nmap f <Plug>(easymotion-overwin-f)
 
+" Easy align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " Language Client Stuff
 nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
@@ -122,17 +125,24 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>l :call NumberToggle()<cr>
 nnoremap <leader>r :Switch<CR>
-vnoremap <leader>r :Switch<CR>
+xnoremap <leader>r :Switch<CR>
 
 " Stop highlighting
-noremap <silent> <C-/> :noh<CR>
+noremap <silent> <leader><space> :noh<CR>
 
-" Using alt-tab to autocomplete
-inoremap <silent><expr> <M-TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ deoplete#manual_complete()
+let g:UltiSnipsExpandTrigger = "<M-TAB>"
 
 " Deoplete
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
 inoremap <expr><C-g> deoplete#undo_completion()
 call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
@@ -155,6 +165,9 @@ let g:deoplete#omni#input_patterns.tex =
         \  .  '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
         \  .  '|(?:include(?:only)?|input)\s*\{[^}]*'
         \  .')'
+autocmd FileType tex
+       \ call deoplete#custom#buffer_option('auto_complete', v:false)
+
 
 " ====== Snippets and Completion ======
 set runtimepath+=~/.vim/custom_snips/
