@@ -55,7 +55,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
-Plug 'christoomey/vim-conflicted'
+" Plug 'christoomey/vim-conflicted'
 Plug 'sodapopcan/vim-twiggy'
 Plug 'wting/gitsessions.vim'
 

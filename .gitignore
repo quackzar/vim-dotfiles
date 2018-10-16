@@ -1,6 +1,8 @@
 plugged/*
+thesaurus/*
 tags
 *.swp
 *.netrwhist
 *.lock
 *.temp
+

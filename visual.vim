@@ -23,6 +23,15 @@ else
   let g:webdevicons_enable = 0
 endif
 
+let g:limelight_default_coefficient = 0.7
+let g:limelight_paragraph_span = 1
+
+" These make it wierd
+" let g:limelight_bop = '^\s'
+" let g:limelight_eop = '\ze\n^\s'
+
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 highlight GitGutterAddLine ctermfg=green
 highlight GitGutterDeleteLine ctermfg=red
