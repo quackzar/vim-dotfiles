@@ -50,13 +50,13 @@ set title
 set conceallevel=2
 set mouse=a
 set ts=4 sw=4 et
-
+set showbreak=↪\
+set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:⟨
 set foldmethod=expr "indent
 set foldlevel=99
 set foldlevelstart=10
 " set fillchars=fold:\
 set signcolumn=yes
-set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 set updatetime=100
 if has("persistent_undo")
     set undodir=~/.undodir/
@@ -130,7 +130,18 @@ xnoremap <leader>r :Switch<CR>
 " Stop highlighting
 noremap <silent> <leader><space> :noh<CR>
 
-let g:UltiSnipsExpandTrigger = "<M-TAB>"
+" Ultisnips
+
+set runtimepath+=~/.vim/custom_snips/
+let g:UltiSnipsSnippetsDir = '~/.vim/custom_snips/UltiSnips'
+
+let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabCrMapping                = 0
+let g:UltiSnipsExpandTrigger           = '<M-tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
+
+" inoremap <expr> <M-tab> "<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>"
 
 " Deoplete
 
@@ -168,16 +179,6 @@ let g:deoplete#omni#input_patterns.tex =
 autocmd FileType tex
        \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
-
-" ====== Snippets and Completion ======
-set runtimepath+=~/.vim/custom_snips/
-let g:UltiSnipsSnippetsDir = '~/.vim/custom_snips/UltiSnips'
-
-let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabCrMapping                = 0
-let g:UltiSnipsExpandTrigger           = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger     = '<s-tab>'
 
 "=== Fix, needs to be here ===
 if exists("g:loaded_webdevicons") && ! has('gui_vimr')
