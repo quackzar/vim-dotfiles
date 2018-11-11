@@ -102,7 +102,7 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <leader>m :TagbarToggle<CR>
 nnoremap <leader>y :call YCMToggle()<CR>
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
-nnoremap <silent> <leader>l :call NumberToggle()<cr>
+nnoremap <silent> <leader>n :call NumberToggle()<cr>
 nnoremap <leader>r :Switch<CR>
 vnoremap <leader>r :Switch<CR>
 

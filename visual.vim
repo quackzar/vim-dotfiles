@@ -25,5 +25,12 @@ else
   let g:webdevicons_enable = 0
 endif
 
+
+let g:limelight_paragraph_span = 0
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 highlight Conceal guifg=#66d9ef guibg=#272822
 highlight BookmarkSign guifg=#66D9EF
