@@ -9,7 +9,9 @@ autocmd FileType tex let g:surround_108
             \= "\\begin{\1environment: \1}\r\\end{\1\r}.*\r\1}"
 " d
 autocmd FileType tex let g:surround_100 = "$\r$"
-autocmd FileType tex let g:AutoPairs['$']='$'
+" autocmd FileType tex let g:AutoPairs['$']='$'
+" m
+autocmd FileType tex let g:surround_109 = "\(\r\)"
 autocmd FileType tex let b:surround_{char2nr('q')} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 

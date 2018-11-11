@@ -37,3 +37,49 @@ snippet templ-tikz "Template: standalone Tikz figure" b
 
 \end{document}
 endsnippet
+
+snippet templ-handin "Template: standard handin document" b
+% vim: set spelllang=${6:da} :
+\documentclass[a4paper, 10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[${5:danish}]{babel}
+\usepackage{clrscode3e}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Korollar}
+\newtheorem{proposition}{Proposition}
+
+\title{Handin ${1:XVI} \\\\
+	\Large ${2:Problem Title}\\\\
+	\normalsize (${3:Book Reference})}
+\author{${4:Mikkel Wienberg Madsen}}
+\date{\today}
+
+\begin{document}
+\maketitle
+${0}
+
+\end{document}
+endsnippet
+
+snippet templ-fletter "Template: format letter" b
+\documentclass[10pt]{letter}
+\usepackage{geometry}
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	top=3cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+	left=4.5cm, % Left margin
+	right=4.5cm, % Right margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{stix}
+
+endsnippet
+

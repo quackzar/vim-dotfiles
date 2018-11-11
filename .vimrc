@@ -46,6 +46,7 @@ set infercase
 set smartcase
 set wildmenu
 set wildmode=full
+
 set title
 set conceallevel=2
 set mouse=a
@@ -124,6 +125,7 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>l :call NumberToggle()<cr>
+nnoremap <silent> <leader>c :call ConcealToggle()<cr>
 nnoremap <leader>r :Switch<CR>
 xnoremap <leader>r :Switch<CR>
 

@@ -61,6 +61,17 @@ function! ToggleSpellCheck()
   endif
 endfunction
 
+" ===== Toggle Conceal =====
+function! ConcealToggle()
+    if &conceallevel == 0
+        echo "Conceal ON"
+        setlocal conceallevel=2
+    else
+        echo "Conceal OFF"
+        setlocal conceallevel=0
+    endif
+endfunction
+
 " ===== Auto-pairs =====
 let g:AutoPairsShortcutFastWrap=''
 let g:AutoPairsShortcutBackInsert=''

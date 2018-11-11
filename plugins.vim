@@ -70,6 +70,7 @@ Plug 'wincent/terminus'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-unimpaired'
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
