@@ -9,7 +9,9 @@ autocmd FileType tex let g:surround_108
             \= "\\begin{\1environment: \1}\r\\end{\1\r}.*\r\1}"
 " d
 autocmd FileType tex let g:surround_100 = "$\r$"
-autocmd FileType tex let g:AutoPairs['$']='$'
+" autocmd FileType tex let g:AutoPairs['$']='$'
+" m
+autocmd FileType tex let g:surround_109 = "\(\r\)"
 autocmd FileType tex let b:surround_{char2nr('q')} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 
@@ -19,6 +21,17 @@ set foldtext=vimtex#fold#text()
 if has('nvim')
     let g:vimtex_compiler_progname = 'nvr'
 endif
+
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 
 if has('macunix')
   let g:vimtex_view_general_viewer
