@@ -71,6 +71,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
+Plug 'sbdchd/neoformat'
+
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
@@ -109,7 +111,7 @@ Plug 'reedes/vim-textobj-sentence'
 Plug 'reedes/vim-litecorrect'
 Plug 'reedes/vim-lexical'
 Plug 'reedes/vim-pencil'
-Plug 'rhysd/vim-grammarous'
+" Plug 'rhysd/vim-grammarous'
 Plug 'tpope/vim-abolish'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'junegunn/goyo.vim'

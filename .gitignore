@@ -1,5 +1,7 @@
 plugged/*
 thesaurus/*
+swap/
+undo/
 tags
 *.swp
 *.netrwhist

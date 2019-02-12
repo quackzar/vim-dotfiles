@@ -13,7 +13,7 @@ source ~/.vim/plugins.vim
 if $TERM == "xterm-256color"
   set t_Co=256
 endif
-set tgc
+set tgc " GUI colors
 
 " Language Server/Client Stuff
 set hidden
@@ -60,9 +60,11 @@ set signcolumn=yes
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 set updatetime=100
 if has("persistent_undo")
-    set undodir=~/.undodir/
+    set undodir=~/.undodir//
     set undofile
 endif
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
 let g:AutoPairsFlyMode = 0
 let g:AutoPairsShortcutBackInsert = '<M-b>'
 set diffopt=vertical
@@ -100,6 +102,7 @@ nnoremap <leader>w :Windows<CR>
 
 " Enable folding with the space bar
 nnoremap <space> za
+
 
 "" Split navigation
 " nnoremap <C-J> <C-W><C-J>

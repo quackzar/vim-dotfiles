@@ -80,6 +80,42 @@ snippet templ-fletter "Template: format letter" b
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{stix}
+endsnippet
 
+snippet templ-beamer "Template: beamer slides" b
+\documentclass{beamer}
+
+\usetheme{Warsaw}
+\usecolortheme{beaver}
+
+\title{${1:How things fall}}
+\subtitle{${2:A history of things falling}}
+\author{${3:Mikkel Wienberg Madsen\inst{1}}}
+\institute[Aarhus University]{
+	\inst{1}%
+	Institute of Computer Science\\
+	Aarhus University
+}
+\date{${4:\today}}
+\subject{${5:Gravity}}
+\begin{document}
+\frame{
+	\titlepage
+	\addtocounter{framenumber}{-1}
+}
+\begin{frame}
+	\frametitle{Table of Contents}
+	\tableofcontents[currentsection]
+\end{frame}
+\begin{frame}
+	\frametitle{This is the first slide}
+	%Content goes here
+\end{frame}
+\begin{frame}
+	\frametitle{This is the second slide}
+	\framesubtitle{A bit more information about this}
+	%More content goes here
+\end{frame}
+\end{document}
 endsnippet
 
