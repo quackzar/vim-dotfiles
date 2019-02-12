@@ -72,7 +72,7 @@ Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'sbdchd/neoformat'
-
+Plug 'FredKSchott/CoVim' " Google Docs for vim
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
