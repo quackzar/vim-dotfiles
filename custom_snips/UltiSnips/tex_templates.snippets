@@ -44,6 +44,8 @@ snippet templ-handin "Template: standard handin document" b
 \usepackage[utf8]{inputenc}
 \usepackage[${5:danish}]{babel}
 \usepackage{clrscode3e}
+\usepackage{listings}
+\usepackage[hidelinks]{hyperref}
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -66,7 +68,7 @@ ${0}
 \end{document}
 endsnippet
 
-snippet templ-fletter "Template: format letter" b
+snippet templ-fletter "Template: formal letter" b
 \documentclass[10pt]{letter}
 \usepackage{geometry}
 \geometry{
@@ -119,3 +121,25 @@ snippet templ-beamer "Template: beamer slides" b
 \end{document}
 endsnippet
 
+
+snippet templ-listings-java "Template: java setup listings" b
+\usepackage{xcolor}
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+\lstset{
+	basicstyle=\ttfamily\footnotesize,                   % the size of the fonts that are used for the code
+	breakatwhitespace=false,                      % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                              % sets automatic line breaking
+	frame=tb,                                     % adds a frame around the code
+	commentstyle=\color{commentsColor}\textit,    % comment style
+	keywordstyle=\color{keywordsColor}\bfseries,  % keyword style
+	stringstyle=\color{stringColor},              % string literal style
+	numbers=left,                                 % where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                                % how far the line-numbers are from the code
+	numberstyle=\tiny\color{commentsColor},       % the style that is used for the line-numbers
+	showstringspaces=false,                       % underline spaces within strings only
+	tabsize=2,                                    % sets default tabsize to 2 spaces
+	language=Java
+}
+endsnippet

@@ -1,7 +1,7 @@
 priority -60
 
 ###############################
-# Reserach Diary Tex Snippets #
+# Research Diary Tex Snippets #
 ###############################
 
 # Keys are set in coofdinate to Greek's keyboard layout
@@ -185,11 +185,6 @@ snippet {} "left{ right}" Ai
 {${1:${VISUAL}}}
 endsnippet
 
-# Not work
-#snippet !\"\"! "left" right"" Air
-#"${1:${VISUAL}}"
-#endsnippet
-
 snippet || "left| right|" Ai
 |${1:${VISUAL}}|
 endsnippet
@@ -209,10 +204,6 @@ endsnippet
 snippet "\^($)?" "^left{ right}" r
 ^{${1:${VISUAL}}}
 endsnippet
-
-# snippet $ "left$ right$" i
-# $${1:${VISUAL}}$
-# endsnippet
 
 #snippet "[^\\]\(" "left( right)" Air
 #(${1:${VISUAL}})
@@ -279,7 +270,6 @@ snippet sqrt "Sqrt" w
 \sqrt{${1}}
 endsnippet
 
-# Not use
 snippet par "partial" i
 \partial
 endsnippet
@@ -316,8 +306,24 @@ snippet mbf "Math boldface" w
 \mathbf{$1}
 endsnippet
 
+snippet mbb "Math blackboard" w
+\mathbb{$1}
+endsnippet
+
+snippet mrm "Math roman" w
+\mathrm{$1}
+endsnippet
+
+snippet mcal "Math caligraphy" w
+\mathcal{$1}
+endsnippet
+
 snippet tit "Text italics" w
 \textit{$1}
+endsnippet
+
+snippet ttt "Text typewriter" w
+\texttt{$1}
 endsnippet
 
 snippet txt "Text" w
