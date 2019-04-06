@@ -9,12 +9,12 @@ else
     Plug 'junegunn/fzf.vim'
 endif
 
+
 " Autocomplete, linting and tags
 Plug 'Cocophotos/vim-ycm-latex-semantic-completer'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 " Plug 'ervandew/supertab'
-Plug 'w0rp/ale' " Maybe this will be removed later
 
 if has('win32')
     Plug 'autozimu/LanguageClient-neovim', {
@@ -72,7 +72,9 @@ Plug 'junegunn/vim-slash'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-unimpaired'
 Plug 'sbdchd/neoformat'
-Plug 'FredKSchott/CoVim' " Google Docs for vim
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'liuchengxu/vista.vim'
+
 
 " Nice stuff you almost can't live without
 Plug 'tpope/vim-obsession'
@@ -100,6 +102,7 @@ Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'jceb/vim-orgmode'
+Plug 'wannesm/wmgraphviz.vim'
 
 " Nerdtree and stuff not used in vimr
 Plug 'scrooloose/nerdtree'

@@ -3,6 +3,9 @@
 let g:tex_flavor = "latex"
 let g:tex_comment_nospell=1
 
+autocmd BufWritePre *.tex :%s/\s\+$//e
+
+
 " Surround
 " l
 autocmd FileType tex let g:surround_108
@@ -14,6 +17,11 @@ autocmd FileType tex let g:surround_100 = "$\r$"
 autocmd FileType tex let g:surround_109 = "\(\r\)"
 autocmd FileType tex let b:surround_{char2nr('q')} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
+
+
+autocmd FileType tex let b:AutoPairs = {'(':')', '[':']', '{':'}'}
+" au FileType tex let b:AutoPairs = AutoPairsDefine({'\(':'\)'})
+
 
 set foldexpr=vimtex#fold#level(v:lnum)
 set foldtext=vimtex#fold#text()
@@ -39,6 +47,16 @@ if has('macunix')
   let g:vimtex_view_general_options = '-r @line @pdf @tex'
   let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
   let g:vimtex_view_method = 'skim'
+  let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 elseif has('win32')
   let g:vimtex_view_general_viewer = 'C:/PROGRA~1/SumatraPDF/SumatraPDF.exe'
   let g:vimtex_view_general_options

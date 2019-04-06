@@ -8,6 +8,10 @@ if has('macunix') && !has('nvim')
   set pythonthreehome=/Library/Frameworks/Python.framework/Versions/3.6
   set pythonthreedll=/Library/Frameworks/Python.framework/Versions/3.6/lib/libpython3.6m.dylib
 endif
+if has('macunix') && has('nvim')
+  let g:python3_host_prog = '/usr/local/bin/python3'
+  " let g:python3_host_prog = '/usr/local/bin/python2'
+endif
 
 source ~/.vim/plugins.vim
 if $TERM == "xterm-256color"
@@ -18,12 +22,13 @@ set tgc " GUI colors
 " Language Server/Client Stuff
 set hidden
 let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['ccls', '--log-file=/tmp/cc.log'],
-            \ 'c': ['ccls', '--log-file=/tmp/cc.log'],
+            \ 'cpp': ['cquery', '--log-file=/tmp/cq.log'],
+            \ 'c': ['cquery', '--log-file=/tmp/cq.log'],
             \ 'ruby': ['solargraph', 'stdio'],
             \ 'python': ['/usr/local/bin/pyls'],
             \ 'javascript': ['/usr/local/lib/node_modules/typescript-language-server/lib/cli.js'],
-            \ 'typescript': ['/usr/local/lib/node_modules/typescript-language-server/lib/cli.js']
+            \ 'typescript': ['/usr/local/lib/node_modules/typescript-language-server/lib/cli.js'],
+            \ 'go': ['bingo']
             \ }
 let g:LanguageClient_loadSettings = 1
 let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
@@ -71,6 +76,14 @@ set diffopt=vertical
 let g:gitgutter_diff_args = '-w'
 let g:table_mode_corner='|'
 
+set langmenu=en_US
+set clipboard=unnamed
+
+set signcolumn=yes
+set shiftwidth=4
+set expandtab
+
+
 syntax on
 " ======= Sub-settings =======
 source ~/.vim/misc.vim
@@ -91,8 +104,9 @@ noremap gb :bn<CR>
 noremap gB :bp<CR>
 noremap ,b :Buffers<CR>
 
-" Fuzzy finding
-nnoremap <silent> <leader>f :call Fzf_dev()<cr>
+" Fuzzy finding,f
+nnoremap <silent> <leader>f :Files<CR>
+" Fzf_dev()<cr>
 
 " Tags
 nnoremap <leader>gt :TagbarToggle<CR>
@@ -118,12 +132,6 @@ nmap f <Plug>(easymotion-overwin-f)
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" Language Client Stuff
-nnoremap <C-space> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-
 " Toggles
 nnoremap <leader>m :TagbarToggle<CR>
 nnoremap <leader>y :call YCMToggle()<CR>
@@ -132,6 +140,11 @@ nnoremap <silent> <leader>l :call NumberToggle()<cr>
 nnoremap <silent> <leader>c :call ConcealToggle()<cr>
 nnoremap <leader>r :Switch<CR>
 xnoremap <leader>r :Switch<CR>
+nnoremap <leader>v :Vista!!<CR>
+let g:vista_fzf_preview = ['right:50%']
+
+command! FixTrail let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>
+command! FindNonASCII /[^\d0-\d127]
 
 " Stop highlighting
 noremap <silent> <leader><space> :noh<CR>
@@ -143,23 +156,11 @@ let g:UltiSnipsSnippetsDir = '~/.vim/custom_snips/UltiSnips'
 
 let g:SuperTabDefaultCompletionType    = '<C-n>'
 let g:SuperTabCrMapping                = 0
-let g:UltiSnipsExpandTrigger           = '<M-tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
+let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
 
-" inoremap <expr> <M-tab> "<C-R>=UltiSnips#ExpandSnippetOrJump()<CR>"
-
-" Deoplete
-
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
+inoremap <expr><C-space> deoplete#mappings#manual_complete()
 inoremap <expr><C-g> deoplete#undo_completion()
 call deoplete#custom#option('smart_case', v:true)
 call deoplete#custom#option('ignore_sources', {
@@ -185,6 +186,34 @@ let g:deoplete#omni#input_patterns.tex =
 autocmd FileType tex
        \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
+" Echodoc
+set cmdheight=2
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'signature'
+
+" Language Client Stuff
+nnoremap <M-space> :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+function SetLSPShortcuts()
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
+
+augroup LSP
+    autocmd!
+    autocmd FileType c,cpp,javascript,typescript,go,python call SetLSPShortcuts()
+augroup END
 
 "=== Fix, needs to be here ===
 if exists("g:loaded_webdevicons") && ! has('gui_vimr')

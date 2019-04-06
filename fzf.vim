@@ -27,7 +27,7 @@ autocmd! VimEnter * command! -nargs=* -complete=file Ag :call
     \fzf#vim#ag_raw(<q-args>, fzf#wrap('ag-raw',
     \ {'options': "--preview 'coderay $(cut -d: -f1 <<< {}) 2> /dev/null | sed -n $(cut -d: -f2 <<< {}),\\$p | head -".&lines."'"}))
 
-command! -bang Colors
+command! -bang Themes
   \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
 
 command! -bang -nargs=* Ag
