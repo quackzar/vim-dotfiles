@@ -187,7 +187,8 @@ autocmd FileType tex
        \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
 " Echodoc
-set cmdheight=2
+set cmdheight=1
+set noshowmode
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
