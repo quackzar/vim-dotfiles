@@ -1,0 +1,174 @@
+{
+    "suggest.enablePreview": true,
+    "suggest.echodocSupport": true,
+    "suggest.completionItemKindLabels": {
+        "method": "𝒎",
+        "function": "𝒇",
+        "file": "",
+        "class": "",
+        "folder": "",
+        "text": "𝐓",
+        "snippet": "⚡︎",
+        "keyword": "",
+        "operator": "",
+        "variable": "𝒱",
+        "color": "",
+        "value": "",
+        "module": "",
+        "reference": "",
+        "enum": "✦",
+        "constant": "𝒞",
+        "unit": "𝒰",
+        "interface": "",
+        "struct": "",
+        "enumMember": "",
+        "default": "Δ"
+    },
+    "diagnostic.infoSign": "≫",
+    "diagnostic.hintSign": "⩺",
+    "diagnostic.warningSign": "≫",
+    "diagnostic.errorSign": "⋙",
+    "codeLens.enable": true,
+    "pairs.disableLanguages": ["latex", "tex"],
+    "languageserver": {
+        "cquery": {
+            "command": "cquery",
+            "args": [
+                "--log-file=/tmp/cq.log"
+            ],
+            "filetypes": [
+                "c",
+                "cpp"
+            ],
+            "rootPatterns": [
+                "compile_flags.txt",
+                "compile_commands.json",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "initializationOptions": {
+                "cacheDirectory": "/tmp/cquery"
+            }
+        },
+        "digestif": {
+            "command": "digestif",
+            "filetypes": [
+                "tex",
+                "plaintex",
+                "context"
+            ]
+        },
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "go"
+            ]
+        },
+        "lua": {
+            "command": "lua-lsp",
+            "filetypes": [
+                "lua"
+            ]
+        },
+        "vimls": {
+            "command": "vim-language-server",
+            "args": [
+                "--stdio"
+            ],
+            "initializationOptions": {
+                "iskeyword": "vim iskeyword option",
+                "vimruntime": "path/to/$VIMRUNTIME",
+                "runtimepath": "vim/runtime/path"
+            },
+            "filetypes": [
+                "vim"
+            ]
+        },
+        "bash": {
+            "command": "bash-language-server",
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ],
+            "ignoredRootPaths": [
+                "~"
+            ]
+        },
+        "python": {
+            "command": "python3",
+            "args": [
+                "-mpyls",
+                "-vv",
+                "--log-file",
+                "/tmp/lsp_python.log"
+            ],
+            "trace.server": "verbose",
+            "filetypes": [
+                "python"
+            ],
+            "settings": {
+                "pyls": {
+                    "enable": true,
+                    "trace": {
+                        "server": "verbose"
+                    },
+                    "commandPath": "",
+                    "configurationSources": [
+                        "pycodestyle"
+                    ],
+                    "plugins": {
+                        "jedi_completion": {
+                            "enabled": true
+                        },
+                        "jedi_hover": {
+                            "enabled": true
+                        },
+                        "jedi_references": {
+                            "enabled": true
+                        },
+                        "jedi_signature_help": {
+                            "enabled": true
+                        },
+                        "jedi_symbols": {
+                            "enabled": true,
+                            "all_scopes": true
+                        },
+                        "mccabe": {
+                            "enabled": true,
+                            "threshold": 15
+                        },
+                        "preload": {
+                            "enabled": true
+                        },
+                        "pycodestyle": {
+                            "enabled": true
+                        },
+                        "pydocstyle": {
+                            "enabled": false,
+                            "match": "(?!test_).*\\.py",
+                            "matchDir": "[^\\.].*"
+                        },
+                        "pyflakes": {
+                            "enabled": true
+                        },
+                        "rope_completion": {
+                            "enabled": true
+                        },
+                        "yapf": {
+                            "enabled": true
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
