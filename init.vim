@@ -2,12 +2,17 @@ set nocompatible
 filetype off
 set encoding=utf8
 set fileencoding=utf8
-set runtimepath+="~/.vim/"
+
+" THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
+" set this value to where this file is.
+let g:rootDirectory='~/.config/nvim/'
+let &runtimepath.=g:rootDirectory
 
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-
-source ~/.vim/plugins.vim
+" Because I can't concat with source
+" Load the plugins
+exec 'source ' . g:rootDirectory . 'plugins.vim'
 syntax on
 
 " ======== STATUS LINE ============
@@ -129,12 +134,12 @@ set foldlevelstart=10
 
 set diffopt=vertical
 
-set backupdir=~/.vim/backup//
+let &backupdir = g:rootDirectory .'backup//'
+let &directory = g:rootDirectory . 'swap//'
+let &undodir = g:rootDirectory . 'undodir//'
+set undofile " persistant undo
 set nobackup
 set nowritebackup
-set directory=~/.vim/swap//
-set undodir=~/.undodir//
-set undofile " persistant undo
 
 set langmenu=en_US
 set clipboard=unnamed
@@ -280,10 +285,10 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Pickcolor :call CocAction('pickColor')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 command! -bar -nargs=0 Config tabnew|
-            \tcd ~/.vim/|
-            \e ~/.vim/init.vim|
-            \vs ~/.vim/plugins_new.vim
-command! -nargs=0 SnipConfig Files ~/.vim/UltiSnips/
+            \tcd g:rootDirectory|
+            \e g:rootDirectory . init.vim|
+            \vs g:rootDirectory . plugins_new.vim
+command! -nargs=0 SnipConfig Files g:rootDirectory . /UltiSnips/
 
 " Tab as expand, jump and other.
 inoremap <silent><expr> <TAB>

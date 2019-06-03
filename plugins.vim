@@ -1,4 +1,4 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin(g:rootDirectory . 'plugged/')
 
 " ========= GOOD LOOKING STUFF =========
 Plug 'rbong/vim-crystalline'
