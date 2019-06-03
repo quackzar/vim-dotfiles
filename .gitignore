@@ -2,7 +2,7 @@ plugged/*
 thesaurus/*
 swap/
 undo/
-tags
+backup/
 *.swp
 *.netrwhist
 *.lock

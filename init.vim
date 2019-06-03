@@ -15,6 +15,7 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 exec 'source ' . g:rootDirectory . 'plugins.vim'
 syntax on
 
+
 " ======== STATUS LINE ============
 function! StatusDiagnostic() abort
     let info = get(b:, 'coc_diagnostic_info', {})
@@ -134,9 +135,13 @@ set foldlevelstart=10
 
 set diffopt=vertical
 
-let &backupdir = g:rootDirectory .'backup//'
-let &directory = g:rootDirectory . 'swap//'
-let &undodir = g:rootDirectory . 'undodir//'
+" let &backupdir = 'backup//'
+" let &directory = g:rootdirectory . 'swap//'
+" let &undodir = 'undodir//'
+set backupdir=backup//
+set undodir=undo//
+set directory=swap//
+
 set undofile " persistant undo
 set nobackup
 set nowritebackup
