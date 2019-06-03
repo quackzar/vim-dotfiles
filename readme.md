@@ -1,18 +1,9 @@
-# A .vim directory
+# VIM DOT FILES
 
 The config is set up to work with python 3, so be sure to have that fixed!
+*This should not be much of problem now.*
 
-For installation run `:PlugInstall`
-Autocompletion requires some extra work, so go into `/plugged/YouComepleteMe/` and run `python /install.py --clangcompleter`
+For installation install vim-plug and run `:PlugInstall`
 
 Be sure to install fzf by homebrew, run `brew install fzf`
-
-Use the following commands to make sessions load on double-click.
-Idk, I don't really use it, but it could be cool.
-
-Windows:
-`http://vim.wikia.com/wiki/Vim-sessions_under_Windows`
-macOS:
-`http://vim.wikia.com/wiki/Vim-sessions_under_Mac`
-
-
+or some other way.
