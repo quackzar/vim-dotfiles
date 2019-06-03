@@ -285,10 +285,10 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Pickcolor :call CocAction('pickColor')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 command! -bar -nargs=0 Config tabnew|
-            \tcd g:rootDirectory|
-            \e g:rootDirectory . init.vim|
-            \vs g:rootDirectory . plugins_new.vim
-command! -nargs=0 SnipConfig Files g:rootDirectory . /UltiSnips/
+            \exe 'tcd '.g:rootDirectory|
+            \exe 'e '  .g:rootDirectory . 'init.vim'|
+            \exe 'vs ' .g:rootDirectory . 'plugins.vim'
+command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 
 " Tab as expand, jump and other.
 inoremap <silent><expr> <TAB>
