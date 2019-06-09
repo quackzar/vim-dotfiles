@@ -6,6 +6,7 @@ if exists("syntax_on")
   syntax reset
 end
 
+let g:colors_name="neomolokai"
 
 " Main colors
 let s:yellow = { "cterm": 228, "gui": "#ffff87" }
@@ -45,6 +46,9 @@ let s:italic = { "cterm": "italic", "gui": "italic" }
 let s:underline = { "cterm": "underline", "gui": "underline" }
 let s:bold_underline = { "cterm": "bold,underline", "gui": "bold,underline" }
 let s:bold_italic = { "cterm": "italic,bold", "gui": "italic,bold"}
+
+
+let s:undercurl = { "cterm": "undercurl", "gui": "undercurl"}
 
 
 let s:empty = {}

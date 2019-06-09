@@ -46,9 +46,12 @@ function! StatusLine(current, width)
         let l:s .= '%#CrystallineInactive#'
     endif
     if &buftype == 'terminal'
-        let l:s .= ' %f '
+        let l:s .= ' %f '
     else
-        let l:s .= ' %f%h%w%m%r '
+        let l:s .= ' %f%h%w'
+                    \. '%{&mod ? "  " : ""}'
+                    \. '%{&readonly ? "  " : ""}'
+                    \. ' '
     end
     if a:current
         let l:s .= crystalline#right_sep('', 'Fill')
@@ -78,6 +81,9 @@ let g:crystalline_enable_sep = 1
 let g:crystalline_statusline_fn = 'StatusLine'
 let g:crystalline_tabline_fn = 'TabLine'
 let g:crystalline_theme = 'molokai'
+
+
+
 
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
@@ -135,12 +141,9 @@ set foldlevelstart=10
 
 set diffopt=vertical
 
-" let &backupdir = 'backup//'
-" let &directory = g:rootdirectory . 'swap//'
-" let &undodir = 'undodir//'
-set backupdir=backup//
-set undodir=undo//
-set directory=swap//
+let &backupdir = g:rootDirectory . 'backup//'
+let &directory = g:rootDirectory . 'swap//'
+let &undodir   = g:rootDirectory . 'undodir//'
 
 set undofile " persistant undo
 set nobackup
@@ -172,7 +175,7 @@ set grepprg=rg\ --vimgrep
 " ====== FUNCTIONS ========
 
 function! NumberToggle()
-    if(&relativenumber == 1)
+    if (&relativenumber == 1)
         set norelativenumber
     else
         set relativenumber
@@ -214,7 +217,7 @@ endfunction
 
 function! s:Registers( arguments )
     redir => l:registersOutput
-        silent! execute 'registers' a:arguments
+    silent! execute 'registers' a:arguments
     redir END
     for l:line in split(l:registersOutput, "\n")
         if l:line !~# '^"\S\s*$'
@@ -241,8 +244,8 @@ noremap <silent> <leader><space> :noh<CR>
 
 
 " Motion
-map  f <Plug>(easymotion-bd-f)
-nmap f <Plug>(easymotion-overwin-f)
+map  F <Plug>(easymotion-bd-f)
+nmap F <Plug>(easymotion-overwin-f)
 
 " Alignment
 xmap ga <Plug>(EasyAlign)
@@ -254,6 +257,7 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>w :Windows<CR>
 
 
+
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>l :call NumberToggle()<cr>
@@ -263,9 +267,10 @@ nnoremap <silent> <leader>c :call ConcealToggle()<cr>
 vnoremap > >gv
 vnoremap < <gv
 
-
+" Exit term
 tnoremap <C-X> <C-\><C-n>
 
+" Eval line
 nnoremap <leader>e :exe getline(line('.'))<cr>
 command! WipeReg for i in range(34,122) 
             \| silent! call setreg(nr2char(i), []) | endfor
@@ -310,23 +315,11 @@ inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+" Output the current syntax group
+nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
+
 " ====== COLORS =======
-colorscheme molokai
+colorscheme neomolokai
 autocmd CursorHold * silent call CocActionAsync('highlight')
-" hi Normal ctermbg=none
-" hi NonText ctermbg=none
-" hi LineNr ctermbg=none
-" hi Conceal ctermbg=none
-hi! link Conceal Normal
-
-
-let g:terminal_color_0  = '#272822'
-let g:terminal_color_1  = '#F92672'
-let g:terminal_color_2  = '#A6E22E'
-let g:terminal_color_3  = '#FD971F'
-let g:terminal_color_4  = 'blue'
-let g:terminal_color_5  = 'cyan'
-
-" ========== WEIRD STUFF ============
-" Removes trailing spaces on write.
-" autocmd BufWritePre *.tex :%s/\s\+$//e
