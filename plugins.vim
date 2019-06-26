@@ -43,10 +43,11 @@ let g:ranger_replace_netrw = 1
 " ========== DEFAULT+ =========
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-surround'
+" Plug 'machakann/vim-sandwich' " Surround replacment
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'AndrewRadev/switch.vim'
@@ -59,7 +60,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'machakann/vim-swap'
 
 Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-sleuth'
+" Plug 'tpope/vim-sleuth'
+Plug 'andymass/vim-matchup'
+let g:loaded_matchit = 1
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -72,22 +75,32 @@ let g:echodoc#type = 'echo'
 Plug 'liuchengxu/vista.vim'
 Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
-
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_cache_dir = '~/.tags'
+let g:gutentags_project_root = ['Makefile', 'makefile', '.git']
+let g:gutentags_exclude_filetypes = ['snippets']
+let g:gutentags_trace = 0
 
 " SNIPPETS
 Plug 'honza/vim-snippets'
-" Plug 'SirVer/ultisnips'
-" let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 " let g:SuperTabDefaultCompletionType    = '<C-n>'
-" let g:SuperTabCrMapping                = 0
-" let g:UltiSnipsExpandTriggerOrJump     = '<M-tab>'
-" let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
-" let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
+let g:SuperTabCrMapping                = 0
+" let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
+let g:UltiSnipsExpandTrigger     = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
+let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
 
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
+" Linting
+Plug 'w0rp/ale'
+let g:ale_fixers = {'markdown': ['proselint'],
+                \'latex': ['proselint'],
+                \'tex': ['proselint']}
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'

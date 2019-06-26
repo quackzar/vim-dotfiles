@@ -38,6 +38,32 @@ function! StatusGit()
     return ' ' . l:s . ' '
 endfunction
 
+function! Get_gutentags_status(mods) abort
+    let l:msg = ''
+    if index(a:mods, 'ctags') >= 0
+       let l:msg .= '♨ '
+     endif
+     if index(a:mods, 'cscope') >= 0
+       let l:msg .= '♺ '
+     endif
+     return l:msg
+endfunction
+
+function! VimTexStatus()
+    let l:msg = ''
+    let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
+    if !empty(l:compiler)
+        if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
+            if get(l:compiler, 'continuous')
+                let l:msg .= ' '
+            else
+                let l:msg .= ' '
+            endif
+        endif
+    endif
+    return l:msg
+endfunction
+
 function! StatusLine(current, width)
     let l:s = ''
     if a:current
@@ -60,7 +86,10 @@ function! StatusLine(current, width)
     endif
     let l:s .= '%='
     if a:current
-        let l:s .= crystalline#left_sep('', 'Fill') . ' %{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+        let l:s .= crystalline#left_sep('', 'Fill') . ' '
+        let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
+        let l:s .= '%{gutentags#statusline_cb(function("Get_gutentags_status"))}'
+        let l:s .= '%{VimTexStatus()}'
         let l:s .= crystalline#left_mode_sep('')
     endif
     if a:width > 80 && &buftype != 'terminal'
@@ -109,7 +138,6 @@ set linebreak
 set backspace=indent,eol,start
 set wrap
 set autoread
-set gdefault
 
 set ignorecase " infercase
 set smartcase
@@ -118,16 +146,17 @@ set wildmenu
 set wildmode=full
 set wildoptions=tagfile "pum is cool though
 
-if !has('vimr') " Only works on 0.4
+if has('nvim-0.4')
     set pumblend=20
-end
+endif
 
 set title
 
 set diffopt+=internal,algorithm:patience,hiddenoff
 
 set mouse=a
-set ts=4 sw=4 et
+set tabstop=4
+set shiftwidth=4
 
 set showbreak=↪\
 " set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:
@@ -141,16 +170,21 @@ set foldlevelstart=10
 
 set diffopt=vertical
 
-let &backupdir = g:rootDirectory . 'backup//'
-let &directory = g:rootDirectory . 'swap//'
-let &undodir   = g:rootDirectory . 'undodir//'
+" All these gets deleted on reboot
+set backupdir=/tmp/backup//
+set directory=/tmp/swap//
+set undodir=/tmp/undo//
 
 set undofile " persistant undo
 set nobackup
 set nowritebackup
 
+" Thesaurus and dictionary support
+let &thesaurus=g:rootDirectory . 'thesaurus/words.txt'
+set dictionary+=/usr/share/dict/words
+
 set langmenu=en_US
-set clipboard=unnamed
+" set clipboard=unnamed
 
 set signcolumn=yes
 set shiftwidth=4
@@ -301,11 +335,11 @@ command! -bar -nargs=0 Config tabnew|
 command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 
 " Tab as expand, jump and other.
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"             \ pumvisible() ? coc#_select_confirm() :
+"             \   coc#expandableOrJumpable() ? UltiSnips#ExpandSnippetOrJump() :
+"             \       <SID>check_back_space() ? "\<TAB>" :
+"             \           coc#refresh()
 
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 

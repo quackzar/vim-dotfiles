@@ -93,8 +93,6 @@ call Highlight("Conceal", s:none, s:none, s:none)
 
 call Highlight("Cursor", s:charcoal, s:cyan, s:none)
 call Highlight("CursorLine", s:none, s:dark_grey, s:none)
-call Highlight("Special", s:purple, s:none, s:italic)
-call Highlight("Title", s:white, s:none, s:bold)
 
 " Diff and stuff
 call Highlight("DiffChange", s:white, s:sea_blue, s:none)
@@ -112,7 +110,7 @@ call Highlight("SpellCap", s:empty, s:charcoal, s:undercurl, s:orange)
 call Highlight("SpellLocal", s:charcoal, s:charcoal, s:undercurl, s:cyan)
 
 " Columns!
-call Highlight("CursorColumn", s:columns_fg, s:columns_bg)
+call Highlight("CursorColumn", s:none, s:light_charcoal)
 call Highlight("ColorColumn", s:columns_fg, s:columns_bg)
 call Highlight("LineNr", s:columns_fg, s:columns_bg)
 call Highlight("SignColumn", s:grey, s:columns_bg)
@@ -121,7 +119,7 @@ call Highlight("CursorLineNR", s:yellow)
 call Highlight("Type", s:cyan, s:none, s:none)
 
 call Highlight("Visual", s:none, s:darker_grey, s:none)
-call Highlight("VisualNOS", s:none, s:darker_grey, s:none)
+call Highlight("VisualNOS", s:empty, s:light_charcoal, s:none)
 call Highlight("TabLine", s:light_grey, s:dark_grey, s:underline)
 call Highlight("Whitespace", s:dark_grey, s:none, s:none)
 
@@ -135,6 +133,8 @@ call Highlight("MatchParen", s:darker_grey, s:orange, s:bold)
 call Highlight("Exception", s:magenta, s:none, s:bold_italic)
 call Highlight("Include", s:magenta, s:none, s:none)
 
+call Highlight("Title", s:orange, s:none, s:bold)
+call Highlight("Special", s:cyan, s:none, s:italic)
 call Highlight("Define", s:magenta)
 call Highlight("Debug", s:magenta)
 call Highlight("Keyword", s:magenta)
@@ -158,7 +158,7 @@ call Highlight("Function", s:lime, s:none, s:none)
 
 " Constants and such
 call Highlight("Constant", s:purple, s:none, s:none)
-call Highlight("Directory", s:purple, s:none, s:none)
+call Highlight("Directory", s:lime, s:none, s:none)
 call Highlight("Tag", s:purple, s:none, s:none)
 call Highlight("Boolean", s:purple, s:none, s:none)
 call Highlight("Character", s:purple, s:none, s:none)
