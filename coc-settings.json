@@ -103,6 +103,11 @@
                 "~"
             ]
         },
+        "latex": {
+            "command": "/usr/local/bin/texlab",
+            "ignoredRootPaths": ["~"],
+             "filetypes": ["tex", "bib", "plaintex", "context"]
+        },
         "python": {
             "command": "python3",
             "args": [

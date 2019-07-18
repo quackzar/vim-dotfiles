@@ -80,12 +80,12 @@ endfunction
 
 
 " Terminal colors
-let g:terminal_color_0 = s:charcoal
-let g:terminal_color_1 = s:magenta
-let g:terminal_color_2 = s:lime
-let g:terminal_color_3 = s:orange
-let g:terminal_color_4 = s:purple
-let g:terminal_color_5 = s:cyan
+" let g:terminal_color_0 = s:charcoal
+" let g:terminal_color_1 = s:magenta
+" let g:terminal_color_2 = s:lime
+" let g:terminal_color_3 = s:orange
+" let g:terminal_color_4 = s:purple
+" let g:terminal_color_5 = s:cyan
 
 " The Basics
 call Highlight("Normal", s:white, s:charcoal, s:none)

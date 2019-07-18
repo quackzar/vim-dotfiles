@@ -40,12 +40,12 @@ endfunction
 
 function! Get_gutentags_status(mods) abort
     let l:msg = ''
-    if index(a:mods, 'ctags') >= 0
-       let l:msg .= '♨ '
-     endif
-     if index(a:mods, 'cscope') >= 0
-       let l:msg .= '♺ '
-     endif
+    " if index(a:mods, 'ctags') >= 0
+    "    let l:msg .= '♨ '
+    "  endif
+    "  if index(a:mods, 'cscope') >= 0
+    "    let l:msg .= '♺ '
+    "  endif
      return l:msg
 endfunction
 
@@ -88,7 +88,7 @@ function! StatusLine(current, width)
     if a:current
         let l:s .= crystalline#left_sep('', 'Fill') . ' '
         let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
-        let l:s .= '%{gutentags#statusline_cb(function("Get_gutentags_status"))}'
+        " let l:s .= '%{gutentags#statusline_cb(function("Get_gutentags_status"))}'
         let l:s .= '%{VimTexStatus()}'
         let l:s .= crystalline#left_mode_sep('')
     endif
@@ -296,6 +296,7 @@ nnoremap <silent> <leader>w :Windows<CR>
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>l :call NumberToggle()<cr>
 nnoremap <silent> <leader>c :call ConcealToggle()<cr>
+noremap <silent> <leader>p :call PearTreeToggle()<cr>
 
 " Keep selection with indention
 vnoremap > >gv
@@ -344,7 +345,10 @@ command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
 " Enter as confirm completion and expand
-inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" and expand parentheses (replace last part with <cr> in case of uninstall)
+inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
+" imap <CR> <Plug>(PearTreeExpand)
+
 
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -357,3 +361,4 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 " ====== COLORS =======
 colorscheme neomolokai
 autocmd CursorHold * silent call CocActionAsync('highlight')
+

@@ -1,8 +1,38 @@
+" This file should contain all plugins and their configurations.
+" Keymaps may be omitted.
 call plug#begin(g:rootDirectory . 'plugged/')
 
 " ========= GOOD LOOKING STUFF =========
 Plug 'rbong/vim-crystalline'
 Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-startify'
+let g:startify_session_dir = g:rootDirectory . 'session/'
+let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.zshrc']
+let g:startify_fortune_use_unicode = 1
+autocmd User Startified nmap <buffer> <space> <plug>(startify-open-buffers)
+autocmd User Startified nmap <buffer> <cr> :
+" autocmd User Startified setlocal cursorline
+" autocmd User Startified set ro
+function! s:center(lines) abort
+    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+    let centered_lines = map(copy(a:lines),
+                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    return centered_lines
+endfunction
+
+let g:startify_custom_footer = s:center(['NEOVIM --- The Editor of the 21th Century'])
+
+let g:ascii = [
+    \'     ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓',
+    \'     ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒',
+    \'    ▓██  ▀█ ██▒▒███   ▒██░  ██▒ ▓██  █▒░▒██▒▓██    ▓██░',
+    \'    ▓██▒  ▐▌██▒▒▓█  ▄ ▒██   ██░  ▒██ █░░░██░▒██    ▒██ ',
+    \'    ▒██░   ▓██░░▒████▒░ ████▓▒░   ▒▀█░  ░██░▒██▒   ░██▒',
+    \'    ░ ▒░   ▒ ▒ ░░ ▒░ ░░ ▒░▒░▒░    ░ ▐░  ░▓  ░ ▒░   ░  ░',
+    \'    ░ ░░   ░ ▒░ ░ ░  ░  ░ ▒ ▒░    ░ ░░   ▒ ░░  ░      ░',
+    \'       ░   ░ ░    ░   ░ ░ ░ ▒       ░░   ▒ ░░      ░   ',
+    \'             ░    ░  ░    ░ ░        ░   ░         ░   ']
+let startify_custom_header = s:center(g:ascii) + [''] + s:center(['version 4.0-dev'])
 
 
 " ========== FZF & Files ============
@@ -40,6 +70,9 @@ Plug 'francoiscabrol/ranger.vim'
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
 
+
+
+
 " ========== DEFAULT+ =========
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-commentary'
@@ -64,9 +97,19 @@ Plug 'junegunn/vim-easy-align'
 Plug 'andymass/vim-matchup'
 let g:loaded_matchit = 1
 
+" Auto pair parentheses and stuff
+" Plug 'tmsvg/pear-tree'
+" let g:pear_tree_smart_openers = 1
+" let g:pear_tree_smart_closers = 1
+" let g:pear_tree_smart_backspace = 1
+" let g:pear_tree_map_special_keys = 0
+" imap <BS> <Plug>(PearTreeBackspace)
+" imap <Esc> <Plug>(PearTreeFinishExpansion)
+
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+
 
 " ========== BECOMING AN IDE 101 =============
 Plug 'Shougo/echodoc.vim'
@@ -75,11 +118,11 @@ let g:echodoc#type = 'echo'
 Plug 'liuchengxu/vista.vim'
 Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_cache_dir = '~/.tags'
-let g:gutentags_project_root = ['Makefile', 'makefile', '.git']
-let g:gutentags_exclude_filetypes = ['snippets']
-let g:gutentags_trace = 0
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_cache_dir = '~/.tags'
+" let g:gutentags_project_root = ['Makefile', 'makefile', '.git']
+" let g:gutentags_exclude_filetypes = ['snippets']
+" let g:gutentags_trace = 0
 
 " SNIPPETS
 Plug 'honza/vim-snippets'
@@ -96,11 +139,36 @@ let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
+
+" Action menu like all the cool kids
+Plug 'kizza/actionmenu.nvim'
+let s:code_actions = []
+
+func! ActionMenuCodeActions() abort
+    let s:code_actions = CocAction('codeActions')
+    let l:menu_items = map(copy(s:code_actions), { index, item -> item['title'] })
+    call actionmenu#open(l:menu_items, 'ActionMenuCodeActionsCallback')
+endfunc
+
+func! ActionMenuCodeActionsCallback(index, item) abort
+    if a:index >= 0
+        let l:selected_code_action = s:code_actions[a:index]
+        let l:response = CocAction('doCodeAction', l:selected_code_action)
+    endif
+endfunc
+nnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
+inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
+
 " Linting
 Plug 'w0rp/ale'
 let g:ale_fixers = {'markdown': ['proselint'],
                 \'latex': ['proselint'],
                 \'tex': ['proselint']}
+
+
+
+" Documentation Generator
+Plug 'kkoomen/vim-doge'
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'
@@ -143,8 +211,6 @@ if has('macunix')
   let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
   let g:vimtex_view_method = 'skim'
 endif
-autocmd FileType tex let b:coc_pairs = [['\(','\)'], ['\[', '\]']]
-autocmd FileType tex let b:coc_pairs_disabled = ['`', '<', "'"]
 
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
