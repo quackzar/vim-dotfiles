@@ -95,10 +95,10 @@ call Highlight("Cursor", s:charcoal, s:cyan, s:none)
 call Highlight("CursorLine", s:none, s:dark_grey, s:none)
 
 " Diff and stuff
-call Highlight("DiffChange", s:white, s:sea_blue, s:none)
-call Highlight("DiffText", s:white, s:light_sea_blue, s:none)
-call Highlight("DiffDelete", s:dark_red, s:blood_red, s:none)
-call Highlight("DiffAdd", s:white, s:dark_green, s:none)
+call Highlight("DiffChange", s:sea_blue, s:columns_bg, s:none)
+call Highlight("DiffText", s:light_sea_blue, s:columns_bg, s:none)
+call Highlight("DiffDelete", s:dark_red, s:columns_bg, s:none)
+call Highlight("DiffAdd", s:dark_green, s:columns_bg, s:none)
 
 " Errors and Spelling
 call Highlight("Error", s:white, s:danger, s:none)
@@ -189,3 +189,19 @@ call Highlight("PmenuSbar", s:none, s:darker_grey, s:none)
 call Highlight("PmenuThumb", s:none, s:white, s:none)
 
 call Highlight("WildMenu", s:cyan, s:dark_charcoal)
+
+" CoC
+" call Highlight("CocErrorHighlight", s:blood_red)
+" call Highlight("CocWarningHighlight", s:orange)
+" call Highlight("CocHintHighlight", s:lime)
+" call Highlight("CocInfoHighlight", s:grey)
+
+call Highlight("CocErrorSign", s:danger, s:columns_bg)
+call Highlight("CocWarningSign", s:orange, s:columns_bg)
+call Highlight("CocHintSign", s:lime, s:columns_bg)
+call Highlight("CocInfoSign", s:grey, s:columns_bg)
+
+call Highlight("CocErrorVirtualText", s:dark_red, s:none, s:italic)
+call Highlight("CocWarningVirtualText", s:orange, s:none, s:italic)
+call Highlight("CocHintVirtualText", s:lime, s:none, s:italic)
+call Highlight("CocInfoVirtualText", s:grey, s:none, s:italic)

@@ -122,6 +122,8 @@ if $TERM == "xterm-256color"
     set t_Co=256
 endif
 
+set secure
+
 set termguicolors " GUI colors
 
 set hidden " something about hidden buffers
@@ -158,9 +160,18 @@ set mouse=a
 set tabstop=4
 set shiftwidth=4
 
+" Start scrolling slightly before the cursor reaches an edge
+set scrolloff=5
+set sidescrolloff=5
+set sidescroll=3
+
 set showbreak=↪\
 " set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:
-set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+set list listchars=tab:▷⋅,trail:⋅,nbsp:░, 
+set fillchars=diff:⣿                " BOX DRAWINGS
+set fillchars+=vert:┃               " HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+set fillchars+=fold:─
+set fillchars=eob:\                 " Hide end of buffer ~
 
 
 set foldmethod=expr "indent
@@ -168,7 +179,7 @@ set foldcolumn=0
 set foldlevel=99
 set foldlevelstart=10
 
-set diffopt=vertical
+set diffopt+=vertical,algorithm:histogram,indent-heuristic
 
 " All these gets deleted on reboot
 set backupdir=/tmp/backup//
@@ -184,7 +195,6 @@ let &thesaurus=g:rootDirectory . 'thesaurus/words.txt'
 set dictionary+=/usr/share/dict/words
 
 set langmenu=en_US
-" set clipboard=unnamed
 
 set signcolumn=yes
 set shiftwidth=4
@@ -193,6 +203,14 @@ set expandtab
 set updatetime=300
 set cmdheight=2
 set noshowmode
+set shortmess+=A      " ignore annoying swapfile messages
+set shortmess+=I      " no splash screen
+set shortmess+=O      " file-read message overwrites previous
+set shortmess+=T      " truncate non-file messages in middle
+set shortmess+=W      " don't echo "[w]"/"[written]" when writing
+set shortmess+=a      " use abbreviations in messages eg. `[RO]` instead of `[readonly]`
+set shortmess+=o      " overwrite file-written messages
+set shortmess+=t      " truncate file messages at start
 
 set inccommand=nosplit " realtime changes for ex-commands
 set shortmess+=c
@@ -205,6 +223,18 @@ set concealcursor= "ni
 
 set formatoptions+=j
 set grepprg=rg\ --vimgrep
+
+set whichwrap=b,h,l,s,<,>,[,],~
+set virtualedit=block    " allow cursor to move where there is no text in visual block mode
+" set splitbelow
+" set splitright
+
+set completeopt+=menuone
+set completeopt+=noinsert
+set completeopt-=preview
+
+set pumheight=25
+set pumblend=10
 
 " ====== FUNCTIONS ========
 
@@ -314,15 +344,15 @@ command! WipeReg for i in range(34,122)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <M-space> coc#refresh()
 nmap <leader>rn <Plug>(coc-rename)
 
 nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
 
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>? <Plug>(coc-diagnostic-info)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 command! -nargs=0 Format :call CocAction('format')
@@ -345,9 +375,7 @@ command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
 " Enter as confirm completion and expand
-" and expand parentheses (replace last part with <cr> in case of uninstall)
 inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-" imap <CR> <Plug>(PearTreeExpand)
 
 
 " Completion
@@ -360,5 +388,5 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 " ====== COLORS =======
 colorscheme neomolokai
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 

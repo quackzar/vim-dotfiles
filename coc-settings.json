@@ -1,6 +1,7 @@
 {
     "suggest.enablePreview": true,
     "suggest.echodocSupport": true,
+    "suggest.floatEnable": true,
     "suggest.completionItemKindLabels": {
         "method": "𝒎",
         "function": "𝒇",
@@ -24,12 +25,28 @@
         "enumMember": "",
         "default": "Δ"
     },
-    "diagnostic.infoSign": "≫",
-    "diagnostic.hintSign": "⩺",
-    "diagnostic.warningSign": "≫",
-    "diagnostic.errorSign": "⋙",
+    "diagnostic.infoSign": "!",
+    "diagnostic.hintSign": "?",
+    "diagnostic.warningSign": "●",
+    "diagnostic.errorSign": "×",
+    "diagnostic.highlightOffset": 1000,
+    "diagnostic.virtualText": true,
+    "diagnostic.checkCurrentLine": true,
     "codeLens.enable": true,
-    "pairs.disableLanguages": ["latex", "tex"],
+    "signature.target": "echo",
+    "coc.preferences.hoverTarget": "float",
+    "git.realtimeGutters": false,
+    "git.addedSign.text": "▎",
+    "git.changedSign.text": "▎",
+    "git.removedSign.text": "◢",
+    "git.topRemovedSign.text": "◥",
+    "git.changeRemovedSign.text": "◢",
+    "list.normalMappings": {
+        "<C-c>": "do:exit"
+    },
+    "list.insertMappings": {
+        "<C-c>": "do:exit"
+    },
     "languageserver": {
         "cquery": {
             "command": "cquery",

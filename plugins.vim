@@ -9,10 +9,11 @@ Plug 'mhinz/vim-startify'
 let g:startify_session_dir = g:rootDirectory . 'session/'
 let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.zshrc']
 let g:startify_fortune_use_unicode = 1
+let g:startify_change_to_vcs_root = 1
+let g:startify_update_oldfiles = 1
 autocmd User Startified nmap <buffer> <space> <plug>(startify-open-buffers)
 autocmd User Startified nmap <buffer> <cr> :
-" autocmd User Startified setlocal cursorline
-" autocmd User Startified set ro
+autocmd User Startified setlocal cursorline
 function! s:center(lines) abort
     let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
     let centered_lines = map(copy(a:lines),
@@ -22,6 +23,8 @@ endfunction
 
 let g:startify_custom_footer = s:center(['NEOVIM --- The Editor of the 21th Century'])
 
+" let g:startify_ascii = [' ', ' ϟ ' . (has('nvim') ? 'nvim' : 'vim') . '.', ' ']
+" let g:startify_custom_header = 'map(startify#fortune#boxed() + g:startify_ascii, "repeat(\" \", 5).v:val")'
 let g:ascii = [
     \'     ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓',
     \'     ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒',
@@ -33,6 +36,22 @@ let g:ascii = [
     \'       ░   ░ ░    ░   ░ ░ ░ ▒       ░░   ▒ ░░      ░   ',
     \'             ░    ░  ░    ░ ░        ░   ░         ░   ']
 let startify_custom_header = s:center(g:ascii) + [''] + s:center(['version 4.0-dev'])
+
+let g:startify_list_order = [
+      \ ['   Files:'], 'dir',
+      \ ['   Sessions:'], 'sessions',
+      \ ['   MRU'], 'files',
+      \ ['   Bookmarks:'], 'bookmarks',
+      \ ]
+
+let g:startify_skiplist = [
+      \ 'COMMIT_EDITMSG',
+      \ '^/tmp',
+      \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
+      \ 'plugged/.*/doc',
+      \ 'pack/.*/doc',
+      \ '.*/vimwiki/.*'
+      \ ]
 
 
 " ========== FZF & Files ============
@@ -96,15 +115,15 @@ Plug 'junegunn/vim-easy-align'
 " Plug 'tpope/vim-sleuth'
 Plug 'andymass/vim-matchup'
 let g:loaded_matchit = 1
+let g:matchup_surround_enabled = 1
+let g:matchup_transmute_enabled = 1
+let g:matchup_matchparen_deferred = 1
 
-" Auto pair parentheses and stuff
-" Plug 'tmsvg/pear-tree'
-" let g:pear_tree_smart_openers = 1
-" let g:pear_tree_smart_closers = 1
-" let g:pear_tree_smart_backspace = 1
-" let g:pear_tree_map_special_keys = 0
-" imap <BS> <Plug>(PearTreeBackspace)
-" imap <Esc> <Plug>(PearTreeFinishExpansion)
+
+" Let's you preview the registers
+Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_delay = 50
+
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -115,7 +134,17 @@ Plug 'gregsexton/gitv'
 Plug 'Shougo/echodoc.vim'
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'echo'
+
 Plug 'liuchengxu/vista.vim'
+let g:vista#renderer#enable_icon = 1
+let g:vista_executive_for = {
+      \ 'go': 'ctags',
+      \ 'javascript': 'coc',
+      \ 'typescript': 'coc',
+      \ 'javascript.jsx': 'coc',
+      \ 'python': 'coc',
+      \ }
+
 Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
 " Plug 'ludovicchabant/vim-gutentags'
@@ -160,15 +189,15 @@ nnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
 
 " Linting
-Plug 'w0rp/ale'
-let g:ale_fixers = {'markdown': ['proselint'],
-                \'latex': ['proselint'],
-                \'tex': ['proselint']}
+" Plug 'w0rp/ale'
+" let g:ale_fixers = {'markdown': ['proselint'],
+"                 \'latex': ['proselint'],
+"                 \'tex': ['proselint']}
 
 
 
 " Documentation Generator
-Plug 'kkoomen/vim-doge'
+" Plug 'kkoomen/vim-doge'
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'
