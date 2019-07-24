@@ -73,6 +73,11 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
+command! -bang -nargs=? -complete=dir Files
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir GFiles
+            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 function! s:fzf_statusline()
   " Override statusline as you like
   setlocal statusline=%#LineNr#\ FZF\ %#CursorColumn#\ Searching\ in\ %{getcwd()}
@@ -176,7 +181,8 @@ let s:code_actions = []
 func! ActionMenuCodeActions() abort
     let s:code_actions = CocAction('codeActions')
     let l:menu_items = map(copy(s:code_actions), { index, item -> item['title'] })
-    call actionmenu#open(l:menu_items, 'ActionMenuCodeActionsCallback')
+    call actionmenu#open(l:menu_items,
+                \'ActionMenuCodeActionsCallback')
 endfunc
 
 func! ActionMenuCodeActionsCallback(index, item) abort

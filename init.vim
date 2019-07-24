@@ -27,7 +27,7 @@ function! StatusDiagnostic() abort
     if get(info, 'warning', 0)
         call add(msgs, ' ' . info['warning'])
     endif
-    return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
+    return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
 function! StatusGit()
@@ -65,8 +65,9 @@ function! VimTexStatus()
 endfunction
 
 function! StatusLine(current, width)
+    " LEFT SIDE
     let l:s = ''
-    if a:current
+    if a:current " Current mode
         let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
     else
         let l:s .= '%#CrystallineInactive#'
@@ -79,17 +80,23 @@ function! StatusLine(current, width)
                     \. '%{&readonly ? "  " : ""}'
                     \. ' '
     end
+    " Status and such
     if a:current
         let l:s .= crystalline#right_sep('', 'Fill')
                     \. ' %{StatusGit()} '
                     \. '%{StatusDiagnostic()}'
     endif
     let l:s .= '%='
+    " RIGHT SIDE
+    " Active options
     if a:current
         let l:s .= crystalline#left_sep('', 'Fill') . ' '
         let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
         " let l:s .= '%{gutentags#statusline_cb(function("Get_gutentags_status"))}'
         let l:s .= '%{VimTexStatus()}'
+    endif
+
+    if a:current
         let l:s .= crystalline#left_mode_sep('')
     endif
     if a:width > 80 && &buftype != 'terminal'
@@ -135,11 +142,19 @@ set guioptions-=T  "remove tool bar
 set guioptions-=r  "remove right scroll bar
 set guioptions-=L  "remove left scroll bar
 
+set mouse=a
+
 set breakindent
 set linebreak
 set backspace=indent,eol,start
 set wrap
 set autoread
+set shiftwidth=4
+set tabstop=4
+set shiftround
+set expandtab
+set smarttab
+set autoindent
 
 set ignorecase " infercase
 set smartcase
@@ -147,6 +162,14 @@ set smartcase
 set wildmenu
 set wildmode=full
 set wildoptions=tagfile "pum is cool though
+set wildignore+=*.o,*.obj,*.pyc
+" Ignore source control
+set wildignore+=.git
+" Ignore lib/ dirs since the contain compiled libraries typically
+set wildignore+=build,lib,node_modules,public,_site,third_party
+" Ignore images and fonts
+set wildignore+=*.gif,*.jpg,*.jpeg,*.otf,*.png,*.svg,*.ttf
+" Ignore case when completing
 
 if has('nvim-0.4')
     set pumblend=20
@@ -156,9 +179,6 @@ set title
 
 set diffopt+=internal,algorithm:patience,hiddenoff
 
-set mouse=a
-set tabstop=4
-set shiftwidth=4
 
 " Start scrolling slightly before the cursor reaches an edge
 set scrolloff=5
@@ -181,7 +201,7 @@ set foldlevelstart=10
 
 set diffopt+=vertical,algorithm:histogram,indent-heuristic
 
-" All these gets deleted on reboot
+" All these gets deleted by the os
 set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
@@ -197,11 +217,9 @@ set dictionary+=/usr/share/dict/words
 set langmenu=en_US
 
 set signcolumn=yes
-set shiftwidth=4
-set expandtab
 
 set updatetime=300
-set cmdheight=2
+set cmdheight=1
 set noshowmode
 set shortmess+=A      " ignore annoying swapfile messages
 set shortmess+=I      " no splash screen
@@ -232,9 +250,30 @@ set virtualedit=block    " allow cursor to move where there is no text in visual
 set completeopt+=menuone
 set completeopt+=noinsert
 set completeopt-=preview
+set complete-=i
 
 set pumheight=25
 set pumblend=10
+
+" Wait for cursorhold to trigger
+set updatetime=750
+set splitright
+
+" Automatically go into insert mode when entering terminal window
+augroup terminal_insert
+    autocmd!
+    autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+augroup END
+
+
+" Close quickfix with q, esc or C-C
+augroup easy_close
+    autocmd!
+    autocmd FileType help,qf nnoremap <buffer> q :q<cr>
+    autocmd FileType help,qf nnoremap <buffer> <Esc> :q<cr>
+    autocmd FileType help,qf nnoremap <buffer> <C-c> :q<cr>
+    " Undo <cr> -> : shortcut
+augroup END
 
 " ====== FUNCTIONS ========
 
@@ -320,7 +359,8 @@ nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>w :Windows<CR>
 
-
+vnoremap . :normal .<CR>
+vnoremap @ :normal @
 
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
@@ -341,6 +381,8 @@ command! WipeReg for i in range(34,122)
             \| silent! call setreg(nr2char(i), []) | endfor
 
 " CoC Stuff
+
+inoremap <silent><expr> <C-x><C-o> coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
@@ -354,6 +396,8 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>? <Plug>(coc-diagnostic-info)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+let g:coc_snippet_next = '<M-j>'
+let g:coc_snippet_prev = '<M-k>'
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -388,5 +432,6 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 
 " ====== COLORS =======
 colorscheme neomolokai
+let base16colorspace=256
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 

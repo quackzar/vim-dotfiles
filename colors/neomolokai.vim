@@ -80,12 +80,22 @@ endfunction
 
 
 " Terminal colors
-" let g:terminal_color_0 = s:charcoal
-" let g:terminal_color_1 = s:magenta
-" let g:terminal_color_2 = s:lime
-" let g:terminal_color_3 = s:orange
-" let g:terminal_color_4 = s:purple
-" let g:terminal_color_5 = s:cyan
+let g:terminal_color_0 = s:dark_charcoal["gui"]
+let g:terminal_color_1 = s:magenta["gui"]
+let g:terminal_color_2 = s:lime["gui"]
+let g:terminal_color_3 = s:orange["gui"]
+let g:terminal_color_4 = s:purple["gui"]
+let g:terminal_color_5 = s:magenta["gui"]
+let g:terminal_color_6 = s:cyan["gui"]
+let g:terminal_color_7 = s:white["gui"]
+call Highlight("TermColor0", s:dark_charcoal, s:dark_charcoal)
+call Highlight("TermColor1", s:magenta, s:magenta)
+call Highlight("TermColor2", s:lime, s:lime)
+call Highlight("TermColor3", s:orange, s:orange)
+call Highlight("TermColor4", s:purple, s:purple)
+call Highlight("TermColor5", s:magenta, s:magenta)
+call Highlight("TermColor6", s:cyan, s:cyan)
+call Highlight("TermColor7", s:white, s:white)
 
 " The Basics
 call Highlight("Normal", s:white, s:charcoal, s:none)
@@ -101,6 +111,7 @@ call Highlight("DiffDelete", s:dark_red, s:columns_bg, s:none)
 call Highlight("DiffAdd", s:dark_green, s:columns_bg, s:none)
 
 " Errors and Spelling
+call Highlight("ErrorBg", s:danger, s:white, s:none)
 call Highlight("Error", s:white, s:danger, s:none)
 call Highlight("ErrorMsg", s:white, s:danger, s:none)
 call Highlight("WarningMsg", s:white, s:danger, s:none)
@@ -189,6 +200,9 @@ call Highlight("PmenuSbar", s:none, s:darker_grey, s:none)
 call Highlight("PmenuThumb", s:none, s:white, s:none)
 
 call Highlight("WildMenu", s:cyan, s:dark_charcoal)
+
+" Term colors
+
 
 " CoC
 " call Highlight("CocErrorHighlight", s:blood_red)
