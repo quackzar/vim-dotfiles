@@ -125,10 +125,15 @@ let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
 
 
+" More syntax highlighting
+" Plug 'sheerun/vim-polyglot'
+
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 50
 
+
+Plug 'jeetsukumaran/vim-indentwise'
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -258,9 +263,14 @@ endif
 " ======== GRAPHVIZ ========
 Plug 'wannesm/wmgraphviz.vim'
 
+" ======== TYPESCRIPT =======
+Plug 'leafgarland/typescript-vim'
 
 " ======== PYTHON =======
 Plug 'tmhedberg/SimpylFold'
+
+" ======== GO ======
+Plug 'fatih/vim-go'
 
 call plug#end()
 filetype plugin indent on    " required

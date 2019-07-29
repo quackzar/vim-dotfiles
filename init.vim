@@ -1,5 +1,5 @@
 set nocompatible
-filetype off
+filetype plugin indent on
 set encoding=utf8
 set fileencoding=utf8
 
