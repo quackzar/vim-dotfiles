@@ -118,6 +118,10 @@
             "ignoredRootPaths": ["~"],
              "filetypes": ["tex", "bib", "plaintex", "context"]
         },
+        "swift": {
+            "command": "sourcekit-lsp",
+            "filetypes": ["swift"],
+        },
         "python": {
             "command": "python3",
             "args": [

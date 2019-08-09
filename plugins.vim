@@ -104,7 +104,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
-" Plug 'machakann/vim-sandwich' " Surround replacment
+Plug 'machakann/vim-sandwich' " Surround replacment
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
 Plug 'AndrewRadev/switch.vim'
@@ -117,12 +117,12 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'machakann/vim-swap'
 
 Plug 'junegunn/vim-easy-align'
-" Plug 'tpope/vim-sleuth'
 Plug 'andymass/vim-matchup'
 let g:loaded_matchit = 1
 let g:matchup_surround_enabled = 1
 let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
+let g:matchup_override_vimtex = 1
 
 
 " More syntax highlighting
@@ -190,25 +190,18 @@ func! ActionMenuCodeActions() abort
                 \'ActionMenuCodeActionsCallback')
 endfunc
 
+
 func! ActionMenuCodeActionsCallback(index, item) abort
     if a:index >= 0
         let l:selected_code_action = s:code_actions[a:index]
         let l:response = CocAction('doCodeAction', l:selected_code_action)
     endif
 endfunc
+
 nnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
+xnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
 
-" Linting
-" Plug 'w0rp/ale'
-" let g:ale_fixers = {'markdown': ['proselint'],
-"                 \'latex': ['proselint'],
-"                 \'tex': ['proselint']}
-
-
-
-" Documentation Generator
-" Plug 'kkoomen/vim-doge'
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'
@@ -226,6 +219,11 @@ augroup litecorrect
 augroup END
 Plug 'reedes/vim-lexical'
 Plug 'reedes/vim-pencil'
+
+Plug 'vim-voom/VOoM'
+let g:voom_return_key = "<M-Space>"
+let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
+nnoremap ,v :VoomToggle<cr>
 
 
 " ======== LATEX ========
@@ -269,8 +267,27 @@ Plug 'leafgarland/typescript-vim'
 " ======== PYTHON =======
 Plug 'tmhedberg/SimpylFold'
 
+" ======== SWIFT ======
+Plug 'keith/swift.vim'
+Plug 'kentaroi/ultisnips-swift'
+
 " ======== GO ======
 Plug 'fatih/vim-go'
+" no mapping, we have CoC
+let g:go_code_completion_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+"  more colors
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+let g:go_fmt_command = "goimports"
 
 call plug#end()
 filetype plugin indent on    " required

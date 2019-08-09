@@ -170,6 +170,7 @@ set wildignore+=build,lib,node_modules,public,_site,third_party
 " Ignore images and fonts
 set wildignore+=*.gif,*.jpg,*.jpeg,*.otf,*.png,*.svg,*.ttf
 " Ignore case when completing
+set modelineexpr
 
 if has('nvim-0.4')
     set pumblend=20
@@ -216,7 +217,7 @@ set dictionary+=/usr/share/dict/words
 
 set langmenu=en_US
 
-set signcolumn=yes
+set signcolumn=auto
 
 set updatetime=300
 set cmdheight=1
@@ -256,7 +257,7 @@ set pumheight=25
 set pumblend=10
 
 " Wait for cursorhold to trigger
-set updatetime=750
+set updatetime=250
 set splitright
 
 " Automatically go into insert mode when entering terminal window
@@ -270,8 +271,7 @@ augroup END
 augroup easy_close
     autocmd!
     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
-    autocmd FileType help,qf nnoremap <buffer> <Esc> :q<cr>
-    autocmd FileType help,qf nnoremap <buffer> <C-c> :q<cr>
+    autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
     " Undo <cr> -> : shortcut
 augroup END
 
@@ -383,10 +383,13 @@ command! WipeReg for i in range(34,122)
 " CoC Stuff
 
 inoremap <silent><expr> <C-x><C-o> coc#refresh()
+inoremap <silent><expr> <M-space> coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
-inoremap <silent><expr> <M-space> coc#refresh()
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 
 nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
