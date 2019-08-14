@@ -2,10 +2,10 @@
     "suggest.enablePreview": true,
     "suggest.echodocSupport": true,
     "suggest.floatEnable": true,
-    "suggest.autoTrigger": "trigger",
+    "suggest.autoTrigger": "always",
     "suggest.completionItemKindLabels": {
         "method": "𝒎",
-        "function": "𝒇",
+        "function": "",
         "file": "",
         "class": "",
         "folder": "",
@@ -24,7 +24,7 @@
         "interface": "",
         "struct": "",
         "enumMember": "",
-        "default": "Δ"
+        "default": " "
     },
     "diagnostic.infoSign": "!",
     "diagnostic.hintSign": "?",
@@ -87,20 +87,6 @@
                 "lua"
             ]
         },
-        "vimls": {
-            "command": "vim-language-server",
-            "args": [
-                "--stdio"
-            ],
-            "initializationOptions": {
-                "iskeyword": "vim iskeyword option",
-                "vimruntime": "path/to/$VIMRUNTIME",
-                "runtimepath": "vim/runtime/path"
-            },
-            "filetypes": [
-                "vim"
-            ]
-        },
         "bash": {
             "command": "bash-language-server",
             "args": [
@@ -112,11 +98,6 @@
             "ignoredRootPaths": [
                 "~"
             ]
-        },
-        "latex": {
-            "command": "/usr/local/bin/texlab",
-            "ignoredRootPaths": ["~"],
-             "filetypes": ["tex", "bib", "plaintex", "context"]
         },
         "swift": {
             "command": "sourcekit-lsp",

@@ -1,12 +1,11 @@
 set nocompatible
-filetype plugin indent on
 set encoding=utf8
 set fileencoding=utf8
 
 " THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
 " set this value to where this file is.
 let g:rootDirectory='~/.config/nvim/'
-let &runtimepath.=g:rootDirectory
+exec 'set runtimepath+=' . expand(g:rootDirectory)
 
 let g:python3_host_prog = '/usr/local/bin/python3'
 
@@ -38,17 +37,6 @@ function! StatusGit()
     return ' ' . l:s . ' '
 endfunction
 
-function! Get_gutentags_status(mods) abort
-    let l:msg = ''
-    " if index(a:mods, 'ctags') >= 0
-    "    let l:msg .= '♨ '
-    "  endif
-    "  if index(a:mods, 'cscope') >= 0
-    "    let l:msg .= '♺ '
-    "  endif
-     return l:msg
-endfunction
-
 function! VimTexStatus()
     let l:msg = ''
     let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
@@ -64,16 +52,36 @@ function! VimTexStatus()
     return l:msg
 endfunction
 
+function! NearestMethodOrFunction() abort
+    let l:msg = get(b:, 'vista_nearest_method_or_function', '')
+    if empty(l:msg)
+        return ' '
+    else
+        return ': ' . l:msg . ' '
+    end
+endfunction
+
+
 function! StatusLine(current, width)
-    " LEFT SIDE
     let l:s = ''
+    " LEFT SIDE
     if a:current " Current mode
+        if &filetype=='voomtree'
+            let l:s .= crystalline#mode_color() . ' VOOM ' . crystalline#right_mode_sep('')
+            let l:s .= crystalline#right_sep('', 'Fill')
+            return l:s
+        end
+        if &filetype=='vista_kind'
+            let l:s .= crystalline#mode_color() . ' VISTA ' . crystalline#right_mode_sep('')
+            let l:s .= crystalline#right_sep('', 'Fill')
+            return l:s
+        end
         let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
     else
         let l:s .= '%#CrystallineInactive#'
     endif
     if &buftype == 'terminal'
-        let l:s .= ' %f '
+        let l:s .= ' '
     else
         let l:s .= ' %f%h%w'
                     \. '%{&mod ? "  " : ""}'
@@ -90,9 +98,9 @@ function! StatusLine(current, width)
     " RIGHT SIDE
     " Active options
     if a:current
+        let l:s .= '%{NearestMethodOrFunction()}'
         let l:s .= crystalline#left_sep('', 'Fill') . ' '
         let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
-        " let l:s .= '%{gutentags#statusline_cb(function("Get_gutentags_status"))}'
         let l:s .= '%{VimTexStatus()}'
     endif
 
@@ -110,7 +118,8 @@ function! StatusLine(current, width)
 endfunction
 function! TabLine()
     let l:vimlabel = has("nvim") ?  " NVIM " : " VIM "
-    return crystalline#bufferline(2, len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
+    return crystalline#bufferline(2, 
+                \len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
 endfunction
 
 let g:crystalline_enable_sep = 1
@@ -119,8 +128,53 @@ let g:crystalline_tabline_fn = 'TabLine'
 let g:crystalline_theme = 'molokai'
 
 
+function! FoldText()
+    let l:lpadding = &fdc
+    redir => l:signs
+    execute 'silent sign place buffer='.bufnr('%')
+    redir End
+    let l:lpadding += l:signs =~ 'id=' ? 2 : 0
 
+    if exists("+relativenumber")
+        if (&number)
+            let l:lpadding += max([&numberwidth, 
+                        \strlen(line('$'))]) + 1
+        elseif (&relativenumber)
+            let l:lpadding += max([&numberwidth, 
+                        \strlen(v:foldstart - line('w0')),
+                        \strlen(line('w$') - v:foldstart), 
+                        \strlen(v:foldstart)]) + 1
+        endif
+    else
+        if (&number)
+            let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
+        endif
+    endif
 
+    " expand tabs
+    let l:start = substitute(getline(v:foldstart), '\t',
+                \repeat(' ', &tabstop), 'g')
+    let l:end = substitute(substitute(getline(v:foldend),
+                \'\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
+
+    let l:info = ' (' . (v:foldend - v:foldstart) . ')'
+    let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
+    let l:width = winwidth(0) - l:lpadding - l:infolen
+
+    let l:separator = ' … '
+    let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
+    let l:start = strpart(l:start , 0,
+                \l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
+    let l:text = l:start . ' … ' . l:end
+
+    return l:text . repeat(' ',
+                \l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+endfunction
+set foldtext=FoldText()
+
+function! Evaluate_ftplugin_path()
+    return g:rootDirectory . "ftplugin/" . &filetype . ".vim"
+endfunction
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
 set laststatus=2 " Status bar always show
@@ -147,7 +201,7 @@ set mouse=a
 set breakindent
 set linebreak
 set backspace=indent,eol,start
-set wrap
+set nowrap
 set autoread
 set shiftwidth=4
 set tabstop=4
@@ -170,7 +224,6 @@ set wildignore+=build,lib,node_modules,public,_site,third_party
 " Ignore images and fonts
 set wildignore+=*.gif,*.jpg,*.jpeg,*.otf,*.png,*.svg,*.ttf
 " Ignore case when completing
-set modelineexpr
 
 if has('nvim-0.4')
     set pumblend=20
@@ -184,18 +237,18 @@ set diffopt+=internal,algorithm:patience,hiddenoff
 " Start scrolling slightly before the cursor reaches an edge
 set scrolloff=5
 set sidescrolloff=5
-set sidescroll=3
+set sidescroll=1
 
 set showbreak=↪\
 " set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:
 set list listchars=tab:▷⋅,trail:⋅,nbsp:░, 
 set fillchars=diff:⣿                " BOX DRAWINGS
 set fillchars+=vert:┃               " HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
-set fillchars+=fold:─
+" set fillchars=fold:─
 set fillchars=eob:\                 " Hide end of buffer ~
+set fillchars=fold:\ 
 
-
-set foldmethod=expr "indent
+set foldmethod=syntax "indent
 set foldcolumn=0
 set foldlevel=99
 set foldlevelstart=10
@@ -206,6 +259,7 @@ set diffopt+=vertical,algorithm:histogram,indent-heuristic
 set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
+" set tags=/tmp/tags;
 
 set undofile " persistant undo
 set nobackup
@@ -221,7 +275,7 @@ set signcolumn=auto
 
 set updatetime=300
 set cmdheight=1
-set noshowmode
+set noshowmode " No need for that
 set shortmess+=A      " ignore annoying swapfile messages
 set shortmess+=I      " no splash screen
 set shortmess+=O      " file-read message overwrites previous
@@ -244,9 +298,8 @@ set formatoptions+=j
 set grepprg=rg\ --vimgrep
 
 set whichwrap=b,h,l,s,<,>,[,],~
-set virtualedit=block    " allow cursor to move where there is no text in visual block mode
-" set splitbelow
-" set splitright
+set virtualedit=block    
+" allow cursor to move where there is no text in visual block mode
 
 set completeopt+=menuone
 set completeopt+=noinsert
@@ -272,7 +325,6 @@ augroup easy_close
     autocmd!
     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
-    " Undo <cr> -> : shortcut
 augroup END
 
 " ====== FUNCTIONS ========
@@ -301,6 +353,16 @@ function! ConcealToggle()
     else
         echo "Conceal OFF"
         setlocal conceallevel=0
+    endif
+endfunction
+
+function! WrapToggle()
+    if &wrap == 0
+        echo "Wrap ON"
+        setlocal wrap
+    else
+        echo "Wrap OFF"
+        setlocal nowrap
     endif
 endfunction
 
@@ -334,8 +396,12 @@ command! -nargs=? Registers call <SID>Registers(<q-args>)
 " ======= MAPPINGS ========
 " Basics
 noremap <CR> :
-noremap Q @@
+noremap Q :close<cr>
 noremap x "_x
+
+" Annoying with a trackpad
+noremap <ScrollWheelLeft> <nop>
+noremap <ScrollWheelRight> <nop>
 
 " Buffer magic
 noremap gb :bn<CR>
@@ -360,13 +426,13 @@ nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>w :Windows<CR>
 
 vnoremap . :normal .<CR>
-vnoremap @ :normal @
+vnoremap @ :normal @<CR>
 
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
 nnoremap <silent> <leader>l :call NumberToggle()<cr>
 nnoremap <silent> <leader>c :call ConcealToggle()<cr>
-noremap <silent> <leader>p :call PearTreeToggle()<cr>
+nnoremap <silent> <leader>u :call WrapToggle()<cr>
 
 " Keep selection with indention
 vnoremap > >gv
@@ -375,13 +441,14 @@ vnoremap < <gv
 " Exit term
 tnoremap <C-X> <C-\><C-n>
 
-" Eval line
-nnoremap <leader>e :exe getline(line('.'))<cr>
-command! WipeReg for i in range(34,122) 
-            \| silent! call setreg(nr2char(i), []) | endfor
+command! -nargs=0 Reload :source $MYVIMRC
+nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
+
+
+nnoremap <leader>v :Vista!!<cr>
+nnoremap <leader>t :Vista finder<cr>
 
 " CoC Stuff
-
 inoremap <silent><expr> <C-x><C-o> coc#refresh()
 inoremap <silent><expr> <M-space> coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -419,7 +486,7 @@ command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 "             \       <SID>check_back_space() ? "\<TAB>" :
 "             \           coc#refresh()
 
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " Enter as confirm completion and expand
 inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
@@ -438,3 +505,6 @@ colorscheme neomolokai
 let base16colorspace=256
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 
+
+
+" set rtp+=/Users/mikkelmadsen/.config/nvim/after

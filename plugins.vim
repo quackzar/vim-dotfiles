@@ -5,6 +5,7 @@ call plug#begin(g:rootDirectory . 'plugged/')
 " ========= GOOD LOOKING STUFF =========
 Plug 'rbong/vim-crystalline'
 Plug 'ryanoasis/vim-devicons'
+
 Plug 'mhinz/vim-startify'
 let g:startify_session_dir = g:rootDirectory . 'session/'
 let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.zshrc']
@@ -21,21 +22,25 @@ function! s:center(lines) abort
     return centered_lines
 endfunction
 
-let g:startify_custom_footer = s:center(['NEOVIM --- The Editor of the 21th Century'])
+function! GetNVimVersion()
+    redir => s
+    silent! version
+    redir END
+    return matchstr(s, 'NVIM v\zs[^\n]*')
+endfunction
+let g:startify_custom_footer = s:center(['The Editor of the 21th Century'])
 
-" let g:startify_ascii = [' ', ' ϟ ' . (has('nvim') ? 'nvim' : 'vim') . '.', ' ']
-" let g:startify_custom_header = 'map(startify#fortune#boxed() + g:startify_ascii, "repeat(\" \", 5).v:val")'
 let g:ascii = [
-    \'     ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓',
-    \'     ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒',
-    \'    ▓██  ▀█ ██▒▒███   ▒██░  ██▒ ▓██  █▒░▒██▒▓██    ▓██░',
-    \'    ▓██▒  ▐▌██▒▒▓█  ▄ ▒██   ██░  ▒██ █░░░██░▒██    ▒██ ',
-    \'    ▒██░   ▓██░░▒████▒░ ████▓▒░   ▒▀█░  ░██░▒██▒   ░██▒',
-    \'    ░ ▒░   ▒ ▒ ░░ ▒░ ░░ ▒░▒░▒░    ░ ▐░  ░▓  ░ ▒░   ░  ░',
-    \'    ░ ░░   ░ ▒░ ░ ░  ░  ░ ▒ ▒░    ░ ░░   ▒ ░░  ░      ░',
-    \'       ░   ░ ░    ░   ░ ░ ░ ▒       ░░   ▒ ░░      ░   ',
-    \'             ░    ░  ░    ░ ░        ░   ░         ░   ']
-let startify_custom_header = s:center(g:ascii) + [''] + s:center(['version 4.0-dev'])
+            \ '                                        ▟▙            ',
+            \ '                                        ▝▘            ',
+            \ '██▃▅▇█▆▖  ▗▟████▙▖   ▄████▄   ██▄  ▄██  ██  ▗▟█▆▄▄▆█▙▖',
+            \ '██▛▔ ▝██  ██▄▄▄▄██  ██▛▔▔▜██  ▝██  ██▘  ██  ██▛▜██▛▜██',
+            \ '██    ██  ██▀▀▀▀▀▘  ██▖  ▗██   ▜█▙▟█▛   ██  ██  ██  ██',
+            \ '██    ██  ▜█▙▄▄▄▟▊  ▀██▙▟██▀   ▝████▘   ██  ██  ██  ██',
+            \ '▀▀    ▀▀   ▝▀▀▀▀▀     ▀▀▀▀       ▀▀     ▀▀  ▀▀  ▀▀  ▀▀',
+            \ '',
+            \]
+let startify_custom_header = s:center(g:ascii) + [''] + s:center(['version '.GetNVimVersion()])
 
 let g:startify_list_order = [
       \ ['   Files:'], 'dir',
@@ -73,17 +78,33 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+
+let g:fzf_layout = { 'down': '~30%' }
+
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=? -complete=dir GFiles
             \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-function! s:fzf_statusline()
-  " Override statusline as you like
-  setlocal statusline=%#LineNr#\ FZF\ %#CursorColumn#\ Searching\ in\ %{getcwd()}
-endfunction
+command! CmdHist call fzf#vim#command_history({'right': '40'})
+nnoremap q: :CmdHist<CR>
 
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+command! QHist call fzf#vim#search_history({'right': '40'})
+nnoremap q/ :QHist<CR>
+
+
+" function! s:fzf_statusline()
+"   " Override statusline as you like
+"   setlocal statusline=%#CrystallineInsertMode#\ FZF\ %#CrystallineFill#\ Searching\ in\ %{getcwd()}
+" endfunction
+" autocmd! User FzfStatusLine call <SID>fzf_statusline()
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 " See hidden stuff, ignore the .git directory
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
@@ -103,7 +124,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich' " Surround replacment
 Plug 'easymotion/vim-easymotion'
 Plug 'justinmk/vim-sneak'
@@ -132,8 +153,9 @@ let g:matchup_override_vimtex = 1
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 50
 
+Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
-Plug 'jeetsukumaran/vim-indentwise'
+Plug 'jeetsukumaran/vim-indentwise' " Motions based on indention
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -147,21 +169,28 @@ let g:echodoc#type = 'echo'
 
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
+let g:vista_default_executive = 'coc'
 let g:vista_executive_for = {
-      \ 'go': 'ctags',
+      \ 'go': 'coc',
       \ 'javascript': 'coc',
       \ 'typescript': 'coc',
       \ 'javascript.jsx': 'coc',
       \ 'python': 'coc',
       \ }
+let g:vista#renderer#enable_icon = 1
+let g:vista_fzf_preview = ['right:50%']
+let g:vista_echo_cursor_strategy = 'both'
+let g:vista_sidebar_position='vertical topleft'
+let g:vista_disable_statusline=1
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
-" Plug 'ludovicchabant/vim-gutentags'
-" let g:gutentags_cache_dir = '~/.tags'
-" let g:gutentags_project_root = ['Makefile', 'makefile', '.git']
-" let g:gutentags_exclude_filetypes = ['snippets']
-" let g:gutentags_trace = 0
+Plug 'ludovicchabant/vim-gutentags'
+let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
+let g:gutentags_cache_dir = '/tmp/tags/'
+let g:gutentags_project_root = ['Makefile', 'makefile',
+            \'.git', 'readme.md', 'readme.txt']
 
 " SNIPPETS
 Plug 'honza/vim-snippets'
@@ -173,6 +202,7 @@ let g:SuperTabCrMapping                = 0
 let g:UltiSnipsExpandTrigger     = '<tab>'
 let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
 let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
+
 
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
@@ -208,10 +238,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 let g:limelight_default_coefficient = 0.7
 let g:limelight_paragraph_span = 1
+command! -nargs=0 ReadMode Goyo | set laststatus=0 showtabline=0 signcolumn=no showmode
+command! -nargs=0 CodeMode Goyo! | set laststatus=2 showtabline=2 signcolumn=yes noshowmode
 
 Plug 'tpope/vim-abolish' " like substitute
 Plug 'reedes/vim-textobj-sentence' " better sentence detection
-Plug 'reedes/vim-litecorrect' " autocorrection!
+Plug 'reedes/vim-litecorrect' " autocorrection! Fixes stupid common mistakes
 augroup litecorrect
   autocmd!
   autocmd FileType markdown call litecorrect#init()
@@ -223,7 +255,6 @@ Plug 'reedes/vim-pencil'
 Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
-nnoremap ,v :VoomToggle<cr>
 
 
 " ======== LATEX ========
@@ -290,4 +321,4 @@ let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
 
 call plug#end()
-filetype plugin indent on    " required
+" filetype plugin indent on    " required

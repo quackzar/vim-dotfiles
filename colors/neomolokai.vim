@@ -1,9 +1,10 @@
 " NEO MONOKAI
 " A mix between molokai and vim-molokai-tasty
-
+" with support for some modern features and such
+" and also CoC
 hi clear
 if exists("syntax_on")
-  syntax reset
+    syntax reset
 end
 
 let g:colors_name="neomolokai"
@@ -55,27 +56,27 @@ let s:empty = {}
 
 " group, fg, bg, style, special
 function! Highlight(group, fg,...)
-  let thisfg = a:fg
-  let thisbg = get(a:, 1, s:charcoal)
-  let style = get(a:, 2, s:none)
-  let special = get(a:, 3, s:none)
-  if (thisfg != s:empty)
-    exec "hi " . a:group
-          \ . " ctermfg=" . thisfg["cterm"]
-          \ . " ctermbg=" . thisbg["cterm"]
-          \ . " cterm=" .   style["cterm"]
-          \ . " guifg=" .   thisfg["gui"]
-          \ . " guibg=" .   thisbg["gui"]
-          \ . " gui="   .   style["gui"]
-          \ . " guisp=" .   special["gui"]
-  else
-    exec "hi " . a:group
-          \ . " ctermbg=" . thisbg["cterm"]
-          \ . " cterm=" .   style["cterm"]
-          \ . " guibg=" .   thisbg["gui"]
-          \ . " gui="   .   style["gui"]
-          \ . " guisp=" .   special["gui"]
-  end
+    let thisfg = a:fg
+    let thisbg = get(a:, 1, s:charcoal)
+    let style = get(a:, 2, s:none)
+    let special = get(a:, 3, s:none)
+    if (thisfg != s:empty)
+        exec "hi " . a:group
+                    \ . " ctermfg=" . thisfg["cterm"]
+                    \ . " ctermbg=" . thisbg["cterm"]
+                    \ . " cterm=" .   style["cterm"]
+                    \ . " guifg=" .   thisfg["gui"]
+                    \ . " guibg=" .   thisbg["gui"]
+                    \ . " gui="   .   style["gui"]
+                    \ . " guisp=" .   special["gui"]
+    else
+        exec "hi " . a:group
+                    \ . " ctermbg=" . thisbg["cterm"]
+                    \ . " cterm=" .   style["cterm"]
+                    \ . " guibg=" .   thisbg["gui"]
+                    \ . " gui="   .   style["gui"]
+                    \ . " guisp=" .   special["gui"]
+    end
 endfunction
 
 
@@ -105,10 +106,10 @@ call Highlight("Cursor", s:charcoal, s:cyan, s:none)
 call Highlight("CursorLine", s:none, s:dark_grey, s:none)
 
 " Diff and stuff
-call Highlight("DiffChange", s:sea_blue, s:columns_bg, s:none)
+call Highlight("DiffChange", s:light_sea_blue, s:columns_bg, s:none)
 call Highlight("DiffText", s:light_sea_blue, s:columns_bg, s:none)
-call Highlight("DiffDelete", s:dark_red, s:columns_bg, s:none)
-call Highlight("DiffAdd", s:dark_green, s:columns_bg, s:none)
+call Highlight("DiffDelete", s:magenta, s:columns_bg, s:none)
+call Highlight("DiffAdd", s:lime, s:columns_bg, s:none)
 
 " Errors and Spelling
 call Highlight("ErrorBg", s:danger, s:white, s:none)
@@ -219,3 +220,6 @@ call Highlight("CocErrorVirtualText", s:dark_red, s:none, s:italic)
 call Highlight("CocWarningVirtualText", s:orange, s:none, s:italic)
 call Highlight("CocHintVirtualText", s:lime, s:none, s:italic)
 call Highlight("CocInfoVirtualText", s:grey, s:none, s:italic)
+
+hi! link vimSet PreProc
+hi! link vimIsCommand Statement
