@@ -2,7 +2,7 @@
 " Keymaps may be omitted.
 call plug#begin(g:rootDirectory . 'plugged/')
 
-" ========= GOOD LOOKING STUFF =========
+" ========= PURE EYE-CANDY =========
 Plug 'rbong/vim-crystalline'
 Plug 'ryanoasis/vim-devicons'
 
@@ -12,7 +12,7 @@ let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.zshrc']
 let g:startify_fortune_use_unicode = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_update_oldfiles = 1
-autocmd User Startified nmap <buffer> <space> <plug>(startify-open-buffers)
+autocmd User Startified nmap <buffer> <space><space><space> <plug>(startify-open-buffers)
 autocmd User Startified nmap <buffer> <cr> :
 autocmd User Startified setlocal cursorline
 function! s:center(lines) abort
@@ -59,7 +59,7 @@ let g:startify_skiplist = [
       \ ]
 
 
-" ========== FZF & Files ============
+" ========== FZF & File Navigation ============
 Plug '/usr/local/opt/fzf'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
@@ -84,6 +84,8 @@ let g:fzf_action = {
       \ }
 
 let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_buffers_jump = 1
+
 
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -96,12 +98,16 @@ nnoremap q: :CmdHist<CR>
 command! QHist call fzf#vim#search_history({'right': '40'})
 nnoremap q/ :QHist<CR>
 
+command! -nargs=1 Spotlight call fzf#run(fzf#wrap({
+            \ 'source'  : 'mdfind -onlyin ~ <q-args>',
+            \ 'options' : '-m --prompt "Spotlight> "'
+            \ }))
 
-" function! s:fzf_statusline()
-"   " Override statusline as you like
-"   setlocal statusline=%#CrystallineInsertMode#\ FZF\ %#CrystallineFill#\ Searching\ in\ %{getcwd()}
-" endfunction
-" autocmd! User FzfStatusLine call <SID>fzf_statusline()
+command! FZFMulti call fzf#run(fzf#wrap({
+            \'source': 'rg -l',
+            \'options': ['--multi'],
+            \}))
+
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noruler
   \| autocmd BufLeave <buffer> set laststatus=2 ruler
@@ -124,30 +130,49 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
-" Plug 'tpope/vim-surround'
-Plug 'machakann/vim-sandwich' " Surround replacment
-Plug 'easymotion/vim-easymotion'
-Plug 'justinmk/vim-sneak'
-Plug 'AndrewRadev/switch.vim'
 Plug 'dylanaraps/root.vim'
+Plug 'AndrewRadev/switch.vim'
+
+Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
+
+" Plug 'easymotion/vim-easymotion'
+" map <M-f> <Plug>(easymotion-bd-f)
+" map <M-F> <Plug>(easymotion-overwin-f)
+
+" Plug 'justinmk/vim-sneak'
+" map <leader>s <Plug>Sneak_s
+" map <leader>S <Plug>Sneak_S
+" map t <Plug>Sneak_t
+" map T <Plug>Sneak_T
+" map f <Plug>Sneak_f
+" map F <Plug>Sneak_F
+" let g:sneak#label = 1
+" let g:sneak#prompt = ' '
+
+
+Plug 'unblevable/quick-scope' " Highlights the first unique character
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+
 Plug 'markonm/traces.vim'
 Plug 'Konfekt/FastFold'
+Plug 'romainl/vim-qf' " Better Quickfix
 
-Plug 'junegunn/vim-slash'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/vim-slash' " Better in buffer search
+Plug 'christoomey/vim-tmux-navigator' " Makes <C-hjkl> work between windows from tmux
 Plug 'machakann/vim-swap'
 
 Plug 'junegunn/vim-easy-align'
 Plug 'andymass/vim-matchup'
-let g:loaded_matchit = 1
+let g:loaded_watchit = 1
 let g:matchup_surround_enabled = 1
 let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_override_vimtex = 1
 
+Plug '/lfilho/cosco.vim' " commas and semicolons
+nnoremap <leader>; <Plug>(cosco-commaOrSemiColon)
 
-" More syntax highlighting
-" Plug 'sheerun/vim-polyglot'
 
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
@@ -155,7 +180,7 @@ let g:peekaboo_delay = 50
 
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
-Plug 'jeetsukumaran/vim-indentwise' " Motions based on indention
+" Plug 'jeetsukumaran/vim-indentwise' " Motions based on indention
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -177,9 +202,8 @@ let g:vista_executive_for = {
       \ 'javascript.jsx': 'coc',
       \ 'python': 'coc',
       \ }
-let g:vista#renderer#enable_icon = 1
-let g:vista_fzf_preview = ['right:50%']
-let g:vista_echo_cursor_strategy = 'both'
+let g:vista_fzf_preview = ['right:40%']
+let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
 let g:vista_disable_statusline=1
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
@@ -196,13 +220,10 @@ let g:gutentags_project_root = ['Makefile', 'makefile',
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabCrMapping                = 0
-" let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
+let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
 let g:UltiSnipsExpandTrigger     = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<M-tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
-
 
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
@@ -219,8 +240,6 @@ func! ActionMenuCodeActions() abort
     call actionmenu#open(l:menu_items,
                 \'ActionMenuCodeActionsCallback')
 endfunc
-
-
 func! ActionMenuCodeActionsCallback(index, item) abort
     if a:index >= 0
         let l:selected_code_action = s:code_actions[a:index]
@@ -254,6 +273,7 @@ Plug 'reedes/vim-pencil'
 
 Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"
+let g:voom_tab_key = "<M-tab>"
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 
 
@@ -262,6 +282,7 @@ Plug 'lervag/vimtex'
 " TEX SETTINGS
 let g:tex_flavor = "latex"
 let g:tex_comment_nospell=1
+let g:vimtex_latexmk_progname = 'nvr'
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_compiler_latexmk = {
     \ 'options' : [
@@ -302,23 +323,33 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'keith/swift.vim'
 Plug 'kentaroi/ultisnips-swift'
 
+" ======= R =======
+Plug 'jalvesaq/Nvim-R' " R IDE
+Plug 'chrisbra/csv.vim'
+
+" ======= OCAML ======
+Plug 'ELLIOTTCABLE/vim-menhir'
+
 " ======== GO ======
-Plug 'fatih/vim-go'
-" no mapping, we have CoC
-let g:go_code_completion_enabled = 0
-let g:go_def_mapping_enabled = 0
-let g:go_doc_keywordprg_enabled = 0
-"  more colors
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_auto_sameids = 1
-let g:go_fmt_command = "goimports"
+Plug 'arp242/gopher.vim'
+autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+
+
+" Plug 'fatih/vim-go'
+" " no mapping, we have CoC
+" let g:go_code_completion_enabled = 0
+" let g:go_def_mapping_enabled = 0
+" let g:go_doc_keywordprg_enabled = 0
+" "  more colors
+" let g:go_highlight_build_constraints = 1
+" let g:go_highlight_extra_types = 1
+" let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+" let g:go_highlight_operators = 1
+" let g:go_highlight_structs = 1
+" let g:go_highlight_types = 1
+" let g:go_auto_sameids = 1
+" let g:go_fmt_command = "goimports"
 
 call plug#end()
-" filetype plugin indent on    " required

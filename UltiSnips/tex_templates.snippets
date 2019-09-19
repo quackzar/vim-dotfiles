@@ -39,11 +39,10 @@ snippet templ-tikz "Template: standalone Tikz figure" b
 endsnippet
 
 snippet templ-handin "Template: standard handin document" b
-% vim: set spelllang=${6:da} :
 \documentclass[a4paper, 10pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[${5:danish}]{babel}
-\usepackage{clrscode3e}
+\usepackage[final]{microtype}
+\usepackage[${5:english}]{babel}
 \usepackage{listings}
 \usepackage[hidelinks]{hyperref}
 \usepackage{amsthm}
@@ -58,7 +57,7 @@ snippet templ-handin "Template: standard handin document" b
 \title{Handin ${1:XVI} \\\\
 	\Large ${2:Problem Title}\\\\
 	\normalsize (${3:Book Reference})}
-\author{${4:Mikkel Wienberg Madsen}}
+\author{${4:Mikkel Wienberg Madsen\\ 201607169}}
 \date{\today}
 
 \begin{document}

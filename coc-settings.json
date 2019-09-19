@@ -2,39 +2,42 @@
     "suggest.enablePreview": true,
     "suggest.echodocSupport": true,
     "suggest.floatEnable": true,
-    "suggest.autoTrigger": "always",
+    "suggest.autoTrigger": "trigger",
+    "suggest.noselect": true,
     "suggest.completionItemKindLabels": {
         "method": "𝒎",
         "function": "",
-        "file": "",
+        "file": "",
         "class": "",
         "folder": "",
         "text": "𝐓",
         "snippet": "⚡︎",
-        "keyword": "",
+        "keyword": "",
         "operator": "",
-        "variable": "𝒱",
-        "color": "",
-        "value": "",
-        "module": "",
+        "variable": "",
+        "color": "",
+        "value": "",
+        "module": "",
         "reference": "",
         "enum": "✦",
-        "constant": "𝒞",
-        "unit": "𝒰",
+        "constant": "",
+        "unit": "",
         "interface": "",
         "struct": "",
-        "enumMember": "",
+        "enumMember": "﬷",
         "default": " "
     },
-    "diagnostic.infoSign": "!",
-    "diagnostic.hintSign": "?",
-    "diagnostic.warningSign": "●",
-    "diagnostic.errorSign": "×",
+    "suggest.snippetIndicator": "",
+    "diagnostic.infoSign": "",
+    "diagnostic.hintSign": "",
+    "diagnostic.warningSign": "",
+    "diagnostic.errorSign": "",
     "diagnostic.highlightOffset": 1000,
     "diagnostic.virtualText": true,
+    "diagnostic.refreshAfterSave": true,
     "diagnostic.checkCurrentLine": true,
     "codeLens.enable": true,
-    "signature.target": "echo",
+    "signature.target": "float",
     "coc.preferences.hoverTarget": "float",
     "git.realtimeGutters": false,
     "git.addedSign.text": "▎",
@@ -42,12 +45,18 @@
     "git.removedSign.text": "◢",
     "git.topRemovedSign.text": "◥",
     "git.changeRemovedSign.text": "◢",
+    "git.addedSign.hlGroup": "DiffAddGutter",
+    "git.changedSign.hlGroup": "DiffChangeGutter",
+    "git.removedSign.hlGroup": "DiffDeleteGutter",
+    "git.topRemovedSign.hlGroup": "DiffDeleteGutter",
+    "git.changeRemovedSign.hlGroup": "DiffChangeGutter",
     "list.normalMappings": {
         "<C-c>": "do:exit"
     },
     "list.insertMappings": {
         "<C-c>": "do:exit"
     },
+    "tabnine.disable_filetypes": ["tex", "markdown", "json"],
     "languageserver": {
         "cquery": {
             "command": "cquery",
@@ -77,10 +86,6 @@
                 "context"
             ]
         },
-        "golang": {
-            "command": "gopls",
-            "filetypes": [ "go" ]
-        },
         "lua": {
             "command": "lua-lsp",
             "filetypes": [
@@ -99,9 +104,14 @@
                 "~"
             ]
         },
+        "ocaml": {
+            "command": "ocaml-language-server",
+            "args": ["--stdio"],
+            "filetypes": ["ocaml", "reason"]
+        },
         "swift": {
             "command": "sourcekit-lsp",
-            "filetypes": ["swift"],
+            "filetypes": ["swift"]
         },
         "python": {
             "command": "python3",

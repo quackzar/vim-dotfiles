@@ -1,6 +1,6 @@
-set nocompatible
+
 set encoding=utf8
-set fileencoding=utf8
+setglobal fileencoding=utf8
 
 " THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
 " set this value to where this file is.
@@ -8,6 +8,8 @@ let g:rootDirectory='~/.config/nvim/'
 exec 'set runtimepath+=' . expand(g:rootDirectory)
 
 let g:python3_host_prog = '/usr/local/bin/python3'
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+exec "set rtp+=" . g:opamshare . "/merlin/vim/"
 
 " Because I can't concat with source
 " Load the plugins
@@ -62,6 +64,7 @@ function! NearestMethodOrFunction() abort
 endfunction
 
 
+
 function! StatusLine(current, width)
     let l:s = ''
     " LEFT SIDE
@@ -81,7 +84,7 @@ function! StatusLine(current, width)
         let l:s .= '%#CrystallineInactive#'
     endif
     if &buftype == 'terminal'
-        let l:s .= ' '
+        let l:s .= '  '
     else
         let l:s .= ' %f%h%w'
                     \. '%{&mod ? "  " : ""}'
@@ -94,11 +97,10 @@ function! StatusLine(current, width)
                     \. ' %{StatusGit()} '
                     \. '%{StatusDiagnostic()}'
     endif
-    let l:s .= '%='
-    " RIGHT SIDE
-    " Active options
+    let l:s .= '%=' " RIGHT SIDE
     if a:current
         let l:s .= '%{NearestMethodOrFunction()}'
+        " Active options
         let l:s .= crystalline#left_sep('', 'Fill') . ' '
         let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
         let l:s .= '%{VimTexStatus()}'
@@ -117,9 +119,10 @@ function! StatusLine(current, width)
     return l:s
 endfunction
 function! TabLine()
-    let l:vimlabel = has("nvim") ?  " NVIM " : " VIM "
-    return crystalline#bufferline(2, 
-                \len(l:vimlabel), 1) . '%=%#CrystallineTab# ' . l:vimlabel
+    let l:str = substitute(getcwd(), $HOME, '~', 'g')
+    return crystalline#bufferline(2, len(l:str)+2, 1)
+                \. '%='.crystalline#left_sep('TabType','TabFill')
+                \. l:str . ' '
 endfunction
 
 let g:crystalline_enable_sep = 1
@@ -216,13 +219,12 @@ set smartcase
 set wildmenu
 set wildmode=full
 set wildoptions=tagfile "pum is cool though
-set wildignore+=*.o,*.obj,*.pyc
-" Ignore source control
-set wildignore+=.git
-" Ignore lib/ dirs since the contain compiled libraries typically
+set wildignore+=*.o,*.obj,*.pyc,.git,.svn,*.a,*.class,*.mo,*.la,*.so
+set wildignore+=*.ttf,\*.obj,*.swp,*.jpg,*.pdf,*.png,*.xpm,*.gif,*.jpeg
 set wildignore+=build,lib,node_modules,public,_site,third_party
+set suffixes+=.old
+" Ignore lib/ dirs since the contain compiled libraries typically
 " Ignore images and fonts
-set wildignore+=*.gif,*.jpg,*.jpeg,*.otf,*.png,*.svg,*.ttf
 " Ignore case when completing
 
 if has('nvim-0.4')
@@ -255,7 +257,7 @@ set foldlevelstart=10
 
 set diffopt+=vertical,algorithm:histogram,indent-heuristic
 
-" All these gets deleted by the os
+" All these gets deleted by the os eventually
 set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
@@ -289,7 +291,7 @@ set inccommand=nosplit " realtime changes for ex-commands
 set shortmess+=c
 
 set showcmd
-let mapleader = ","
+let mapleader = " "
 
 set conceallevel=2
 set concealcursor= "ni
@@ -298,9 +300,10 @@ set formatoptions+=j
 set grepprg=rg\ --vimgrep
 
 set whichwrap=b,h,l,s,<,>,[,],~
-set virtualedit=block    
+set virtualedit=block
 " allow cursor to move where there is no text in visual block mode
 
+set modelineexpr
 set completeopt+=menuone
 set completeopt+=noinsert
 set completeopt-=preview
@@ -313,11 +316,8 @@ set pumblend=10
 set updatetime=250
 set splitright
 
-" Automatically go into insert mode when entering terminal window
-augroup terminal_insert
-    autocmd!
-    autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-augroup END
+autocmd TermOpen * startinsert
+autocmd BufEnter * if &buftype == 'terminal' | silent! normal i | endif
 
 
 " Close quickfix with q, esc or C-C
@@ -326,6 +326,10 @@ augroup easy_close
     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
 augroup END
+
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+
 
 " ====== FUNCTIONS ========
 
@@ -397,7 +401,10 @@ command! -nargs=? Registers call <SID>Registers(<q-args>)
 " Basics
 noremap <CR> :
 noremap Q :close<cr>
+noremap <leader>Q :bd<cr>
 noremap x "_x
+
+
 
 " Annoying with a trackpad
 noremap <ScrollWheelLeft> <nop>
@@ -409,12 +416,8 @@ noremap gB :bp<CR>
 noremap <leader><leader>bd :Bclose<cr>
 
 " No highlighting
-noremap <silent> <leader><space> :noh<CR> 
-
-
-" Motion
-map  F <Plug>(easymotion-bd-f)
-nmap F <Plug>(easymotion-overwin-f)
+noremap <silent> <leader><space> :noh<CR>
+noremap <silent> <space><space><space> :noh<CR>
 
 " Alignment
 xmap ga <Plug>(EasyAlign)
@@ -438,21 +441,44 @@ nnoremap <silent> <leader>u :call WrapToggle()<cr>
 vnoremap > >gv
 vnoremap < <gv
 
-" Exit term
+" Terminal magic
 tnoremap <C-X> <C-\><C-n>
+tmap <C-j> <C-\><C-n><C-j>
+tmap <C-k> <C-\><C-n><C-k>
+tmap <C-h> <C-\><C-n><C-h>
+tmap <C-l> <C-\><C-n><C-l>
 
 command! -nargs=0 Reload :source $MYVIMRC
 nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
 
+" Vista stuff, VOoM replaces Vista bindings for LaTeX and Markdown
+nnoremap <silent> <leader>v :Vista!!<cr>
+nnoremap <silent> <leader>t :Vista finder coc<cr>
+nnoremap <silent> <M-tab> :Vista focus<cr>
 
-nnoremap <leader>v :Vista!!<cr>
-nnoremap <leader>t :Vista finder<cr>
+" let g:ulti_expand_or_jump_res = 0 "default value, just set once
+" function! Ulti_ExpandOrJump_and_getRes()
+"     call UltiSnips#ExpandSnippetOrJump()
+"     return g:ulti_expand_or_jump_res
+" endfunction
+
+" inoremap <silent> <TAB> <C-g>u<C-R>=(Ulti_ExpandOrJump_and_getRes() > 0) ?
+"             \"" :
+"             \pumvisible() ? coc#_select_confirm() :"\<TAB>"<cr>
+
+
+" Enter as confirm completion and expand
+" inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " CoC Stuff
 inoremap <silent><expr> <C-x><C-o> coc#refresh()
-inoremap <silent><expr> <M-space> coc#refresh()
+inoremap <silent><expr> <M-space> 
+            \pumvisible() ? "\<C-y>" : coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -466,8 +492,6 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>? <Plug>(coc-diagnostic-info)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-let g:coc_snippet_next = '<M-j>'
-let g:coc_snippet_prev = '<M-k>'
 
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -475,21 +499,10 @@ command! -nargs=0 Pickcolor :call CocAction('pickColor')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 command! -bar -nargs=0 Config tabnew|
             \exe 'tcd '.g:rootDirectory|
-            \exe 'e '  .g:rootDirectory . 'init.vim'|
-            \exe 'vs ' .g:rootDirectory . 'plugins.vim'
+            \exe 'e '  .g:rootDirectory . 'plugins.vim'|
+            \exe 'e '  .g:rootDirectory . 'init.vim'
 command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
-
-" Tab as expand, jump and other.
-" inoremap <silent><expr> <TAB>
-"             \ pumvisible() ? coc#_select_confirm() :
-"             \   coc#expandableOrJumpable() ? UltiSnips#ExpandSnippetOrJump() :
-"             \       <SID>check_back_space() ? "\<TAB>" :
-"             \           coc#refresh()
-
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-
-" Enter as confirm completion and expand
-inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 
 " Completion

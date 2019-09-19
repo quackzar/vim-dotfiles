@@ -3,3 +3,4 @@ setlocal foldexpr=vimtex#fold#level(v:lnum)
 setlocal foldtext=vimtex#fold#text()
 setlocal wrap
 nnoremap <buffer> <leader>v :VoomToggle<cr>
+" nnoremap <silent><M-tab> :Vista focus<cr>

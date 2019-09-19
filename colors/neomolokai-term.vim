@@ -10,49 +10,50 @@ end
 let g:colors_name="neomolokai"
 
 " Main colors
-let s:yellow         = "#ffff87"
-let s:purple         = "#af87ff"
-let s:lime           = "#A4E400"
-let s:cyan           = "#62D8F1"
-let s:magenta        = "#F92672"
-let s:orange         = "#FF9700"
-
-
+let s:yellow = { "cterm": 228, "gui": "#ffff87" }
+let s:purple = { "cterm": 141, "gui": "#af87ff" }
+let s:lime = { "cterm": 148, "gui": "#A4E400" }
+let s:cyan = { "cterm": 81, "gui": "#62D8F1" }
+let s:magenta = { "cterm": 197, "gui": "#F92672" }
+let s:orange = { "cterm": 208, "gui": "#FF9700" }
 
 " Background colors
-let s:white          = "#ffffff"
-let s:light_grey     = "#bcbcbc"
-let s:grey           = "#808080"
-let s:dark_grey      = "#5f5f5f"
-let s:darker_grey    = "#403D3D"
-let s:light_charcoal = "#292929"
-let s:charcoal       = "#1B1D1E"
-let s:dark_charcoal  = "#0E0E0E"
+let s:white = { "cterm": 231, "gui": "#ffffff" }
+let s:light_grey = { "cterm": 250, "gui": "#bcbcbc" }
+let s:grey = { "cterm": 245, "gui": "#808080" }
+let s:dark_grey = { "cterm": 59, "gui": "#5f5f5f" }
+let s:darker_grey = { "cterm": 238, "gui": "#403D3D" }
+let s:light_charcoal = { "cterm": 238, "gui": "#292929" }
+let s:charcoal = { "cterm": 235, "gui": "#1B1D1E" }
+let s:dark_charcoal = { "cterm": 235, "gui": "#0E0E0E" }
 
-let s:columns_bg     = "#232526"
-let s:columns_fg     = "#465457"
+let s:columns_bg = { "cterm": 0, "gui": "#232526"}
+let s:columns_fg = { "cterm": 0, "gui": "#465457"}
 
 
 " Special colors
-let s:danger         = "#ff005f"
-let s:olive          = "#5f8700"
-let s:dark_red       = "#870000"
-let s:blood_red      = "#5f0000"
-let s:dark_green     = "#005f00"
-let s:light_sea_blue = "#0087ff"
-let s:sea_blue       = "#005faf"
-let s:dark_sea_blue  = "#11243d"
+let s:danger = { "cterm": 197, "gui": "#ff005f" }
+let s:olive = { "cterm": 64, "gui": "#5f8700" }
+let s:dark_red = { "cterm": 88, "gui": "#870000" }
+let s:blood_red = { "cterm": 52, "gui": "#5f0000" }
+let s:dark_green = { "cterm": 22, "gui": "#005f00" }
+let s:light_sea_blue = { "cterm": 33, "gui": "#0087ff" }
+let s:sea_blue = { "cterm": 25, "gui": "#005faf" }
 
 " Styles
-let s:none           = "NONE"
-let s:bold = "bold"
-let s:italic = "italic"
-let s:underline = "underline"
+let s:none = { "cterm": "NONE", "gui": "NONE" }
+let s:bold = { "cterm": "bold", "gui": "bold" }
+let s:italic = { "cterm": "italic", "gui": "italic" }
+let s:underline = { "cterm": "underline", "gui": "underline" }
+let s:bold_underline = { "cterm": "bold,underline", "gui": "bold,underline" }
+let s:italic_underline = { "cterm": "italic,underline", "gui": "italic,underline" }
+let s:bold_italic = { "cterm": "italic,bold", "gui": "italic,bold"}
 
-let s:undercurl = "undercurl"
+
+let s:undercurl = { "cterm": "undercurl", "gui": "undercurl"}
 
 
-let s:empty = ""
+let s:empty = {}
 
 " group, fg, bg, style, special
 function! Highlight(group, fg,...)
@@ -62,28 +63,33 @@ function! Highlight(group, fg,...)
     let special = get(a:, 3, s:none)
     if (thisfg != s:empty)
         exec "hi " . a:group
-                    \ . " guifg=" .   thisfg
-                    \ . " guibg=" .   thisbg
-                    \ . " gui="   .   style
-                    \ . " guisp=" .   special
+                    \ . " ctermfg=" . thisfg["cterm"]
+                    \ . " ctermbg=" . thisbg["cterm"]
+                    \ . " cterm=" .   style["cterm"]
+                    \ . " guifg=" .   thisfg["gui"]
+                    \ . " guibg=" .   thisbg["gui"]
+                    \ . " gui="   .   style["gui"]
+                    \ . " guisp=" .   special["gui"]
     else
         exec "hi " . a:group
-                    \ . " guibg=" .   thisbg
-                    \ . " gui="   .   style
-                    \ . " guisp=" .   special
+                    \ . " ctermbg=" . thisbg["cterm"]
+                    \ . " cterm=" .   style["cterm"]
+                    \ . " guibg=" .   thisbg["gui"]
+                    \ . " gui="   .   style["gui"]
+                    \ . " guisp=" .   special["gui"]
     end
 endfunction
 
 
 " Terminal colors
-let g:terminal_color_0 = s:dark_charcoal
-let g:terminal_color_1 = s:magenta
-let g:terminal_color_2 = s:lime
-let g:terminal_color_3 = s:orange
-let g:terminal_color_4 = s:purple
-let g:terminal_color_5 = s:magenta
-let g:terminal_color_6 = s:cyan
-let g:terminal_color_7 = s:white
+let g:terminal_color_0 = s:dark_charcoal["gui"]
+let g:terminal_color_1 = s:magenta["gui"]
+let g:terminal_color_2 = s:lime["gui"]
+let g:terminal_color_3 = s:orange["gui"]
+let g:terminal_color_4 = s:purple["gui"]
+let g:terminal_color_5 = s:magenta["gui"]
+let g:terminal_color_6 = s:cyan["gui"]
+let g:terminal_color_7 = s:white["gui"]
 
 call Highlight("TermColor0", s:dark_charcoal, s:dark_charcoal)
 call Highlight("TermColor1", s:magenta, s:magenta)
@@ -102,15 +108,10 @@ call Highlight("Cursor", s:charcoal, s:cyan, s:none)
 call Highlight("CursorLine", s:none, s:dark_grey, s:none)
 
 " Diff and stuff
-call Highlight("DiffChange", s:empty, s:dark_sea_blue)
-call Highlight("DiffText", s:empty, s:sea_blue)
-call Highlight("DiffDelete", s:empty, s:dark_red)
-call Highlight("DiffAdd", s:empty, s:dark_green)
-" Gutter
-call Highlight("DiffChangeGutter", s:light_sea_blue, s:columns_bg, s:none)
-call Highlight("DiffDeleteGutter", s:magenta, s:columns_bg, s:none)
-call Highlight("DiffAddGutter", s:lime, s:columns_bg, s:none)
-
+call Highlight("DiffChange", s:light_sea_blue, s:columns_bg, s:none)
+call Highlight("DiffText", s:light_sea_blue, s:columns_bg, s:none)
+call Highlight("DiffDelete", s:magenta, s:columns_bg, s:none)
+call Highlight("DiffAdd", s:lime, s:columns_bg, s:none)
 
 " Errors and Spelling
 call Highlight("ErrorBg", s:danger, s:white, s:none)
@@ -127,10 +128,6 @@ call Highlight("CursorColumn", s:none, s:light_charcoal)
 call Highlight("ColorColumn", s:columns_fg, s:columns_bg)
 call Highlight("LineNr", s:columns_fg, s:columns_bg)
 call Highlight("SignColumn", s:grey, s:columns_bg)
-call Highlight("FoldColumn", s:lime, s:columns_bg)
-
-call Highlight("Folded", s:grey)
-
 call Highlight("CursorLineNR", s:yellow)
 
 call Highlight("Type", s:cyan, s:none, s:none)
@@ -147,7 +144,7 @@ call Highlight("TabLineSel", s:none, s:charcoal, s:bold)
 call Highlight("Delimiter", s:grey, s:none, s:none)
 call Highlight("MatchParen", s:darker_grey, s:orange, s:bold)
 
-call Highlight("Exception", s:magenta, s:none, s:bold .",". s:italic)
+call Highlight("Exception", s:magenta, s:none, s:bold_italic)
 call Highlight("Include", s:magenta, s:none, s:none)
 
 call Highlight("Title", s:orange, s:none, s:bold)
@@ -162,8 +159,8 @@ call Highlight("Operator", s:magenta)
 call Highlight("Macro", s:purple)
 
 call Highlight("SpecialKey", s:dark_grey, s:darker_grey, s:none)
-call Highlight("IncSearch", s:white, s:purple, s:bold .",". s:underline)
-call Highlight("Search", s:white, s:purple, s:bold .",". s:underline)
+call Highlight("IncSearch", s:white, s:purple, s:bold_underline)
+call Highlight("Search", s:white, s:purple, s:bold_underline)
 
 call Highlight("Identifier", s:orange, s:none, s:none)
 call Highlight("Question", s:cyan, s:none, s:none)
@@ -182,6 +179,7 @@ call Highlight("Character", s:purple, s:none, s:none)
 call Highlight("Float", s:purple, s:none, s:none)
 call Highlight("Number", s:purple, s:none, s:none)
 
+call Highlight("Folded", s:grey, s:charcoal, s:none)
 call Highlight("Comment", s:grey, s:none, s:none)
 
 call Highlight("Label", s:yellow, s:none, s:none)
@@ -229,6 +227,6 @@ call Highlight("Sneak", s:none, s:blood_red)
 call Highlight("SneakLabel", s:none, s:dark_red)
 
 call Highlight("QuickScopePrimary", s:none, s:none, s:underline)
-call Highlight("QuickScopeSecondary", s:none, s:none, s:italic .",". s:underline)
+call Highlight("QuickScopeSecondary", s:none, s:none, s:italic_underline)
 hi! link vimSet PreProc
 hi! link vimIsCommand Statement
