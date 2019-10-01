@@ -27,7 +27,7 @@ let s:dark_grey      = "#5f5f5f"
 let s:darker_grey    = "#403D3D"
 let s:light_charcoal = "#292929"
 let s:charcoal       = "#1B1D1E"
-let s:dark_charcoal  = "#0E0E0E"
+let s:dark_charcoal  = "#26202b"
 
 let s:columns_bg     = "#232526"
 let s:columns_fg     = "#465457"
@@ -38,6 +38,7 @@ let s:danger         = "#ff005f"
 let s:olive          = "#5f8700"
 let s:dark_red       = "#870000"
 let s:blood_red      = "#5f0000"
+let s:green          = "#34c133"
 let s:dark_green     = "#005f00"
 let s:light_sea_blue = "#0087ff"
 let s:sea_blue       = "#005faf"
@@ -74,6 +75,8 @@ function! Highlight(group, fg,...)
     end
 endfunction
 
+call Highlight("EndOfBuffer", s:charcoal, s:charcoal)
+
 
 " Terminal colors
 let g:terminal_color_0 = s:dark_charcoal
@@ -109,7 +112,7 @@ call Highlight("DiffAdd", s:empty, s:dark_green)
 " Gutter
 call Highlight("DiffChangeGutter", s:light_sea_blue, s:columns_bg, s:none)
 call Highlight("DiffDeleteGutter", s:magenta, s:columns_bg, s:none)
-call Highlight("DiffAddGutter", s:lime, s:columns_bg, s:none)
+call Highlight("DiffAddGutter", s:green, s:columns_bg, s:none)
 
 
 " Errors and Spelling
@@ -199,12 +202,13 @@ call Highlight("StatusLineNC", s:light_grey, s:columns_fg, s:none)
 
 
 " Completion menus
-call Highlight("Pmenu", s:cyan, s:dark_charcoal, s:none)
+call Highlight("Pmenu", s:orange, s:light_charcoal, s:none)
 call Highlight("PmenuSel", s:yellow, s:dark_grey, s:none)
 call Highlight("PmenuSbar", s:none, s:darker_grey, s:none)
 call Highlight("PmenuThumb", s:none, s:white, s:none)
 
 call Highlight("WildMenu", s:cyan, s:dark_charcoal)
+
 
 " Term colors
 
@@ -217,13 +221,20 @@ call Highlight("WildMenu", s:cyan, s:dark_charcoal)
 
 call Highlight("CocErrorSign", s:danger, s:columns_bg)
 call Highlight("CocWarningSign", s:orange, s:columns_bg)
-call Highlight("CocHintSign", s:lime, s:columns_bg)
+call Highlight("CocHintSign", s:sea_blue, s:columns_bg)
 call Highlight("CocInfoSign", s:grey, s:columns_bg)
 
 call Highlight("CocErrorVirtualText", s:dark_red, s:none, s:italic)
 call Highlight("CocWarningVirtualText", s:orange, s:none, s:italic)
-call Highlight("CocHintVirtualText", s:lime, s:none, s:italic)
+call Highlight("CocHintVirtualText", s:sea_blue, s:none, s:italic)
 call Highlight("CocInfoVirtualText", s:darker_grey, s:none, s:italic)
+
+call Highlight("CocErrorHighlight", s:none, s:none, s:undercurl, s:blood_red)
+call Highlight("CocWarningHighlight", s:none, s:none, s:undercurl, s:orange)
+call Highlight("CocWarningHighlight", s:none, s:none, s:undercurl, s:sea_blue)
+
+call Highlight("CocFloating", s:light_sea_blue, s:dark_charcoal)
+call Highlight("CocCodeLens", s:sea_blue, s:charcoal)
 
 call Highlight("Sneak", s:none, s:blood_red)
 call Highlight("SneakLabel", s:none, s:dark_red)

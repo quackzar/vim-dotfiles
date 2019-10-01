@@ -2,6 +2,10 @@
 set encoding=utf8
 setglobal fileencoding=utf8
 
+if &shell =~# 'fish$'
+    set shell=zsh
+endif
+
 " THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
 " set this value to where this file is.
 let g:rootDirectory='~/.config/nvim/'
@@ -14,121 +18,8 @@ exec "set rtp+=" . g:opamshare . "/merlin/vim/"
 " Because I can't concat with source
 " Load the plugins
 exec 'source ' . g:rootDirectory . 'plugins.vim'
+exec 'source ' . g:rootDirectory . 'statusline.vim'
 syntax on
-
-
-" ======== STATUS LINE ============
-function! StatusDiagnostic() abort
-    let info = get(b:, 'coc_diagnostic_info', {})
-    if empty(info) | return '' | endif
-    let msgs = []
-    if get(info, 'error', 0)
-        call add(msgs, ' ' . info['error'])
-    endif
-    if get(info, 'warning', 0)
-        call add(msgs, ' ' . info['warning'])
-    endif
-    return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-endfunction
-
-function! StatusGit()
-    let l:s = fugitive#head()
-    if l:s == ''
-        return ''
-    endif
-    return ' ' . l:s . ' '
-endfunction
-
-function! VimTexStatus()
-    let l:msg = ''
-    let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
-    if !empty(l:compiler)
-        if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
-            if get(l:compiler, 'continuous')
-                let l:msg .= ' '
-            else
-                let l:msg .= ' '
-            endif
-        endif
-    endif
-    return l:msg
-endfunction
-
-function! NearestMethodOrFunction() abort
-    let l:msg = get(b:, 'vista_nearest_method_or_function', '')
-    if empty(l:msg)
-        return ' '
-    else
-        return ': ' . l:msg . ' '
-    end
-endfunction
-
-
-
-function! StatusLine(current, width)
-    let l:s = ''
-    " LEFT SIDE
-    if a:current " Current mode
-        if &filetype=='voomtree'
-            let l:s .= crystalline#mode_color() . ' VOOM ' . crystalline#right_mode_sep('')
-            let l:s .= crystalline#right_sep('', 'Fill')
-            return l:s
-        end
-        if &filetype=='vista_kind'
-            let l:s .= crystalline#mode_color() . ' VISTA ' . crystalline#right_mode_sep('')
-            let l:s .= crystalline#right_sep('', 'Fill')
-            return l:s
-        end
-        let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
-    else
-        let l:s .= '%#CrystallineInactive#'
-    endif
-    if &buftype == 'terminal'
-        let l:s .= '  '
-    else
-        let l:s .= ' %f%h%w'
-                    \. '%{&mod ? "  " : ""}'
-                    \. '%{&readonly ? "  " : ""}'
-                    \. ' '
-    end
-    " Status and such
-    if a:current
-        let l:s .= crystalline#right_sep('', 'Fill')
-                    \. ' %{StatusGit()} '
-                    \. '%{StatusDiagnostic()}'
-    endif
-    let l:s .= '%=' " RIGHT SIDE
-    if a:current
-        let l:s .= '%{NearestMethodOrFunction()}'
-        " Active options
-        let l:s .= crystalline#left_sep('', 'Fill') . ' '
-        let l:s .= '%{&paste ?"PASTE ":""}%{&spell?"SPELL ":""}'
-        let l:s .= '%{VimTexStatus()}'
-    endif
-
-    if a:current
-        let l:s .= crystalline#left_mode_sep('')
-    endif
-    if a:width > 80 && &buftype != 'terminal'
-        let l:s .= ' %{WebDevIconsGetFileTypeSymbol()}'
-                    \. '[%{&enc}]'
-                    \. ' %{WebDevIconsGetFileFormatSymbol()} %l/%L %c%V %P '
-    else
-        let l:s .= ' '
-    endif
-    return l:s
-endfunction
-function! TabLine()
-    let l:str = substitute(getcwd(), $HOME, '~', 'g')
-    return crystalline#bufferline(2, len(l:str)+2, 1)
-                \. '%='.crystalline#left_sep('TabType','TabFill')
-                \. l:str . ' '
-endfunction
-
-let g:crystalline_enable_sep = 1
-let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_tabline_fn = 'TabLine'
-let g:crystalline_theme = 'molokai'
 
 
 function! FoldText()
@@ -186,7 +77,6 @@ if $TERM == "xterm-256color"
     set t_Co=256
 endif
 
-set secure
 
 set termguicolors " GUI colors
 
@@ -227,10 +117,6 @@ set suffixes+=.old
 " Ignore images and fonts
 " Ignore case when completing
 
-if has('nvim-0.4')
-    set pumblend=20
-endif
-
 set title
 
 set diffopt+=internal,algorithm:patience,hiddenoff
@@ -245,9 +131,8 @@ set showbreak=↪\
 " set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:
 set list listchars=tab:▷⋅,trail:⋅,nbsp:░, 
 set fillchars=diff:⣿                " BOX DRAWINGS
-set fillchars+=vert:┃               " HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
-" set fillchars=fold:─
-set fillchars=eob:\                 " Hide end of buffer ~
+set fillchars=vert:┃               " HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+set fillchars=eob:\ 
 set fillchars=fold:\ 
 
 set foldmethod=syntax "indent
@@ -310,14 +195,14 @@ set completeopt-=preview
 set complete-=i
 
 set pumheight=25
-set pumblend=10
+set pumblend=20
 
 " Wait for cursorhold to trigger
 set updatetime=250
 set splitright
 
 autocmd TermOpen * startinsert
-autocmd BufEnter * if &buftype == 'terminal' | silent! normal i | endif
+autocmd TermOpen * setlocal nonumber
 
 
 " Close quickfix with q, esc or C-C
@@ -384,19 +269,6 @@ function! s:check_back_space() abort
 endfunction
 
 
-function! s:Registers( arguments )
-    redir => l:registersOutput
-    silent! execute 'registers' a:arguments
-    redir END
-    for l:line in split(l:registersOutput, "\n")
-        if l:line !~# '^"\S\s*$'
-            echo l:line
-        endif
-    endfor
-endfunction
-
-command! -nargs=? Registers call <SID>Registers(<q-args>)
-
 " ======= MAPPINGS ========
 " Basics
 noremap <CR> :
@@ -443,10 +315,10 @@ vnoremap < <gv
 
 " Terminal magic
 tnoremap <C-X> <C-\><C-n>
-tmap <C-j> <C-\><C-n><C-j>
-tmap <C-k> <C-\><C-n><C-k>
-tmap <C-h> <C-\><C-n><C-h>
-tmap <C-l> <C-\><C-n><C-l>
+" tmap <C-j> <C-\><C-n><C-j>
+" tmap <C-k> <C-\><C-n><C-k>
+" tmap <C-h> <C-\><C-n><C-h>
+" tmap <C-l> <C-\><C-n><C-l>
 
 command! -nargs=0 Reload :source $MYVIMRC
 nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
@@ -455,20 +327,6 @@ nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
 nnoremap <silent> <leader>v :Vista!!<cr>
 nnoremap <silent> <leader>t :Vista finder coc<cr>
 nnoremap <silent> <M-tab> :Vista focus<cr>
-
-" let g:ulti_expand_or_jump_res = 0 "default value, just set once
-" function! Ulti_ExpandOrJump_and_getRes()
-"     call UltiSnips#ExpandSnippetOrJump()
-"     return g:ulti_expand_or_jump_res
-" endfunction
-
-" inoremap <silent> <TAB> <C-g>u<C-R>=(Ulti_ExpandOrJump_and_getRes() > 0) ?
-"             \"" :
-"             \pumvisible() ? coc#_select_confirm() :"\<TAB>"<cr>
-
-
-" Enter as confirm completion and expand
-" inoremap <silent><expr><cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
 
 " CoC Stuff
 inoremap <silent><expr> <C-x><C-o> coc#refresh()
@@ -479,7 +337,13 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
+nmap <silent> <C-]> <Plug>(coc-definition)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -519,5 +383,4 @@ let base16colorspace=256
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
-
-" set rtp+=/Users/mikkelmadsen/.config/nvim/after
+set secure

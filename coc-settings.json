@@ -34,7 +34,7 @@
     "diagnostic.errorSign": "",
     "diagnostic.highlightOffset": 1000,
     "diagnostic.virtualText": true,
-    "diagnostic.refreshAfterSave": true,
+    "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
     "codeLens.enable": true,
     "signature.target": "float",
@@ -57,6 +57,7 @@
         "<C-c>": "do:exit"
     },
     "tabnine.disable_filetypes": ["tex", "markdown", "json"],
+    "tabnine.priority": 80,
     "languageserver": {
         "cquery": {
             "command": "cquery",

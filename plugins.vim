@@ -65,7 +65,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 let g:fzf_colors =
     \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Normal'],
+      \ 'bg':      ['bg', 'Pmenu'],
       \ 'hl':      ['fg', 'Comment'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
       \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
@@ -108,21 +108,49 @@ command! FZFMulti call fzf#run(fzf#wrap({
             \'options': ['--multi'],
             \}))
 
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 ruler
+" autocmd! FileType fzf
+" autocmd  FileType fzf set laststatus=0 noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 " See hidden stuff, ignore the .git directory
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse'
+
+let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
+
+function! OpenFloatingWin()
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+    let opts = {
+                \ 'relative': 'editor',
+                \ 'row': height * 0.3,
+                \ 'col': col + 30,
+                \ 'width': width * 2 / 3,
+                \ 'height': height / 2
+                \ }
+    let buf = nvim_create_buf(v:false, v:true)
+    let win = nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&winhl', 'Normal:Pmenu')
+    setlocal
+                \ buftype=nofile
+                \ nobuflisted
+                \ bufhidden=hide
+                \ nonumber
+                \ norelativenumber
+                \ signcolumn=no
+endfunction
+
+
+
 Plug 'rbgrouleff/bclose.vim'
 let g:bclose_no_plugin_maps = 1
+
 Plug 'francoiscabrol/ranger.vim'
 let g:ranger_map_keys = 0
 let g:ranger_replace_netrw = 1
-
-
-
 
 " ========== DEFAULT+ =========
 Plug 'tpope/vim-obsession'
@@ -134,20 +162,6 @@ Plug 'dylanaraps/root.vim'
 Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
-
-" Plug 'easymotion/vim-easymotion'
-" map <M-f> <Plug>(easymotion-bd-f)
-" map <M-F> <Plug>(easymotion-overwin-f)
-
-" Plug 'justinmk/vim-sneak'
-" map <leader>s <Plug>Sneak_s
-" map <leader>S <Plug>Sneak_S
-" map t <Plug>Sneak_t
-" map T <Plug>Sneak_T
-" map f <Plug>Sneak_f
-" map F <Plug>Sneak_F
-" let g:sneak#label = 1
-" let g:sneak#prompt = ' '
 
 
 Plug 'unblevable/quick-scope' " Highlights the first unique character
@@ -170,7 +184,7 @@ let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_override_vimtex = 1
 
-Plug '/lfilho/cosco.vim' " commas and semicolons
+Plug 'lfilho/cosco.vim' " commas and semicolons
 nnoremap <leader>; <Plug>(cosco-commaOrSemiColon)
 
 
@@ -188,9 +202,9 @@ Plug 'gregsexton/gitv'
 
 
 " ========== BECOMING AN IDE 101 =============
-Plug 'Shougo/echodoc.vim'
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'echo'
+" Plug 'Shougo/echodoc.vim'
+" let g:echodoc#enable_at_startup = 1
+" let g:echodoc#type = 'echo'
 
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
@@ -210,20 +224,20 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
-Plug 'ludovicchabant/vim-gutentags'
-let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-let g:gutentags_cache_dir = '/tmp/tags/'
-let g:gutentags_project_root = ['Makefile', 'makefile',
-            \'.git', 'readme.md', 'readme.txt']
+" Plug 'ludovicchabant/vim-gutentags'
+" let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
+" let g:gutentags_cache_dir = '/tmp/tags/'
+" let g:gutentags_project_root = ['Makefile', 'makefile',
+"             \'.git', 'readme.md', 'readme.txt']
 
 " SNIPPETS
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
-let g:UltiSnipsExpandTrigger     = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
+" Plug 'SirVer/ultisnips'
+" let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+" let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
+" let g:UltiSnipsExpandTrigger     = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger      = '<tab>'
+" let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
 
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
@@ -251,6 +265,19 @@ nnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 xnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
 
+
+" Discovering keys
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+let g:mapleader = "\<Space>"
+let g:maplocalleader = '\'
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <silent> <localleader>      :<c-u>WhichKey '\'<CR>
+
+
+autocmd! FileType which_key
+" autocmd  FileType which_key set laststatus=0 noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'
@@ -326,6 +353,9 @@ Plug 'kentaroi/ultisnips-swift'
 " ======= R =======
 Plug 'jalvesaq/Nvim-R' " R IDE
 Plug 'chrisbra/csv.vim'
+" let R_in_buffer=0
+" let R_notmuxconf=1
+cnoreabbrev Rdoc Rhelp
 
 " ======= OCAML ======
 Plug 'ELLIOTTCABLE/vim-menhir'
