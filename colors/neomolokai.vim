@@ -9,6 +9,10 @@ end
 
 let g:colors_name="neomolokai"
 
+if !exists('g:neomolokai_inv_column')
+    let g:neomolokai_inv_column=0
+endif
+
 " Main colors
 let s:yellow         = "#ffff87"
 let s:purple         = "#af87ff"
@@ -29,7 +33,11 @@ let s:light_charcoal = "#292929"
 let s:charcoal       = "#1B1D1E"
 let s:dark_charcoal  = "#26202b"
 
-let s:columns_bg     = "#232526"
+if g:neomolokai_inv_column==1
+    let s:columns_bg = s:charcoal
+else
+    let s:columns_bg = "#232526" " default
+endif
 let s:columns_fg     = "#465457"
 
 
@@ -136,7 +144,6 @@ call Highlight("Folded", s:grey)
 
 call Highlight("CursorLineNR", s:yellow)
 
-call Highlight("Type", s:cyan, s:none, s:none)
 
 call Highlight("Visual", s:none, s:darker_grey, s:none)
 call Highlight("VisualNOS", s:empty, s:light_charcoal, s:none)
@@ -145,52 +152,69 @@ call Highlight("Whitespace", s:dark_grey, s:none, s:none)
 
 call Highlight("TabLineSel", s:none, s:charcoal, s:bold)
 
-
-" Delimeters and such
-call Highlight("Delimiter", s:grey, s:none, s:none)
-call Highlight("MatchParen", s:darker_grey, s:orange, s:bold)
-
-call Highlight("Exception", s:magenta, s:none, s:bold .",". s:italic)
-call Highlight("Include", s:magenta, s:none, s:none)
-
 call Highlight("Title", s:orange, s:none, s:bold)
-call Highlight("Special", s:cyan, s:none, s:italic)
-call Highlight("Define", s:magenta)
-call Highlight("Debug", s:magenta)
-call Highlight("Keyword", s:magenta)
-call Highlight("PreProc", s:lime)
-call Highlight("Statement", s:magenta, s:none, s:bold)
-call Highlight("Repeat", s:magenta)
-call Highlight("Operator", s:magenta)
-call Highlight("Macro", s:purple)
+
+
 
 call Highlight("SpecialKey", s:dark_grey, s:darker_grey, s:none)
 call Highlight("IncSearch", s:white, s:purple, s:bold .",". s:underline)
 call Highlight("Search", s:white, s:purple, s:bold .",". s:underline)
 
-call Highlight("Identifier", s:orange, s:none, s:none)
 call Highlight("Question", s:cyan, s:none, s:none)
-call Highlight("StorageClass", s:cyan, s:none, s:italic)
-call Highlight("Structure", s:cyan, s:none, s:none)
-
-call Highlight("Function", s:lime, s:none, s:none)
 
 
+" ------------ SYNTAX -------------
 " Constants and such
 call Highlight("Constant", s:purple, s:none, s:none)
-call Highlight("Directory", s:lime, s:none, s:none)
-call Highlight("Tag", s:purple, s:none, s:none)
 call Highlight("Boolean", s:purple, s:none, s:none)
 call Highlight("Character", s:purple, s:none, s:none)
 call Highlight("Float", s:purple, s:none, s:none)
 call Highlight("Number", s:purple, s:none, s:none)
-
-call Highlight("Comment", s:grey, s:none, s:none)
-
-call Highlight("Label", s:yellow, s:none, s:none)
 call Highlight("String", s:yellow, s:none, s:none)
 
+call Highlight("Function", s:lime, s:none, s:none)
+call Highlight("Identifier", s:orange, s:none, s:none)
+
+" Prepoc
+call Highlight("PreProc", s:lime)
+call Highlight("Macro", s:purple)
+call Highlight("Define", s:purple)
+call Highlight("Include", s:lime)
+
+
+" Statements
+call Highlight("Statement", s:magenta, s:none, s:bold)
+call Highlight("Conditional", s:magenta, s:none, s:bold)
+call Highlight("Keyword", s:magenta)
+call Highlight("Label", s:yellow, s:none, s:none)
+call Highlight("Repeat", s:magenta)
+call Highlight("Operator", s:magenta)
+call Highlight("Exception", s:magenta, s:none, s:bold .",". s:italic)
+
+" Types
+call Highlight("Type", s:cyan, s:none, s:none)
+call Highlight("StorageClass", s:cyan, s:none, s:italic)
+call Highlight("Structure", s:cyan, s:none, s:none)
+
+" Special
+call Highlight("Special", s:cyan, s:none, s:italic)
+call Highlight("Debug", s:magenta)
+
+" Delimeters and such
+call Highlight("Delimiter", s:grey, s:none, s:none)
+call Highlight("MatchParen", s:darker_grey, s:orange, s:bold)
+
+" Comments
+call Highlight("Comment", s:grey, s:none, s:none)
+
+" Misc.
+call Highlight("Tag", s:purple, s:none, s:none)
+call Highlight("Directory", s:lime, s:none, s:none)
 call Highlight("Todo", s:yellow, s:dark_grey, s:bold)
+
+
+
+" ----------- LAYOUT ----------
 call Highlight("Underlined", s:none, s:none, s:underline)
 
 " Layout
@@ -210,15 +234,7 @@ call Highlight("PmenuThumb", s:none, s:white, s:none)
 call Highlight("WildMenu", s:cyan, s:dark_charcoal)
 
 
-" Term colors
-
-
-" CoC
-" call Highlight("CocErrorHighlight", s:blood_red)
-" call Highlight("CocWarningHighlight", s:orange)
-" call Highlight("CocHintHighlight", s:lime)
-" call Highlight("CocInfoHighlight", s:grey)
-
+" -------------- COC -------------
 call Highlight("CocErrorSign", s:danger, s:columns_bg)
 call Highlight("CocWarningSign", s:orange, s:columns_bg)
 call Highlight("CocHintSign", s:sea_blue, s:columns_bg)

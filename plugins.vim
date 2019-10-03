@@ -4,6 +4,8 @@ call plug#begin(g:rootDirectory . 'plugged/')
 
 " ========= PURE EYE-CANDY =========
 Plug 'rbong/vim-crystalline'
+exec 'source ' . g:rootDirectory . 'statusline.vim'
+
 Plug 'ryanoasis/vim-devicons'
 
 Plug 'mhinz/vim-startify'

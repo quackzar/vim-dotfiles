@@ -44,7 +44,6 @@ function! NearestMethodOrFunction() abort
 endfunction
 
 
-
 function! StatusLine(current, width)
     let l:s = ''
     " LEFT SIDE

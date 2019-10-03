@@ -18,7 +18,6 @@ exec "set rtp+=" . g:opamshare . "/merlin/vim/"
 " Because I can't concat with source
 " Load the plugins
 exec 'source ' . g:rootDirectory . 'plugins.vim'
-exec 'source ' . g:rootDirectory . 'statusline.vim'
 syntax on
 
 
