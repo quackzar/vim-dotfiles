@@ -50,15 +50,85 @@
     "git.removedSign.hlGroup": "DiffDeleteGutter",
     "git.topRemovedSign.hlGroup": "DiffDeleteGutter",
     "git.changeRemovedSign.hlGroup": "DiffChangeGutter",
+    "highlight.colors.enable": false,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.width": 25,
+    "explorer.keyMappingMode": "none",
+    "explorer.keyMappings": {
+        "*": "toggleSelection",
+        "<tab>": "actionMenu",
+        "h": "shrink",
+        "l": "expand",
+        "J": [
+            "toggleSelection",
+            "normal:j"
+        ],
+        "K": [
+            "toggleSelection",
+            "normal:k"
+        ],
+        "gl": "expandRecursive",
+        "gh": "shrinkRecursive",
+        "o": "expandOrShrink",
+        "e": "open",
+        "E": "openInVsplit",
+        "t": "openInTab",
+        "<bs>": "gotoParent",
+        "y": "copyFilepath",
+        "Y": "copyFilename",
+        "c": "copyFile",
+        "x": "cutFile",
+        "p": "pasteFile",
+        "d": "delete",
+        "D": "deleteForever",
+        "a": "addFile",
+        "A": "addDirectory",
+        "r": "rename",
+        ".": "toggleHidden",
+        "R": "refresh",
+        "?": "help",
+        "q": "quit",
+        "X": "systemExecute",
+        "gd": "listDrive",
+        "f": "search",
+        "F": "searchRecursive",
+        "gf": "gotoSource:file",
+        "gb": "gotoSource:buffer",
+        "[[": "sourcePrev",
+        "]]": "sourceNext",
+        "[d": "diagnosticPrev",
+        "]d": "diagnosticNext",
+        "[c": "gitPrev",
+        "]c": "gitNext",
+        "<<": "gitStage",
+        ">>": "gitUnstage"
+    },
     "list.normalMappings": {
         "<C-c>": "do:exit"
     },
     "list.insertMappings": {
         "<C-c>": "do:exit"
     },
-    "tabnine.disable_filetypes": ["tex", "markdown", "json"],
-    "tabnine.priority": 80,
+    "go.enable": false,
+    "go.goplsOptions": {
+        "deepCompletion": true,
+        "completeUnimported": true,
+        "staticcheck": true
+    },
     "languageserver": {
+        "golang": {
+            "command": "gopls",
+            "args": [],
+            "rootPatterns": [
+                "go.mod",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "go"
+            ]
+        },
         "cquery": {
             "command": "cquery",
             "args": [
@@ -107,12 +177,19 @@
         },
         "ocaml": {
             "command": "ocaml-language-server",
-            "args": ["--stdio"],
-            "filetypes": ["ocaml", "reason"]
+            "args": [
+                "--stdio"
+            ],
+            "filetypes": [
+                "ocaml",
+                "reason"
+            ]
         },
         "swift": {
             "command": "sourcekit-lsp",
-            "filetypes": ["swift"]
+            "filetypes": [
+                "swift"
+            ]
         },
         "python": {
             "command": "python3",

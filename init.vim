@@ -1,4 +1,3 @@
-
 set encoding=utf8
 setglobal fileencoding=utf8
 
@@ -12,8 +11,8 @@ let g:rootDirectory='~/.config/nvim/'
 exec 'set runtimepath+=' . expand(g:rootDirectory)
 
 let g:python3_host_prog = '/usr/local/bin/python3'
-let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-exec "set rtp+=" . g:opamshare . "/merlin/vim/"
+" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+" exec "set rtp+=" . g:opamshare . "/merlin/vim/"
 
 " Because I can't concat with source
 " Load the plugins
@@ -30,7 +29,7 @@ function! FoldText()
 
     if exists("+relativenumber")
         if (&number)
-            let l:lpadding += max([&numberwidth, 
+            let l:lpadding += max([&numberwidth,
                         \strlen(line('$'))]) + 1
         elseif (&relativenumber)
             let l:lpadding += max([&numberwidth, 
@@ -118,7 +117,6 @@ set suffixes+=.old
 
 set title
 
-set diffopt+=internal,algorithm:patience,hiddenoff
 
 
 " Start scrolling slightly before the cursor reaches an edge
@@ -308,6 +306,8 @@ nnoremap <silent> <leader>l :call NumberToggle()<cr>
 nnoremap <silent> <leader>c :call ConcealToggle()<cr>
 nnoremap <silent> <leader>u :call WrapToggle()<cr>
 
+" nnoremap <silent> <leader>z :call FloatTerm()<cr>
+
 " Keep selection with indention
 vnoremap > >gv
 vnoremap < <gv
@@ -326,6 +326,7 @@ nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
 nnoremap <silent> <leader>v :Vista!!<cr>
 nnoremap <silent> <leader>t :Vista finder coc<cr>
 nnoremap <silent> <M-tab> :Vista focus<cr>
+nmap <leader>z :CocCommand explorer<CR>
 
 " CoC Stuff
 inoremap <silent><expr> <C-x><C-o> coc#refresh()
@@ -348,6 +349,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
 nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
 
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -366,7 +372,6 @@ command! -bar -nargs=0 Config tabnew|
             \exe 'e '  .g:rootDirectory . 'init.vim'
 command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-
 
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif

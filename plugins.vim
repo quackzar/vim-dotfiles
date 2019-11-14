@@ -5,6 +5,8 @@ call plug#begin(g:rootDirectory . 'plugged/')
 " ========= PURE EYE-CANDY =========
 Plug 'rbong/vim-crystalline'
 exec 'source ' . g:rootDirectory . 'statusline.vim'
+" Plug 'itchyny/lightline.vim'
+" exec 'source ' . g:rootDirectory . 'lightline.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
@@ -59,6 +61,9 @@ let g:startify_skiplist = [
       \ 'pack/.*/doc',
       \ '.*/vimwiki/.*'
       \ ]
+
+Plug 'norcalli/nvim-colorizer.lua'
+" lua require 'colorizer'.setup()
 
 
 " ========== FZF & File Navigation ============
@@ -118,7 +123,8 @@ command! FZFMulti call fzf#run(fzf#wrap({
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
 
 
-let $FZF_DEFAULT_OPTS = '--layout=reverse'
+" let $FZF_DEFAULT_OPTS = '--layout=reverse'
+let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
 
 let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
 
@@ -145,14 +151,8 @@ function! OpenFloatingWin()
                 \ signcolumn=no
 endfunction
 
-
-
 Plug 'rbgrouleff/bclose.vim'
 let g:bclose_no_plugin_maps = 1
-
-Plug 'francoiscabrol/ranger.vim'
-let g:ranger_map_keys = 0
-let g:ranger_replace_netrw = 1
 
 " ========== DEFAULT+ =========
 Plug 'tpope/vim-obsession'
@@ -162,13 +162,20 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'dylanaraps/root.vim'
 Plug 'AndrewRadev/switch.vim'
-
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
 
+Plug 'tpope/vim-vinegar'
+Plug 'rickhowe/diffchar.vim'
 
-Plug 'unblevable/quick-scope' " Highlights the first unique character
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
+" Plug 'unblevable/quick-scope' " Highlights the first unique character
+" let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+" Plug 'rhysd/clever-f.vim'
+Plug 'justinmk/vim-sneak'
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
 
 Plug 'markonm/traces.vim'
 Plug 'Konfekt/FastFold'
@@ -176,6 +183,7 @@ Plug 'romainl/vim-qf' " Better Quickfix
 
 Plug 'junegunn/vim-slash' " Better in buffer search
 Plug 'christoomey/vim-tmux-navigator' " Makes <C-hjkl> work between windows from tmux
+Plug 'benmills/vimux' " Send commands to tmux
 Plug 'machakann/vim-swap'
 
 Plug 'junegunn/vim-easy-align'
@@ -186,9 +194,6 @@ let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_override_vimtex = 1
 
-Plug 'lfilho/cosco.vim' " commas and semicolons
-nnoremap <leader>; <Plug>(cosco-commaOrSemiColon)
-
 
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
@@ -198,9 +203,25 @@ Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
 " Plug 'jeetsukumaran/vim-indentwise' " Motions based on indention
 
+
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
 Plug 'gregsexton/gitv'
+Plug 'whiteinge/diffconflicts'
+
+
+" === Because Emacs ===
+Plug 'metakirby5/codi.vim'
+" Discovering keys
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" let g:mapleader = "\<Space>"
+" let g:maplocalleader = '\'
+" nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+" vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+" nnoremap <silent> <localleader>      :<c-u>WhichKey '\'<CR>
+" autocmd! FileType which_key
+" autocmd  FileType which_key set laststatus=0 noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 
 " ========== BECOMING AN IDE 101 =============
@@ -222,6 +243,7 @@ let g:vista_fzf_preview = ['right:40%']
 let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
 let g:vista_disable_statusline=1
+let g:vista_highlight_whole_line=1
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 Plug 'kassio/neoterm'
@@ -268,18 +290,8 @@ xnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
 
 
-" Discovering keys
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-let g:mapleader = "\<Space>"
-let g:maplocalleader = '\'
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> <localleader>      :<c-u>WhichKey '\'<CR>
 
 
-autocmd! FileType which_key
-" autocmd  FileType which_key set laststatus=0 noruler
-"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
 
 " ======== WEIRD READING/WRITING STUFF ========
 Plug 'junegunn/goyo.vim'
@@ -334,7 +346,13 @@ endif
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 
 " ======== MARKDOWN ========
-Plug 'gabrielelana/vim-markdown'
+" Plug 'gabrielelana/vim-markdown'
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+
 if has('macunix')
     Plug 'junegunn/vim-xmark', { 'do': 'make' }
 endif
@@ -364,7 +382,14 @@ Plug 'ELLIOTTCABLE/vim-menhir'
 
 " ======== GO ======
 Plug 'arp242/gopher.vim'
-autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+let g:gopher_map = 0
+let g:gopher_map = {'_nmap_prefix': '<localleader>', '_imap_prefix': '<C-g>'}
+Plug 'sebdah/vim-delve'
+" autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
+let g:delve_breakpoint_sign = '●'
+let g:delve_breakpoint_sign_highlight = 'CocHintSign'
+let g:delve_tracepoint_sign = '◆'
+let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
 
 
 " Plug 'fatih/vim-go'
@@ -383,5 +408,9 @@ autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 " let g:go_highlight_types = 1
 " let g:go_auto_sameids = 1
 " let g:go_fmt_command = "goimports"
+
+Plug 'vimwiki/vimwiki'
+
+Plug 'cespare/vim-toml'
 
 call plug#end()
