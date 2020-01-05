@@ -13,6 +13,11 @@ if !exists('g:neomolokai_inv_column')
     let g:neomolokai_inv_column=0
 endif
 
+if !exists('g:neomolokai_no_bg')
+    let g:neomolokai_no_bg=1
+end
+
+
 " Main colors
 let s:yellow         = "#ffff87"
 let s:purple         = "#af87ff"
@@ -32,14 +37,19 @@ let s:darker_grey    = "#403D3D"
 let s:light_charcoal = "#292929"
 let s:charcoal       = "#1B1D1E"
 let s:dark_charcoal  = "#26202b"
+let s:columns_fg     = "#465457"
+
+if g:neomolokai_no_bg
+    let s:background = "NONE"
+else
+    let s:background = s:charcoal
+end
 
 if g:neomolokai_inv_column==1
-    let s:columns_bg = s:charcoal
+    let s:columns_bg = s:background
 else
     let s:columns_bg = "#232526" " default
 endif
-let s:columns_fg     = "#465457"
-
 
 " Special colors
 let s:danger         = "#ff005f"
@@ -61,12 +71,13 @@ let s:underline = "underline"
 let s:undercurl = "undercurl"
 
 
+
 let s:empty = ""
 
 " group, fg, bg, style, special
 function! Highlight(group, fg,...)
     let thisfg = a:fg
-    let thisbg = get(a:, 1, s:charcoal)
+    let thisbg = get(a:, 1, s:background)
     let style = get(a:, 2, s:none)
     let special = get(a:, 3, s:none)
     if (thisfg != s:empty)
@@ -83,7 +94,7 @@ function! Highlight(group, fg,...)
     end
 endfunction
 
-call Highlight("EndOfBuffer", s:charcoal, s:charcoal)
+call Highlight("EndOfBuffer", s:charcoal, s:background)
 
 
 " Terminal colors
@@ -106,7 +117,7 @@ call Highlight("TermColor6", s:cyan, s:cyan)
 call Highlight("TermColor7", s:white, s:white)
 
 " The Basics
-call Highlight("Normal", s:white, s:charcoal, s:none)
+call Highlight("Normal", s:white, s:background, s:none)
 call Highlight("Conceal", s:none, s:none, s:none)
 
 call Highlight("Cursor", s:charcoal, s:cyan, s:none)
@@ -127,11 +138,11 @@ call Highlight("DiffAddGutter", s:green, s:columns_bg, s:none)
 call Highlight("ErrorBg", s:danger, s:white, s:none)
 call Highlight("Error", s:white, s:danger, s:none)
 call Highlight("ErrorMsg", s:white, s:danger, s:none)
-call Highlight("WarningMsg", s:white, s:danger, s:none)
-call Highlight("SpellBad", s:empty, s:charcoal, s:undercurl, s:danger)
-call Highlight("SpellRare", s:empty, s:charcoal, s:undercurl, s:white)
-call Highlight("SpellCap", s:empty, s:charcoal, s:undercurl, s:orange)
-call Highlight("SpellLocal", s:charcoal, s:charcoal, s:undercurl, s:cyan)
+call Highlight("WarningMsg", s:danger, s:background, s:none)
+call Highlight("SpellBad", s:empty, s:background, s:undercurl, s:danger)
+call Highlight("SpellRare", s:empty, s:background, s:undercurl, s:white)
+call Highlight("SpellCap", s:empty, s:background, s:undercurl, s:orange)
+call Highlight("SpellLocal", s:empty, s:background, s:undercurl, s:cyan)
 
 " Columns!
 call Highlight("CursorColumn", s:none, s:light_charcoal)
@@ -150,15 +161,15 @@ call Highlight("VisualNOS", s:empty, s:light_charcoal, s:none)
 call Highlight("TabLine", s:light_grey, s:dark_grey, s:underline)
 call Highlight("Whitespace", s:dark_grey, s:none, s:none)
 
-call Highlight("TabLineSel", s:none, s:charcoal, s:bold)
+call Highlight("TabLineSel", s:none, s:background, s:bold)
 
 call Highlight("Title", s:orange, s:none, s:bold)
 
 
 
 call Highlight("SpecialKey", s:dark_grey, s:darker_grey, s:none)
-call Highlight("IncSearch", s:white, s:purple, s:bold .",". s:underline)
-call Highlight("Search", s:white, s:purple, s:bold .",". s:underline)
+call Highlight("IncSearch", s:none, s:light_sea_blue, s:bold)
+call Highlight("Search", s:none, s:light_sea_blue, s:bold)
 
 call Highlight("Question", s:cyan, s:none, s:none)
 
@@ -167,6 +178,7 @@ call Highlight("Question", s:cyan, s:none, s:none)
 " Constants and such
 call Highlight("Constant", s:purple, s:none, s:none)
 call Highlight("Boolean", s:purple, s:none, s:none)
+
 call Highlight("Character", s:purple, s:none, s:none)
 call Highlight("Float", s:purple, s:none, s:none)
 call Highlight("Number", s:purple, s:none, s:none)
@@ -220,19 +232,21 @@ call Highlight("Underlined", s:none, s:none, s:underline)
 " Layout
 call Highlight("NonText", s:columns_fg, s:none, s:none)
 call Highlight("TabLineFill", s:none, s:darker_grey, s:none)
-call Highlight("VertSplit", s:grey, s:charcoal, s:bold)
-call Highlight("StatusLine", s:white, s:columns_fg, s:none)
+call Highlight("VertSplit", s:grey, s:background, s:bold)
+call Highlight("StatusLine", s:white, s:columns_bg, s:none)
 call Highlight("StatusLineNC", s:light_grey, s:columns_fg, s:none)
 
 
 " Completion menus
-call Highlight("Pmenu", s:orange, s:light_charcoal, s:none)
+call Highlight("Pmenu", s:orange, s:dark_charcoal, s:none)
 call Highlight("PmenuSel", s:yellow, s:dark_grey, s:none)
 call Highlight("PmenuSbar", s:none, s:darker_grey, s:none)
 call Highlight("PmenuThumb", s:none, s:white, s:none)
 
-call Highlight("WildMenu", s:cyan, s:dark_charcoal)
+call Highlight("WildMenu", s:cyan, s:columns_fg)
 
+
+call Highlight("Floating", s:grey, s:charcoal)
 
 " -------------- COC -------------
 call Highlight("CocErrorSign", s:danger, s:columns_bg)
@@ -248,11 +262,20 @@ call Highlight("CocInfoVirtualText", s:darker_grey, s:none, s:italic)
 call Highlight("CocErrorHighlight", s:none, s:none, s:none, s:blood_red)
 call Highlight("CocWarningHighlight", s:none, s:none, s:none, s:orange)
 
-call Highlight("CocFloating", s:light_sea_blue, s:dark_charcoal)
-call Highlight("CocCodeLens", s:sea_blue, s:charcoal)
+" call Highlight("CocFloating", s:light_sea_blue, s:dark_charcoal)
+hi! link CocFloating Floating
+call Highlight("CocCodeLens", s:sea_blue, s:background)
 
-call Highlight("Sneak", s:none, s:magenta)
-call Highlight("SneakLabel", s:none, s:magenta)
+" Sneak
+call Highlight("Sneak", s:none, s:purple)
+call Highlight("SneakLabel", s:none, s:purple)
+
+" QuickUI
+call Highlight("QuickBG", s:light_grey, s:columns_bg)
+call Highlight("QuickSel", s:columns_bg, s:magenta, s:bold)
+call Highlight("QuickKey", s:orange, s:none, s:bold)
+call Highlight("QuickOff", s:darker_grey, s:none)
+call Highlight("QuickHelp", s:sea_blue, s:none)
 
 call Highlight("QuickScopePrimary", s:none, s:none, s:underline)
 call Highlight("QuickScopeSecondary", s:none, s:none, s:italic .",". s:underline)

@@ -1,9 +1,8 @@
 set encoding=utf8
 setglobal fileencoding=utf8
 
-if &shell =~# 'fish$'
-    set shell=zsh
-endif
+set shell=/usr/local/bin/fish
+
 
 " THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
 " set this value to where this file is.
@@ -11,8 +10,6 @@ let g:rootDirectory='~/.config/nvim/'
 exec 'set runtimepath+=' . expand(g:rootDirectory)
 
 let g:python3_host_prog = '/usr/local/bin/python3'
-" let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
-" exec "set rtp+=" . g:opamshare . "/merlin/vim/"
 
 " Because I can't concat with source
 " Load the plugins
@@ -215,13 +212,18 @@ autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 " ====== FUNCTIONS ========
 
-function! NumberToggle()
-    if (&relativenumber == 1)
-        set norelativenumber
-    else
-        set relativenumber
-    endif
-endfunc
+function! CycleNumbering() abort
+  if exists('+relativenumber')
+    execute {
+          \ '00': 'set relativenumber   | set number',
+          \ '01': 'set norelativenumber | set number',
+          \ '10': 'set norelativenumber | set nonumber',
+          \ '11': 'set norelativenumber | set number' }[&number . &relativenumber]
+  else
+    " No relative numbering, just toggle numbers on and off.
+    set number!<CR>
+  endif
+endfunction
 
 function! ToggleSpellCheck()
     set spell!
@@ -273,7 +275,7 @@ noremap Q :close<cr>
 noremap <leader>Q :bd<cr>
 noremap x "_x
 
-
+noremap Y y$
 
 " Annoying with a trackpad
 noremap <ScrollWheelLeft> <nop>
@@ -296,13 +298,14 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>w :Windows<CR>
+nnoremap <silent> <leader>p :FZFMru<CR>
 
 vnoremap . :normal .<CR>
 vnoremap @ :normal @<CR>
 
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
-nnoremap <silent> <leader>l :call NumberToggle()<cr>
+nnoremap <silent> <leader>l :call CycleNumbering()<cr>
 nnoremap <silent> <leader>c :call ConcealToggle()<cr>
 nnoremap <silent> <leader>u :call WrapToggle()<cr>
 

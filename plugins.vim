@@ -3,10 +3,14 @@
 call plug#begin(g:rootDirectory . 'plugged/')
 
 " ========= PURE EYE-CANDY =========
+
+" Choose one
 Plug 'rbong/vim-crystalline'
-exec 'source ' . g:rootDirectory . 'statusline.vim'
-" Plug 'itchyny/lightline.vim'
-" exec 'source ' . g:rootDirectory . 'lightline.vim'
+" exec 'source ' . g:rootDirectory . 'statusline.vim'
+
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+exec 'source ' . g:rootDirectory . 'lightline.vim'
 
 Plug 'ryanoasis/vim-devicons'
 
@@ -18,7 +22,7 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_update_oldfiles = 1
 autocmd User Startified nmap <buffer> <space><space><space> <plug>(startify-open-buffers)
 autocmd User Startified nmap <buffer> <cr> :
-autocmd User Startified setlocal cursorline
+autocmd User Startified setlocal cursorline buflisted
 function! s:center(lines) abort
     let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
     let centered_lines = map(copy(a:lines),
@@ -64,25 +68,32 @@ let g:startify_skiplist = [
 
 Plug 'norcalli/nvim-colorizer.lua'
 " lua require 'colorizer'.setup()
+Plug 'skywind3000/vim-quickui'
+let g:quickui_border_style = 2
+
+let g:quickui_show_tip = 1
+noremap <silent> <C-q> :call quickui#menu#open()<cr>
 
 
 " ========== FZF & File Navigation ============
 Plug '/usr/local/opt/fzf'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 let g:fzf_colors =
-    \ { 'fg':      ['fg', 'Normal'],
-      \ 'bg':      ['bg', 'Pmenu'],
-      \ 'hl':      ['fg', 'Comment'],
+    \ { 'fg':      ['fg', 'Comment'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Special'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'bg+':     ['bg', 'Normal', 'Normal'],
       \ 'hl+':     ['fg', 'Statement'],
       \ 'info':    ['fg', 'PreProc'],
       \ 'border':  ['fg', 'Ignore'],
       \ 'prompt':  ['fg', 'Conditional'],
       \ 'pointer': ['fg', 'Exception'],
-      \ 'marker':  ['fg', 'Keyword'],
+      \ 'marker':  ['fg', 'Tag'],
       \ 'spinner': ['fg', 'Label'],
+      \ 'gutter':  ['fg', 'Conceal'],
       \ 'header':  ['fg', 'Comment'] }
 
 let g:fzf_action = {
@@ -90,14 +101,43 @@ let g:fzf_action = {
       \ 'ctrl-v': 'vsplit'
       \ }
 
-let g:fzf_layout = { 'down': '~30%' }
 let g:fzf_buffers_jump = 1
 
+" no hidden stuff, ignore the .git directory
+let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
 
-command! -bang -nargs=? -complete=dir Files
-            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=? -complete=dir GFiles
-            \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+let $FZF_DEFAULT_OPTS=' --color=dark --layout=reverse'
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
+
+function! CreateCenteredFloatingWindow()
+    let width = float2nr(&columns * 0.6)
+    let height = float2nr(&lines * 0.6)
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {
+                \'relative': 'editor',
+                \'row': top,
+                \'col': left,
+                \'width': width,
+                \'height': height,
+                \'style': 'minimal'
+                \}
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
 
 command! CmdHist call fzf#vim#command_history({'right': '40'})
 nnoremap q: :CmdHist<CR>
@@ -115,44 +155,9 @@ command! FZFMulti call fzf#run(fzf#wrap({
             \'options': ['--multi'],
             \}))
 
-" autocmd! FileType fzf
-" autocmd  FileType fzf set laststatus=0 noruler
-"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
-
-" See hidden stuff, ignore the .git directory
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-
-
-" let $FZF_DEFAULT_OPTS = '--layout=reverse'
-let $FZF_DEFAULT_OPTS=' --color=dark --color=fg:15,bg:-1,hl:1,fg+:#ffffff,bg+:0,hl+:1 --color=info:0,prompt:0,pointer:12,marker:4,spinner:11,header:-1 --layout=reverse  --margin=1,4'
-
-let g:fzf_layout = { 'window': 'call OpenFloatingWin()' }
-
-function! OpenFloatingWin()
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
-    let opts = {
-                \ 'relative': 'editor',
-                \ 'row': height * 0.3,
-                \ 'col': col + 30,
-                \ 'width': width * 2 / 3,
-                \ 'height': height / 2
-                \ }
-    let buf = nvim_create_buf(v:false, v:true)
-    let win = nvim_open_win(buf, v:true, opts)
-    call setwinvar(win, '&winhl', 'Normal:Pmenu')
-    setlocal
-                \ buftype=nofile
-                \ nobuflisted
-                \ bufhidden=hide
-                \ nonumber
-                \ norelativenumber
-                \ signcolumn=no
-endfunction
-
 Plug 'rbgrouleff/bclose.vim'
 let g:bclose_no_plugin_maps = 1
+
 
 " ========== DEFAULT+ =========
 Plug 'tpope/vim-obsession'
@@ -167,6 +172,7 @@ Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
 Plug 'tpope/vim-vinegar'
 Plug 'rickhowe/diffchar.vim'
 
+Plug 'Konfekt/FastFold'
 
 " Plug 'unblevable/quick-scope' " Highlights the first unique character
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -176,15 +182,28 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+let g:sneak#label = 1
+map <C-S> <Plug>Sneak_s
+
+
+
+Plug 'psliwka/vim-smoothie'
+
+Plug 'lambdalisue/suda.vim'
 
 Plug 'markonm/traces.vim'
-Plug 'Konfekt/FastFold'
+Plug 'junegunn/vim-slash' " Better in buffer search
+
 Plug 'romainl/vim-qf' " Better Quickfix
 
-Plug 'junegunn/vim-slash' " Better in buffer search
+Plug 'machakann/vim-swap'
+
+" Errors in floating windows!
+Plug 'wsdjeg/notifications.vim'
+
+" Tmux and such
 Plug 'christoomey/vim-tmux-navigator' " Makes <C-hjkl> work between windows from tmux
 Plug 'benmills/vimux' " Send commands to tmux
-Plug 'machakann/vim-swap'
 
 Plug 'junegunn/vim-easy-align'
 Plug 'andymass/vim-matchup'
@@ -198,11 +217,16 @@ let g:matchup_override_vimtex = 1
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 50
+" Let's you preview marks!
+Plug 'Yilin-Yang/vim-markbar'
+nmap <space>m  <Plug>ToggleMarkbar
+let g:markbar_jump_to_mark_mapping  = 'G'
+let g:markbar_num_lines_context = 3
+let g:markbar_file_mark_format_string = '%s (%d, %d)'
+let g:markbar_file_mark_arguments = ['fname', 'col', 'line']
+hi link markbarContext String
 
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
-
-" Plug 'jeetsukumaran/vim-indentwise' " Motions based on indention
-
 
 " ========== GIT ============
 Plug 'tpope/vim-fugitive'
@@ -210,24 +234,14 @@ Plug 'gregsexton/gitv'
 Plug 'whiteinge/diffconflicts'
 
 
-" === Because Emacs ===
-Plug 'metakirby5/codi.vim'
-" Discovering keys
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" let g:mapleader = "\<Space>"
-" let g:maplocalleader = '\'
-" nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-" vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-" nnoremap <silent> <localleader>      :<c-u>WhichKey '\'<CR>
-" autocmd! FileType which_key
-" autocmd  FileType which_key set laststatus=0 noruler
-"   \| autocmd BufLeave <buffer> set laststatus=2 ruler
-
-
 " ========== BECOMING AN IDE 101 =============
 " Plug 'Shougo/echodoc.vim'
 " let g:echodoc#enable_at_startup = 1
 " let g:echodoc#type = 'echo'
+
+" Weird thing
+Plug 'wellle/context.vim'
+let g:context_enabled = 0
 
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
@@ -244,15 +258,10 @@ let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
 let g:vista_disable_statusline=1
 let g:vista_highlight_whole_line=1
-autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+" autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
-Plug 'kassio/neoterm'
 Plug 'mbbill/undotree'
-" Plug 'ludovicchabant/vim-gutentags'
-" let g:gutentags_ctags_executable = '/usr/local/bin/ctags'
-" let g:gutentags_cache_dir = '/tmp/tags/'
-" let g:gutentags_project_root = ['Makefile', 'makefile',
-"             \'.git', 'readme.md', 'readme.txt']
+
 
 " SNIPPETS
 Plug 'honza/vim-snippets'
@@ -287,9 +296,6 @@ endfunc
 
 nnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
 xnoremap <silent> <M-CR> :call ActionMenuCodeActions()<CR>
-inoremap <silent> <M-CR> <esc>:call ActionMenuCodeActions()<CR>i
-
-
 
 
 
@@ -380,37 +386,55 @@ cnoreabbrev Rdoc Rhelp
 " ======= OCAML ======
 Plug 'ELLIOTTCABLE/vim-menhir'
 
+" ====== LLVM ====
+Plug 'rhysd/vim-llvm'
+
 " ======== GO ======
 Plug 'arp242/gopher.vim'
 let g:gopher_map = 0
 let g:gopher_map = {'_nmap_prefix': '<localleader>', '_imap_prefix': '<C-g>'}
 Plug 'sebdah/vim-delve'
-" autocmd BufWritePre *.go :CocCommand editor.action.organizeImport
 let g:delve_breakpoint_sign = '●'
 let g:delve_breakpoint_sign_highlight = 'CocHintSign'
 let g:delve_tracepoint_sign = '◆'
 let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
-
-
-" Plug 'fatih/vim-go'
-" " no mapping, we have CoC
-" let g:go_code_completion_enabled = 0
-" let g:go_def_mapping_enabled = 0
-" let g:go_doc_keywordprg_enabled = 0
-" "  more colors
-" let g:go_highlight_build_constraints = 1
-" let g:go_highlight_extra_types = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_structs = 1
-" let g:go_highlight_types = 1
-" let g:go_auto_sameids = 1
-" let g:go_fmt_command = "goimports"
 
 Plug 'vimwiki/vimwiki'
 
 Plug 'cespare/vim-toml'
 
 call plug#end()
+
+
+" ========= Quick UI ========
+" Currently filled with dummy items
+call quickui#menu#reset()
+call quickui#menu#install('&File', [
+            \ [ "&New File\tCtrl+n", 'echo 0' ],
+            \ [ "&Open File\t(F3)", 'echo 1' ],
+            \ [ "&Close", 'echo 2' ],
+            \ [ "--", '' ],
+            \ [ "&Save\tCtrl+s", 'echo 3'],
+            \ [ "Save &As", 'echo 4' ],
+            \ [ "Save All", 'echo 5' ],
+            \ [ "--", '' ],
+            \ [ "E&xit\tAlt+x", 'echo 6' ],
+            \ ])
+call quickui#menu#install('&Edit', [
+            \ [ '&Copy', 'echo 1', 'help 1' ],
+            \ [ '&Paste', 'echo 2', 'help 2' ],
+            \ [ '&Find', 'echo 3', 'help 3' ],
+            \ ])
+call quickui#menu#install("&Option", [
+            \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!'],
+            \ ['Set &Cursor Line %{&cursorline? "Off":"On"}', 'set cursorline!'],
+            \ ['Set &Paste %{&paste? "Off":"On"}', 'set paste!'],
+            \ ])
+call quickui#menu#install('H&elp', [
+            \ ["&Cheatsheet", 'help index', ''],
+            \ ['T&ips', 'help tips', ''],
+            \ ['--',''],
+            \ ["&Tutorial", 'help tutor', ''],
+            \ ['&Quick Reference', 'help quickref', ''],
+            \ ['&Summary', 'help summary', ''],
+            \ ], 10000)
