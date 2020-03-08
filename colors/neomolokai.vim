@@ -269,9 +269,11 @@ call Highlight("CocCodeLens", s:sea_blue, s:background)
 " Sneak
 call Highlight("Sneak", s:none, s:purple)
 call Highlight("SneakLabel", s:none, s:purple)
+call Highlight("SneakScope", s:yellow, s:magenta)
 
 " QuickUI
-call Highlight("QuickBG", s:light_grey, s:columns_bg)
+" call Highlight("QuickBG", s:light_grey, s:columns_bg)
+call Highlight("QuickBG", s:light_grey, s:light_charcoal)
 call Highlight("QuickSel", s:columns_bg, s:magenta, s:bold)
 call Highlight("QuickKey", s:orange, s:none, s:bold)
 call Highlight("QuickOff", s:darker_grey, s:none)

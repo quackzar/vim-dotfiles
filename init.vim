@@ -3,67 +3,17 @@ setglobal fileencoding=utf8
 
 set shell=/usr/local/bin/fish
 
-
-" THE VIM DIRECTORY, WHERE VIM STUFF HAPPENS!
-" set this value to where this file is.
-let g:rootDirectory='~/.config/nvim/'
-exec 'set runtimepath+=' . expand(g:rootDirectory)
-
+set runtimepath+=$HOME/.config/nvim
 let g:python3_host_prog = '/usr/local/bin/python3'
 
-" Because I can't concat with source
-" Load the plugins
-exec 'source ' . g:rootDirectory . 'plugins.vim'
 syntax on
 
+" Keymaps may be omitted.
+call plug#begin(stdpath('config').'/plugged/')
+    runtime! plugin/*.vim
+call plug#end()
+exe 'source' . stdpath('config').'/quickui.vim'
 
-function! FoldText()
-    let l:lpadding = &fdc
-    redir => l:signs
-    execute 'silent sign place buffer='.bufnr('%')
-    redir End
-    let l:lpadding += l:signs =~ 'id=' ? 2 : 0
-
-    if exists("+relativenumber")
-        if (&number)
-            let l:lpadding += max([&numberwidth,
-                        \strlen(line('$'))]) + 1
-        elseif (&relativenumber)
-            let l:lpadding += max([&numberwidth, 
-                        \strlen(v:foldstart - line('w0')),
-                        \strlen(line('w$') - v:foldstart), 
-                        \strlen(v:foldstart)]) + 1
-        endif
-    else
-        if (&number)
-            let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-        endif
-    endif
-
-    " expand tabs
-    let l:start = substitute(getline(v:foldstart), '\t',
-                \repeat(' ', &tabstop), 'g')
-    let l:end = substitute(substitute(getline(v:foldend),
-                \'\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
-
-    let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-    let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-    let l:width = winwidth(0) - l:lpadding - l:infolen
-
-    let l:separator = ' … '
-    let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-    let l:start = strpart(l:start , 0,
-                \l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-    let l:text = l:start . ' … ' . l:end
-
-    return l:text . repeat(' ',
-                \l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
-endfunction
-set foldtext=FoldText()
-
-function! Evaluate_ftplugin_path()
-    return g:rootDirectory . "ftplugin/" . &filetype . ".vim"
-endfunction
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
 set laststatus=2 " Status bar always show
@@ -147,7 +97,7 @@ set nobackup
 set nowritebackup
 
 " Thesaurus and dictionary support
-let &thesaurus=g:rootDirectory . 'thesaurus/words.txt'
+let &thesaurus=stdpath('config').'/thesaurus/words.txt'
 set dictionary+=/usr/share/dict/words
 
 set langmenu=en_US
@@ -190,6 +140,7 @@ set complete-=i
 
 set pumheight=25
 set pumblend=20
+set winblend=20
 
 " Wait for cursorhold to trigger
 set updatetime=250
@@ -209,63 +160,14 @@ augroup END
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
+autocmd BufReadPost *
+            \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+            \ |   exe "normal! g`\""
+            \ | endif
 
 " ====== FUNCTIONS ========
 
-function! CycleNumbering() abort
-  if exists('+relativenumber')
-    execute {
-          \ '00': 'set relativenumber   | set number',
-          \ '01': 'set norelativenumber | set number',
-          \ '10': 'set norelativenumber | set nonumber',
-          \ '11': 'set norelativenumber | set number' }[&number . &relativenumber]
-  else
-    " No relative numbering, just toggle numbers on and off.
-    set number!<CR>
-  endif
-endfunction
 
-function! ToggleSpellCheck()
-    set spell!
-    if &spell
-        echo "Spellcheck ON"
-    else
-        echo "Spellcheck OFF"
-    endif
-endfunction
-
-function! ConcealToggle()
-    if &conceallevel == 0
-        echo "Conceal ON"
-        setlocal conceallevel=2
-    else
-        echo "Conceal OFF"
-        setlocal conceallevel=0
-    endif
-endfunction
-
-function! WrapToggle()
-    if &wrap == 0
-        echo "Wrap ON"
-        setlocal wrap
-    else
-        echo "Wrap OFF"
-        setlocal nowrap
-    endif
-endfunction
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 
 " ======= MAPPINGS ========
@@ -284,32 +186,16 @@ noremap <ScrollWheelRight> <nop>
 " Buffer magic
 noremap gb :bn<CR>
 noremap gB :bp<CR>
-noremap <leader><leader>bd :Bclose<cr>
+
+nnoremap <silent> <C-^> :<C-u>exe
+            \ v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<CR>
 
 " No highlighting
 noremap <silent> <leader><space> :noh<CR>
 noremap <silent> <space><space><space> :noh<CR>
 
-" Alignment
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-
-" FZF
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>w :Windows<CR>
-nnoremap <silent> <leader>p :FZFMru<CR>
-
 vnoremap . :normal .<CR>
 vnoremap @ :normal @<CR>
-
-" Toggles
-nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>
-nnoremap <silent> <leader>l :call CycleNumbering()<cr>
-nnoremap <silent> <leader>c :call ConcealToggle()<cr>
-nnoremap <silent> <leader>u :call WrapToggle()<cr>
-
-" nnoremap <silent> <leader>z :call FloatTerm()<cr>
 
 " Keep selection with indention
 vnoremap > >gv
@@ -322,62 +208,14 @@ tnoremap <C-X> <C-\><C-n>
 " tmap <C-h> <C-\><C-n><C-h>
 " tmap <C-l> <C-\><C-n><C-l>
 
-command! -nargs=0 Reload :source $MYVIMRC
-nnoremap <silent> <Leader>ef :tabe <C-r>=Evaluate_ftplugin_path()<CR><CR>
-
-" Vista stuff, VOoM replaces Vista bindings for LaTeX and Markdown
-nnoremap <silent> <leader>v :Vista!!<cr>
-nnoremap <silent> <leader>t :Vista finder coc<cr>
-nnoremap <silent> <M-tab> :Vista focus<cr>
-nmap <leader>z :CocCommand explorer<CR>
 
 " CoC Stuff
-inoremap <silent><expr> <C-x><C-o> coc#refresh()
-inoremap <silent><expr> <M-space> 
-            \pumvisible() ? "\<C-y>" : coc#refresh()
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
-let g:coc_snippet_next = '<C-j>'
-let g:coc_snippet_prev = '<C-k>'
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-nmap <silent> <C-]> <Plug>(coc-definition)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <leader>rn <Plug>(coc-rename)
-
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
-
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>? <Plug>(coc-diagnostic-info)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-command! -nargs=0 Pickcolor :call CocAction('pickColor')
-command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
-command! -bar -nargs=0 Config tabnew|
-            \exe 'tcd '.g:rootDirectory|
-            \exe 'e '  .g:rootDirectory . 'plugins.vim'|
-            \exe 'e '  .g:rootDirectory . 'init.vim'
-command! -nargs=0 SnipConfig exe 'Files ' . g:rootDirectory . '/UltiSnips/'
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
-
-" Completion
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Output the current syntax group
 nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -385,9 +223,8 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
 " ====== COLORS =======
+let g:neomolokai_inv_column=1
 colorscheme neomolokai
-let base16colorspace=256
-" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 set secure

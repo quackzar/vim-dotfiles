@@ -1,3 +1,6 @@
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+
 function! LightlineMode()
     return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
                 \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
@@ -48,21 +51,23 @@ function! LightlineFugitive()
     return ''
 endfunction
 
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
 let g:lightline = {
             \ 'colorscheme': 'molokai',
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'readonly', 'filename', 'method' ] ]
-            \ },
-            \ 
+            \             [ 'gitbranch', 'filename', 'method' ],
+            \             [ 'cocstatus' ]  ] },
             \ 'component_function': {
             \   'mode': 'LightlineMode',
-            \   'readonly': 'LightlineReadonly',
             \   'filename': 'LightlineFilename',
             \   'gitbranch': 'LightlineFugitive',
             \   'fileformat': 'LightlineFileformat',
             \   'filetype': 'LightlineFiletype',
             \   'method': 'NearestMethodOrFunction',
+            \   'abpi': 'LightlineABPI',
+            \   'cocstatus': 'coc#status',
             \ },
             \ 'component': {
             \   'lineinfo': ' %3l:%-2v',
@@ -74,11 +79,13 @@ let g:lightline = {
             \ 'component_expand': {
             \   'buffers': 'lightline#bufferline#buffers'
             \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' },
             \ 'tabline': {'left': [['buffers']], 'right': [['close']]}
             \ }
 
+            " \ 'separator': { 'left': '', 'right': '' },
+            " \ 'subseparator': { 'left': '', 'right': '' },
 " Tabline
 " let g:lightline#bufferline#read_only = ''
 let g:lightline#bufferline#unicode_symbols = 1
@@ -89,6 +96,9 @@ let g:lightline#bufferline#number_map = {
     \ 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
     \ 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹'
     \ }
+let g:lightline#bufferline#enable_devicons = 1
+
+
 let g:lightline#bufferline#show_number = 2
 nmap <space>1 <Plug>lightline#bufferline#go(1)
 nmap <space>2 <Plug>lightline#bufferline#go(2)
