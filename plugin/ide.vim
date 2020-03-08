@@ -71,6 +71,15 @@ xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>? <Plug>(coc-diagnostic-info)
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        " call quickui#tools#display_help(expand('<cword>'))
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 nmap <leader>z :CocCommand explorer<CR>
