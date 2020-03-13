@@ -35,7 +35,7 @@ let s:grey           = "#808080"
 let s:dark_grey      = "#5f5f5f"
 let s:darker_grey    = "#403D3D"
 let s:light_charcoal = "#292929"
-let s:charcoal       = "#1B1D1E"
+let s:charcoal       = "#1B1D1E" " The background color
 let s:dark_charcoal  = "#26202b"
 let s:columns_fg     = "#465457"
 
@@ -118,6 +118,7 @@ call Highlight("TermColor7", s:white, s:white)
 
 " The Basics
 call Highlight("Normal", s:white, s:background, s:none)
+call Highlight("Opaque", s:white, s:charcoal, s:none)
 call Highlight("Conceal", s:none, s:none, s:none)
 
 call Highlight("Cursor", s:charcoal, s:cyan, s:none)
@@ -151,7 +152,7 @@ call Highlight("LineNr", s:columns_fg, s:columns_bg)
 call Highlight("SignColumn", s:grey, s:columns_bg)
 call Highlight("FoldColumn", s:lime, s:columns_bg)
 
-call Highlight("Folded", s:grey)
+call Highlight("Folded", s:green)
 
 call Highlight("CursorLineNR", s:yellow)
 

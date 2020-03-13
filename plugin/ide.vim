@@ -19,13 +19,13 @@ let g:asynctasks_system = 'macos'
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 let g:vista_default_executive = 'coc'
-let g:vista_executive_for = {
-      \ 'go': 'coc',
-      \ 'javascript': 'coc',
-      \ 'typescript': 'coc',
-      \ 'javascript.jsx': 'coc',
-      \ 'python': 'coc',
-      \ }
+" let g:vista_executive_for = {
+"       \ 'go': 'coc',
+"       \ 'javascript': 'coc',
+"       \ 'typescript': 'coc',
+"       \ 'javascript.jsx': 'coc',
+"       \ 'python': 'coc',
+"       \ }
 let g:vista_fzf_preview = ['right:40%']
 let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
@@ -40,24 +40,20 @@ nnoremap <silent> <M-tab> :Vista focus<cr>
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'antoinemadec/coc-fzf'
 
-inoremap <silent><expr> <C-x><C-o> coc#refresh()
-inoremap <silent><expr> <M-space> 
-            \pumvisible() ? "\<C-y>" : coc#refresh()
+" inoremap <silent><expr> <M-space> 
+"             \pumvisible() ? "\<C-y>" : coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
 
 nmap <silent> <C-]> <Plug>(coc-definition)
-nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gI <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 nmap <leader>rn <Plug>(coc-rename)
 
 xmap if <Plug>(coc-funcobj-i)
@@ -69,7 +65,6 @@ nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
 
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>? <Plug>(coc-diagnostic-info)
 
 function! s:show_documentation()
@@ -93,7 +88,6 @@ command! -bar -nargs=0 Config tabnew|
             \exe 'tcd '.g:rootDirectory|
             \exe 'e '  .g:rootDirectory . 'plugins.vim'|
             \exe 'e '  .g:rootDirectory . 'init.vim'
-nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -113,6 +107,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 Plug 'romainl/vim-qf' " Better Quickfix
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
+nnoremap \q <Plug>(qf_qf_toggle)
 
 " SNIPPETS
 Plug 'honza/vim-snippets'

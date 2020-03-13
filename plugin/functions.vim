@@ -40,6 +40,16 @@ function! WrapToggle()
     endif
 endfunction
 
+function! ToggleSignColumn()
+    if &signcolumn=='no'
+        echo 'Signcolumn AUTO'
+        set signcolumn=auto:3
+    else
+        echo 'Signcolumn OFF'
+        set signcolumn=no
+    endif
+endfunction
+
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
@@ -48,6 +58,12 @@ endfunction
 function! Evaluate_ftplugin_path()
     return stdpath('config') . "/ftplugin/" . &filetype . ".vim"
 endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
 " Toggles
 nnoremap <silent> <Leader>k :call ToggleSpellCheck()<CR>

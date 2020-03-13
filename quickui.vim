@@ -18,11 +18,18 @@ call quickui#menu#install('&Edit', [
             \ ])
 call quickui#menu#install("&Option", [
             \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!'],
-            \ ['Set &Cursor Line %{&cursorline? "Off":"On"}', 'set cursorline!'],
+            \ ['Set C&ursor Line %{&cursorline? "Off":"On"}', 'set cursorline!'],
             \ ['Set &Paste %{&paste? "Off":"On"}', 'set paste!'],
-            \ ['Toggle &Lens', 'call lens#toggle()'],
-            \ ['Toggle &Context', 'ContextToggle'],
-            \ ['Toggle &Rainbows', 'RainbowParentheses!'],
+            \ ['Set &Relative %{&relativenumber? "Off":"On"}', 'set relativenumber!'],
+            \ ['Set &Numbers %{&number? "Off":"On"}', 'set number!'],
+            \ ['Set &Wrap %{&wrap? "Off":"On"}', 'set wrap!'],
+            \ ['Set S&igncolumn %{&signcolumn=="no"? "On":"Off"}',
+            \   'call ToggleSignColumn()'],
+            \ ['--',''],
+            \ ['Toggle &Conceal', 'call ConcealToggle()'],
+            \ ['Toggle L&ens', 'call lens#toggle()'],
+            \ ['Toggle Con&text', 'ContextToggle'],
+            \ ['Toggle R&ainbows', 'RainbowParentheses!'],
             \ ])
 call quickui#menu#install('&Build', [
             \ ["Build File\t F5", 'AsyncTask file-build'],
@@ -35,7 +42,7 @@ call quickui#menu#install('&Build', [
             \ ])
 call quickui#menu#install('&Language Server', [
             \ ['&Format File', 'call CocAction("format")'],
-            \ ['&Organize Imports', "call CocAction('runCommand', 'editor.action.organizeImport')"],
+            \ ['&Organize Imports', "call CocAction('runCommand', 'editor.actnteriion.organizeImport')"],
             \ ['&Dianogstics', 'CocList diagnostics'],
             \ ['&Extensions', 'CocList extensions'],
             \ ['&Outline', 'CocList outline'],
@@ -50,7 +57,7 @@ call quickui#menu#install('H&elp', [
             \ ['&Summary', 'call quickui#tools#display_help("summary")', ''],
             \ ], 10000)
 
-call quickui#menu#install('&LaTeX', [
+call quickui#menu#install('La&TeX', [
             \ ['&Compile', 'VimtexCompile'],
             \ ['Compile &SS', 'VimtexCompileSS'],
             \ ['C&lean', 'VimtexClean'],
@@ -58,12 +65,13 @@ call quickui#menu#install('&LaTeX', [
             \ ], '<auto>', 'tex,latex')
 
 let content = [
-            \ ["&Help Keyword\t\\ch", 'echo 100' ],
-            \ ["&Signature\t\\cs", 'echo 101'],
+            \ ["&Help Keyword\t\\ch",
+            \ "call quickui#tools#display_help(expand('<cword>'))" ],
+            \ ["&Signature\t\\cs", "call CocAction('doHover')"],
             \ ['-'],
             \ ["Find in &File\t\\cx", 'echo 200' ],
             \ ["Find in &Project\t\\cp", 'echo 300' ],
-            \ ["Find in &Defintion\t\\cd", 'echo 400' ],
+            \ ["Find in &Defintion\t\\cd", 'call  400' ],
             \ ["Search &References\t\\cr", 'echo 500'],
             \ ['-'],
             \ ["&Documentation\t\\cm", 'echo 600'],
@@ -71,7 +79,7 @@ let content = [
 
 
 let opts = {'index':g:quickui#context#cursor}
-nnoremap <silent> <space>x :call quickui#context#open(content, opts)<cr>
+nnoremap <silent> gK :call quickui#context#open(content, opts)<cr>
 
 augroup MyQuickfixPreview
   au!

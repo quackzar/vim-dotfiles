@@ -75,7 +75,7 @@ set showbreak=↪\
 " set list listchars=tab:→\ ,trail:⋅,nbsp:␣,extends:⟩,precedes:
 set list listchars=tab:▷⋅,trail:⋅,nbsp:░, 
 set fillchars=diff:⣿                " BOX DRAWINGS
-set fillchars=vert:┃               " HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+set fillchars=vert:┃               " HEAVY VERTICAL (U+2503)
 set fillchars=eob:\ 
 set fillchars=fold:\ 
 
@@ -90,7 +90,6 @@ set diffopt+=vertical,algorithm:histogram,indent-heuristic
 set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
-" set tags=/tmp/tags;
 
 set undofile " persistant undo
 set nobackup
@@ -102,7 +101,7 @@ set dictionary+=/usr/share/dict/words
 
 set langmenu=en_US
 
-set signcolumn=auto
+set signcolumn=auto:3
 
 set updatetime=300
 set cmdheight=1
@@ -169,7 +168,6 @@ autocmd BufReadPost *
 
 
 
-
 " ======= MAPPINGS ========
 " Basics
 noremap <CR> :
@@ -209,12 +207,6 @@ tnoremap <C-X> <C-\><C-n>
 " tmap <C-l> <C-\><C-n><C-l>
 
 
-" CoC Stuff
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
 
 
 " Output the current syntax group

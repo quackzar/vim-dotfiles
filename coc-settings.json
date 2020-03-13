@@ -5,7 +5,7 @@
     "suggest.autoTrigger": "trigger",
     "suggest.noselect": true,
     "suggest.completionItemKindLabels": {
-        "method": "𝒎",
+        "method": "",
         "function": "",
         "file": "",
         "class": "",
@@ -20,13 +20,16 @@
         "module": "",
         "reference": "",
         "enum": "✦",
-        "constant": "",
+        "constant": "",
         "unit": "",
         "interface": "",
         "struct": "",
-        "enumMember": "﬷",
+        "enumMember": "",
         "default": " "
     },
+    "suggest.localityBonus": true,
+    "suggest.detailField": "preview",
+    "suggest.fixInsertedWord": true,
     "suggest.snippetIndicator": "",
     "diagnostic.infoSign": "",
     "diagnostic.hintSign": "",
@@ -36,6 +39,8 @@
     "diagnostic.virtualText": true,
     "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
+    "diagnostic.virtualTextPrefix": "⟨",
+    "diagnostic.virtualTextLineSeparator": "⟩",
     "python.jediEnabled": false,
     "codeLens.enable": true,
     "signature.target": "float",
@@ -115,7 +120,7 @@
     "list.insertMappings": {
         "<C-c>": "do:exit"
     },
-    "go.enable": false,
+    "go.enable": true,
     "go.goplsOptions": {
         "deepCompletion": true,
         "completeUnimported": true,

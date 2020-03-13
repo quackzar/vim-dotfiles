@@ -18,11 +18,14 @@ let g:lens#disabled_filetypes = ['nerdtree',
             \ 'markbar' ]
 
 Plug 'lambdalisue/suda.vim'
-" Plug 'markonm/traces.vim'
-"
+
+Plug 'markonm/traces.vim'
+" not only the / but :s and :g too
 
 Plug 'wellle/context.vim'
 let g:context_enabled = 0
+let g:context_highlight_normal = 'Opaque'
+
 
 Plug 'norcalli/nvim-colorizer.lua'
 

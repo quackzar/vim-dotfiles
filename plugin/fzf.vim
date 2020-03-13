@@ -30,8 +30,13 @@ let g:fzf_action = {
 
 let g:fzf_buffers_jump = 0
 
+" ripgrep
 " no hidden stuff, ignore the .git directory
-let $FZF_DEFAULT_COMMAND = 'rg --files --follow --glob "!.git/*"'
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
 let $FZF_DEFAULT_OPTS=' --color=dark --layout=reverse'
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
@@ -72,16 +77,11 @@ nnoremap q: :CmdHist<CR>
 command! QHist call fzf#vim#search_history({'right': '40'})
 nnoremap q/ :QHist<CR>
 
-" ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
+
 
 " Files + devicons
 function! Fzf_dev()
-  let l:fzf_files_options = '--preview "bat --theme="Monokai" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+  let l:fzf_files_options = '--preview "bat --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
 
   function! s:files()
     let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
@@ -113,7 +113,7 @@ function! Fzf_dev()
         \ 'down':    '40%' })
 endfunction
 
-command! Files call Fzf_dev()
+" command! Files call Fzf_dev()
 
 " FZF
 nnoremap <silent> <leader>f :Files<CR>
