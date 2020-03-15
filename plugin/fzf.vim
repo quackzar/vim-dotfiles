@@ -96,7 +96,7 @@ command! Lines FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"
 " FZF
 nnoremap <silent> <leader>f :FzfPreviewDirectoryFiles<CR>
 nnoremap <silent> <leader>b :FzfPreviewBuffers<CR>
-nnoremap <silent> <leader>p :FZFPreviewMruFiles<CR>
+nnoremap <silent> <leader>p :FzfPreviewMruFiles<CR>
 
 nmap <Leader>F [fzf-p]
 

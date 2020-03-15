@@ -19,13 +19,6 @@ let g:asynctasks_system = 'macos'
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 let g:vista_default_executive = 'coc'
-" let g:vista_executive_for = {
-"       \ 'go': 'coc',
-"       \ 'javascript': 'coc',
-"       \ 'typescript': 'coc',
-"       \ 'javascript.jsx': 'coc',
-"       \ 'python': 'coc',
-"       \ }
 let g:vista_fzf_preview = ['right:40%']
 let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
@@ -44,6 +37,8 @@ Plug 'antoinemadec/coc-fzf'
 "             \pumvisible() ? "\<C-y>" : coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+inoremap <silent><expr> <C-X><C-O> coc#refresh()
 
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
