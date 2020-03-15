@@ -204,7 +204,8 @@ nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
             \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
 
 " ====== COLORS =======
-let g:neomolokai_inv_column=1
+let g:neomolokai_no_bg=1 " Remove the normal background
+let g:neomolokai_inv_column=1 " Set the sign/number column bg to be the same as normal
 colorscheme neomolokai
 
 

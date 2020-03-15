@@ -9,12 +9,16 @@ end
 
 let g:colors_name="neomolokai"
 
+
+" Set the column to be the same background color as Normal
 if !exists('g:neomolokai_inv_column')
     let g:neomolokai_inv_column=0
 endif
 
+" Set the background color to be nothing thereby reusing the terminals color.
+" Useful for transparency and terminal emulators using the same color scheme.
 if !exists('g:neomolokai_no_bg')
-    let g:neomolokai_no_bg=1
+    let g:neomolokai_no_bg=0
 end
 
 
