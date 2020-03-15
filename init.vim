@@ -29,12 +29,7 @@ set hidden " something about hidden buffers
 
 set nu " have numbers
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove tool bar
-set guioptions-=r  "remove right scroll bar
-set guioptions-=L  "remove left scroll bar
-
-set mouse=a
+set mouse=a " mouse support, because scrolling is awesome
 
 set breakindent
 set linebreak
@@ -172,7 +167,7 @@ autocmd BufReadPost *
 " Basics
 noremap <CR> :
 noremap Q :close<cr>
-noremap <leader>Q :bd<cr>
+noremap gQ :bd<cr>
 noremap x "_x
 
 noremap Y y$
@@ -189,8 +184,7 @@ nnoremap <silent> <C-^> :<C-u>exe
             \ v:count ? v:count . 'b' : 'b' . (bufloaded(0) ? '#' : 'n')<CR>
 
 " No highlighting
-noremap <silent> <leader><space> :noh<CR>
-noremap <silent> <space><space><space> :noh<CR>
+noremap <silent> <space><space> :noh<CR>
 
 vnoremap . :normal .<CR>
 vnoremap @ :normal @<CR>
@@ -200,12 +194,7 @@ vnoremap > >gv
 vnoremap < <gv
 
 " Terminal magic
-tnoremap <C-X> <C-\><C-n>
-" tmap <C-j> <C-\><C-n><C-j>
-" tmap <C-k> <C-\><C-n><C-k>
-" tmap <C-h> <C-\><C-n><C-h>
-" tmap <C-l> <C-\><C-n><C-l>
-
+tnoremap <C-Z> <C-\><C-n>
 
 
 

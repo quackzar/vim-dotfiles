@@ -5,6 +5,7 @@
 Plug 'zdcthomas/medit'
 Plug 'camspiers/animate.vim'
 Plug 'camspiers/lens.vim'
+let g:lens#disabled = 1
 
 let g:lens#disabled_filetypes = ['nerdtree',
             \ 'fzf',
@@ -21,6 +22,8 @@ Plug 'lambdalisue/suda.vim'
 
 Plug 'markonm/traces.vim'
 " not only the / but :s and :g too
+
+Plug 'machakann/vim-highlightedyank'
 
 Plug 'wellle/context.vim'
 let g:context_enabled = 0
