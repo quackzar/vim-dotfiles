@@ -1,7 +1,7 @@
 " Editor.vim
 " ----------
 " Plugins and settings relevant to 'editing', stuff that feels very vim like
-
+Plug 'duggiefresh/vim-easydir'
 
 Plug 'tpope/vim-commentary' " provides gc operator
 Plug 'tpope/vim-speeddating' " allows <C-A> <C-X> for dates
@@ -34,8 +34,10 @@ let g:matchup_matchparen_deferred = 1
 let g:matchup_override_vimtex = 1
 let g:matchup_matchparen_offscreen = {'method': 'popup'}
 
-Plug 'Konfekt/FastFold' " Faster folding
-Plug 'junegunn/vim-slash' " Better in buffer search
+" Plug 'junegunn/vim-slash' " Better in buffer search
+" Plug 'wincent/loupe' " The same?
+Plug 'pgdouyon/vim-evanesco'
+
 Plug 'junegunn/rainbow_parentheses.vim'
 
 " Funky stuff below

@@ -6,15 +6,23 @@
 " Basicly not langauge agnostic stuff but still general.
 "
 
-Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+let g:asyncrun_rootmarks = ['.git', '.svn', 'go.mod', '.root', '.project', '.hg']
+let g:asyncrun_status = ''
+let g:asyncrun_shell = '/bin/zsh'
+let g:asyncrun_shellflag = '-c'
+" let g:asyncrun_open = 6
+
+
+Plug 'skywind3000/asynctasks.vim'
 nnoremap <silent><f5> :AsyncTask file-run<cr>
 nnoremap <silent><f9> :AsyncTask file-build<cr>
 nnoremap <silent><f6> :AsyncTask project-build<cr>
 nnoremap <silent><f7> :AsyncTask project-run<cr>
-let g:asyncrun_rootmarks = ['.git', '.svn', 'go.mod', '.root', '.project', '.hg']
 let g:asynctasks_term_pos = 'bottom'
 let g:asynctasks_system = 'macos'
+
 
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1

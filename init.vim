@@ -74,7 +74,6 @@ set fillchars=vert:┃               " HEAVY VERTICAL (U+2503)
 set fillchars=eob:\ 
 set fillchars=fold:\ 
 
-set foldmethod=syntax "indent
 set foldcolumn=0
 set foldlevel=99
 set foldlevelstart=10

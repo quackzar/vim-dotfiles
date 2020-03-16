@@ -64,6 +64,17 @@ call quickui#menu#install('La&TeX', [
             \ ['Stop', 'VimtexStop'],
             \ ], '<auto>', 'tex,latex')
 
+call quickui#menu#install('&Version Control', [
+            \ ['&Status', 'Gstatus'],
+            \ ['&Add File', 'Gw'],
+            \ ['&Commit', 'Gcommit'],
+            \ ['P&ush', 'Gpush'],
+            \ ['&Pull', 'Gpull'],
+            \ ['Pull &Fast', 'Gupdate'],
+            \ ])
+
+
+
 let content = [
             \ ["&Help Keyword\t\\ch",
             \ "call quickui#tools#display_help(expand('<cword>'))" ],

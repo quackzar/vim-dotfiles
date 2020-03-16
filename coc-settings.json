@@ -63,6 +63,7 @@
     "coc.source.buffer.enable": false,
     "coc.source.tag.enable": false,
     "coc.source.around.enable": false,
+    "explorer.file.column.git.showIgnored": true,
     "snippets.priority": 30,
     "explorer.keyMappingMode": "none",
     "explorer.keyMappings": {

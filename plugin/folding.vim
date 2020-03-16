@@ -41,4 +41,14 @@ function! FoldText()
                 \l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
 endfunction
 
-set foldtext=FoldText()
+" set foldtext=FoldText()
+Plug 'Konfekt/FastFold' " Faster folding
+
+" New stuff
+
+Plug 'arecarn/vim-clean-fold'
+set foldtext=clean_fold#fold_text('_')
+set foldmethod=expr
+set foldexpr=clean_fold#fold_expr(v:lnum)
+
+Plug 'vim-scripts/folddigest.vim'

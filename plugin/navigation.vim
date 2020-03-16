@@ -26,3 +26,4 @@ let g:sneak#prompt = 'SNEAK>'
 
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
+Plug 'farmergreg/vim-lastplace'

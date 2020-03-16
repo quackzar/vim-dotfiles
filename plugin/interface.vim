@@ -4,7 +4,7 @@
 
 Plug 'mhinz/vim-startify'
 let g:startify_session_dir = stdpath('config').'/session/'
-let g:startify_bookmarks = ['~/.config/nvim/init.vim', '~/.zshrc']
+let g:startify_bookmarks = ['~/.config/nvim/init.vim']
 let g:startify_fortune_use_unicode = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_update_oldfiles = 1
