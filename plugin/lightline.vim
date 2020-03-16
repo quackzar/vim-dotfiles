@@ -17,8 +17,8 @@ function! LightlineModified()
     return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : ''
 endfunction
 
-function! LightlineFileformat()
-    return winwidth(0) > 70 ? &fileformat : ''
+function! LightlineFileformat() " show if not unix
+    return winwidth(0) > 70 ? (&fileformat == 'unix' ? '' : &fileformat) : ''
 endfunction
 
 function! LightlineFiletype()
@@ -29,6 +29,19 @@ function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
 
+
+lua spinner = require("spinner")
+
+let g:spinner_running = 0
+function AsyncRunStatus()
+    if g:asyncrun_status == 'running'
+        call luaeval("require'spinner'.start()")
+        return luaeval("require'spinner'.state()")
+    else
+        call luaeval("require'spinner'.stop()")
+        return ''
+    endif
+endfunction
 
 function! LightlineFilename()
     let fname = expand('%:t')
@@ -58,7 +71,12 @@ let g:lightline = {
             \ 'active': {
             \   'left': [ [ 'mode', 'paste' ],
             \             [ 'gitbranch', 'filename', 'method' ],
-            \             [ 'cocstatus' ]  ] },
+            \             [ 'cocstatus' ]  ],
+            \ 'right': [ [ 'lineinfo' ],
+            \            [ 'percent' ],
+            \            [ 'spell',  'fileformat', 'filetype'],
+            \            [ 'asyncstatus' ]]
+            \  },
             \ 'component_function': {
             \   'mode': 'LightlineMode',
             \   'filename': 'LightlineFilename',
@@ -68,6 +86,7 @@ let g:lightline = {
             \   'method': 'NearestMethodOrFunction',
             \   'abpi': 'LightlineABPI',
             \   'cocstatus': 'coc#status',
+            \   'asyncstatus': 'AsyncRunStatus',
             \ },
             \ 'component': {
             \   'lineinfo': ' %3l:%-2v',
