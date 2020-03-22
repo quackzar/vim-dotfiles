@@ -8,6 +8,7 @@ Plug 'tpope/vim-speeddating' " allows <C-A> <C-X> for dates
 Plug 'tpope/vim-repeat' " Improves dot
 Plug 'tpope/vim-eunuch' " Basic (Delete, Move, Rename) unix commands
 Plug 'AndrewRadev/switch.vim'
+
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
 xmap is <Plug>(textobj-sandwich-query-i)
 xmap as <Plug>(textobj-sandwich-query-a)
@@ -22,9 +23,8 @@ xmap am <Plug>(textobj-sandwich-literal-query-a)
 omap im <Plug>(textobj-sandwich-literal-query-i)
 omap am <Plug>(textobj-sandwich-literal-query-a)
 
-Plug 'junegunn/vim-easy-align'
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+Plug 'wellle/targets.vim'
+let g:targets_seekRanges = 'cc cr cb cB lc ac Ac lr rr lb ar ab lB Ar aB Ab AB rb rB bb bB BB'
 
 let g:loaded_matchit = 1
 Plug 'andymass/vim-matchup'
@@ -33,6 +33,11 @@ let g:matchup_transmute_enabled = 1
 let g:matchup_matchparen_deferred = 1
 let g:matchup_override_vimtex = 1
 let g:matchup_matchparen_offscreen = {'method': 'popup'}
+
+Plug 'junegunn/vim-easy-align'
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 
 " Plug 'junegunn/vim-slash' " Better in buffer search
 " Plug 'wincent/loupe' " The same?
@@ -90,6 +95,17 @@ Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 
 
 Plug 'psliwka/vim-smoothie'
+
+
+Plug 'zirrostig/vim-schlepp'
+vmap <Up>    <Plug>SchleppUp
+vmap <Down>  <Plug>SchleppDown
+vmap <Left>  <Plug>SchleppLeft
+vmap <Right> <Plug>SchleppRight
+let g:Schlepp#reindent = 1
+vmap <S-up>   <Plug>SchleppIndentUp
+vmap <S-down> <Plug>SchleppIndentDown
+
 
 Plug 'tpope/vim-abolish' " like substitute
 Plug 'reedes/vim-textobj-sentence' " better sentence detection
