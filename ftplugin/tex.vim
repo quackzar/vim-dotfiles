@@ -4,8 +4,8 @@ setlocal foldtext=vimtex#fold#text()
 setlocal wrap
 " nnoremap <buffer> <leader>v :VoomToggle<cr>
 " nnoremap <silent><M-tab> :Vista focus<cr>
-nnoremap <silent><buffer> <leader>v :VimtexTocToggle<cr>
-nnoremap <silent><buffer> <M-tab> :VimtexTocOpen<cr>
+nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
+nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 
 nnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>

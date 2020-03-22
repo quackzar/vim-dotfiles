@@ -43,7 +43,7 @@ endfunction
 function! ToggleSignColumn()
     if &signcolumn=='no'
         echo 'Signcolumn AUTO'
-        set signcolumn=auto:3
+        set signcolumn=auto:1
     else
         echo 'Signcolumn OFF'
         set signcolumn=no

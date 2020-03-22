@@ -100,7 +100,7 @@ set dictionary+=/usr/share/dict/words
 
 set langmenu=en_US
 
-set signcolumn=auto:3
+set signcolumn=auto:1
 
 set updatetime=300
 set cmdheight=1
