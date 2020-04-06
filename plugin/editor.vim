@@ -39,9 +39,9 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
-" Plug 'junegunn/vim-slash' " Better in buffer search
+Plug 'junegunn/vim-slash' " Better in buffer search
 " Plug 'wincent/loupe' " The same?
-Plug 'pgdouyon/vim-evanesco'
+" Plug 'pgdouyon/vim-evanesco'
 
 Plug 'junegunn/rainbow_parentheses.vim'
 

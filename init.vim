@@ -28,6 +28,7 @@ if $TERM == "xterm-256color"
 endif
 
 
+set langmenu=en_US
 set termguicolors " GUI colors
 
 set hidden " something about hidden buffers

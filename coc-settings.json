@@ -39,8 +39,6 @@
     "diagnostic.virtualText": true,
     "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
-    "diagnostic.virtualTextPrefix": "⟨",
-    "diagnostic.virtualTextLineSeparator": "⟩",
     "python.jediEnabled": false,
     "codeLens.enable": true,
     "signature.target": "float",
@@ -122,6 +120,7 @@
         "<C-c>": "do:exit"
     },
     "go.enable": true,
+    "go.staticcheck": true,
     "go.goplsOptions": {
         "deepCompletion": true,
         "completeUnimported": true,
@@ -147,14 +146,6 @@
             "initializationOptions": {
                 "cacheDirectory": "/tmp/cquery"
             }
-        },
-        "digestif": {
-            "command": "digestif",
-            "filetypes": [
-                "tex",
-                "plaintex",
-                "context"
-            ]
         },
         "lua": {
             "command": "lua-lsp",

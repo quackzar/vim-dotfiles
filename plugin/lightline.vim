@@ -52,7 +52,7 @@ function! LightlineFilename()
                 \ &ft == 'unite' ? unite#get_status_string() :
                 \ &ft == 'vimshell' ? vimshell#get_status_string() :
                 \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                \ ('' != fname ? fname : '[No Name]') .
+                \ ('' != fname ? expand('%:f') : '[No Name]') .
                 \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 

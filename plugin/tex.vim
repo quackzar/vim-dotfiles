@@ -14,7 +14,7 @@ let g:vimtex_compiler_latexmk = {
     \ 'build_dir': 'out',
     \}
 
-" let g:vimtex_complete_enabled=0
+let g:vimtex_complete_enabled=1
 
 let g:vimtex_format_enabled = 1
 let g:vimtex_fold_enabled = 1
@@ -38,12 +38,11 @@ let g:vimtex_toc_config = {
 " augroup END
 
 
-let g:vimtex_view_use_temp_files = 0
 " let g:vimtex_view_general_callback = ''
 
-let g:vimtex_textidote_jar = '~/Applications/textidote.jar'
 
 if has('macunix')
+    let g:vimtex_textidote_jar = '~/Applications/textidote.jar'
     let g:vimtex_view_general_viewer
                 \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
     let g:vimtex_view_general_options = '-r @line @pdf @tex'
@@ -51,6 +50,16 @@ if has('macunix')
     let g:vimtex_view_automatic = 1
     let g:vimtex_view_skim_reading_bar = 0
     let g:vimtex_view_method = 'skim'
+else
+    " function! MyTestHook(status)
+    "   echom a:status
+    " endfunction
+    let g:vimtex_view_general_viewer = 'zathura'
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_view_use_temp_files = 1
+    let g:vimtex_view_automatic = 1
+    " let g:vimtex_compiler_callback_hooks = ['MyTestHook']
+    let g:vimtex_compiler_progname = 'nvr'
 endif
 
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
