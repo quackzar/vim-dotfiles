@@ -7,7 +7,6 @@ let g:vimtex_compiler_latexmk = {
     \   '-pdf',
     \   '-shell-escape',
     \   '-verbose',
-    \   '-file-line-error',
     \   '-synctex=1',
     \   '-interaction=nonstopmode',
     \ ],
@@ -40,7 +39,6 @@ let g:vimtex_toc_config = {
 
 " let g:vimtex_view_general_callback = ''
 
-
 if has('macunix')
     let g:vimtex_textidote_jar = '~/Applications/textidote.jar'
     let g:vimtex_view_general_viewer
@@ -56,7 +54,7 @@ else
     " endfunction
     let g:vimtex_view_general_viewer = 'zathura'
     let g:vimtex_view_method = 'zathura'
-    let g:vimtex_view_use_temp_files = 1
+    " let g:vimtex_view_use_temp_files = 1
     let g:vimtex_view_automatic = 1
     " let g:vimtex_compiler_callback_hooks = ['MyTestHook']
     let g:vimtex_compiler_progname = 'nvr'
