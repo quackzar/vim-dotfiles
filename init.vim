@@ -1,7 +1,7 @@
 set encoding=utf8
 setglobal fileencoding=utf8
 
-if has('macos')
+if has('macunix')
     set shell=/usr/local/bin/fish
     let g:python3_host_prog = '/usr/local/bin/python3'
 else
