@@ -21,7 +21,6 @@ nnoremap <silent><f9> :AsyncTask file-build<cr>
 nnoremap <silent><f6> :AsyncTask project-build<cr>
 nnoremap <silent><f7> :AsyncTask project-run<cr>
 let g:asynctasks_term_pos = 'bottom'
-let g:asynctasks_system = 'macos'
 
 
 Plug 'liuchengxu/vista.vim'
@@ -41,8 +40,8 @@ nnoremap <silent> <M-tab> :Vista focus<cr>
 Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 Plug 'antoinemadec/coc-fzf'
 
-" inoremap <silent><expr> <M-space> 
-"             \pumvisible() ? "\<C-y>" : coc#refresh()
+inoremap <silent><expr> <C-space> 
+            \pumvisible() ? "\<C-y>" : coc#refresh()
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
@@ -113,14 +112,14 @@ let g:qf_auto_open_loclist = 0
 nnoremap \q <Plug>(qf_qf_toggle)
 
 " SNIPPETS
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" Plug 'SirVer/ultisnips'
-" let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 " let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
-" let g:UltiSnipsExpandTrigger     = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger      = '<tab>'
-" let g:UltiSnipsJumpBackwardTrigger     = '<S-tab>'
-"
+let g:UltiSnipsExpandTrigger     = '<tab>'
+let g:UltiSnipsJumpForwardTrigger      = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger     = '<c-k>'
 
 Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"

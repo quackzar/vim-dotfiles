@@ -2,8 +2,11 @@
 " -----------
 " Stuff relevant to fzf.
 "
-
-Plug '/usr/local/opt/fzf'
+if has('macos')
+    Plug '/usr/local/opt/fzf'
+else
+    Plug 'junegunn/fzf'
+end
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
@@ -73,10 +76,10 @@ endfunction
 
 
 command! CmdHist call fzf#vim#command_history({'right': '40'})
-nnoremap q: :CmdHist<CR>
+" nnoremap q: :CmdHist<CR>
 
 command! QHist call fzf#vim#search_history({'right': '40'})
-nnoremap q/ :QHist<CR>
+" nnoremap q/ :QHist<CR>
 
 Plug 'Shougo/neomru.vim'
 Plug 'yuki-ycino/fzf-preview.vim'
@@ -85,7 +88,7 @@ let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=ansi-
 let g:fzf_preview_use_dev_icons = 0
 let g:fzf_preview_dev_icon_prefix_length = 1
 let g:fzf_preview_filelist_postprocess_command = "" " 'xargs -d "\n" exa --color=always' " Use exa
-let g:fzf_preview_filelist_command = 'rg --files --follow -no-messages --glob \!"* *"'
+let g:fzf_preview_filelist_command = 'rg --files --follow -no-messages --glob \!"* *" --glob "!.git/*"'
 
 " See https://minsw.github.io/fzf-color-picker/
 let g:fzf_preview_fzf_color_option = 'bg+:#293739,bg:#1B1D1E,border:#808080,spinner:#E6DB74,hl:#7E8E91,fg:#F8F8F2,header:#7E8E91,info:#A6E22E,pointer:#A6E22E,marker:#F92672,fg+:#F8F8F2,prompt:#F92672,hl+:#F92672'

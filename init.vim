@@ -1,10 +1,15 @@
 set encoding=utf8
 setglobal fileencoding=utf8
 
-set shell=/usr/local/bin/fish
+if has('macos')
+    set shell=/usr/local/bin/fish
+    let g:python3_host_prog = '/usr/local/bin/python3'
+else
+    set shell=/bin/fish
+    let g:python3_host_prog = '/usr/bin/python3'
+end
 
 set runtimepath+=$HOME/.config/nvim
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 syntax on
 
@@ -23,6 +28,7 @@ if $TERM == "xterm-256color"
 endif
 
 
+set langmenu=en_US
 set termguicolors " GUI colors
 
 set hidden " something about hidden buffers
