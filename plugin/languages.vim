@@ -6,7 +6,7 @@ let g:vim_markdown_toml_frontmatter = 1
 let g:vim_markdown_json_frontmatter = 1
 
 " ======== GRAPHVIZ ========
-Plug 'wannesm/wmgraphviz.vim', {'for': 'dot'}
+Plug 'liuchengxu/graphviz.vim', {'for': 'dot'}
 
 " ======== TYPESCRIPT =======
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
