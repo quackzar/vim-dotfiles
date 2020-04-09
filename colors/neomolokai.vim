@@ -286,5 +286,10 @@ call Highlight("QuickHelp", s:sea_blue, s:none)
 
 call Highlight("QuickScopePrimary", s:none, s:none, s:underline)
 call Highlight("QuickScopeSecondary", s:none, s:none, s:italic .",". s:underline)
+
+" Indent Guides
+call Highlight("IndentGuide", s:darker_grey, s:background)
+let g:indentLine_color_gui = s:darker_grey
+
 hi! link vimSet PreProc
 hi! link vimIsCommand Statement

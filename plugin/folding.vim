@@ -1,49 +1,19 @@
-function! FoldText()
-    let l:lpadding = &fdc
-    redir => l:signs
-    execute 'silent sign place buffer='.bufnr('%')
-    redir End
-    let l:lpadding += l:signs =~ 'id=' ? 2 : 0
-
-    if exists("+relativenumber")
-        if (&number)
-            let l:lpadding += max([&numberwidth,
-                        \strlen(line('$'))]) + 1
-        elseif (&relativenumber)
-            let l:lpadding += max([&numberwidth, 
-                        \strlen(v:foldstart - line('w0')),
-                        \strlen(line('w$') - v:foldstart), 
-                        \strlen(v:foldstart)]) + 1
-        endif
-    else
-        if (&number)
-            let l:lpadding += max([&numberwidth, strlen(line('$'))]) + 1
-        endif
-    endif
-
-    " expand tabs
-    let l:start = substitute(getline(v:foldstart), '\t',
-                \repeat(' ', &tabstop), 'g')
-    let l:end = substitute(substitute(getline(v:foldend),
-                \'\t', repeat(' ', &tabstop), 'g'), '^\s*', '', 'g')
-
-    let l:info = ' (' . (v:foldend - v:foldstart) . ')'
-    let l:infolen = strlen(substitute(l:info, '.', 'x', 'g'))
-    let l:width = winwidth(0) - l:lpadding - l:infolen
-
-    let l:separator = ' … '
-    let l:separatorlen = strlen(substitute(l:separator, '.', 'x', 'g'))
-    let l:start = strpart(l:start , 0,
-                \l:width - strlen(substitute(l:end, '.', 'x', 'g')) - l:separatorlen)
-    let l:text = l:start . ' … ' . l:end
-
-    return l:text . repeat(' ',
-                \l:width - strlen(substitute(l:text, ".", "x", "g"))) . l:info
+" Modified from http://dhruvasagar.com/2013/03/28/vim-better-foldtext
+function! NeatFoldText()
+    let indent_level = indent(v:foldstart)
+    let indent = repeat(' ',indent_level)
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '-' . printf("%10s", lines_count . ' lines') . ' '
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return indent . foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
+" set foldtext=NeatFoldText()
 
-" set foldtext=FoldText()
 Plug 'Konfekt/FastFold' " Faster folding
-
 " New stuff
 
 Plug 'arecarn/vim-clean-fold'
@@ -51,4 +21,42 @@ set foldtext=clean_fold#fold_text('_')
 set foldmethod=expr
 set foldexpr=clean_fold#fold_expr(v:lnum)
 
-Plug 'vim-scripts/folddigest.vim'
+
+
+" Indent Guides
+Plug 'Yggdroot/indentLine'
+
+" Virtual text for better guides
+let g:pretty_indent_namespace = nvim_create_namespace('pretty_indent')
+
+
+function! PrettyIndent()
+    let l:view=winsaveview()
+    call cursor(1, 1)
+    call nvim_buf_clear_namespace(0, g:pretty_indent_namespace, 1, -1)
+    while 1
+        let l:match = search('^$', 'W')
+        if l:match ==# 0
+            break
+        endif
+        let l:indent = cindent(l:match)
+        if l:indent > 0
+            call nvim_buf_set_virtual_text(
+            \   0,
+            \   g:pretty_indent_namespace,
+            \   l:match - 1,
+            \   [[repeat(repeat(' ', &shiftwidth - 1) . '¦', l:indent / &shiftwidth), 'IndentGuide']],
+            \   {}
+            \)
+        endif
+    endwhile
+    call winrestview(l:view)
+
+endfunction
+
+augroup PrettyIndent
+    autocmd!
+    autocmd TextChanged * call PrettyIndent()
+    autocmd BufEnter * call PrettyIndent()
+    autocmd InsertLeave * call PrettyIndent()
+augroup END
