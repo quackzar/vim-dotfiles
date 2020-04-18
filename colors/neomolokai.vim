@@ -276,6 +276,9 @@ call Highlight("Sneak", s:none, s:purple)
 call Highlight("SneakLabel", s:none, s:purple)
 call Highlight("SneakScope", s:yellow, s:magenta)
 
+" Rainbow Parentheses
+let g:rainbow#blacklist = [s:white, s:charcoal]
+
 " QuickUI
 " call Highlight("QuickBG", s:light_grey, s:columns_bg)
 call Highlight("QuickBG", s:light_grey, s:light_charcoal)
@@ -287,9 +290,13 @@ call Highlight("QuickHelp", s:sea_blue, s:none)
 call Highlight("QuickScopePrimary", s:none, s:none, s:underline)
 call Highlight("QuickScopeSecondary", s:none, s:none, s:italic .",". s:underline)
 
+" Float Term
+call Highlight("Floaterm", s:none, s:charcoal)
+call Highlight("FloatermBorder", s:orange, s:charcoal)
+
 " Indent Guides
-call Highlight("IndentGuide", s:darker_grey, s:background)
-let g:indentLine_color_gui = s:darker_grey
+call Highlight("IndentGuide", s:dark_grey, s:background)
+let g:indentLine_color_gui = s:dark_grey
 
 hi! link vimSet PreProc
 hi! link vimIsCommand Statement

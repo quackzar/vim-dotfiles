@@ -125,3 +125,7 @@ Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"
 let g:voom_tab_key = "<M-tab>"
 let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
+
+Plug 'voldikss/vim-floaterm'
+let g:floaterm_winblend = 25
+let g:floaterm_keymap_toggle = '<F10>'

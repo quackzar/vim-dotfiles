@@ -76,8 +76,7 @@ call quickui#menu#install('&Version Control', [
 
 
 let content = [
-            \ ["&Help Keyword\t\\ch",
-            \ "call quickui#tools#display_help(expand('<cword>'))" ],
+            \ ["&Help Keyword\t\\ch", "call quickui#tools#display_help(expand('<cword>'))" ],
             \ ["&Signature\t\\cs", "call CocAction('doHover')"],
             \ ['-'],
             \ ["Find in &File\t\\cx", 'echo 200' ],

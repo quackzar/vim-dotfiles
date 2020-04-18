@@ -47,7 +47,12 @@ Plug 'junegunn/rainbow_parentheses.vim'
 
 " Funky stuff below
 
-Plug 'machakann/vim-swap'
+Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
+" omap i, <Plug>(swap-textobject-i)
+" xmap i, <Plug>(swap-textobject-i)
+" omap a, <Plug>(swap-textobject-a)
+" xmap a, <Plug>(swap-textobject-a)
+
 Plug 'svermeulen/vim-yoink'
 nmap <c-n> <plug>(YoinkPostPasteSwapBack)
 nmap <c-p> <plug>(YoinkPostPasteSwapForward)
@@ -56,12 +61,14 @@ nmap ]y <plug>(YoinkRotateForward)
 nmap p <plug>(YoinkPaste_p)
 nmap P <plug>(YoinkPaste_P)
 Plug 'svermeulen/vim-subversive'
-nmap gs          <plug>(SubversiveSubstitute)
-nmap gss         <plug>(SubversiveSubstituteLine)
-nmap gS          <plug>(SubversiveSubstituteToEndOfLine)
+nmap gS          <plug>(SubversiveSubstitute)
+nmap gSS         <plug>(SubversiveSubstituteLine)
 nmap <leader>s  <plug>(SubversiveSubstituteRange)
 xmap <leader>s  <plug>(SubversiveSubstituteRange)
 nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+xmap s <plug>(SubversiveSubstitute)
+xmap p <plug>(SubversiveSubstitute)
+xmap P <plug>(SubversiveSubstitute)
 
 
 Plug 'mbbill/undotree'
@@ -84,8 +91,6 @@ Plug 'kshenoy/vim-signature' " marks in the sign column
 nnoremap <silent> gm :SignatureToggleSigns<cr>
 
 
-
-
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 50
@@ -93,18 +98,19 @@ let g:peekaboo_delay = 50
 Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 
 
-
 Plug 'psliwka/vim-smoothie'
 
+Plug 'thezeroalpha/vim-relatively-complete'
+imap <C-x><C-f> <Plug>RelativelyCompleteFile
 
-Plug 'zirrostig/vim-schlepp'
-vmap <Up>    <Plug>SchleppUp
-vmap <Down>  <Plug>SchleppDown
-vmap <Left>  <Plug>SchleppLeft
-vmap <Right> <Plug>SchleppRight
-let g:Schlepp#reindent = 1
-vmap <S-up>   <Plug>SchleppIndentUp
-vmap <S-down> <Plug>SchleppIndentDown
+" Plug 'zirrostig/vim-schlepp'
+" vmap <Up>    <Plug>SchleppUp
+" vmap <Down>  <Plug>SchleppDown
+" vmap <Left>  <Plug>SchleppLeft
+" vmap <Right> <Plug>SchleppRight
+" let g:Schlepp#reindent = 1
+" vmap <S-up>   <Plug>SchleppIndentUp
+" vmap <S-down> <Plug>SchleppIndentDown
 
 
 Plug 'tpope/vim-abolish' " like substitute

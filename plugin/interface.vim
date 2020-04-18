@@ -8,9 +8,12 @@ let g:startify_bookmarks = ['~/.config/nvim/init.vim']
 let g:startify_fortune_use_unicode = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_update_oldfiles = 1
-autocmd User Startified nmap <buffer> <o> <plug>(startify-open-buffers)
-autocmd User Startified nmap <buffer> <cr> :
-autocmd User Startified setlocal cursorline buflisted
+augroup my_startify
+    autocmd User Startified nmap <buffer> o <plug>(startify-open-buffers)
+    autocmd User Startified nmap <buffer> <cr> :
+    autocmd User Startified setlocal cursorline buflisted
+augroup END
+
 function! s:center(lines) abort
     let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
     let centered_lines = map(copy(a:lines),
@@ -45,6 +48,7 @@ let g:startify_list_order = [
       \ ['   MRU'], 'files',
       \ ['   Bookmarks:'], 'bookmarks',
       \ ]
+
 
 let g:startify_skiplist = [
       \ 'COMMIT_EDITMSG',

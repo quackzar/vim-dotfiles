@@ -2,7 +2,6 @@ setlocal noexpandtab
 setlocal shiftwidth=4
 setlocal softtabstop=4
 setlocal tabstop=4
-setlocal foldmethod=indent
 setlocal listchars+=tab:\ \ 
 setlocal formatexpr=CocAction('formatSelected')
 " nnoremap <buffer><localleader>i <Plug>(gopher-if)
@@ -11,5 +10,3 @@ setlocal formatexpr=CocAction('formatSelected')
 "
 setlocal foldmethod=marker
 setlocal foldmarker={,}
-
-

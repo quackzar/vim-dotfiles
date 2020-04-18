@@ -12,3 +12,5 @@ xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 
 nnoremap <buffer> K <Plug>(vimtex-doc-package)
 nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
+
+highlight Conceal guifg=#ffffff

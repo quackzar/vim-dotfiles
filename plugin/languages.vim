@@ -34,8 +34,7 @@ Plug 'rhysd/vim-llvm', {'for': 'llvm'}
 
 " ======== GO ======
 Plug 'arp242/gopher.vim', {'for': 'go'}
-let g:gopher_map = 0
-let g:gopher_map = {'_nmap_prefix': '<localleader>', '_imap_prefix': '<C-k>'}
+let g:gopher_map = {'_default': 1, '_nmap_prefix': '<localleader>', '_imap_prefix': '<C-k>'}
 Plug 'sebdah/vim-delve', {'for': 'go'}
 let g:delve_breakpoint_sign = '●'
 let g:delve_breakpoint_sign_highlight = 'CocHintSign'
