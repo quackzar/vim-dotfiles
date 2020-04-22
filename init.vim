@@ -166,6 +166,14 @@ autocmd BufReadPost *
 
 
 
+" These nice commands triggers autoreading
+augroup improved_autoread
+  autocmd!
+  autocmd FocusGained * silent! checktime
+  autocmd BufEnter * silent! checktime
+  autocmd VimResume * silent! checktime
+augroup end
+
 " ======= MAPPINGS ========
 " Basics
 noremap <CR> :
