@@ -164,8 +164,6 @@ autocmd BufReadPost *
             \ |   exe "normal! g`\""
             \ | endif
 
-" ====== FUNCTIONS ========
-
 
 
 " ======= MAPPINGS ========
@@ -198,15 +196,24 @@ vnoremap @ :normal @<CR>
 vnoremap > >gv
 vnoremap < <gv
 
+
+
 " Terminal magic
 tnoremap <C-Z> <C-\><C-n>
 
 
-
-" Output the current syntax group
-nnoremap <f10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<cr>
+imap <f1> <nop>
+imap <f2> <nop>
+imap <f3> <nop>
+imap <f4> <nop>
+imap <f5> <nop>
+imap <f6> <nop>
+imap <f7> <nop>
+imap <f8> <nop>
+imap <f9> <nop>
+imap <f10> <nop>
+imap <f11> <nop>
+imap <f12> <nop>
 
 " ====== COLORS =======
 let g:neomolokai_no_bg=1 " Remove the normal background
