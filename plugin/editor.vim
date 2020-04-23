@@ -93,7 +93,7 @@ nnoremap <silent> gm :SignatureToggleSigns<cr>
 
 " Let's you preview the registers
 Plug 'junegunn/vim-peekaboo'
-let g:peekaboo_delay = 50
+let g:peekaboo_delay = 100
 
 Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 

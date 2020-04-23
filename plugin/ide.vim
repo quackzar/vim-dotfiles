@@ -51,6 +51,8 @@ let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
 nmap <silent> <C-]> <Plug>(coc-definition)
+autocmd FileType help nnoremap <buffer> <C-]> <C-]>
+
 " nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gI <Plug>(coc-implementation)
