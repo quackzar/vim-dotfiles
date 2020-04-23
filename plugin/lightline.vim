@@ -29,6 +29,33 @@ function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
 
+let g:tex_wordcount = 0
+function! VimTexStatus()
+    if &ft != 'tex'
+        return ''
+    end
+    let l:msg = ''
+    if g:tex_wordcount > 0
+        let l:msg .= ' '. g:tex_wordcount . ' words'
+    end
+    let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
+    if !empty(l:compiler)
+        if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
+            if get(l:compiler, 'continuous')
+                let l:msg .= ' auto compiling' " ' '
+            else
+                let l:msg .= ' '
+            endif
+        endif
+    endif
+    if l:msg != ''
+        return 'vimtex:'. l:msg
+    else
+        return ''
+    end
+endfunction
+
+
 
 lua spinner = require("spinner")
 
@@ -75,7 +102,7 @@ let g:lightline = {
             \ 'right': [ [ 'lineinfo' ],
             \            [ 'percent' ],
             \            [ 'spell',  'fileformat', 'filetype'],
-            \            [ 'asyncstatus' ]]
+            \            [ 'texstatus', 'asyncstatus' ]]
             \  },
             \ 'component_function': {
             \   'mode': 'LightlineMode',
@@ -87,6 +114,7 @@ let g:lightline = {
             \   'abpi': 'LightlineABPI',
             \   'cocstatus': 'coc#status',
             \   'asyncstatus': 'AsyncRunStatus',
+            \   'texstatus': 'VimTexStatus',
             \ },
             \ 'component': {
             \   'lineinfo': ' %3l:%-2v',
@@ -103,8 +131,6 @@ let g:lightline = {
             \ 'tabline': {'left': [['buffers']], 'right': [['close']]}
             \ }
 
-            " \ 'separator': { 'left': '', 'right': '' },
-            " \ 'subseparator': { 'left': '', 'right': '' },
 " Tabline
 " let g:lightline#bufferline#read_only = ''
 let g:lightline#bufferline#unicode_symbols = 1
