@@ -18,15 +18,18 @@ let g:vimtex_complete_enabled=1
 let g:vimtex_format_enabled = 1
 let g:vimtex_fold_enabled = 1
 
-if executable('pulp')
-    let g:vimtex_quickfix_method = 'pulp'
-end
+let g:vimtex_textidote_jar = '/usr/bin/textidote'
+
+
+" if executable('pulp')
+"     let g:vimtex_quickfix_method = 'pulp'
+" end
 
 let g:vimtex_toc_config = {
             \ 'name' : 'Table of Contents',
             \ 'mode' : 1,
             \ 'fold_enable': 1,
-            \ 'hotkeys_enabled': 1,
+            \ 'hotkeys_enabled': 0,
             \ 'resize': 0,
             \ 'refresh_always': 1,
             \}
