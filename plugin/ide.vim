@@ -67,13 +67,16 @@ omap af <Plug>(coc-funcobj-a)
 
 nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
 
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>? <Plug>(coc-diagnostic-info)
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
-        " call quickui#tools#display_help(expand('<cword>'))
         execute 'h '.expand('<cword>')
     else
         call CocAction('doHover')
@@ -96,32 +99,19 @@ command! -bar -nargs=0 Config tabnew|
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Plug 'axvr/zepl.vim'
-" augroup zepl
-"     autocmd!
-"     autocmd FileType python     let b:repl_config = { 'cmd': 'python3' }
-"     autocmd FileType javascript let b:repl_config = { 'cmd': 'node' }
-"     autocmd FileType clojure    let b:repl_config = { 'cmd': 'clj' }
-"     autocmd FileType scheme     let b:repl_config = { 'cmd': 'rlwrap csi' }
-"     autocmd FileType lisp       let b:repl_config = { 'cmd': 'sbcl' }
-"     autocmd FileType julia      let b:repl_config = { 'cmd': 'julia' }
-" augroup END
-
-
 Plug 'romainl/vim-qf' " Better Quickfix
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 nnoremap \q <Plug>(qf_qf_toggle)
 
 " SNIPPETS
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
-let g:UltiSnipsExpandTrigger     = '<tab>'
-let g:UltiSnipsJumpForwardTrigger      = '<c-j>'
-let g:UltiSnipsJumpBackwardTrigger     = '<c-k>'
+" let g:UltiSnipsSnippetsDir = stdpath('config') . '/UltiSnips'
+" " let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
+" let g:UltiSnipsExpandTrigger     = '<tab>'
+" let g:UltiSnipsJumpForwardTrigger      = '<c-j>'
+" let g:UltiSnipsJumpBackwardTrigger     = '<c-k>'
 
 Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"

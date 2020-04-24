@@ -15,7 +15,18 @@ syntax on
 
 " Keymaps may be omitted.
 call plug#begin(stdpath('config').'/plugged/')
-    runtime! plugin/*.vim
+     " runtime! plugin/*.vim
+     exe 'source' stdpath('config') . '/plugin/fzf.vim'
+     exe 'source' stdpath('config') . '/plugin/git.vim'
+     exe 'source' stdpath('config') . '/plugin/ide.vim'
+     exe 'source' stdpath('config') . '/plugin/editor.vim'
+     exe 'source' stdpath('config') . '/plugin/tex.vim'
+     exe 'source' stdpath('config') . '/plugin/folding.vim'
+     exe 'source' stdpath('config') . '/plugin/experimental.vim'
+     exe 'source' stdpath('config') . '/plugin/interface.vim'
+     exe 'source' stdpath('config') . '/plugin/lightline.vim'
+     exe 'source' stdpath('config') . '/plugin/languages.vim'
+     exe 'source' stdpath('config') . '/plugin/functions.vim'
 call plug#end()
 exe 'source' . stdpath('config').'/quickui.vim'
 
@@ -205,23 +216,8 @@ vnoremap > >gv
 vnoremap < <gv
 
 
-
 " Terminal magic
 tnoremap <C-Z> <C-\><C-n>
-
-
-imap <f1> <nop>
-imap <f2> <nop>
-imap <f3> <nop>
-imap <f4> <nop>
-imap <f5> <nop>
-imap <f6> <nop>
-imap <f7> <nop>
-imap <f8> <nop>
-imap <f9> <nop>
-imap <f10> <nop>
-imap <f11> <nop>
-imap <f12> <nop>
 
 " ====== COLORS =======
 let g:neomolokai_no_bg=1 " Remove the normal background
