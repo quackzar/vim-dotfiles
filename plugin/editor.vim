@@ -73,6 +73,8 @@ xmap P <plug>(SubversiveSubstitute)
 
 Plug 'mbbill/undotree'
 
+Plug 'mg979/vim-visual-multi'
+
 " Let's you preview marks!
 Plug 'Yilin-Yang/vim-markbar'
 nmap <space>m  <Plug>ToggleMarkbar
@@ -102,15 +104,6 @@ Plug 'psliwka/vim-smoothie'
 
 Plug 'thezeroalpha/vim-relatively-complete'
 imap <C-x><C-f> <Plug>RelativelyCompleteFile
-
-" Plug 'zirrostig/vim-schlepp'
-" vmap <Up>    <Plug>SchleppUp
-" vmap <Down>  <Plug>SchleppDown
-" vmap <Left>  <Plug>SchleppLeft
-" vmap <Right> <Plug>SchleppRight
-" let g:Schlepp#reindent = 1
-" vmap <S-up>   <Plug>SchleppIndentUp
-" vmap <S-down> <Plug>SchleppIndentDown
 
 
 Plug 'tpope/vim-abolish' " like substitute

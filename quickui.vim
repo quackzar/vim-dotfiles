@@ -13,8 +13,10 @@ call quickui#menu#install('&File', [
             \ [ "E&xit", 'qa' ],
             \ ])
 call quickui#menu#install('&Edit', [
-            \ [ '&Find', 'echo 3', 'help 3' ],
+            \ [ '&Symbols', 'Vista finder', 'help vista' ],
+            \ [ '&Vista', 'Vista!!', 'help vista' ],
             \ [ '&Align', 'EasyAlign', 'help easyalign'],
+            \ [ '&Edit Snippets', 'UltiSnipsEdit', 'help ultisnips'],
             \ ])
 call quickui#menu#install("&Option", [
             \ ['Set &Spell %{&spell? "Off":"On"}', 'set spell!'],
@@ -62,7 +64,7 @@ call quickui#menu#install('La&TeX', [
             \ ['Compile &SS', 'VimtexCompileSS'],
             \ ['C&lean', 'VimtexClean'],
             \ ['Stop', 'VimtexStop'],
-            \ ], '<auto>', 'tex,latex')
+            \ ], '<auto>', 'tex,latex,bib')
 
 call quickui#menu#install('&Version Control', [
             \ ['&Status', 'Gstatus'],
@@ -76,15 +78,11 @@ call quickui#menu#install('&Version Control', [
 
 
 let content = [
-            \ ["&Help Keyword\t\\ch", "call quickui#tools#display_help(expand('<cword>'))" ],
-            \ ["&Signature\t\\cs", "call CocAction('doHover')"],
-            \ ['-'],
-            \ ["Find in &File\t\\cx", 'echo 200' ],
-            \ ["Find in &Project\t\\cp", 'echo 300' ],
-            \ ["Find in &Defintion\t\\cd", 'call  400' ],
-            \ ["Search &References\t\\cr", 'echo 500'],
-            \ ['-'],
-            \ ["&Documentation\t\\cm", 'echo 600'],
+            \ ["&Help Keyword", "call quickui#tools#display_help(expand('<cword>'))" ],
+            \ ["&Signature", "call CocAction('doHover')"],
+            \ ["--", "--"],
+            \ ["&Actions", "CocCommand actions.open" ],
+            \ ["&Rename", "call CocAction('rename')"],
             \ ]
 
 
@@ -93,5 +91,5 @@ nnoremap <silent> gK :call quickui#context#open(content, opts)<cr>
 
 augroup MyQuickfixPreview
   au!
-  au FileType qf noremap <silent><buffer> p :call quickui#tools#preview_quickfix()<cr>
+  au FileType qf noremap <silent><buffer> K :call quickui#tools#preview_quickfix()<cr>
 augroup END
