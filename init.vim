@@ -42,6 +42,8 @@ endif
 set langmenu=en_US
 set termguicolors " GUI colors
 
+lua require'colorizer'.setup()
+
 set hidden " something about hidden buffers
 
 set nu " have numbers
