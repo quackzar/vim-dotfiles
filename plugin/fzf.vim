@@ -99,10 +99,10 @@ let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
             \. 'fg:#F8F8F2,'
             \. 'header:#7E8E91,'
             \. 'info:#A6E22E,'
-            \. 'pointer:#A6E22E,'
-            \. 'marker:#F92672,'
+            \. 'pointer:#af87ff,'
+            \. 'marker:#62D8F1,'
             \. 'fg+:#F8F8F2,'
-            \. 'prompt:#F92672,'
+            \. 'prompt:#62D8F1,'
             \. 'hl+:#F92672'
 
 command! Files FzfPreviewDirectoryFiles

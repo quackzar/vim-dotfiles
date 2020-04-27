@@ -13,6 +13,7 @@ map <space>w <plug>WinWin
 
 Plug 'pechorin/any-jump.nvim'
 
+
 " Plug 'unblevable/quick-scope' " Highlights the first unique character
 " let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " Plug 'rhysd/clever-f.vim'
@@ -28,3 +29,10 @@ let g:sneak#prompt = 'SNEAK>'
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
 Plug 'farmergreg/vim-lastplace'
+
+
+Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
+nmap <Leader>/s <Plug>(AerojumpSpace)
+nmap <Leader>/b <Plug>(AerojumpBolt)
+nmap <Leader>/a <Plug>(AerojumpFromCursorBolt)
+nmap <Leader>/d <Plug>(AerojumpDefault) " Boring mode

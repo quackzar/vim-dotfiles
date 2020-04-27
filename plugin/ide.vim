@@ -91,10 +91,6 @@ command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Pickcolor :call CocAction('pickColor')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
-command! -bar -nargs=0 Config tabnew|
-            \exe 'tcd '.g:rootDirectory|
-            \exe 'e '  .g:rootDirectory . 'plugins.vim'|
-            \exe 'e '  .g:rootDirectory . 'init.vim'
 
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
@@ -103,6 +99,7 @@ Plug 'romainl/vim-qf' " Better Quickfix
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 nnoremap \q <Plug>(qf_qf_toggle)
+nmap <C-w><Space> <Plug>(qf_qf_switch)
 
 " SNIPPETS
 " Plug 'SirVer/ultisnips'
