@@ -43,6 +43,8 @@
     "codeLens.enable": true,
     "signature.target": "float",
     "coc.preferences.hoverTarget": "float",
+    "coc.preferences.snippetStatusText": "SNIP",
+    "coc.preferences.useQuickfixForLocations": true,
     "git.realtimeGutters": false,
     "git.addedSign.text": "▎",
     "git.changedSign.text": "▎",
@@ -54,7 +56,6 @@
     "git.removedSign.hlGroup": "DiffDeleteGutter",
     "git.topRemovedSign.hlGroup": "DiffDeleteGutter",
     "git.changeRemovedSign.hlGroup": "DiffChangeGutter",
-    "highlight.colors.enable": false,
     "explorer.icon.enableNerdfont": true,
     "explorer.width": 25,
     "coc.source.vimtex.priority": 100,
@@ -120,7 +121,6 @@
         "<C-c>": "do:exit"
     },
     "go.enable": true,
-    "go.staticcheck": true,
     "go.goplsOptions": {
         "deepCompletion": true,
         "completeUnimported": true,
