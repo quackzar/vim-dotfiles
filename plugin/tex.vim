@@ -42,7 +42,6 @@ let g:vimtex_toc_config = {
 " let g:vimtex_view_general_callback = ''
 
 if has('macunix')
-    let g:vimtex_textidote_jar = '~/Applications/textidote.jar'
     let g:vimtex_view_general_viewer
                 \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
     let g:vimtex_view_general_options = '-r @line @pdf @tex'
@@ -62,6 +61,7 @@ else
     let g:vimtex_view_automatic = 1
     " let g:vimtex_compiler_callback_hooks = ['MyTestHook']
     let g:vimtex_compiler_progname = 'nvr'
+    let g:vimtex_textidote_jar = '/opt/textidote/textidote.jar'
 endif
 
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
