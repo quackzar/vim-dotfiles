@@ -45,6 +45,9 @@ Plug 'junegunn/vim-slash' " Better in buffer search
 
 Plug 'junegunn/rainbow_parentheses.vim'
 
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'flwyd/vim-conjoin'
+
 " Funky stuff below
 
 Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
@@ -53,22 +56,22 @@ Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
 " omap a, <Plug>(swap-textobject-a)
 " xmap a, <Plug>(swap-textobject-a)
 
-Plug 'svermeulen/vim-yoink'
-nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-nmap [y <plug>(YoinkRotateBack)
-nmap ]y <plug>(YoinkRotateForward)
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
-Plug 'svermeulen/vim-subversive'
-nmap gS          <plug>(SubversiveSubstitute)
-nmap gSS         <plug>(SubversiveSubstituteLine)
-nmap <leader>s  <plug>(SubversiveSubstituteRange)
-xmap <leader>s  <plug>(SubversiveSubstituteRange)
-nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
-xmap s <plug>(SubversiveSubstitute)
-xmap p <plug>(SubversiveSubstitute)
-xmap P <plug>(SubversiveSubstitute)
+" Plug 'svermeulen/vim-yoink'
+" nmap <c-n> <plug>(YoinkPostPasteSwapBack)
+" nmap <c-p> <plug>(YoinkPostPasteSwapForward)
+" nmap [y <plug>(YoinkRotateBack)
+" nmap ]y <plug>(YoinkRotateForward)
+" nmap p <plug>(YoinkPaste_p)
+" nmap P <plug>(YoinkPaste_P)
+" Plug 'svermeulen/vim-subversive'
+" nmap gS          <plug>(SubversiveSubstitute)
+" nmap gSS         <plug>(SubversiveSubstituteLine)
+" nmap <leader>s  <plug>(SubversiveSubstituteRange)
+" xmap <leader>s  <plug>(SubversiveSubstituteRange)
+" nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+" xmap s <plug>(SubversiveSubstitute)
+" xmap p <plug>(SubversiveSubstitute)
+" xmap P <plug>(SubversiveSubstitute)
 
 
 Plug 'mbbill/undotree'
