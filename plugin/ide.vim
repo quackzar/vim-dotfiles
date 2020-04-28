@@ -14,7 +14,6 @@ let g:asyncrun_shell = '/bin/zsh'
 let g:asyncrun_shellflag = '-c'
 " let g:asyncrun_open = 6
 
-
 Plug 'skywind3000/asynctasks.vim'
 nnoremap <silent><f5> :AsyncTask file-run<cr>
 nnoremap <silent><f9> :AsyncTask file-build<cr>

@@ -60,12 +60,12 @@ endfunction
 lua spinner = require("spinner")
 
 let g:spinner_running = 0
+autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
+autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
 function AsyncRunStatus()
     if g:asyncrun_status == 'running'
-        call luaeval("require'spinner'.start()")
         return luaeval("require'spinner'.state()")
     else
-        call luaeval("require'spinner'.stop()")
         return ''
     endif
 endfunction

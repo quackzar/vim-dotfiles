@@ -15,18 +15,7 @@ syntax on
 
 " Keymaps may be omitted.
 call plug#begin(stdpath('config').'/plugged/')
-     " runtime! plugin/*.vim
-     exe 'source' stdpath('config') . '/plugin/fzf.vim'
-     exe 'source' stdpath('config') . '/plugin/git.vim'
-     exe 'source' stdpath('config') . '/plugin/ide.vim'
-     exe 'source' stdpath('config') . '/plugin/editor.vim'
-     exe 'source' stdpath('config') . '/plugin/tex.vim'
-     exe 'source' stdpath('config') . '/plugin/folding.vim'
-     exe 'source' stdpath('config') . '/plugin/experimental.vim'
-     exe 'source' stdpath('config') . '/plugin/interface.vim'
-     exe 'source' stdpath('config') . '/plugin/lightline.vim'
-     exe 'source' stdpath('config') . '/plugin/languages.vim'
-     exe 'source' stdpath('config') . '/plugin/functions.vim'
+     runtime! plugin/*.vim
 call plug#end()
 exe 'source' . stdpath('config').'/quickui.vim'
 
@@ -153,6 +142,8 @@ set complete-=i
 set pumheight=25
 set pumblend=20
 set winblend=20
+
+let g:netrw_fastbrowse = 0
 
 " Wait for cursorhold to trigger
 set updatetime=250
