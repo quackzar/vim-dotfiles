@@ -12,3 +12,6 @@ or some other way.
 ## Language Servers
 To actually use the whole config you should install the language servers
 mentioned in the config or update the config.
+
+## Todo
+Explicit declare Coc extensions instead of installing them manually.
