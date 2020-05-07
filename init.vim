@@ -11,7 +11,7 @@ end
 
 set runtimepath+=$HOME/.config/nvim
 
-" Keymaps may be omitted.
+let mapleader = " "
 call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/*.vim
 call plug#end()
@@ -116,7 +116,6 @@ set shortmess+=c
 
 set inccommand=nosplit " realtime changes for ex-commands
 
-let mapleader = " "
 
 set conceallevel=2
 

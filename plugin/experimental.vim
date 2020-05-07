@@ -37,6 +37,3 @@ let g:context_highlight_normal = 'Opaque'
 
 
 Plug 'norcalli/nvim-colorizer.lua'
-
-
-Plug 'dstein64/vim-startuptime'
