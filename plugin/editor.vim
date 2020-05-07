@@ -51,32 +51,8 @@ Plug 'flwyd/vim-conjoin'
 " Funky stuff below
 
 Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
-" omap i, <Plug>(swap-textobject-i)
-" xmap i, <Plug>(swap-textobject-i)
-" omap a, <Plug>(swap-textobject-a)
-" xmap a, <Plug>(swap-textobject-a)
-
-" Plug 'svermeulen/vim-yoink'
-" nmap <c-n> <plug>(YoinkPostPasteSwapBack)
-" nmap <c-p> <plug>(YoinkPostPasteSwapForward)
-" nmap [y <plug>(YoinkRotateBack)
-" nmap ]y <plug>(YoinkRotateForward)
-" nmap p <plug>(YoinkPaste_p)
-" nmap P <plug>(YoinkPaste_P)
-" Plug 'svermeulen/vim-subversive'
-" nmap gS          <plug>(SubversiveSubstitute)
-" nmap gSS         <plug>(SubversiveSubstituteLine)
-" nmap <leader>s  <plug>(SubversiveSubstituteRange)
-" xmap <leader>s  <plug>(SubversiveSubstituteRange)
-" nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
-" xmap s <plug>(SubversiveSubstitute)
-" xmap p <plug>(SubversiveSubstitute)
-" xmap P <plug>(SubversiveSubstitute)
-
 
 Plug 'mbbill/undotree'
-
-Plug 'mg979/vim-visual-multi'
 
 " Let's you preview marks!
 Plug 'Yilin-Yang/vim-markbar'
@@ -110,7 +86,6 @@ imap <C-x><C-f> <Plug>RelativelyCompleteFile
 
 
 Plug 'tpope/vim-abolish' " like substitute
-Plug 'reedes/vim-textobj-sentence' " better sentence detection
 Plug 'reedes/vim-litecorrect' " autocorrection! Fixes stupid common mistakes
 augroup litecorrect
   autocmd!
@@ -118,4 +93,3 @@ augroup litecorrect
   autocmd FileType tex call litecorrect#init()
 augroup END
 Plug 'reedes/vim-lexical'
-Plug 'reedes/vim-pencil'

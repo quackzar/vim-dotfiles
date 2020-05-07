@@ -29,15 +29,11 @@ function! LightlineReadonly()
     return &readonly ? '' : ''
 endfunction
 
-let g:tex_wordcount = 0
 function! VimTexStatus()
     if &ft != 'tex'
         return ''
     end
     let l:msg = ''
-    if g:tex_wordcount > 0
-        let l:msg .= ' '. g:tex_wordcount . ' words'
-    end
     let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
     if !empty(l:compiler)
         if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()

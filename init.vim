@@ -11,8 +11,6 @@ end
 
 set runtimepath+=$HOME/.config/nvim
 
-syntax on
-
 " Keymaps may be omitted.
 call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/*.vim
@@ -21,23 +19,20 @@ exe 'source' . stdpath('config').'/quickui.vim'
 
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
-set laststatus=2 " Status bar always show
-set showtabline=2 " Tabline always show
 if $TERM == "xterm-256color"
     set t_Co=256
 endif
 
-
 set langmenu=en_US
+
+syntax on
 set termguicolors " GUI colors
 
 lua require'colorizer'.setup()
-
-set hidden " something about hidden buffers
-
+set hidden
 set nu " have numbers
 
-set mouse=a " mouse support, because scrolling is awesome
+set mouse=a
 
 set breakindent
 set linebreak
@@ -66,8 +61,8 @@ set suffixes+=.old
 " Ignore case when completing
 
 set title
-
-
+set laststatus=2 " Status bar always show
+set showtabline=2 " Tabline always show
 
 " Start scrolling slightly before the cursor reaches an edge
 set scrolloff=5
@@ -97,6 +92,8 @@ set undofile " persistant undo
 set nobackup
 set nowritebackup
 
+set modelineexpr
+
 " Thesaurus and dictionary support
 let &thesaurus=stdpath('config').'/thesaurus/words.txt'
 set dictionary+=/usr/share/dict/words
@@ -105,7 +102,6 @@ set langmenu=en_US
 
 set signcolumn=auto:1
 
-set updatetime=300
 set cmdheight=1
 set noshowmode " No need for that
 set shortmess+=A      " ignore annoying swapfile messages
@@ -116,24 +112,20 @@ set shortmess+=W      " don't echo "[w]"/"[written]" when writing
 set shortmess+=a      " use abbreviations in messages eg. `[RO]` instead of `[readonly]`
 set shortmess+=o      " overwrite file-written messages
 set shortmess+=t      " truncate file messages at start
-
-set inccommand=nosplit " realtime changes for ex-commands
 set shortmess+=c
 
-set showcmd
+set inccommand=nosplit " realtime changes for ex-commands
+
 let mapleader = " "
 
 set conceallevel=2
-set concealcursor= "ni
 
-set formatoptions+=j
 set grepprg=rg\ --vimgrep
 
-set whichwrap=b,h,l,s,<,>,[,],~
-set virtualedit=block
+set whichwrap=b,s,<,>,[,],~
+set virtualedit=block,onemore
 " allow cursor to move where there is no text in visual block mode
 
-set modelineexpr
 set completeopt+=menuone
 set completeopt+=noinsert
 set completeopt-=preview
@@ -145,13 +137,10 @@ set winblend=20
 
 let g:netrw_fastbrowse = 0
 
-" Wait for cursorhold to trigger
-set updatetime=250
-set splitright
+set updatetime=300
 
 autocmd TermOpen * startinsert
 autocmd TermOpen * setlocal nonumber
-
 
 " Close quickfix with q, esc or C-C
 augroup easy_close
@@ -163,12 +152,10 @@ augroup END
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
-autocmd BufReadPost *
-            \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-            \ |   exe "normal! g`\""
-            \ | endif
-
-
+" autocmd BufReadPost *
+"             \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+"             \ |   exe "normal! g`\""
+"             \ | endif
 
 " These nice commands triggers autoreading
 augroup improved_autoread
@@ -176,6 +163,7 @@ augroup improved_autoread
   autocmd FocusGained * silent! checktime
   autocmd BufEnter * silent! checktime
   autocmd VimResume * silent! checktime
+  autocmd TermLeave * silent! checktime
 augroup end
 
 " ======= MAPPINGS ========
@@ -208,7 +196,6 @@ vnoremap @ :normal @<CR>
 vnoremap > >gv
 vnoremap < <gv
 
-
 " Terminal magic
 tnoremap <C-Z> <C-\><C-n>
 
@@ -216,6 +203,5 @@ tnoremap <C-Z> <C-\><C-n>
 let g:neomolokai_no_bg=1 " Remove the normal background
 let g:neomolokai_inv_column=1 " Set the sign/number column bg to be the same as normal
 colorscheme neomolokai
-
 
 set secure

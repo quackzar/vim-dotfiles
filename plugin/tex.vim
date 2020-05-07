@@ -14,8 +14,6 @@ let g:vimtex_compiler_latexmk = {
     \}
 
 let g:vimtex_complete_enabled=1
-
-let g:vimtex_format_enabled = 1
 let g:vimtex_fold_enabled = 1
 
 
@@ -23,6 +21,9 @@ let g:vimtex_fold_enabled = 1
 " if executable('pulp')
 "     let g:vimtex_quickfix_method = 'pulp'
 " end
+if executable('pplatex')
+    let g:vimtex_quickfix_method = 'pplatex'
+end
 
 let g:vimtex_toc_config = {
             \ 'name' : 'Table of Contents',

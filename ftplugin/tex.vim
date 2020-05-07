@@ -1,6 +1,7 @@
 setlocal foldmethod=expr
 setlocal foldexpr=vimtex#fold#level(v:lnum)
 setlocal foldtext=vimtex#fold#text()
+" setlocal formatprg=latexindent
 setlocal keywordprg=texdoc
 setlocal wrap
 " nnoremap <buffer> <leader>v :VoomToggle<cr>
@@ -18,6 +19,4 @@ nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
 
 nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
 
-
-autocmd BufWritePre <buffer> let g:tex_wordcount = vimtex#misc#wordcount()
 nnoremap <buffer> <silent> <leader>t :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
