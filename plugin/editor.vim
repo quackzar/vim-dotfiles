@@ -1,12 +1,16 @@
 " Editor.vim
 " ----------
 " Plugins and settings relevant to 'editing', stuff that feels very vim like
+" All plugins either maps unused or extends upon a functionality without
+" ruining the old mappings.
+
 Plug 'duggiefresh/vim-easydir'
 
 Plug 'tpope/vim-commentary' " provides gc operator
 Plug 'tpope/vim-speeddating' " allows <C-A> <C-X> for dates
 Plug 'tpope/vim-repeat' " Improves dot
 Plug 'tpope/vim-eunuch' " Basic (Delete, Move, Rename) unix commands
+Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff

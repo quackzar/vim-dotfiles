@@ -174,6 +174,8 @@ noremap x "_x
 
 noremap Y y$
 
+inoremap <silent> <C-s> <C-o>:w<cr>
+
 " Annoying with a trackpad
 noremap <ScrollWheelLeft> <nop>
 noremap <ScrollWheelRight> <nop>

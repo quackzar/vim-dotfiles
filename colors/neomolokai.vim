@@ -31,7 +31,6 @@ let s:magenta        = "#F92672"
 let s:orange         = "#FF9700"
 
 
-
 " Background colors
 let s:white          = "#ffffff"
 let s:light_grey     = "#bcbcbc"
@@ -156,7 +155,7 @@ call Highlight("LineNr", s:columns_fg, s:columns_bg)
 call Highlight("SignColumn", s:grey, s:columns_bg)
 call Highlight("FoldColumn", s:lime, s:columns_bg)
 
-call Highlight("Folded", s:green)
+call Highlight("Folded", s:light_grey, s:light_charcoal)
 
 call Highlight("CursorLineNR", s:yellow)
 

@@ -160,3 +160,7 @@ function! s:fzf_task()
 endfunction
 
 command! -nargs=0 Tasks call s:fzf_task()
+
+
+Plug 'laher/fuzzymenu.vim'
+nmap <silent> <C-space> <Plug>Fzm

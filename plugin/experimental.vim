@@ -37,3 +37,14 @@ let g:context_highlight_normal = 'Opaque'
 
 
 Plug 'norcalli/nvim-colorizer.lua'
+
+" Plug '907th/vim-auto-save'
+" let g:auto_save = 0
+" let g:auto_save_events = [
+"             \ "InsertLeave",
+"             \ "TextChanged",
+"             \ "CursorHold",
+"             \ "CursorHoldI",
+"             \ "CompleteDone"
+"             \ ]
+

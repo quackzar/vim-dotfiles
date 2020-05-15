@@ -36,7 +36,8 @@ nnoremap <silent> <leader>t :Vista finder coc<cr>
 nnoremap <silent> <M-tab> :Vista focus<cr>
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'antoinemadec/coc-fzf'
 
 inoremap <silent><expr> <C-space> 
