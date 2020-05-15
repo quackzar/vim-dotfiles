@@ -114,7 +114,7 @@ set shortmess+=o      " overwrite file-written messages
 set shortmess+=t      " truncate file messages at start
 set shortmess+=c
 
-set inccommand=nosplit " realtime changes for ex-commands
+" set inccommand=nosplit " realtime changes for ex-commands
 
 
 set conceallevel=2
