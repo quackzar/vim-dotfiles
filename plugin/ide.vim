@@ -95,11 +95,25 @@ command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 " Completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+
 Plug 'romainl/vim-qf' " Better Quickfix
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 nnoremap \q <Plug>(qf_qf_toggle)
 nmap <C-w><Space> <Plug>(qf_qf_switch)
+
 
 " SNIPPETS
 " Plug 'SirVer/ultisnips'
