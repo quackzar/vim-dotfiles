@@ -19,6 +19,7 @@ Plug 'vim-python/python-syntax', {'for': 'python'}
 let g:python_highlight_all = 1
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 let g:python_highlight_space_errors = 0
+
 " ======== SWIFT ======
 Plug 'keith/swift.vim', {'for': 'swift'}
 Plug 'kentaroi/ultisnips-swift', {'for': 'swift'}
@@ -41,6 +42,8 @@ let g:delve_breakpoint_sign_highlight = 'CocHintSign'
 let g:delve_tracepoint_sign = '◆'
 let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
 
-" ===== Other cool stuff =====
+" ===== vimwiki =====
 Plug 'vimwiki/vimwiki'
+let g:vimwiki_folding = 'expr'
+
 Plug 'cespare/vim-toml'

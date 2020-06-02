@@ -14,6 +14,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
+nmap s <nop>
+xmap s <nop>
 xmap is <Plug>(textobj-sandwich-query-i)
 xmap as <Plug>(textobj-sandwich-query-a)
 omap is <Plug>(textobj-sandwich-query-i)
