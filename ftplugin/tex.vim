@@ -4,6 +4,7 @@ setlocal foldtext=vimtex#fold#text()
 " setlocal formatprg=latexindent
 setlocal keywordprg=texdoc
 setlocal wrap
+setlocal spell
 " nnoremap <buffer> <leader>v :VoomToggle<cr>
 " nnoremap <silent><M-tab> :Vista focus<cr>
 nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
@@ -19,4 +20,5 @@ nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
 
 nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
 
+" c: content, t: todo:, l: label, i: include
 nnoremap <buffer> <silent> <leader>t :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>

@@ -7,7 +7,7 @@ if has('macos')
 else
     Plug 'junegunn/fzf'
 end
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
@@ -39,7 +39,7 @@ let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " no hidden stuff, ignore the .git directory
 if executable('rg')
   let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
+  set grepprg=rg\ --vimgrep\ -g='!*.pdf'\ -g='!*.eps'
   command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 endif
 let $FZF_DEFAULT_OPTS=' --color=dark --layout=reverse'

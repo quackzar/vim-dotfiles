@@ -119,8 +119,6 @@ set shortmess+=c
 
 set conceallevel=2
 
-set grepprg=rg\ --vimgrep
-
 set whichwrap=b,s,<,>,[,],~
 set virtualedit=block,onemore
 " allow cursor to move where there is no text in visual block mode
@@ -148,8 +146,9 @@ augroup easy_close
     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
 augroup END
 
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
+autocmd FileType qf nnoremap <buffer> <C-]> <CR>
+" autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+" autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
 " autocmd BufReadPost *
 "             \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
