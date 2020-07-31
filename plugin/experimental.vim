@@ -36,6 +36,7 @@ let g:context_enabled = 0
 let g:context_highlight_normal = 'Opaque'
 
 
+Plug 'danilamihailov/beacon.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Plug '907th/vim-auto-save'
