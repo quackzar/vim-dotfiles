@@ -82,7 +82,7 @@ command! QHist call fzf#vim#search_history({'right': '40'})
 " nnoremap q/ :QHist<CR>
 
 Plug 'Shougo/neomru.vim'
-Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 let g:fzf_preview_command = 'bat --color=always --theme=ansi-dark --style=grid {-1}'
 let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=ansi-dark --plain'
 let g:fzf_preview_use_dev_icons = 0
@@ -109,27 +109,10 @@ command! Files FzfPreviewDirectoryFiles
 command! Lines FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"
 
 " FZF
-nnoremap <silent> <leader>f :FzfPreviewDirectoryFiles<CR>
-nnoremap <silent> <leader>b :FzfPreviewBuffers<CR>
-nnoremap <silent> <leader>p :FzfPreviewMruFiles<CR>
+nnoremap <silent> <leader>f :FZF<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>p :FZFMru<CR>
 
-nmap <Leader>F [fzf-p]
-
-
-nnoremap <silent> [fzf-p]p     :<C-u>FzfPreviewFromResources project_mru git<CR>
-nnoremap <silent> [fzf-p]gs    :<C-u>FzfPreviewGitStatus<CR>
-nnoremap <silent> [fzf-p]b     :<C-u>FzfPreviewBuffers<CR>
-nnoremap <silent> [fzf-p]B     :<C-u>FzfPreviewAllBuffers<CR>
-nnoremap <silent> [fzf-p]o     :<C-u>FzfPreviewFromResources buffer project_mru<CR>
-nnoremap <silent> [fzf-p]<C-o> :<C-u>FzfPreviewJumps<CR>
-nnoremap <silent> [fzf-p]g;    :<C-u>FzfPreviewChanges<CR>
-nnoremap <silent> [fzf-p]/     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"<CR>
-nnoremap <silent> [fzf-p]*     :<C-u>FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-nnoremap          [fzf-p]gr    :<C-u>FzfPreviewProjectGrep<Space>
-xnoremap          [fzf-p]gr    "sy:FzfPreviewProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"
-nnoremap <silent> [fzf-p]t     :<C-u>FzfPreviewBufferTags<CR>
-nnoremap <silent> [fzf-p]q     :<C-u>FzfPreviewQuickFix<CR>
-nnoremap <silent> [fzf-p]l     :<C-u>FzfPreviewLocationList<CR>
 
 function! s:fzf_sink(what)
     let p1 = stridx(a:what, '<')

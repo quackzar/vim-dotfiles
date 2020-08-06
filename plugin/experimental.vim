@@ -36,7 +36,10 @@ let g:context_enabled = 0
 let g:context_highlight_normal = 'Opaque'
 
 
-Plug 'danilamihailov/beacon.nvim'
+Plug 'j5shi/CommandlineComplete.vim'
+" Plug 'danilamihailov/beacon.nvim'
+" let g:beacon_timeout = 200
+" let g:beacon_size = 80
 Plug 'norcalli/nvim-colorizer.lua'
 
 " Plug '907th/vim-auto-save'
