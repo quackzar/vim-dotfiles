@@ -1,4 +1,5 @@
-plugged/*
+plugged/
+node_modules/
 thesaurus/*
 spell/*
 swap/
