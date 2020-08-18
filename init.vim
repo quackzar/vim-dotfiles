@@ -170,6 +170,7 @@ noremap <CR> :
 noremap Q :close<cr>
 noremap gQ :bd<cr>
 noremap x "_x
+noremap X "_X
 
 noremap Y y$
 

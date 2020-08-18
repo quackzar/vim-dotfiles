@@ -109,9 +109,7 @@ inoremap <silent><expr> <TAB>
 
 
 Plug 'romainl/vim-qf' " Better Quickfix
-let g:qf_auto_open_quickfix = 1
-let g:qf_auto_open_loclist = 1
-nnoremap \q <Plug>(qf_qf_toggle)
+nmap \q <Plug>(qf_qf_toggle)
 nmap <C-w><Space> <Plug>(qf_qf_switch)
 
 
