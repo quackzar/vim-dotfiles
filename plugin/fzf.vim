@@ -147,3 +147,17 @@ command! -nargs=0 Tasks call s:fzf_task()
 
 Plug 'laher/fuzzymenu.vim'
 nmap <silent> <C-space> <Plug>Fzm
+
+function! g:FzfFilesSource()
+  let l:base = fnamemodify(expand('%'), ':h:.:S')
+  let l:proximity_sort_path = $HOME . '/.cargo/bin/proximity-sort'
+
+  if base == '.'
+    return 'rg --files'
+  else
+    return printf('rg --files | %s %s', l:proximity_sort_path, expand('%'))
+  endif
+endfunction
+noremap <silent> <C-p> :call fzf#vim#files('', {
+      \ 'source': g:FzfFilesSource(),
+      \ 'options': '--tiebreak=index'})<CR>

@@ -15,8 +15,8 @@ let g:asyncrun_shellflag = '-c'
 " let g:asyncrun_open = 6
 
 Plug 'skywind3000/asynctasks.vim'
-nnoremap <silent><f5> :AsyncTask file-run<cr>
-nnoremap <silent><f9> :AsyncTask file-build<cr>
+nnoremap <silent><f5> :AsyncTask file-build<cr>
+nnoremap <silent><f9> :AsyncTask file-run<cr>
 nnoremap <silent><f6> :AsyncTask project-build<cr>
 nnoremap <silent><f7> :AsyncTask project-run<cr>
 let g:asynctasks_term_pos = 'bottom'
