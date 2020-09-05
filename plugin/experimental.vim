@@ -52,3 +52,4 @@ Plug 'norcalli/nvim-colorizer.lua'
 "             \ "CompleteDone"
 "             \ ]
 
+Plug 'nvim-treesitter/nvim-treesitter'
