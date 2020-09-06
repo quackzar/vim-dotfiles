@@ -3,8 +3,7 @@ setglobal fileencoding=utf8
 
 if has('macunix')
     set shell=/usr/local/bin/fish
-    " let g:python3_host_prog = '/usr/bin/python3'
-    let g:python3_host_prog = '/Library/Frameworks/Python.framework/Versions/3.6/bin/python3'
+    let g:python3_host_prog = '/usr/local/bin/python3'
 else
     set shell=/bin/fish
     let g:python3_host_prog = '/usr/bin/python3'

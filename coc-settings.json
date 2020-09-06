@@ -40,7 +40,7 @@
     "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
     "python.jediEnabled": false,
-    "python.pythonPath": "/Library/Frameworks/Python.framework/Versions/3.6/bin/python3",
+    "python.pythonPath": "/usr/local/bin/python3",
     "codeLens.enable": true,
     "signature.target": "float",
     "coc.preferences.hoverTarget": "float",
