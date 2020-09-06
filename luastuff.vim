@@ -12,6 +12,9 @@ require'nvim-treesitter.configs'.setup {
       node_decremental = "grm",
     },
   },
+  refactor = {
+    highlight_definitions = { enable = true },
+  },
 }
 EOF
 " vim: set ft=lua
