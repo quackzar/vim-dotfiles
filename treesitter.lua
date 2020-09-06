@@ -1,4 +1,3 @@
-lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -16,5 +15,3 @@ require'nvim-treesitter.configs'.setup {
     highlight_definitions = { enable = true },
   },
 }
-EOF
-" vim: set ft=lua

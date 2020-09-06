@@ -46,8 +46,8 @@ let $FZF_DEFAULT_OPTS=' --color=dark --layout=reverse'
 let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 
 function! CreateCenteredFloatingWindow()
-    let width = float2nr(&columns * 0.6)
-    let height = float2nr(&lines * 0.6)
+    let width = float2nr(&columns * 0.8)
+    let height = float2nr(&lines * 0.8)
     let top = ((&lines - height) / 2) - 1
     let left = (&columns - width) / 2
     let opts = {
@@ -88,7 +88,7 @@ let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=ansi-
 let g:fzf_preview_use_dev_icons = 0
 let g:fzf_preview_dev_icon_prefix_length = 1
 let g:fzf_preview_filelist_postprocess_command = "" " 'xargs -d "\n" exa --color=always' " Use exa
-let g:fzf_preview_filelist_command = 'rg --files --follow -no-messages --glob \!"* *" --glob "!.git/*"'
+let g:fzf_preview_filelist_command = 'rg --files --follow -no-messages --glob \!"* *"'
 
 " See https://minsw.github.io/fzf-color-picker/
 let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
@@ -109,7 +109,7 @@ command! Files FzfPreviewDirectoryFiles
 command! Lines FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"
 
 " FZF
-nnoremap <silent> <leader>f :FZF<CR>
+nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>p :FZFMru<CR>
 

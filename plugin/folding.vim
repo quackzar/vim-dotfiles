@@ -20,11 +20,4 @@ set foldmethod=expr
 set foldexpr=clean_fold#fold_expr(v:lnum)
 
 
-
-" Indent Guides
-" Plug 'Yggdroot/indentLine'
-" Plug 'lukas-reineke/indent-blankline.nvim'
-" let g:indent_blankline_char = '¦'
-" let g:indent_blankline_indent_level = 4
-" let g:indentLine_fileTypeExclude = ['help', 'startify', 'tex']
-" let g:indent_blankline_filetype_exclude = ['help', 'startify', 'tex']
+" Plug 'scr1pt0r/crease.vim'

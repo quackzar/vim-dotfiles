@@ -27,7 +27,7 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/experimental.vim
 call plug#end()
 exe 'source' . stdpath('config').'/quickui.vim'
-exe 'source' . stdpath('config').'/luastuff.vim'
+exe 'luafile' . stdpath('config').'/treesitter.lua'
 
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========

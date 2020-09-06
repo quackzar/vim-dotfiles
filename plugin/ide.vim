@@ -30,6 +30,7 @@ let g:vista_echo_cursor_strategy = 'echo'
 let g:vista_sidebar_position='vertical topleft'
 let g:vista_disable_statusline=1
 let g:vista_highlight_whole_line=1
+let g:vista_sidebar_keepalt=1
 
 nnoremap <silent> <leader>v :Vista!!<cr>
 nnoremap <silent> <leader>t :Vista finder coc<cr>
