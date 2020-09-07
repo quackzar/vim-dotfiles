@@ -53,3 +53,4 @@ Plug 'norcalli/nvim-colorizer.lua'
 "             \ ]
 
 Plug 'nvim-treesitter/nvim-treesitter'
+hi link TSError Normal
