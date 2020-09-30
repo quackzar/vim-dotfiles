@@ -26,7 +26,9 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/experimental.vim
 call plug#end()
 exe 'source' . stdpath('config').'/quickui.vim'
-exe 'luafile' . stdpath('config').'/treesitter.lua'
+if has("nvim-0.5")
+    exe 'luafile' . stdpath('config').'/treesitter.lua'
+endif
 
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========

@@ -52,5 +52,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 "             \ "CompleteDone"
 "             \ ]
 
-Plug 'nvim-treesitter/nvim-treesitter'
-hi link TSError Normal
+if has("nvim-0.5")
+    Plug 'nvim-treesitter/nvim-treesitter'
+    hi link TSError Normal
+endif
