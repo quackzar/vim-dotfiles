@@ -38,15 +38,26 @@ nnoremap <silent> <M-tab> :Vista focus<cr>
 
 " THE LANGUAGE CLIENT + AUTOCOMPLETION
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'antoinemadec/coc-fzf'
 
-inoremap <silent><expr> <C-space> 
-            \pumvisible() ? "\<C-y>" : coc#refresh()
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 inoremap <silent><expr> <C-X><C-O> coc#refresh()
+
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
@@ -65,22 +76,25 @@ xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 nnoremap <silent> <leader>C  :<C-u>CocList commands<cr>
 
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
     else
-        call CocAction('doHover')
+        call CocActionAsync('doHover')
     endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -91,6 +105,7 @@ nmap <leader>z :CocCommand explorer<CR>
 command! -nargs=0 Format :call CocAction('format')
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Pickcolor :call CocAction('pickColor')
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 
 " Completion
@@ -114,14 +129,7 @@ nmap \q <Plug>(qf_qf_toggle)
 nmap <C-w><Space> <Plug>(qf_qf_switch)
 
 
-" SNIPPETS
-" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" let g:UltiSnipsSnippetsDir = stdpath('config') . '/UltiSnips'
-" " let g:UltiSnipsExpandTriggerOrJump     = '<tab>'
-" let g:UltiSnipsExpandTrigger     = '<tab>'
-" let g:UltiSnipsJumpForwardTrigger      = '<c-j>'
-" let g:UltiSnipsJumpBackwardTrigger     = '<c-k>'
 
 Plug 'vim-voom/VOoM'
 let g:voom_return_key = "<M-Space>"
