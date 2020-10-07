@@ -5,7 +5,7 @@
 if has('macos')
     Plug '/usr/local/opt/fzf'
 else
-    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 end
 " Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
