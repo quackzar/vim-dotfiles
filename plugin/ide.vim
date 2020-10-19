@@ -123,6 +123,8 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
+nnoremap <leader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
+
 
 Plug 'romainl/vim-qf' " Better Quickfix
 nmap \q <Plug>(qf_qf_toggle)

@@ -58,6 +58,7 @@
     "git.changeRemovedSign.hlGroup": "DiffChangeGutter",
     "explorer.icon.enableNerdfont": true,
     "explorer.width": 25,
+    "metals.statusBarEnabled": true,
     "coc.source.vimtex.priority": 100,
     "coc.source.buffer.enable": false,
     "coc.source.tag.enable": false,
