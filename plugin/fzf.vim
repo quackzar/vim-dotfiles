@@ -83,30 +83,6 @@ command! QHist call fzf#vim#search_history({'right': '40'})
 
 Plug 'Shougo/neomru.vim'
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
-let g:fzf_preview_command = 'bat --color=always --theme=ansi-dark --style=grid {-1}'
-let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=ansi-dark --plain'
-let g:fzf_preview_use_dev_icons = 0
-let g:fzf_preview_dev_icon_prefix_length = 1
-let g:fzf_preview_filelist_postprocess_command = "" " 'xargs -d "\n" exa --color=always' " Use exa
-let g:fzf_preview_filelist_command = 'rg --files --follow -no-messages --glob \!"* *"'
-
-" See https://minsw.github.io/fzf-color-picker/
-let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
-            \. 'bg:#1B1D1E,'
-            \. 'border:#808080,'
-            \. 'spinner:#E6DB74,'
-            \. 'hl:#7E8E91,'
-            \. 'fg:#F8F8F2,'
-            \. 'header:#7E8E91,'
-            \. 'info:#A6E22E,'
-            \. 'pointer:#af87ff,'
-            \. 'marker:#62D8F1,'
-            \. 'fg+:#F8F8F2,'
-            \. 'prompt:#62D8F1,'
-            \. 'hl+:#F92672'
-
-command! Files FzfPreviewDirectoryFiles
-command! Lines FzfPreviewLines -add-fzf-arg=--no-sort -add-fzf-arg=--query="'"
 
 " FZF
 nnoremap <silent> <leader>f :Files<CR>
