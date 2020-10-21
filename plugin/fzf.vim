@@ -5,7 +5,7 @@
 if has('macos')
     Plug '/usr/local/opt/fzf'
 else
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf'
 end
 " Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
@@ -84,11 +84,14 @@ command! QHist call fzf#vim#search_history({'right': '40'})
 Plug 'Shougo/neomru.vim'
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
+command! Files FzfPreviewProjectFiles
+command! Buffers FzfPreviewBuffers
+let g:fzf_preview_use_dev_icons = 1
+
 " FZF
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>b :Buffers<CR>
 nnoremap <silent> <leader>p :FZFMru<CR>
-
 
 function! s:fzf_sink(what)
     let p1 = stridx(a:what, '<')
