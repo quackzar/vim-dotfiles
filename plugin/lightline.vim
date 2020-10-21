@@ -38,7 +38,7 @@ function! VimTexStatus()
     if !empty(l:compiler)
         if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
             if get(l:compiler, 'continuous')
-                let l:msg .= ' auto compiling' " ' '
+                let l:msg .=  ''
             else
                 let l:msg .= ' '
             endif
@@ -78,6 +78,7 @@ function! LightlineFilename()
                 \ ('' != fname ? expand('%:f') : '[No Name]') .
                 \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
+
 
 function! LightlineFugitive()
     if exists('*fugitive#head')
