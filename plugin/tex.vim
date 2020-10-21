@@ -13,7 +13,6 @@ let g:vimtex_compiler_latexmk = {
     \ 'build_dir': 'out',
     \}
 
-let g:vimtex_complete_enabled=1
 let g:vimtex_fold_enabled = 1
 
 

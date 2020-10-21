@@ -84,9 +84,22 @@ command! QHist call fzf#vim#search_history({'right': '40'})
 Plug 'Shougo/neomru.vim'
 Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
-command! Files FzfPreviewProjectFiles
+command! Files FzfPreviewDirectoryFiles
 command! Buffers FzfPreviewBuffers
 let g:fzf_preview_use_dev_icons = 1
+let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
+            \. 'bg:#1B1D1E,'
+            \. 'border:#808080,'
+            \. 'spinner:#E6DB74,'
+            \. 'hl:#7E8E91,'
+            \. 'fg:#F8F8F2,'
+            \. 'header:#7E8E91,'
+            \. 'info:#A6E22E,'
+            \. 'pointer:#af87ff,'
+            \. 'marker:#62D8F1,'
+            \. 'fg+:#F8F8F2,'
+            \. 'prompt:#62D8F1,'
+            \. 'hl+:#F92672'
 
 " FZF
 nnoremap <silent> <leader>f :Files<CR>
