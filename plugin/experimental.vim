@@ -35,7 +35,7 @@ augroup highlight_yank
 augroup END
 
 Plug 'wellle/context.vim'
-let g:context_enabled = 0
+let g:context_enabled = 1
 let g:context_highlight_normal = 'Opaque'
 
 
