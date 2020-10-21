@@ -29,7 +29,10 @@ Plug 'lambdalisue/suda.vim'
 Plug 'markonm/traces.vim'
 " not only the / but :s and :g too
 
-Plug 'machakann/vim-highlightedyank'
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
+augroup END
 
 Plug 'wellle/context.vim'
 let g:context_enabled = 0
@@ -42,15 +45,6 @@ Plug 'j5shi/CommandlineComplete.vim'
 " let g:beacon_size = 80
 Plug 'norcalli/nvim-colorizer.lua'
 
-" Plug '907th/vim-auto-save'
-" let g:auto_save = 0
-" let g:auto_save_events = [
-"             \ "InsertLeave",
-"             \ "TextChanged",
-"             \ "CursorHold",
-"             \ "CursorHoldI",
-"             \ "CompleteDone"
-"             \ ]
 
 if has("nvim-0.5")
     Plug 'nvim-treesitter/nvim-treesitter'
