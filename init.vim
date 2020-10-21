@@ -25,7 +25,7 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/navigation.vim
      runtime! plugin/experimental.vim
 call plug#end()
-exe 'source' . stdpath('config').'/quickui.vim'
+" exe 'source' . stdpath('config').'/quickui.vim'
 if has("nvim-0.5")
     exe 'luafile' . stdpath('config').'/treesitter.lua'
 endif

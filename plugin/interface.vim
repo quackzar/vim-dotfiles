@@ -58,6 +58,6 @@ let g:startify_skiplist = [
       \ 'pack/.*/doc',
       \ '.*/vimwiki/.*'
       \ ]
-Plug 'skywind3000/vim-quickui'
+" Plug 'skywind3000/vim-quickui'
 
 noremap <silent> <C-q> :call quickui#menu#open()<cr>
