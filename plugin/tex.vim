@@ -17,10 +17,6 @@ let g:vimtex_complete_enabled=1
 let g:vimtex_fold_enabled = 1
 
 
-
-" if executable('pulp')
-"     let g:vimtex_quickfix_method = 'pulp'
-" end
 if executable('pplatex')
     let g:vimtex_quickfix_method = 'pplatex'
 end
@@ -34,13 +30,6 @@ let g:vimtex_toc_config = {
             \ 'refresh_always': 1,
             \}
 
-" augroup vimtex
-"     autocmd!
-"     autocmd BufWritePost *.tex call vimtex#toc#refresh()
-" augroup END
-
-
-" let g:vimtex_view_general_callback = ''
 
 if has('macunix')
     let g:vimtex_view_general_viewer
@@ -51,15 +40,10 @@ if has('macunix')
     let g:vimtex_view_method = 'skim'
     let g:vimtex_textidote_jar = '/usr/local/share/textidote/textidote.jar'
 else
-    " function! MyTestHook(status)
-    "   echom a:status
-    " endfunction
     let g:vimtex_textidote_jar = '/usr/bin/textidote'
     let g:vimtex_view_general_viewer = 'zathura'
     let g:vimtex_view_method = 'zathura'
-    " let g:vimtex_view_use_temp_files = 1
     let g:vimtex_view_automatic = 1
-    " let g:vimtex_compiler_callback_hooks = ['MyTestHook']
     let g:vimtex_compiler_progname = 'nvr'
     let g:vimtex_textidote_jar = '/opt/textidote/textidote.jar'
 endif
