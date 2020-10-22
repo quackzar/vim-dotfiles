@@ -4,12 +4,12 @@
 "
 Plug 'zdcthomas/medit'
 Plug 'camspiers/animate.vim'
-Plug 'camspiers/lens.vim'
-let g:animate#distribute_space = 0
-let g:lens#disabled = 1
-let g:animate#easing_func = 'animate#ease_out_quad'
-let g:animate#duration = 500.0
-let g:lens#animate = 0
+" Plug 'camspiers/lens.vim'
+" let g:animate#distribute_space = 0
+" let g:lens#disabled = 1
+" let g:animate#easing_func = 'animate#ease_out_quad'
+" let g:animate#duration = 500.0
+" let g:lens#animate = 0
 
 
 let g:lens#disabled_filetypes = ['nerdtree',
