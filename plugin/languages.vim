@@ -23,6 +23,11 @@ let g:python_highlight_all = 1
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 let g:python_highlight_space_errors = 0
 
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "screen"
+let g:slime_python_ipython = 1
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
 " ======== SWIFT ======
 Plug 'keith/swift.vim', {'for': 'swift'}
 Plug 'kentaroi/ultisnips-swift', {'for': 'swift'}
