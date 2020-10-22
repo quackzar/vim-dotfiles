@@ -47,8 +47,8 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> [d <Plug>(coc-diagnostic-prev)
+nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
 inoremap <silent><expr> <C-X><C-O> coc#refresh()
 

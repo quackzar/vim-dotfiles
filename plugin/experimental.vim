@@ -11,6 +11,7 @@ Plug 'camspiers/animate.vim'
 " let g:animate#duration = 500.0
 " let g:lens#animate = 0
 
+Plug 'wfxr/minimap.vim'
 
 let g:lens#disabled_filetypes = ['nerdtree',
             \ '',
