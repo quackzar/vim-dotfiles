@@ -37,14 +37,14 @@ if has('macunix')
     let g:vimtex_view_automatic = 1
     let g:vimtex_view_skim_reading_bar = 0
     let g:vimtex_view_method = 'skim'
-    let g:vimtex_textidote_jar = '/usr/local/share/textidote/textidote.jar'
+    " let g:vimtex_textidote_jar = '/usr/local/share/textidote/textidote.jar'
 else
-    let g:vimtex_textidote_jar = '/usr/bin/textidote'
+    " let g:vimtex_textidote_jar = '/usr/bin/textidote'
     let g:vimtex_view_general_viewer = 'zathura'
     let g:vimtex_view_method = 'zathura'
     let g:vimtex_view_automatic = 1
     let g:vimtex_compiler_progname = 'nvr'
-    let g:vimtex_textidote_jar = '/opt/textidote/textidote.jar'
+    " let g:vimtex_textidote_jar = '/opt/textidote/textidote.jar'
 endif
 
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}

@@ -126,9 +126,10 @@ inoremap <silent><expr> <TAB>
 nnoremap <leader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
 
 
-Plug 'romainl/vim-qf' " Better Quickfix
-nmap \q <Plug>(qf_qf_toggle)
-nmap <C-w><Space> <Plug>(qf_qf_switch)
+" This breaks vimtex
+" Plug 'romainl/vim-qf' " Better Quickfix
+" nmap \q <Plug>(qf_qf_toggle)
+" nmap <C-w><Space> <Plug>(qf_qf_switch)
 
 
 Plug 'honza/vim-snippets'
