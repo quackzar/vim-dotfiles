@@ -102,9 +102,12 @@ set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
 
+
 set undofile " persistant undo
 set nobackup
 set nowritebackup
+
+let &spellfile='$HOME/.config/nvim/spell//'
 
 set modelineexpr
 
