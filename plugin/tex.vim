@@ -14,6 +14,7 @@ let g:vimtex_compiler_latexmk = {
     \}
 
 let g:vimtex_fold_enabled = 1
+let g:vimtex_format_enabled = 1
 
 
 if executable('pplatex')

@@ -13,6 +13,9 @@ Plug 'camspiers/animate.vim'
 
 Plug 'wfxr/minimap.vim'
 
+Plug 'Konfekt/vim-sentence-chopper'
+let g:latexindent = 0
+
 let g:lens#disabled_filetypes = ['nerdtree',
             \ '',
             \ 'fzf',
