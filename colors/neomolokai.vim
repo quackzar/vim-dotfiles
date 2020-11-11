@@ -29,6 +29,7 @@ let s:lime           = "#A4E400"
 let s:cyan           = "#62D8F1"
 let s:magenta        = "#F92672"
 let s:orange         = "#FF9700"
+let s:pumpkin        = "#ef5939"
 
 
 " Background colors
@@ -213,7 +214,7 @@ call Highlight("StorageClass", s:cyan, s:none, s:italic)
 call Highlight("Structure", s:cyan, s:none, s:none)
 
 " Special
-call Highlight("Special", s:cyan, s:none, s:italic)
+call Highlight("Special", s:cyan, s:italic)
 call Highlight("Debug", s:magenta)
 
 " Delimeters and such
@@ -229,17 +230,18 @@ call Highlight("Directory", s:lime, s:none, s:none)
 call Highlight("Todo", s:yellow, s:dark_grey, s:bold)
 
 
-
 " ----------- LAYOUT ----------
 call Highlight("Underlined", s:none, s:none, s:underline)
 
 " Layout
 call Highlight("NonText", s:columns_fg, s:none, s:none)
-call Highlight("TabLineFill", s:none, s:darker_grey, s:none)
 call Highlight("VertSplit", s:grey, s:background, s:bold)
-call Highlight("StatusLine", s:white, s:columns_bg, s:none)
-call Highlight("StatusLineNC", s:light_grey, s:columns_fg, s:none)
+call Highlight("StatusLine", s:white, '#232526', s:none)
+call Highlight("StatusLineNC", s:light_grey, '#232526', s:none)
 
+call Highlight("TabLineFill", s:none, s:light_charcoal, s:bold)
+call Highlight("TabLineSel", s:cyan, s:columns_fg, s:bold)
+call Highlight("TabLine", s:white, s:columns_bg, s:bold)
 
 " Completion menus
 call Highlight("Pmenu", s:orange, s:dark_charcoal, s:none)
@@ -251,6 +253,22 @@ call Highlight("WildMenu", s:cyan, s:columns_fg)
 
 
 call Highlight("Floating", s:grey, s:charcoal)
+
+" ----------- Barbar ----------
+call Highlight('BufferCurrent',       s:white,          s:background)
+call Highlight('BufferCurrentMod',    s:orange,         s:background)
+call Highlight('BufferCurrentSign',   s:cyan,           s:background)
+call Highlight('BufferCurrentTarget', s:dark_red,       s:background, 'bold')
+
+call Highlight('BufferVisible',       s:grey,           s:light_charcoal)
+call Highlight('BufferVisibleMod',    s:orange,         s:light_charcoal)
+call Highlight('BufferVisibleSign',   s:darker_grey,    s:light_charcoal)
+call Highlight('BufferVisibleTarget', s:dark_red,       s:light_charcoal, 'bold')
+
+call Highlight('BufferInactive',       s:dark_grey,      s:light_charcoal)
+call Highlight('BufferInactiveMod',    s:orange,         s:light_charcoal)
+call Highlight('BufferInactiveSign',   s:darker_grey,    s:light_charcoal)
+call Highlight('BufferInactiveTarget', s:dark_red,       s:light_charcoal, 'bold')
 
 " -------------- COC -------------
 call Highlight("CocErrorSign", s:danger, s:columns_bg)
