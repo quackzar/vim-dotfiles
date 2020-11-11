@@ -40,6 +40,7 @@
     "diagnostic.refreshAfterSave": false,
     "diagnostic.checkCurrentLine": true,
     "python.jediEnabled": false,
+    "python.analysis.typeCheckingMode": "off",
     "codeLens.enable": true,
     "signature.target": "float",
     "coc.preferences.hoverTarget": "float",
