@@ -30,6 +30,7 @@ endfunction
 let g:startify_custom_footer = s:center(['The Editor of the 21th Century'])
 
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 let g:ascii = [
             \ '                                        ▟▙            ',
             \ '                                        ▝▘            ',
