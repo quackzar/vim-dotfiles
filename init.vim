@@ -29,8 +29,8 @@ call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
 if has("nvim-0.5")
     exe 'luafile' . stdpath('config').'/treesitter.lua'
+    lua require('statusbars.cosmoline')
 endif
-
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
 if $TERM == "xterm-256color"
