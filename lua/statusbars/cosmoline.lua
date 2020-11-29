@@ -47,7 +47,6 @@ end
 gls.left[#gls.left+1] = {
   Space = {
     provider = function() return ' ' end,
-    condition = buffer_not_empty,
     highlight = {colors.bg,colors.bg}
   },
 }
@@ -115,14 +114,14 @@ gls.left[#gls.left+1] = {
 gls.left[#gls.left+1] = {
   GitIcon = {
     provider = function() return '  ' end,
-    condition = buffer_not_empty,
+    condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.bg,colors.cyan,'bold'},
   }
 }
 gls.left[#gls.left+1] = {
   GitBranch = {
     provider = 'GitBranch',
-    condition = buffer_not_empty,
+    condition = require('galaxyline.provider_vcs').check_git_workspace,
     highlight = {colors.bg,colors.cyan},
   }
 }
