@@ -1,11 +1,10 @@
 set encoding=utf8
 setglobal fileencoding=utf8
 
+set shell=fish
 if has('macunix')
-    set shell=/usr/local/bin/fish
     let g:python3_host_prog = '/usr/local/bin/python3'
 else
-    set shell=/bin/fish
     let $SHELL = "/bin/zsh"
     let g:python3_host_prog = '/usr/bin/python3'
 end
