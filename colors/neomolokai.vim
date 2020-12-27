@@ -318,5 +318,24 @@ let g:indentLine_color_gui = s:dark_grey
 " Beacon
 call Highlight("Beacon", s:white, s:cyan)
 
+" Telescope
+hi! link TelescopeSelection Cursorline
+hi! link TelescopeSelectionCaret Keyword
+hi TelescopeMultiSelection guifg=#928374 " multisections
+hi! link TelescopeNormal   Normal
+
+" Border highlight groups.
+call Highlight("TelescopeBorder", s:purple, s:none)
+call Highlight("TelescopePromptBorder", s:purple, s:none)
+call Highlight("TelescopeResultsBorder", s:lime, s:none)
+call Highlight("TelescopePreviewBorder", s:yellow, s:none)
+
+" Used for highlighting characters that you match.
+call Highlight("TelescopeMatching", s:cyan, s:none)
+
+" Used for the prompt prefix
+hi! link TelescopePromptPrefix Keyword
+
+
 hi! link vimSet PreProc
 hi! link vimIsCommand Statement
