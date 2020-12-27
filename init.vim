@@ -29,6 +29,7 @@ call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
 if has("nvim-0.5")
     exe 'luafile' . stdpath('config').'/treesitter.lua'
+    exe 'luafile' . stdpath('config').'/telescope.lua'
     " lua require('statusbars.cosmoline')
 endif
 
