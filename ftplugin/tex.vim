@@ -23,7 +23,10 @@ nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
 " c: content, t: todo:, l: label, i: include
 nnoremap <buffer> <silent> <leader>t :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
 
+" In case these are already taken, reclaim them!
 vmap <buffer> ac <plug>(vimtex-ac)
 xmap <buffer> ac <plug>(vimtex-ac)
 vmap <buffer> ic <plug>(vimtex-ic)
 xmap <buffer> ic <plug>(vimtex-ic)
+
+" autocmd CursorHold,CursorHoldI * silent! wall

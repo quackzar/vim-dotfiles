@@ -134,8 +134,8 @@ if has("nvim-0.5")
     " Magic buffer-picking mode
     nnoremap <silent> <C-s> :BufferPick<CR>
     " Sort automatically by...
-    nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
-    nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+    nnoremap <silent> <Space>Bd :BufferOrderByDirectory<CR>
+    nnoremap <silent> <Space>Bl :BufferOrderByLanguage<CR>
     " Move to previous/next
     nnoremap <silent>    <space>, :BufferPrevious<CR>
     nnoremap <silent>    <space>. :BufferNext<CR>

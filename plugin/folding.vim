@@ -18,6 +18,8 @@ Plug 'arecarn/vim-clean-fold'
 " set foldtext=clean_fold#fold_text('_')
 set foldmethod=expr
 set foldexpr=clean_fold#fold_expr(v:lnum)
+" set foldexpr=nvim_treesitter#foldexpr()
+
 
 
 " Plug 'scr1pt0r/crease.vim'
