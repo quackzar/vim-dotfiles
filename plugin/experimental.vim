@@ -39,8 +39,10 @@ augroup highlight_yank
 augroup END
 
 Plug 'wellle/context.vim'
-let g:context_enabled = 1
+let g:context_enabled = 0
 let g:context_highlight_normal = 'Opaque'
+
+
 
 
 Plug 'j5shi/CommandlineComplete.vim'
@@ -53,6 +55,17 @@ Plug 'norcalli/nvim-colorizer.lua'
 if has("nvim-0.5")
     Plug 'dstein64/nvim-scrollview'
 
-    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     hi link TSError Normal
+    Plug 'romgrk/nvim-treesitter-context'
+
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+
+    Plug 'voldikss/vim-skylight'
+    nnoremap <silent>       gp    :Skylight file<CR>
+    vnoremap <silent>       gp    :Skylight file<CR>
+    nnoremap <silent>       go    :Skylight! file<CR>
+    vnoremap <silent>       go    :Skylight! file<CR>
 endif

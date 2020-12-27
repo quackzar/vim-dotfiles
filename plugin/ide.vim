@@ -142,3 +142,10 @@ let g:voom_ft_modes = {'markdown': 'markdown', 'tex': 'latex'}
 Plug 'voldikss/vim-floaterm'
 let g:floaterm_winblend = 25
 let g:floaterm_keymap_toggle = '<F10>'
+
+
+" Debugging
+if has("nvim-0.5")
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+end
