@@ -51,6 +51,8 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 
 if has("nvim-0.5")
+    Plug 'dstein64/nvim-scrollview'
+
     Plug 'nvim-treesitter/nvim-treesitter'
     hi link TSError Normal
 endif

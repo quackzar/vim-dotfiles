@@ -2,10 +2,11 @@ set encoding=utf8
 setglobal fileencoding=utf8
 
 set shell=fish
+let $SHELL = "/bin/zsh"
 if has('macunix')
-    let g:python3_host_prog = '/usr/local/bin/python3'
+    " let g:python3_host_prog = '/opt/homebrew/bin/python3'
+    let g:python3_host_prog = '/usr/bin/python3'
 else
-    let $SHELL = "/bin/zsh"
     let g:python3_host_prog = '/usr/bin/python3'
 end
 
@@ -20,7 +21,7 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/editor.vim
      runtime! plugin/folding.vim
      runtime! plugin/interface.vim
-     runtime! plugin/lightline.vim
+     runtime! plugin/statusline.vim
      runtime! plugin/languages.vim
      runtime! plugin/navigation.vim
      runtime! plugin/experimental.vim
@@ -28,7 +29,7 @@ call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
 if has("nvim-0.5")
     exe 'luafile' . stdpath('config').'/treesitter.lua'
-    lua require('statusbars.cosmoline')
+    " lua require('statusbars.cosmoline')
 endif
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
