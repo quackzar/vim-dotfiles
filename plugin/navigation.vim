@@ -32,7 +32,7 @@ Plug 'farmergreg/vim-lastplace'
 
 
 Plug 'ripxorip/aerojump.nvim', { 'do': ':UpdateRemotePlugins' }
-nmap <Leader>/s <Plug>(AerojumpSpace)
-nmap <Leader>/b <Plug>(AerojumpBolt)
-nmap <Leader>/a <Plug>(AerojumpFromCursorBolt)
-nmap <Leader>/d <Plug>(AerojumpDefault) " Boring mode
+nmap <Leader>/ <Plug>(AerojumpSpace)
+nmap <Leader>? <Plug>(AerojumpBolt)
+" nmap <Leader>/a <Plug>(AerojumpFromCursorBolt)
+" nmap <Leader>/d <Plug>(AerojumpDefault) " Boring mode

@@ -13,13 +13,13 @@ Plug 'pbogut/fzf-mru.vim'
 
 let g:fzf_colors =
     \ { 'fg':      ['fg', 'Comment'],
-      \ 'bg':      ['bg', 'Normal'],
+      \ 'bg':      ['bg', 'Floating'],
       \ 'hl':      ['fg', 'Special'],
       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-      \ 'bg+':     ['bg', 'Normal', 'Normal'],
+      \ 'bg+':     ['bg', 'Floating', 'Floating'],
       \ 'hl+':     ['fg', 'Statement'],
       \ 'info':    ['fg', 'PreProc'],
-      \ 'border':  ['fg', 'Ignore'],
+      \ 'border':  ['fg', 'Floating'],
       \ 'prompt':  ['fg', 'Conditional'],
       \ 'pointer': ['fg', 'Exception'],
       \ 'marker':  ['fg', 'Tag'],
@@ -65,7 +65,7 @@ function! CreateCenteredFloatingWindow()
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
     call nvim_open_win(s:buf, v:true, opts)
-    set winhl=Normal:Floating
+    set winhl=Floating:Floating
     let opts.row += 1
     let opts.height -= 2
     let opts.col += 2
@@ -82,24 +82,24 @@ command! QHist call fzf#vim#search_history({'right': '40'})
 " nnoremap q/ :QHist<CR>
 
 Plug 'Shougo/neomru.vim'
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
+" Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release', 'do': ':UpdateRemotePlugins' }
 
-command! Files FzfPreviewDirectoryFiles
-command! Buffers FzfPreviewBuffers
-let g:fzf_preview_use_dev_icons = 1
-let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
-            \. 'bg:#1B1D1E,'
-            \. 'border:#808080,'
-            \. 'spinner:#E6DB74,'
-            \. 'hl:#7E8E91,'
-            \. 'fg:#F8F8F2,'
-            \. 'header:#7E8E91,'
-            \. 'info:#A6E22E,'
-            \. 'pointer:#af87ff,'
-            \. 'marker:#62D8F1,'
-            \. 'fg+:#F8F8F2,'
-            \. 'prompt:#62D8F1,'
-            \. 'hl+:#F92672'
+" command! Files FzfPreviewDirectoryFiles
+" command! Buffers FzfPreviewBuffers
+" let g:fzf_preview_use_dev_icons = 1
+" let g:fzf_preview_fzf_color_option = 'bg+:#293739,'
+"             \. 'bg:#1B1D1E,'
+"             \. 'border:#808080,'
+"             \. 'spinner:#E6DB74,'
+"             \. 'hl:#7E8E91,'
+"             \. 'fg:#F8F8F2,'
+"             \. 'header:#7E8E91,'
+"             \. 'info:#A6E22E,'
+"             \. 'pointer:#af87ff,'
+"             \. 'marker:#62D8F1,'
+"             \. 'fg+:#F8F8F2,'
+"             \. 'prompt:#62D8F1,'
+"             \. 'hl+:#F92672'
 
 " FZF
 nnoremap <silent> <leader>f :Files<CR>
