@@ -22,6 +22,10 @@ nnoremap <silent><f7> :AsyncTask project-run<cr>
 let g:asynctasks_term_pos = 'bottom'
 
 
+" Plug 'skywind3000/vim-rt-format'
+Plug 'kevinhwang91/nvim-bqf'
+
+
 Plug 'liuchengxu/vista.vim'
 let g:vista#renderer#enable_icon = 1
 let g:vista_default_executive = 'coc'
@@ -126,10 +130,6 @@ inoremap <silent><expr> <TAB>
 nnoremap <leader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
 
 
-" This breaks vimtex
-" Plug 'romainl/vim-qf' " Better Quickfix
-" nmap \q <Plug>(qf_qf_toggle)
-" nmap <C-w><Space> <Plug>(qf_qf_switch)
 
 
 Plug 'honza/vim-snippets'
@@ -145,7 +145,20 @@ let g:floaterm_keymap_toggle = '<F10>'
 
 
 " Debugging
-if has("nvim-0.5")
-    Plug 'mfussenegger/nvim-dap'
-    Plug 'theHamsta/nvim-dap-virtual-text'
-end
+" if has("nvim-0.5")
+"     Plug 'mfussenegger/nvim-dap'
+"     Plug 'theHamsta/nvim-dap-virtual-text'
+"     Plug 'mfussenegger/nvim-dap-python'
+
+"     nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+"     nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+"     nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+"     nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+"     nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
+"     nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+"     nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+"     nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+"     nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>
+" end
+
+
