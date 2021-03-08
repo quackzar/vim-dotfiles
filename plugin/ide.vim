@@ -144,6 +144,24 @@ let g:floaterm_winblend = 25
 let g:floaterm_keymap_toggle = '<F10>'
 
 
+
+" Testing
+Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+
+let test#python#pytest#options = "--color=yes"
+let test#javascript#jest#options = "--color=always"
+let test#strategy = {
+  \ 'nearest': 'asyncrun',
+  \ 'file':    'asyncrun_background',
+  \ 'suite':   'asyncrun',
+\}
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+
 " Debugging
 " if has("nvim-0.5")
 "     Plug 'mfussenegger/nvim-dap'
