@@ -3,12 +3,7 @@ setglobal fileencoding=utf8
 
 set shell=fish
 let $SHELL = "/bin/zsh"
-if has('macunix')
-    " let g:python3_host_prog = '/opt/homebrew/bin/python3'
-    let g:python3_host_prog = '/usr/bin/python3'
-else
-    let g:python3_host_prog = '/usr/bin/python3'
-end
+let g:python3_host_prog = '/usr/bin/python3'
 
 set runtimepath+=$HOME/.config/nvim
 
