@@ -22,12 +22,15 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/experimental.vim
 call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
-if has("nvim-0.5")
-    exe 'luafile' . stdpath('config').'/treesitter.lua'
-    exe 'luafile' . stdpath('config').'/telescope.lua'
-    " lua require('statusbars.cosmoline')
+exe 'luafile' . stdpath('config').'/treesitter.lua'
+exe 'luafile' . stdpath('config').'/telescope.lua'
+lua require('statusbars.bubblegum')
+lua << EOF
+require('nvim-web-devicons').setup {
+default = true;
+}
+EOF
 
-endif
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
 if $TERM == "xterm-256color"

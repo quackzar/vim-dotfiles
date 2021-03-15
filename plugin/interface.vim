@@ -16,7 +16,7 @@ function! GetNVimVersion()
     return matchstr(s, 'NVIM v\zs[^\n]*')
 endfunction
 
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 
 

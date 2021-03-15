@@ -1,133 +1,133 @@
-    " Plug 'glepnir/galaxyline.nvim'
-    " Plug 'datwaft/bubbly.nvim'
-Plug 'itchyny/lightline.vim'
+Plug 'glepnir/galaxyline.nvim'
+" Plug 'datwaft/bubbly.nvim'
+" Plug 'itchyny/lightline.vim'
 
-function! LightlineMode()
-    return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
-                \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
-                \ &filetype ==# 'unite' ? 'Unite' :
-                \ &filetype ==# 'vimfiler' ? 'VimFiler' :
-                \ &filetype ==# 'vimshell' ? 'VimShell' :
-                \ &filetype ==# 'voomtree' ? 'VOOM' :
-                \ &filetype ==# 'vista_kind' ? 'Vista' :
-                \ lightline#mode()
-endfunction
-
-
-function! LightlineModified()
-    return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : ''
-endfunction
-
-function! LightlineFileformat() " show if not unix
-    return winwidth(0) > 70 ? (&fileformat == 'unix' ? '' : &fileformat) : ''
-endfunction
-
-function! LightlineFiletype()
-    return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! LightlineReadonly()
-    return &readonly ? '' : ''
-endfunction
-
-function! VimTexStatus()
-    if &ft != 'tex'
-        return ''
-    end
-    let l:msg = ''
-    let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
-    if !empty(l:compiler)
-        if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
-            if get(l:compiler, 'continuous')
-                let l:msg .=  ''
-            else
-                let l:msg .= ' '
-            endif
-        endif
-    endif
-    if l:msg != ''
-        return 'vimtex:'. l:msg
-    else
-        return ''
-    end
-endfunction
+" function! LightlineMode()
+"     return expand('%:t') ==# '__Tagbar__' ? 'Tagbar':
+"                 \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+"                 \ &filetype ==# 'unite' ? 'Unite' :
+"                 \ &filetype ==# 'vimfiler' ? 'VimFiler' :
+"                 \ &filetype ==# 'vimshell' ? 'VimShell' :
+"                 \ &filetype ==# 'voomtree' ? 'VOOM' :
+"                 \ &filetype ==# 'vista_kind' ? 'Vista' :
+"                 \ lightline#mode()
+" endfunction
 
 
+" function! LightlineModified()
+"     return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : ''
+" endfunction
 
-lua spinner = require("spinner")
+" function! LightlineFileformat() " show if not unix
+"     return winwidth(0) > 70 ? (&fileformat == 'unix' ? '' : &fileformat) : ''
+" endfunction
 
-let g:spinner_running = 0
-autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
-autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
-function AsyncRunStatus()
-    if g:asyncrun_status == 'running'
-        return luaeval("require'spinner'.state()")
-    else
-        return ''
-    endif
-endfunction
+" function! LightlineFiletype()
+"     return winwidth(0) > 70 ? (&filetype !=# '' ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+" endfunction
 
-function! LightlineFilename()
-    let fname = expand('%:t')
-    return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-                \ fname == '__Tagbar__' ? g:lightline.fname :
-                \ fname =~ '__Gundo\|NERD_tree' ? '' :
-                \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
-                \ &ft == 'unite' ? unite#get_status_string() :
-                \ &ft == 'vimshell' ? vimshell#get_status_string() :
-                \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-                \ ('' != fname ? expand('%:f') : '[No Name]') .
-                \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
-endfunction
+" function! LightlineReadonly()
+"     return &readonly ? '' : ''
+" endfunction
+
+" function! VimTexStatus()
+"     if &ft != 'tex'
+"         return ''
+"     end
+"     let l:msg = ''
+"     let l:compiler = get(get(b:, 'vimtex', {}), 'compiler', {})
+"     if !empty(l:compiler)
+"         if has_key(l:compiler, 'is_running') && b:vimtex.compiler.is_running()
+"             if get(l:compiler, 'continuous')
+"                 let l:msg .=  ''
+"             else
+"                 let l:msg .= ' '
+"             endif
+"         endif
+"     endif
+"     if l:msg != ''
+"         return 'vimtex:'. l:msg
+"     else
+"         return ''
+"     end
+" endfunction
 
 
-function! LightlineFugitive()
-    if exists('*fugitive#head')
-        let branch = fugitive#head()
-        return branch !=# '' ? ' '.branch : ''
-    endif
-    return ''
-endfunction
 
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" lua spinner = require("spinner")
 
-let g:lightline = {
-            \ 'colorscheme': 'molokai',
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'filename', 'method' ],
-            \             [ 'cocstatus' ]  ],
-            \ 'right': [ [ 'lineinfo' ],
-            \            [ 'percent' ],
-            \            [ 'spell',  'fileformat', 'filetype'],
-            \            [ 'texstatus', 'asyncstatus' ]]
-            \  },
-            \ 'component_function': {
-            \   'mode': 'LightlineMode',
-            \   'filename': 'LightlineFilename',
-            \   'gitbranch': 'LightlineFugitive',
-            \   'fileformat': 'LightlineFileformat',
-            \   'filetype': 'LightlineFiletype',
-            \   'method': 'NearestMethodOrFunction',
-            \   'abpi': 'LightlineABPI',
-            \   'cocstatus': 'coc#status',
-            \   'asyncstatus': 'AsyncRunStatus',
-            \   'texstatus': 'VimTexStatus',
-            \ },
-            \ 'component': {
-            \   'lineinfo': ' %3l:%-2v',
-            \   'buffers': 'tabsel',
-            \ },
-            \ 'component_type': {
-            \   'buffers': 'tabsel'
-            \ },
-            \ 'component_expand': {
-            \   'buffers': 'lightline#bufferline#buffers'
-            \ },
-            \ 'separator': { 'left': '', 'right': '' },
-            \ 'subseparator': { 'left': '', 'right': '' },
-            \ 'tabline': {'left': [['buffers']], 'right': [['close']]}
-            \ }
+" let g:spinner_running = 0
+" autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
+" autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
+" function AsyncRunStatus()
+"     if g:asyncrun_status == 'running'
+"         return luaeval("require'spinner'.state()")
+"     else
+"         return ''
+"     endif
+" endfunction
+
+" function! LightlineFilename()
+"     let fname = expand('%:t')
+"     return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
+"                 \ fname == '__Tagbar__' ? g:lightline.fname :
+"                 \ fname =~ '__Gundo\|NERD_tree' ? '' :
+"                 \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+"                 \ &ft == 'unite' ? unite#get_status_string() :
+"                 \ &ft == 'vimshell' ? vimshell#get_status_string() :
+"                 \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+"                 \ ('' != fname ? expand('%:f') : '[No Name]') .
+"                 \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+" endfunction
+
+
+" function! LightlineFugitive()
+"     if exists('*fugitive#head')
+"         let branch = fugitive#head()
+"         return branch !=# '' ? ' '.branch : ''
+"     endif
+"     return ''
+" endfunction
+
+" autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" let g:lightline = {
+"             \ 'colorscheme': 'molokai',
+"             \ 'active': {
+"             \   'left': [ [ 'mode', 'paste' ],
+"             \             [ 'gitbranch', 'filename', 'method' ],
+"             \             [ 'cocstatus' ]  ],
+"             \ 'right': [ [ 'lineinfo' ],
+"             \            [ 'percent' ],
+"             \            [ 'spell',  'fileformat', 'filetype'],
+"             \            [ 'texstatus', 'asyncstatus' ]]
+"             \  },
+"             \ 'component_function': {
+"             \   'mode': 'LightlineMode',
+"             \   'filename': 'LightlineFilename',
+"             \   'gitbranch': 'LightlineFugitive',
+"             \   'fileformat': 'LightlineFileformat',
+"             \   'filetype': 'LightlineFiletype',
+"             \   'method': 'NearestMethodOrFunction',
+"             \   'abpi': 'LightlineABPI',
+"             \   'cocstatus': 'coc#status',
+"             \   'asyncstatus': 'AsyncRunStatus',
+"             \   'texstatus': 'VimTexStatus',
+"             \ },
+"             \ 'component': {
+"             \   'lineinfo': ' %3l:%-2v',
+"             \   'buffers': 'tabsel',
+"             \ },
+"             \ 'component_type': {
+"             \   'buffers': 'tabsel'
+"             \ },
+"             \ 'component_expand': {
+"             \   'buffers': 'lightline#bufferline#buffers'
+"             \ },
+"             \ 'separator': { 'left': '', 'right': '' },
+"             \ 'subseparator': { 'left': '', 'right': '' },
+"             \ 'tabline': {'left': [['buffers']], 'right': [['close']]}
+"             \ }
 
 if has("nvim-0.5")
     Plug 'romgrk/barbar.nvim'
