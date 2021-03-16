@@ -25,11 +25,6 @@ call plug#end()
 exe 'luafile' . stdpath('config').'/treesitter.lua'
 exe 'luafile' . stdpath('config').'/telescope.lua'
 lua require('statusbars.bubblegum')
-lua << EOF
-require('nvim-web-devicons').setup {
-default = true;
-}
-EOF
 
 
 " ========= PLUGIN INDEPENDENT SETTINGS ===========

@@ -32,6 +32,10 @@ let s:orange         = "#FF9700"
 let s:pumpkin        = "#ef5939"
 
 
+let s:cyan_faded     = "#407F8C"
+let s:magenta_faded  = "#95224C"
+let s:orange_faded   = "#D17F06"
+
 " Background colors
 let s:white          = "#ffffff"
 let s:light_grey     = "#bcbcbc"
@@ -273,14 +277,14 @@ call Highlight('BufferInactiveSign',   s:darker_grey,    s:light_charcoal)
 call Highlight('BufferInactiveTarget', s:dark_red,       s:light_charcoal, 'bold')
 
 " -------------- COC -------------
-call Highlight("CocErrorSign", s:danger, s:columns_bg)
+call Highlight("CocErrorSign", s:magenta, s:columns_bg)
 call Highlight("CocWarningSign", s:orange, s:columns_bg)
-call Highlight("CocHintSign", s:sea_blue, s:columns_bg)
-call Highlight("CocInfoSign", s:grey, s:columns_bg)
+call Highlight("CocHintSign", s:cyan, s:columns_bg)
+call Highlight("CocInfoSign", s:yellow, s:columns_bg)
 
-call Highlight("CocErrorVirtualText", s:dark_red, s:none, s:italic)
-call Highlight("CocWarningVirtualText", s:orange, s:none, s:italic)
-call Highlight("CocHintVirtualText", s:sea_blue, s:none, s:italic)
+call Highlight("CocErrorVirtualText", s:magenta_faded, s:none, s:italic)
+call Highlight("CocWarningVirtualText", s:orange_faded, s:none, s:italic)
+call Highlight("CocHintVirtualText", s:cyan_faded, s:none, s:italic)
 call Highlight("CocInfoVirtualText", s:darker_grey, s:none, s:italic)
 
 call Highlight("CocErrorHighlight", s:none, s:none, s:none, s:blood_red)

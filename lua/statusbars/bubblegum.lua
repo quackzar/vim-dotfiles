@@ -1,7 +1,6 @@
 local gl = require("galaxyline")
 local gls = gl.section
-gl.short_line_list = {"LuaTree", "vista", "dbui","dashboard"}
-
+gl.short_line_list = {"LuaTree", "vista", "vim-plug", "dbui", "coc-explorer"}
 
 local colors = {
     bg       = "NONE",
@@ -12,6 +11,7 @@ local colors = {
     red      = "#f92672",
     lightbg  = "#232526",
     grey     = '#c0c0c0',
+    darkgrey = '#909090',
     white    = '#FFFFFF',
     yellow   = '#ffff87',
     purple   = '#af87ff',
@@ -33,7 +33,7 @@ local function mode_color()
         ic    = colors.yellow,
         R     = colors.magenta, Rv = colors.magenta,
         r     = colors.orange, rm = colors.orange, ['r?'] = colors.orange,
-        ['!'] = colors.pumpkin,t = colors.pumpkin
+        ['!'] = colors.pumpkin,t = colors.pumpkin,
     }
     return mode_color_bg[vim.fn.mode()]
 end
@@ -45,7 +45,6 @@ local function fg_color(bg_color)
         return colors.lightbg
     end
 end
-
 
 
 gls.left[1] = {
@@ -208,14 +207,15 @@ gls.right[4] = {
             vim.api.nvim_command('hi GalaxySiMode guibg='..colorbg)
             vim.api.nvim_command('hi GalaxySiMode guifg='..colorfg)
             local alias = {
-                n = "NORMAL",
-                i = "INSERT",
-                c = "COMMAND",
-                v = "VISUAL",
-                V = "V-LINE",
+                n      = "NORMAL",
+                i      = "INSERT",
+                c      = "COMMAND",
+                v      = "VISUAL",
+                V      = "V-LINE",
                 [""] = "V-BLOCK",
-                R = "REPLACE",
-                s = "SELECT",
+                R      = "REPLACE",
+                s      = "SELECT",
+                t      = "TERMINAL",
             }
             return alias[vim.fn.mode()]
         end,
@@ -233,3 +233,18 @@ gls.right[5] = {
         highlight = {colors.fg, colors.bg}
     }
 }
+
+-- Short list
+gls.short_line_left[0] = {
+    shortSpace = {
+        provider = function() return '  ' end,
+        highlight = {colors.grey, colors.bg},
+    }
+}
+gls.short_line_left[1] = {
+    shortFilename = {
+        provider = {'FileIcon', 'FileName', 'FileSize'},
+        highlight = {colors.darkgrey, colors.bg, 'italic'},
+    }
+}
+

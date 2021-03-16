@@ -22,7 +22,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'glepnir/dashboard-nvim'
 let g:dashboard_default_executive ='fzf'
-let g:dashboard_default_header = 'commicgirl5'
 nnoremap <silent> <Leader>h :DashboardFindHistory<CR>
 nnoremap <silent> <Leader>f :DashboardFindFile<CR>
 nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
@@ -41,8 +40,14 @@ let g:dashboard_custom_shortcut={
             \ 'new_file'           : 'SPC c n',
             \ }
 
+" let g:dashboard_preview_file = stdpath('config').'/neovim.cat'
+" let g:dashboard_preview_file_height = 12
+" let g:dashboard_preview_file_width = 80
+" let g:dashboard_preview_command = 'cat'
+
 augroup my_dashboard
     autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+    autocmd FileType dashboard set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2
     autocmd FileType dashboard nnoremap <buffer> q :q<cr>
     autocmd FileType dashboard nmap <buffer> <cr> :
 augroup END

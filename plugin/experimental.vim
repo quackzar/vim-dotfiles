@@ -53,6 +53,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'szymonmaszke/vimpyter' "vim-plug
 
+Plug 'nvim-lua/popup.nvim'
 
 
 if has("nvim-0.5")

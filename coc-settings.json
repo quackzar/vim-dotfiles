@@ -66,6 +66,7 @@
     "coc.source.around.enable": false,
     "explorer.file.column.git.showIgnored": true,
     "snippets.priority": 30,
+    "Lua.diagnostics.globals": ["vim"],
     "explorer.keyMappingMode": "none",
     "explorer.keyMappings": {
         "*": "toggleSelection",
