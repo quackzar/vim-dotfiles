@@ -9,17 +9,7 @@ set runtimepath+=$HOME/.config/nvim
 
 let mapleader = " "
 call plug#begin(stdpath('config').'/plugged/')
-     runtime! plugin/fzf.vim
-     runtime! plugin/git.vim
-     runtime! plugin/ide.vim
-     runtime! plugin/tex.vim
-     runtime! plugin/editor.vim
-     runtime! plugin/folding.vim
-     runtime! plugin/interface.vim
-     runtime! plugin/statusline.vim
-     runtime! plugin/languages.vim
-     runtime! plugin/navigation.vim
-     runtime! plugin/experimental.vim
+     runtime! plugin/*.vim
 call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
 exe 'luafile' . stdpath('config').'/treesitter.lua'

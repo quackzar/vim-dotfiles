@@ -19,7 +19,6 @@ endfunction
 " Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 
-
 Plug 'glepnir/dashboard-nvim'
 let g:dashboard_default_executive ='fzf'
 nnoremap <silent> <Leader>h :DashboardFindHistory<CR>
