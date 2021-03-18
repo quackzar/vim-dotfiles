@@ -1,5 +1,8 @@
 local gl = require("galaxyline")
 local gls = gl.section
+local spinner = require("spinner")
+local condition = require('galaxyline.condition')
+
 gl.short_line_list = {"LuaTree", "vista", "vim-plug", "dbui", "coc-explorer"}
 
 local colors = {
@@ -7,7 +10,6 @@ local colors = {
     line_bg  = "NONE",
     fg       = "#D8DEE9",
     fg_green = "#a4e400",
-    blue     = "#22262C",
     red      = "#f92672",
     lightbg  = "#232526",
     grey     = '#c0c0c0',
@@ -46,7 +48,6 @@ local function fg_color(bg_color)
     end
 end
 
-
 gls.left[1] = {
     leftRounded = {
         provider = function()
@@ -64,7 +65,11 @@ gls.left[2] = {
             local colorfg = fg_color(colorbg)
             vim.api.nvim_command('hi GalaxyViMode guibg='..colorbg)
             vim.api.nvim_command('hi GalaxyViMode guifg='..colorfg)
-            return "   "
+            if spinner.isRunning() then
+                return spinner.state() .. " "
+            else
+                return "   "
+            end
         end,
         highlight = {colors.white, colors.cyan},
     }
@@ -75,7 +80,7 @@ gls.left[3] = {
         provider = function()
             return '  '..require('galaxyline.provider_fileinfo').get_file_icon()
         end,
-        condition = buffer_not_empty,
+        condition = condition.buffer_not_empty,
         highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg},
     }
 }
@@ -83,7 +88,7 @@ gls.left[3] = {
 gls.left[4] = {
     FileName = {
         provider = {"FileName", "FileSize"},
-        condition = buffer_not_empty,
+        condition = condition.buffer_not_empty,
         highlight = {colors.fg, colors.lightbg}
     }
 }
@@ -106,7 +111,23 @@ local checkwidth = function()
     return false
 end
 
+local checkwidth2 = function()
+    local squeeze_width = vim.fn.winwidth(0) / 2
+    if squeeze_width > 25 then
+        return true
+    end
+    return false
+end
+
 gls.left[6] = {
+    VistaFun = {
+        provider = {"VistaPlugin", "GetLspClient"},
+        condition = checkwidth,
+        highlight = {colors.pumpkin, colors.line_bg}
+    }
+}
+
+gls.left[7] = {
     DiffAdd = {
         provider = "DiffAdd",
         condition = checkwidth,
@@ -115,7 +136,7 @@ gls.left[6] = {
     }
 }
 
-gls.left[7] = {
+gls.left[8] = {
     DiffModified = {
         provider = "DiffModified",
         condition = checkwidth,
@@ -124,7 +145,7 @@ gls.left[7] = {
     }
 }
 
-gls.left[8] = {
+gls.left[9] = {
     DiffRemove = {
         provider = "DiffRemove",
         condition = checkwidth,
@@ -133,7 +154,7 @@ gls.left[8] = {
     }
 }
 
-gls.left[9] = {
+gls.left[10] = {
     LeftEnd = {
         provider = function()
             return " "
@@ -144,7 +165,7 @@ gls.left[9] = {
     }
 }
 
-gls.left[10] = {
+gls.left[11] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
@@ -152,7 +173,7 @@ gls.left[10] = {
     }
 }
 
-gls.left[11] = {
+gls.left[12] = {
     Space = {
         provider = function()
             return " "
@@ -161,7 +182,7 @@ gls.left[11] = {
     }
 }
 
-gls.left[12] = {
+gls.left[13] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
@@ -174,7 +195,9 @@ gls.right[1] = {
         provider = function()
             return "   "
         end,
-        condition = require("galaxyline.provider_vcs").check_git_workspace,
+        condition = function()
+            return condition.check_git_workspace() and checkwidth2()
+        end,
         highlight = {colors.green, colors.line_bg}
     }
 }
@@ -182,7 +205,9 @@ gls.right[1] = {
 gls.right[2] = {
     GitBranch = {
         provider = "GitBranch",
-        condition = require("galaxyline.provider_vcs").check_git_workspace,
+        condition = function()
+            return condition.check_git_workspace() and checkwidth2()
+        end,
         highlight = {colors.green, colors.line_bg}
     }
 }

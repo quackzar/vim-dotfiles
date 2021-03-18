@@ -13,7 +13,8 @@ let g:asyncrun_status = ''
 let g:asyncrun_shell = '/bin/zsh'
 let g:asyncrun_shellflag = '-c'
 " let g:asyncrun_open = 6
-
+autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
+autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
 Plug 'skywind3000/asynctasks.vim'
 nnoremap <silent><f5> :AsyncTask file-build<cr>
 nnoremap <silent><f9> :AsyncTask file-run<cr>

@@ -1,12 +1,14 @@
-local api = vim.api
 local M = {}
 
-running = false
-
-state = '  '
+local running = false
+local state = '  '
 
 function M.state()
     return state
+end
+
+function M.isRunning()
+    return running
 end
 
 function M.start()

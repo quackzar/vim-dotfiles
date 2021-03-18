@@ -2,7 +2,6 @@
 " A mix between molokai and vim-molokai-tasty
 " with support for some modern features and such
 " and also CoC
-hi clear
 if exists("syntax_on")
     syntax reset
 end
