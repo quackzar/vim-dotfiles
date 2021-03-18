@@ -17,6 +17,10 @@ exe 'luafile' . stdpath('config').'/telescope.lua'
 lua require('statusbars.bubblegum')
 
 
+if has('vscode')
+    source vscode.vim
+endif
+
 " ========= PLUGIN INDEPENDENT SETTINGS ===========
 if $TERM == "xterm-256color"
     set t_Co=256
