@@ -30,7 +30,7 @@ require('gitsigns').setup {
   watch_index = {
     interval = 1000
   },
-  sign_priority = 6,
+  sign_priority = 20,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   use_decoration_api = true,
