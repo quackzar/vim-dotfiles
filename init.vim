@@ -14,6 +14,7 @@ call plug#end()
 " exe 'source' . stdpath('config').'/quickui.vim'
 exe 'luafile' . stdpath('config').'/treesitter.lua'
 exe 'luafile' . stdpath('config').'/telescope.lua'
+exe 'luafile' . stdpath('config').'/gitsigns.lua'
 lua require('statusbars.bubblegum')
 
 

@@ -14,4 +14,5 @@ let g:mergetool_prefer_revision = 'local'
 
 Plug 'lambdalisue/gina.vim'
 
+
 command! -nargs=0 Gupdate AsyncRun git pull --rebase --autostash

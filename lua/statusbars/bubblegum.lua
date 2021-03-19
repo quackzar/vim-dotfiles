@@ -121,51 +121,16 @@ end
 
 gls.left[6] = {
     VistaFun = {
-        provider = {"VistaPlugin", "GetLspClient"},
+        provider = function() --{"VistaPlugin", "GetLspClient"},
+            return vim.fn['coc#status']()
+        end,
         condition = checkwidth,
         highlight = {colors.pumpkin, colors.line_bg}
     }
 }
 
+
 gls.left[7] = {
-    DiffAdd = {
-        provider = "DiffAdd",
-        condition = checkwidth,
-        icon = "   ",
-        highlight = {colors.yellow, colors.line_bg}
-    }
-}
-
-gls.left[8] = {
-    DiffModified = {
-        provider = "DiffModified",
-        condition = checkwidth,
-        icon = " ",
-        highlight = {colors.orange, colors.line_bg}
-    }
-}
-
-gls.left[9] = {
-    DiffRemove = {
-        provider = "DiffRemove",
-        condition = checkwidth,
-        icon = " ",
-        highlight = {colors.red, colors.line_bg}
-    }
-}
-
-gls.left[10] = {
-    LeftEnd = {
-        provider = function()
-            return " "
-        end,
-        separator = " ",
-        separator_highlight = {colors.line_bg, colors.line_bg},
-        highlight = {colors.line_bg, colors.line_bg}
-    }
-}
-
-gls.left[11] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
@@ -173,7 +138,7 @@ gls.left[11] = {
     }
 }
 
-gls.left[12] = {
+gls.left[8] = {
     Space = {
         provider = function()
             return " "
@@ -182,7 +147,7 @@ gls.left[12] = {
     }
 }
 
-gls.left[13] = {
+gls.left[9] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
@@ -190,7 +155,35 @@ gls.left[13] = {
     }
 }
 
+gls.right[0] = {
+    DiffAdd = {
+        provider = "DiffAdd",
+        condition = checkwidth,
+        icon = "   ",
+        highlight = {colors.yellow, colors.line_bg}
+    }
+}
+
 gls.right[1] = {
+    DiffModified = {
+        provider = "DiffModified",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.orange, colors.line_bg}
+    }
+}
+
+gls.right[2] = {
+    DiffRemove = {
+        provider = "DiffRemove",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.red, colors.line_bg}
+    }
+}
+
+
+gls.right[4] = {
     GitIcon = {
         provider = function()
             return "   "
@@ -202,7 +195,7 @@ gls.right[1] = {
     }
 }
 
-gls.right[2] = {
+gls.right[5] = {
     GitBranch = {
         provider = "GitBranch",
         condition = function()
@@ -212,7 +205,7 @@ gls.right[2] = {
     }
 }
 
-gls.right[3] = {
+gls.right[6] = {
     right_LeftRounded = {
         provider = function()
             vim.api.nvim_command('hi Galaxyright_LeftRounded guifg='..mode_color())
@@ -224,7 +217,7 @@ gls.right[3] = {
     }
 }
 
-gls.right[4] = {
+gls.right[7] = {
     SiMode = {
         provider = function()
             local colorbg = mode_color()
@@ -249,7 +242,7 @@ gls.right[4] = {
 }
 
 
-gls.right[5] = {
+gls.right[8] = {
     rightRounded = {
         provider = function()
             vim.api.nvim_command('hi GalaxyrightRounded guifg='..mode_color())

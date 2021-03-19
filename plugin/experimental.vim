@@ -24,6 +24,8 @@ let g:lens#disabled_filetypes = ['nerdtree',
             \ 'vista',
             \ 'GV',
             \ 'voomtree',
+            \ 'NvimTree',
+            \ 'Telescope',
             \ 'vista_kind',
             \ 'peekaboo',
             \ 'markbar' ]
@@ -65,7 +67,12 @@ if has("nvim-0.5")
 
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
+    Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-telescope/telescope.nvim'
+
+    Plug 'kyazdani42/nvim-tree.lua'
+    nmap <silent> <leader>z :NvimTreeToggle<CR>
+    Plug 'yamatsum/nvim-web-nonicons'
 
     Plug 'voldikss/vim-skylight'
     nnoremap <silent>       gp    :Skylight file<CR>

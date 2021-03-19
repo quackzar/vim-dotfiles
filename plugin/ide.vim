@@ -104,7 +104,6 @@ function! s:show_documentation()
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-nmap <leader>z :CocCommand explorer<CR>
 
 
 command! -nargs=0 Format :call CocAction('format')
