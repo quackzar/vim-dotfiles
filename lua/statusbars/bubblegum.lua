@@ -122,9 +122,10 @@ end
 gls.left[6] = {
     VistaFun = {
         provider = function() --{"VistaPlugin", "GetLspClient"},
-            return vim.fn['coc#status']()
+            return vim.g.coc_status -- does not include diagnostics
         end,
         condition = checkwidth,
+        separator = " ",
         highlight = {colors.pumpkin, colors.line_bg}
     }
 }
