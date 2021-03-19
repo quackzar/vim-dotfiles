@@ -55,3 +55,6 @@ Plug 'vimwiki/vimwiki'
 let g:vimwiki_folding = 'expr'
 
 Plug 'cespare/vim-toml'
+
+" === kitty ===
+Plug 'fladson/vim-kitty'
