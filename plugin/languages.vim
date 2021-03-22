@@ -1,6 +1,8 @@
 " ==========  C  ==========
 Plug 'justinmk/vim-syntax-extra'
 
+Plug 'shirk/vim-gas'
+
 " ======== MARKDOWN ========
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 let g:vim_markdown_frontmatter = 1
