@@ -49,8 +49,6 @@ Plug 'junegunn/vim-slash' " Better in buffer search
 " Plug 'wincent/loupe' " The same?
 " Plug 'pgdouyon/vim-evanesco'
 
-Plug 'junegunn/rainbow_parentheses.vim'
-
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'flwyd/vim-conjoin'
 
@@ -89,6 +87,9 @@ Plug 'psliwka/vim-smoothie'
 
 Plug 'thezeroalpha/vim-relatively-complete'
 imap <C-x><C-f> <Plug>RelativelyCompleteFile
+
+
+Plug 'andymass/vim-visput'
 
 
 Plug 'tpope/vim-abolish' " like substitute
