@@ -3,13 +3,15 @@
 " Plugins that are new and exciting but not a staple yet
 "
 Plug 'zdcthomas/medit'
-Plug 'camspiers/animate.vim'
+" Plug 'camspiers/animate.vim'
 " Plug 'camspiers/lens.vim'
-" let g:animate#distribute_space = 0
-" let g:lens#disabled = 1
+" let g:animate#distribute_space = 1
+" let g:lens#disabled = 0
 " let g:animate#easing_func = 'animate#ease_out_quad'
 " let g:animate#duration = 500.0
-" let g:lens#animate = 0
+" let g:lens#animate = 1
+
+
 
 Plug 'wfxr/minimap.vim'
 
@@ -23,6 +25,8 @@ let g:lens#disabled_filetypes = ['nerdtree',
             \ 'coc-finder',
             \ 'vista',
             \ 'GV',
+            \ 'vim-plug',
+            \ 'LuaTree',
             \ 'voomtree',
             \ 'NvimTree',
             \ 'Telescope',
@@ -55,12 +59,14 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 Plug 'szymonmaszke/vimpyter' "vim-plug
 
-Plug 'nvim-lua/popup.nvim'
 
 
 if has("nvim-0.5")
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'romgrk/nvim-treesitter-context'
+
     Plug 'dstein64/nvim-scrollview'
-    let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista']
+    let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista', 'GV', 'peakaboo', 'markbar']
 
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     hi link TSError Normal

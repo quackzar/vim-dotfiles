@@ -1,10 +1,19 @@
+-- vim: set foldmethod=marker :
 local gl = require("galaxyline")
 local gls = gl.section
 local spinner = require("spinner")
 local condition = require('galaxyline.condition')
 
-gl.short_line_list = {"LuaTree", "vista", "vim-plug", "dbui", "coc-explorer"}
-
+gl.short_line_list = {
+    "LuaTree",
+    "vista",
+    "vim-plug",
+    "dbui",
+    "coc-explorer",
+    "markbar",
+    "peakaboo"
+}
+-- {{{ Colors and Mode functions
 local colors = {
     bg       = "NONE",
     line_bg  = "NONE",
@@ -47,6 +56,9 @@ local function fg_color(bg_color)
         return colors.lightbg
     end
 end
+
+-- }}}
+-- {{{ Left ViMode + FileName
 
 gls.left[1] = {
     leftRounded = {
@@ -103,6 +115,8 @@ gls.left[5] = {
     }
 }
 
+-- }}}
+--- {{{ Language Server
 local checkwidth = function()
     local squeeze_width = vim.fn.winwidth(0) / 2
     if squeeze_width > 40 then
@@ -155,7 +169,8 @@ gls.left[9] = {
         highlight = {colors.orange, colors.bg}
     }
 }
-
+-- }}}
+-- {{{ Git
 gls.right[0] = {
     DiffAdd = {
         provider = "DiffAdd",
@@ -187,7 +202,7 @@ gls.right[2] = {
 gls.right[4] = {
     GitIcon = {
         provider = function()
-            return "   "
+            return "  "
         end,
         condition = function()
             return condition.check_git_workspace() and checkwidth2()
@@ -205,6 +220,9 @@ gls.right[5] = {
         highlight = {colors.green, colors.line_bg}
     }
 }
+
+-- }}}
+-- {{{ Right Mode
 
 gls.right[6] = {
     right_LeftRounded = {
@@ -253,17 +271,96 @@ gls.right[8] = {
     }
 }
 
+-- }}}
+
 -- Short list
-gls.short_line_left[0] = {
-    shortSpace = {
-        provider = function() return '  ' end,
-        highlight = {colors.grey, colors.bg},
-    }
-}
+
+-- {{{ Short Left
 gls.short_line_left[1] = {
-    shortFilename = {
-        provider = {'FileIcon', 'FileName', 'FileSize'},
-        highlight = {colors.darkgrey, colors.bg, 'italic'},
+    short_leftRounded = {
+        provider = function()
+            return ""
+        end,
+        highlight = {colors.lightbg, colors.bg}
     }
 }
 
+gls.short_line_left[2] = {
+    short_icon = {
+        provider = function()
+            return ""
+        end,
+        highlight = {colors.darkgrey, colors.darkgrey},
+    }
+}
+gls.short_line_left[3] = {
+    short_FileIcon = {
+        provider = function()
+            return '  '..require('galaxyline.provider_fileinfo').get_file_icon()
+        end,
+        condition = condition.buffer_not_empty,
+        highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg},
+    }
+}
+
+gls.short_line_left[4] = {
+    short_FileName = {
+        provider = {"FileName", "FileSize"},
+        condition = condition.buffer_not_empty,
+        highlight = {colors.darkgrey, colors.lightbg, 'italic'}
+    }
+}
+
+gls.short_line_left[5] = {
+    short_teech = {
+        provider = function()
+            return ""
+        end,
+        separator = " ",
+        highlight = {colors.lightbg, colors.bg}
+    }
+}
+-- }}}
+-- {{{ Short Right
+local short_checkwidth = function()
+    local squeeze_width = vim.fn.winwidth(vim.fn.win_getid()) / 2
+    if squeeze_width > 20 then
+        return true
+    end
+    return false
+end
+
+
+gls.short_line_right[1] = {
+    short_right_LeftRounded = {
+        provider = function()
+            return ""
+        end,
+        separator = " ",
+        condition = short_checkwidth,
+        separator_highlight = {colors.lightbg, colors.bg},
+        highlight = {colors.lightbg, colors.bg}
+    }
+}
+
+gls.short_line_right[2] = {
+    short_SiMode = {
+        provider = function()
+            return 'INACTIVE'
+        end,
+        condition = short_checkwidth,
+        highlight = {colors.darkgrey, colors.lightbg}
+    }
+}
+
+
+gls.short_line_right[3] = {
+    short_rightRounded = {
+        provider = function()
+            return " "
+        end,
+        condition = short_checkwidth,
+        highlight = {colors.lightbg, colors.bg}
+    }
+}
+-- }}}
