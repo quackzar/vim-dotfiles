@@ -60,6 +60,7 @@ Plug 'nvim-lua/popup.nvim'
 
 if has("nvim-0.5")
     Plug 'dstein64/nvim-scrollview'
+    let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista']
 
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     hi link TSError Normal

@@ -33,7 +33,7 @@ local function mode_color()
         no    = colors.magenta,
         s     = colors.green, S=colors.green, [''] = colors.green,
         ic    = colors.yellow,
-        R     = colors.magenta, Rv = colors.magenta,
+        R     = colors.orange, Rv = colors.orange,
         r     = colors.orange, rm = colors.orange, ['r?'] = colors.orange,
         ['!'] = colors.pumpkin,t = colors.pumpkin,
     }

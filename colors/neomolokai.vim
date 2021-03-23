@@ -338,6 +338,9 @@ call Highlight("TelescopePreviewBorder", s:yellow, s:none)
 " Used for highlighting characters that you match.
 call Highlight("TelescopeMatching", s:cyan, s:none)
 
+
+call Highlight("ScrollView", s:none, s:grey)
+
 " Used for the prompt prefix
 hi! link TelescopePromptPrefix Keyword
 
