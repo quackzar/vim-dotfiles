@@ -86,4 +86,11 @@ if has("nvim-0.5")
     vnoremap <silent>       gp    :Skylight file<CR>
     nnoremap <silent>       go    :Skylight! file<CR>
     vnoremap <silent>       go    :Skylight! file<CR>
+
+    Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
+    let g:indent_blankline_show_first_indent_level = v:false
+    let g:indent_blankline_char = '▏'
+    let g:indent_blankline_filetype_exclude = [
+                \ 'help', 'text', 'undotree', 'vista', 'LuaTree', 'dashboard'
+                \]
 endif
