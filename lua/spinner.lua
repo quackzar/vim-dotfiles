@@ -62,15 +62,21 @@ local frames = {
     }
 }
 
-M.style = "dots"
+local style = "dots"
 
+
+function M.set_style(str)
+    if frames[str] ~= nil then
+        style = str
+    end
+end
 
 function M.start()
     if running then
         return
     end
     running = true
-    local chars = frames[M.style]
+    local chars = frames[style]
     local i = 1
     local timer = vim.loop.new_timer()
     timer:start(1000,
