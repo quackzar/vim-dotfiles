@@ -90,7 +90,8 @@ if has("nvim-0.5")
     Plug 'lukas-reineke/indent-blankline.nvim', {'branch': 'lua'}
     let g:indent_blankline_show_first_indent_level = v:false
     let g:indent_blankline_char = '▏'
+    let g:indent_blankline_buftype_exclude = ['terminal']
     let g:indent_blankline_filetype_exclude = [
-                \ 'help', 'text', 'undotree', 'vista', 'LuaTree', 'dashboard'
+                \ 'help', 'text', 'undotree', 'vista', 'LuaTree', 'dashboard', 'markdown', ''
                 \]
 endif
