@@ -11,10 +11,10 @@ let mapleader = " "
 call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/*.vim
 call plug#end()
-" exe 'source' . stdpath('config').'/quickui.vim'
-exe 'luafile' . stdpath('config').'/treesitter.lua'
-exe 'luafile' . stdpath('config').'/telescope.lua'
-exe 'luafile' . stdpath('config').'/gitsigns.lua'
+
+lua require('cfg.treesitter')
+lua require('cfg.gitsigns')
+lua require('cfg.telescope')
 lua require('statusbars.bubblegum')
 
 
@@ -26,6 +26,8 @@ endif
 if $TERM == "xterm-256color"
     set t_Co=256
 endif
+
+
 
 set langmenu=en_US
 
