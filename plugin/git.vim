@@ -3,16 +3,18 @@
 "  Stuff relevant to git, version control, diffs.
 Plug 'tpope/vim-fugitive'
 
+" Git graph
 Plug 'junegunn/gv.vim'
 
-Plug 'whiteinge/diffconflicts'
+" Character wise differences hightlighting
 Plug 'rickhowe/diffchar.vim'
 
+" Merging tool
 Plug 'samoshkin/vim-mergetool'
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
-" Plug 'lambdalisue/gina.vim'
+" Magit for neovim
 Plug 'TimUntersberger/neogit'
 
-command! -nargs=0 Gupdate AsyncRun git pull --rebase --autostash
+command! -nargs=0 Gupdate AsyncRun git pull --ff-only --autostash
