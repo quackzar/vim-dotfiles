@@ -92,6 +92,7 @@ if has("nvim-0.5")
     let g:indent_blankline_char = '▏'
     let g:indent_blankline_buftype_exclude = ['terminal']
     let g:indent_blankline_filetype_exclude = [
-                \ 'help', 'text', 'undotree', 'vista', 'LuaTree', 'dashboard', 'markdown', ''
+                \ 'help', 'text', 'undotree', 'vista', 'LuaTree',
+                \ 'dashboard', 'markdown', '', 'man'
                 \]
 endif

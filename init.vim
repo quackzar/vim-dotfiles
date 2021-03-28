@@ -16,7 +16,7 @@ lua require('cfg.treesitter')
 lua require('cfg.gitsigns')
 lua require('cfg.telescope')
 lua require('statusbars.bubblegum')
-
+lua require('neogit').setup {}
 
 if has('vscode')
     source vscode.vim
