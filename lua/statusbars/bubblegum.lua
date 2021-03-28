@@ -299,7 +299,7 @@ gls.short_line_left[3] = {
             return '  '..require('galaxyline.provider_fileinfo').get_file_icon()
         end,
         condition = condition.buffer_not_empty,
-        highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.lightbg},
+        highlight = {colors.darkgrey, colors.lightbg},
     }
 }
 
