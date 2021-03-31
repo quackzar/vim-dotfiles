@@ -28,7 +28,6 @@ if $TERM == "xterm-256color"
 endif
 
 
-
 set langmenu=en_US
 
 syntax on
@@ -94,6 +93,8 @@ set backupdir=/tmp/backup//
 set directory=/tmp/swap//
 set undodir=/tmp/undo//
 
+set guicursor=n-v:block,i-ci-ve-c:ver25,r-cr:hor20,o:hor50
+
 
 set undofile " persistant undo
 set nobackup
@@ -145,9 +146,10 @@ let g:netrw_fastbrowse = 0
 
 set updatetime=300
 
-autocmd TermOpen * startinsert
-autocmd TermOpen * setlocal nonumber
-
+augroup term_settings
+    autocmd TermOpen * startinsert
+    autocmd TermOpen * setlocal nonumber
+augroup END
 " Close quickfix with q, esc or C-C
 augroup easy_close
     autocmd!
