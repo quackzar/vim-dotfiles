@@ -239,10 +239,9 @@ call Highlight("Underlined", s:none, s:none, s:underline)
 " Layout
 call Highlight("NonText", s:columns_fg, s:none, s:none)
 call Highlight("VertSplit", s:grey, s:background, s:bold)
-" call Highlight("StatusLine", s:white, '#232526', s:none)
-" call Highlight("StatusLineNC", s:light_grey, '#232526', s:none)
 call Highlight("StatusLine", s:white, 'NONE', s:none)
-call Highlight("StatusLineNC", s:light_grey, 'NONE', s:none)
+call Highlight("StatusLineNC", s:grey, 'NONE', 'underline')
+
 
 call Highlight("TabLineFill", s:none, '#232526', s:bold)
 call Highlight("TabLineSel", s:cyan, s:columns_fg, s:bold)

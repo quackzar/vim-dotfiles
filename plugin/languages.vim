@@ -20,15 +20,19 @@ Plug 'liuchengxu/graphviz.vim', {'for': 'dot'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 
 " ======== PYTHON =======
-Plug 'vim-python/python-syntax', {'for': 'python'}
-let g:python_highlight_all = 1
+" Plug 'vim-python/python-syntax', {'for': 'python'}
+" let g:python_highlight_all = 1
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 let g:python_highlight_space_errors = 0
 
 Plug 'jpalardy/vim-slime'
-let g:slime_target = "screen"
-let g:slime_python_ipython = 1
+let g:slime_target = "kitty"
+xmap <c-c><c-c> <Plug>SlimeRegionSend
+nmap <c-c><c-c> <Plug>SlimeParagraphSend
+nmap <c-c>v     <Plug>SlimeConfig
+
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+let g:ipython_cell_delimit_cells_by = 'tags'
 
 " ======== SWIFT ======
 Plug 'keith/swift.vim', {'for': 'swift'}

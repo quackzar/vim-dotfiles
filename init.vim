@@ -27,7 +27,6 @@ if $TERM == "xterm-256color"
     set t_Co=256
 endif
 
-
 set langmenu=en_US
 
 syntax on
@@ -55,7 +54,7 @@ set ignorecase " infercase
 set smartcase
 
 set wildmenu
-set wildmode=full
+set wildmode=longest:full,full
 set wildoptions=tagfile "pum is cool though
 set wildignore+=*.o,*.obj,*.pyc,.git,.svn,*.a,*.class,*.mo,*.la,*.so
 set wildignore+=*.ttf,\*.obj,*.swp,*.jpg,*.pdf,*.png,*.xpm,*.gif,*.jpeg

@@ -57,7 +57,7 @@ Plug 'j5shi/CommandlineComplete.vim'
 " let g:beacon_size = 80
 Plug 'norcalli/nvim-colorizer.lua'
 
-Plug 'szymonmaszke/vimpyter' "vim-plug
+
 
 Plug 'aca/vidir.nvim'
 

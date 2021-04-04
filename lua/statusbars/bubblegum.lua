@@ -275,92 +275,92 @@ gls.right[8] = {
 
 -- Short list
 
--- {{{ Short Left
-gls.short_line_left[1] = {
-    short_leftRounded = {
-        provider = function()
-            return ""
-        end,
-        highlight = {colors.lightbg, colors.bg}
-    }
-}
+-- -- {{{ Short Left
+-- gls.short_line_left[1] = {
+--     short_leftRounded = {
+--         provider = function()
+--             return ""
+--         end,
+--         highlight = {colors.lightbg, colors.bg}
+--     }
+-- }
 
-gls.short_line_left[2] = {
-    short_icon = {
-        provider = function()
-            return ""
-        end,
-        highlight = {colors.darkgrey, colors.darkgrey},
-    }
-}
-gls.short_line_left[3] = {
-    short_FileIcon = {
-        provider = function()
-            return '  '..require('galaxyline.provider_fileinfo').get_file_icon()
-        end,
-        condition = condition.buffer_not_empty,
-        highlight = {colors.darkgrey, colors.lightbg},
-    }
-}
+-- gls.short_line_left[2] = {
+--     short_icon = {
+--         provider = function()
+--             return ""
+--         end,
+--         highlight = {colors.darkgrey, colors.darkgrey},
+--     }
+-- }
+-- gls.short_line_left[3] = {
+--     short_FileIcon = {
+--         provider = function()
+--             return '  '..require('galaxyline.provider_fileinfo').get_file_icon()
+--         end,
+--         condition = condition.buffer_not_empty,
+--         highlight = {colors.darkgrey, colors.lightbg},
+--     }
+-- }
 
-gls.short_line_left[4] = {
-    short_FileName = {
-        provider = {"FileName", "FileSize"},
-        condition = condition.buffer_not_empty,
-        highlight = {colors.darkgrey, colors.lightbg, 'italic'}
-    }
-}
+-- gls.short_line_left[4] = {
+--     short_FileName = {
+--         provider = {"FileName", "FileSize"},
+--         condition = condition.buffer_not_empty,
+--         highlight = {colors.darkgrey, colors.lightbg, 'italic'}
+--     }
+-- }
 
-gls.short_line_left[5] = {
-    short_teech = {
-        provider = function()
-            return ""
-        end,
-        separator = " ",
-        highlight = {colors.lightbg, colors.bg}
-    }
-}
--- }}}
--- {{{ Short Right
-local short_checkwidth = function()
-    local squeeze_width = vim.fn.winwidth(vim.fn.win_getid()) / 2
-    if squeeze_width > 20 then
-        return true
-    end
-    return false
-end
-
-
-gls.short_line_right[1] = {
-    short_right_LeftRounded = {
-        provider = function()
-            return ""
-        end,
-        separator = " ",
-        condition = short_checkwidth,
-        separator_highlight = {colors.lightbg, colors.bg},
-        highlight = {colors.lightbg, colors.bg}
-    }
-}
-
-gls.short_line_right[2] = {
-    short_SiMode = {
-        provider = function()
-            return 'INACTIVE'
-        end,
-        condition = short_checkwidth,
-        highlight = {colors.darkgrey, colors.lightbg}
-    }
-}
+-- gls.short_line_left[5] = {
+--     short_teech = {
+--         provider = function()
+--             return ""
+--         end,
+--         separator = " ",
+--         highlight = {colors.lightbg, colors.bg}
+--     }
+-- }
+-- -- }}}
+-- -- {{{ Short Right
+-- local short_checkwidth = function()
+--     local squeeze_width = vim.fn.winwidth(vim.fn.win_getid()) / 2
+--     if squeeze_width > 20 then
+--         return true
+--     end
+--     return false
+-- end
 
 
-gls.short_line_right[3] = {
-    short_rightRounded = {
-        provider = function()
-            return " "
-        end,
-        condition = short_checkwidth,
-        highlight = {colors.lightbg, colors.bg}
-    }
-}
--- }}}
+-- gls.short_line_right[1] = {
+--     short_right_LeftRounded = {
+--         provider = function()
+--             return ""
+--         end,
+--         separator = " ",
+--         condition = short_checkwidth,
+--         separator_highlight = {colors.lightbg, colors.bg},
+--         highlight = {colors.lightbg, colors.bg}
+--     }
+-- }
+
+-- gls.short_line_right[2] = {
+--     short_SiMode = {
+--         provider = function()
+--             return 'INACTIVE'
+--         end,
+--         condition = short_checkwidth,
+--         highlight = {colors.darkgrey, colors.lightbg}
+--     }
+-- }
+
+
+-- gls.short_line_right[3] = {
+--     short_rightRounded = {
+--         provider = function()
+--             return " "
+--         end,
+--         condition = short_checkwidth,
+--         highlight = {colors.lightbg, colors.bg}
+--     }
+-- }
+-- -- }}}
