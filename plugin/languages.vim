@@ -27,6 +27,7 @@ let g:python_highlight_space_errors = 0
 
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "kitty"
+let g:slime_python_ipython = 1
 xmap <c-c><c-c> <Plug>SlimeRegionSend
 nmap <c-c><c-c> <Plug>SlimeParagraphSend
 nmap <c-c>v     <Plug>SlimeConfig
