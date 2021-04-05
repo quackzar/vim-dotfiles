@@ -329,10 +329,10 @@ hi TelescopeMultiSelection guifg=#928374 " multisections
 hi! link TelescopeNormal   Normal
 
 " Border highlight groups.
-call Highlight("TelescopeBorder", s:purple, s:none)
-call Highlight("TelescopePromptBorder", s:purple, s:none)
-call Highlight("TelescopeResultsBorder", s:lime, s:none)
-call Highlight("TelescopePreviewBorder", s:yellow, s:none)
+call Highlight("TelescopeBorder", s:grey, s:none)
+call Highlight("TelescopePromptBorder", s:grey, s:none)
+call Highlight("TelescopeResultsBorder", s:grey, s:none)
+call Highlight("TelescopePreviewBorder", s:grey, s:none)
 
 " Used for highlighting characters that you match.
 call Highlight("TelescopeMatching", s:cyan, s:none)
