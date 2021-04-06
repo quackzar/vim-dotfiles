@@ -10,7 +10,21 @@ Plug 'zdcthomas/medit'
 " let g:animate#easing_func = 'animate#ease_out_quad'
 " let g:animate#duration = 500.0
 " let g:lens#animate = 1
-
+" let g:lens#disabled_filetypes = ['nerdtree',
+"             \ '',
+"             \ 'fzf',
+"             \ 'coc-explorer',
+"             \ 'coc-finder',
+"             \ 'vista',
+"             \ 'GV',
+"             \ 'vim-plug',
+"             \ 'LuaTree',
+"             \ 'voomtree',
+"             \ 'NvimTree',
+"             \ 'Telescope',
+"             \ 'vista_kind',
+"             \ 'peekaboo',
+"             \ 'markbar' ]
 
 
 Plug 'wfxr/minimap.vim'
@@ -18,21 +32,6 @@ Plug 'wfxr/minimap.vim'
 Plug 'Konfekt/vim-sentence-chopper'
 let g:latexindent = 0
 
-let g:lens#disabled_filetypes = ['nerdtree',
-            \ '',
-            \ 'fzf',
-            \ 'coc-explorer',
-            \ 'coc-finder',
-            \ 'vista',
-            \ 'GV',
-            \ 'vim-plug',
-            \ 'LuaTree',
-            \ 'voomtree',
-            \ 'NvimTree',
-            \ 'Telescope',
-            \ 'vista_kind',
-            \ 'peekaboo',
-            \ 'markbar' ]
 
 Plug 'lambdalisue/suda.vim'
 
@@ -82,6 +81,8 @@ if has("nvim-0.5")
     Plug 'kyazdani42/nvim-tree.lua'
     nmap <silent> <leader>z :NvimTreeToggle<CR>
     Plug 'yamatsum/nvim-web-nonicons'
+
+    Plug 'nacro90/numb.nvim'
 
     Plug 'voldikss/vim-skylight'
     nnoremap <silent>       gp    :Skylight file<CR>

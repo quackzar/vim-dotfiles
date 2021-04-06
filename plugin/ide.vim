@@ -8,20 +8,26 @@
 
 Plug 'skywind3000/asyncrun.vim'
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
+          \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
+command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
+          \ fnameescape(FugitiveGitDir()) 'git fetch' <q-args>
 let g:asyncrun_rootmarks = ['.git', '.svn', 'go.mod', '.root', '.project', '.hg']
 let g:asyncrun_status = ''
-let g:asyncrun_shell = '/bin/zsh'
+let g:asyncrun_shell = 'zsh'
 let g:asyncrun_shellflag = '-c'
-" let g:asyncrun_open = 6
-autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
-autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
+let g:asyncrun_open = 6
+augroup AsyncSpinner
+    autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
+    autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
+augroup end
 Plug 'skywind3000/asynctasks.vim'
 nnoremap <silent><f5> :AsyncTask file-build<cr>
 nnoremap <silent><f9> :AsyncTask file-run<cr>
 nnoremap <silent><f6> :AsyncTask project-build<cr>
 nnoremap <silent><f7> :AsyncTask project-run<cr>
+command! Run AsyncTask file-run
 let g:asynctasks_term_pos = 'bottom'
-
 
 " Plug 'skywind3000/vim-rt-format'
 Plug 'kevinhwang91/nvim-bqf'

@@ -77,16 +77,6 @@
         "staticcheck": true
     },
     "languageserver": {
-        "ocaml": {
-            "command": "ocaml-language-server",
-            "args": [
-                "--stdio"
-            ],
-            "filetypes": [
-                "ocaml",
-                "reason"
-            ]
-        },
         "swift": {
             "command": "sourcekit-lsp",
             "filetypes": [
