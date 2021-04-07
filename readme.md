@@ -14,3 +14,4 @@ Note that no CoC packages are installed by default, so you will have to install 
 - cleanup statusline files (remove dead code, use colorscheme defined colors).
 - fix fzf/floating windows
 - redo colorscheme in lua.
+- fixup neogit
