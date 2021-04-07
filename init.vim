@@ -12,11 +12,11 @@ call plug#begin(stdpath('config').'/plugged/')
      runtime! plugin/*.vim
 call plug#end()
 
-lua require('cfg.treesitter')
-lua require('cfg.gitsigns')
-lua require('cfg.telescope')
-lua require('statusbars.bubblegum')
-lua require('neogit').setup {}
+silent! lua require('cfg.treesitter')
+silent! lua require('cfg.gitsigns')
+silent! lua require('cfg.telescope')
+silent! lua require('statusbars.bubblegum')
+silent! lua require('neogit').setup {}
 
 if has('vscode')
     source vscode.vim
@@ -32,7 +32,7 @@ set langmenu=en_US
 syntax on
 set termguicolors " GUI colors
 
-lua require'colorizer'.setup()
+silent! lua require'colorizer'.setup()
 set hidden
 set nu " have numbers
 
