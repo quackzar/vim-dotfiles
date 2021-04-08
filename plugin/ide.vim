@@ -104,18 +104,27 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
         execute 'h '.expand('<cword>')
-    else
+    elseif (coc#rpc#ready())
         call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
     endif
 endfunction
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 
+set formatexpr=CocAction('formatSelected')
+augroup mycocgroup
+  autocmd!
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-command! -nargs=0 Pickcolor :call CocAction('pickColor')
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+command! -nargs=0 Format         :call CocAction('format')
+command! -nargs=? Fold           :call CocAction('fold', <f-args>)
+command! -nargs=0 Pickcolor      :call CocAction('pickColor')
+command! -nargs=0 Organize       :call CocAction('runCommand', 'editor.action.organizeImport')
 command! -nargs=0 Changecolorrep :call CocAction('colorPresentation')
 
 " Completion
@@ -135,7 +144,14 @@ inoremap <silent><expr> <TAB>
 
 nnoremap <leader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
 
-
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 
 Plug 'honza/vim-snippets'
