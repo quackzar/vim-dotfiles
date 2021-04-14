@@ -207,6 +207,7 @@ vnoremap < <gv
 
 " Terminal magic
 tnoremap <C-Z> <C-\><C-n>
+tmap <esc> <esc><C-\><C-n>
 
 " ====== COLORS =======
 let g:neomolokai_no_bg=1 " Remove the normal background
