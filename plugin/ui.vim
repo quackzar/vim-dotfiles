@@ -51,3 +51,8 @@ augroup my_dashboard
     autocmd FileType dashboard nmap <buffer> <cr> :
 augroup END
 
+
+" Colorschemes
+Plug 'folke/tokyonight.nvim'
+Plug 'tiagovla/tokyodark.nvim'
+let g:tokyodark_transparent_background = 1

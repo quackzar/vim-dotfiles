@@ -8,10 +8,6 @@
 
 Plug 'skywind3000/asyncrun.vim'
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
-          \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
-command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
-          \ fnameescape(FugitiveGitDir()) 'git fetch' <q-args>
 let g:asyncrun_rootmarks = ['.git', '.svn', 'go.mod', '.root', '.project', '.hg']
 let g:asyncrun_status = ''
 let g:asyncrun_shell = 'zsh'

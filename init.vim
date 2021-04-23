@@ -17,6 +17,8 @@ silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
 silent! lua require('statusbars.bubblegum')
 silent! lua require('neogit').setup {}
+silent! lua require('numb').setup()
+silent! lua require('gitlinker').setup()
 
 if has('vscode')
     source vscode.vim

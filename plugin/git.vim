@@ -18,3 +18,11 @@ let g:mergetool_prefer_revision = 'local'
 Plug 'TimUntersberger/neogit'
 
 command! -nargs=0 Gupdate AsyncRun git pull --ff-only --autostash
+
+command! -bang -bar -nargs=* Gpush execute 'AsyncRun<bang> -cwd=' .
+          \ fnameescape(FugitiveGitDir()) 'git push' <q-args>
+command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
+          \ fnameescape(FugitiveGitDir()) 'git fetch' <q-args>
+
+Plug 'ruifm/gitlinker.nvim'
+
