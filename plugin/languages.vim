@@ -15,6 +15,12 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_fenced_languages = ['go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html']
 
+" ======== ASCIIDOC =======
+Plug 'habamax/vim-asciidoctor'
+let g:asciidoctor_fenced_languages = ['go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html']
+let g:asciidoctor_syntax_conceal = 1
+let g:asciidoctor_folding = 1
+
 " ======== GRAPHVIZ ========
 Plug 'liuchengxu/graphviz.vim', {'for': 'dot'}
 
