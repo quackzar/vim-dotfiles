@@ -17,7 +17,7 @@ let g:vim_markdown_fenced_languages = ['go', 'c', 'python', 'tex', 'bash=sh', 's
 
 " ======== ASCIIDOC =======
 Plug 'habamax/vim-asciidoctor'
-let g:asciidoctor_fenced_languages = ['go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html']
+let g:asciidoctor_fenced_languages = ['go', 'c', 'python', 'tex', 'sh', 'fish', 'javascript', 'vim', 'html']
 let g:asciidoctor_syntax_conceal = 1
 let g:asciidoctor_folding = 1
 
