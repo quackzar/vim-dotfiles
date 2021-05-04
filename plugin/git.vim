@@ -26,3 +26,5 @@ command! -bang -bar -nargs=* Gfetch execute 'AsyncRun<bang> -cwd=' .
 
 Plug 'ruifm/gitlinker.nvim'
 
+
+Plug 'sindrets/diffview.nvim'
