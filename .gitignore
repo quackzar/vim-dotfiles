@@ -10,3 +10,5 @@ backup/
 *.lock
 *.temp
 
+plug.vim
+plug.vim.old
