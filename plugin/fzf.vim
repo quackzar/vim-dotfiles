@@ -65,7 +65,6 @@ function! CreateCenteredFloatingWindow()
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
     call nvim_open_win(s:buf, v:true, opts)
-    set winhl=Floating:Floating
     let opts.row += 1
     let opts.height -= 2
     let opts.col += 2
@@ -73,7 +72,6 @@ function! CreateCenteredFloatingWindow()
     call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
-
 
 command! CmdHist call fzf#vim#command_history({'right': '40'})
 " nnoremap q: :CmdHist<CR>
