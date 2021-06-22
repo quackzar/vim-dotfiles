@@ -85,10 +85,6 @@ Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 
 Plug 'psliwka/vim-smoothie'
 
-Plug 'thezeroalpha/vim-relatively-complete'
-imap <C-x><C-f> <Plug>RelativelyCompleteFile
-
-
 Plug 'andymass/vim-visput'
 
 
