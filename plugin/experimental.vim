@@ -72,6 +72,7 @@ if has("nvim-0.5")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     hi link TSError Normal
     Plug 'romgrk/nvim-treesitter-context'
+    Plug 'RRethy/nvim-treesitter-textsubjects'
 
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'

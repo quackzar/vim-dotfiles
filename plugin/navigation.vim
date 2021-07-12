@@ -26,6 +26,9 @@ map S <Plug>SneakLabel_s
 let g:sneak#label = 1
 let g:sneak#prompt = 'SNEAK>'
 
+" Plug 'ggandor/lightspeed.nvim'
+
+
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 
 Plug 'farmergreg/vim-lastplace'

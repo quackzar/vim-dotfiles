@@ -4,6 +4,7 @@ setglobal fileencoding=utf8
 set shell=fish
 let $SHELL = "/bin/zsh"
 let g:python3_host_prog = '/usr/bin/python3'
+set pyxversion=3
 
 set runtimepath+=$HOME/.config/nvim
 
@@ -15,10 +16,21 @@ call plug#end()
 silent! lua require('cfg.treesitter')
 silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
+silent! lua require('cfg.dap')
 silent! lua require('statusbars.bubblegum')
 silent! lua require('neogit').setup {}
 silent! lua require('numb').setup()
 silent! lua require('gitlinker').setup()
+silent! lua << EOF
+require('nvim-treesitter.configs').setup {
+    textsubjects = {
+        enable = true,
+        keymaps = {
+            ['.'] = 'textsubjects-smart',
+        }
+    },
+}
+EOF
 
 if has('vscode')
     source vscode.vim
@@ -34,7 +46,7 @@ set langmenu=en_US
 syntax on
 set termguicolors " GUI colors
 
-silent! lua require'colorizer'.setup()
+silent! lua require('colorizer').setup()
 set hidden
 set nu " have numbers
 
@@ -200,7 +212,7 @@ nnoremap <silent> <C-^> :<C-u>exe
 " No highlighting
 noremap <silent> <space><space> :noh<CR>
 
-vnoremap . :normal .<CR>
+" vnoremap . :normal .<CR>
 vnoremap @ :normal @<CR>
 
 " Keep selection with indention

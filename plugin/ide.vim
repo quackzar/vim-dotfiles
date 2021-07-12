@@ -181,20 +181,30 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 
 " Debugging
-" if has("nvim-0.5")
-"     Plug 'mfussenegger/nvim-dap'
-"     Plug 'theHamsta/nvim-dap-virtual-text'
-"     Plug 'mfussenegger/nvim-dap-python'
+if has("nvim-0.5")
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+    Plug 'rcarriga/nvim-dap-ui'
+    " Plug 'Pocco81/DAPInstall.nvim'
 
-"     nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
-"     nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
-"     nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
-"     nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
-"     nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
-"     nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-"     nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-"     nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
-"     nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>
-" end
+    Plug 'mfussenegger/nvim-dap-python'
+
+
+    au FileType dap-repl lua require('dap.ext.autocompl').attach()
+
+
+    nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+    nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+    nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+    nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+    nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
+    nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+    nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+    nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>
+
+    nnoremap <silent> <leader>du :lua require("dapui").toggle()
+
+end
 
 
