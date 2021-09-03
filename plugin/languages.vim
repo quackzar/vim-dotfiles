@@ -73,3 +73,8 @@ Plug 'cespare/vim-toml'
 
 " === kitty ===
 Plug 'fladson/vim-kitty'
+
+
+" === Coq ===
+Plug 'whonore/Coqtail'
+let g:coqtail_auto_set_proof_diffs = 'on'

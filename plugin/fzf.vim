@@ -7,7 +7,6 @@ if has('macos')
 else
     Plug 'junegunn/fzf'
 end
-Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 
