@@ -343,6 +343,10 @@ call Highlight("ScrollView", s:none, s:grey)
 " Used for the prompt prefix
 hi! link TelescopePromptPrefix Keyword
 
+" Coqtai
+hi! link CoqtailChecked DiffAdd
+hi! link CoqtailSent    DiffChange
+
 
 hi! link vimSet PreProc
 hi! link vimIsCommand Statement

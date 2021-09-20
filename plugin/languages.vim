@@ -57,13 +57,13 @@ Plug 'ELLIOTTCABLE/vim-menhir', {'for': ['ocaml', 'reasonml']}
 Plug 'rhysd/vim-llvm', {'for': 'llvm'}
 
 " ======== GO ======
-Plug 'arp242/gopher.vim', {'for': 'go'}
-let g:gopher_map = {'_default': 1, '_nmap_prefix': '<localleader>', '_imap_prefix': '<C-k>'}
-Plug 'sebdah/vim-delve', {'for': 'go'}
-let g:delve_breakpoint_sign = '●'
-let g:delve_breakpoint_sign_highlight = 'CocHintSign'
-let g:delve_tracepoint_sign = '◆'
-let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
+" Plug 'arp242/gopher.vim', {'for': 'go'}
+" let g:gopher_map = {'_default': 1, '_nmap_prefix': '<localleader>', '_imap_prefix': '<C-k>'}
+" Plug 'sebdah/vim-delve', {'for': 'go'}
+" let g:delve_breakpoint_sign = '●'
+" let g:delve_breakpoint_sign_highlight = 'CocHintSign'
+" let g:delve_tracepoint_sign = '◆'
+" let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
 
 " ===== vimwiki =====
 Plug 'vimwiki/vimwiki'
@@ -78,3 +78,5 @@ Plug 'fladson/vim-kitty'
 " === Coq ===
 Plug 'whonore/Coqtail'
 let g:coqtail_auto_set_proof_diffs = 'on'
+let g:coqtail_map_prefix = ','
+let g:coctail_imap_prefix= '<C-c>'
