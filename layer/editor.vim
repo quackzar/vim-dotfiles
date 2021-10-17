@@ -6,12 +6,18 @@
 
 Plug 'duggiefresh/vim-easydir'
 
-Plug 'tpope/vim-commentary' " provides gc operator
+Plug 'aca/vidir.nvim'
+
+Plug 'numToStr/Comment.nvim'
+
+" Plug 'tpope/vim-commentary' " provides gc operator
 Plug 'tpope/vim-speeddating' " allows <C-A> <C-X> for dates
 Plug 'tpope/vim-repeat' " Improves dot
 Plug 'tpope/vim-eunuch' " Basic (Delete, Move, Rename) unix commands
 Plug 'tpope/vim-unimpaired'
 Plug 'AndrewRadev/switch.vim'
+
+Plug 'j5shi/CommandlineComplete.vim'
 
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
 nmap s <nop>
@@ -45,9 +51,17 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
 
-Plug 'junegunn/vim-slash' " Better in buffer search
-" Plug 'wincent/loupe' " The same?
-" Plug 'pgdouyon/vim-evanesco'
+Plug 'Konfekt/vim-sentence-chopper'
+let g:latexindent = 0
+
+
+Plug 'markonm/traces.vim'
+" not only the / but :s and :g too
+
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
+augroup END
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'flwyd/vim-conjoin'
@@ -87,6 +101,14 @@ Plug 'psliwka/vim-smoothie'
 
 Plug 'andymass/vim-visput'
 
+Plug 'lukas-reineke/indent-blankline.nvim'
+let g:indent_blankline_show_first_indent_level = v:false
+let g:indent_blankline_char = '▏'
+let g:indent_blankline_buftype_exclude = ['terminal']
+let g:indent_blankline_filetype_exclude = [
+        \ 'help', 'text', 'undotree', 'vista', 'LuaTree',
+        \ 'dashboard', 'markdown', '', 'man'
+        \]
 
 Plug 'tpope/vim-abolish' " like substitute
 Plug 'reedes/vim-litecorrect' " autocorrection! Fixes stupid common mistakes
@@ -96,3 +118,20 @@ augroup litecorrect
   autocmd FileType tex call litecorrect#init()
 augroup END
 Plug 'reedes/vim-lexical'
+
+
+" Plug 'skywind3000/vim-rt-format'
+Plug 'kevinhwang91/nvim-bqf'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'dstein64/nvim-scrollview'
+let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista', 'GV', 'peakaboo', 'markbar']
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+hi link TSError Normal
+Plug 'romgrk/nvim-treesitter-context'
+Plug 'RRethy/nvim-treesitter-textsubjects'

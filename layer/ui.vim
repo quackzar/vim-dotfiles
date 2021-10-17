@@ -16,8 +16,11 @@ function! GetNVimVersion()
     return matchstr(s, 'NVIM v\zs[^\n]*')
 endfunction
 
+Plug 'norcalli/nvim-colorizer.lua'
+
 " Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'yamatsum/nvim-web-nonicons'
 
 Plug 'glepnir/dashboard-nvim'
 let g:dashboard_default_executive ='fzf'

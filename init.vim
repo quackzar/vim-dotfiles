@@ -10,17 +10,43 @@ set runtimepath+=$HOME/.config/nvim
 
 let mapleader = " "
 call plug#begin(stdpath('config').'/plugged/')
-     runtime! plugin/*.vim
+    " runtime layer/coc.vim
+    runtime layer/editor.vim
+    runtime layer/experimental.vim
+    runtime layer/folding.vim
+    runtime layer/fzf.vim
+    runtime layer/git.vim
+    runtime layer/ide.vim
+    runtime layer/languages.vim
+    runtime layer/navigation.vim
+    runtime layer/statusline.vim
+    runtime layer/tex.vim
+    runtime layer/ui.vim
 call plug#end()
+
+" ====== LUA setup ======= {{{
 
 silent! lua require('cfg.treesitter')
 silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
 silent! lua require('cfg.dap')
-silent! lua require('statusbars.bubblegum')
+" silent! lua require('cfg.lspconfig')
 silent! lua require('neogit').setup {}
+silent! lua require('nvim-tree').setup {}
 silent! lua require('numb').setup()
 silent! lua require('gitlinker').setup()
+silent! lua require('Comment').setup()
+
+" silent! lua require('galaxybar.bubblegum')
+silent! lua require('wlsample.bubble2')
+silent! lua << EOF
+require("coq_3p") {
+    { src = "vimtex", short_name = "vTEX" },
+    { src = "nvimlua", short_name = "nLUA", conf_only = true },
+    { src = "dap" },
+}
+EOF
+
 silent! lua << EOF
 require('nvim-treesitter.configs').setup {
     textsubjects = {
@@ -32,11 +58,13 @@ require('nvim-treesitter.configs').setup {
 }
 EOF
 
+" }}}
+
 if has('vscode')
     source vscode.vim
 endif
 
-" ========= PLUGIN INDEPENDENT SETTINGS ===========
+" ========= PLUGIN INDEPENDENT SETTINGS =========== {{{
 if $TERM == "xterm-256color"
     set t_Co=256
 endif
@@ -174,11 +202,6 @@ autocmd FileType qf nnoremap <buffer> <C-]> <CR>
 " autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " autocmd CmdwinEnter * nnoremap <buffer> <CR> <CR>
 
-" autocmd BufReadPost *
-"             \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-"             \ |   exe "normal! g`\""
-"             \ | endif
-
 " These nice commands triggers autoreading
 augroup improved_autoread
   autocmd!
@@ -187,8 +210,9 @@ augroup improved_autoread
   autocmd VimResume * silent! checktime
   autocmd TermLeave * silent! checktime
 augroup end
+"}}}
 
-" ======= MAPPINGS ========
+" ======= MAPPINGS ======== {{{
 " Basics
 noremap <CR> :
 noremap Q :close<cr>
@@ -222,10 +246,14 @@ vnoremap < <gv
 " Terminal magic
 tnoremap <C-Z> <C-\><C-n>
 tmap <esc> <esc><C-\><C-n>
+" }}}
 
-" ====== COLORS =======
+" ====== COLORS ======= {{{
 let g:neomolokai_no_bg=1 " Remove the normal background
 let g:neomolokai_inv_column=1 " Set the sign/number column bg to be the same as normal
 colorscheme neomolokai
 
+" }}}
+
 set secure
+" vim: foldmethod=marker

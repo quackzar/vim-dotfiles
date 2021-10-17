@@ -113,6 +113,7 @@ let g:terminal_color_4 = s:purple
 let g:terminal_color_5 = s:magenta
 let g:terminal_color_6 = s:cyan
 let g:terminal_color_7 = s:white
+let g:terminal_color_8 = s:charcoal
 
 call Highlight("TermColor0", s:dark_charcoal, s:dark_charcoal)
 call Highlight("TermColor1", s:magenta, s:magenta)
