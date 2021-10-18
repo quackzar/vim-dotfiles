@@ -2,9 +2,9 @@ local dap = require('dap')
 -- require('dap-python').setup('~/.local/share/.virtualenvs/debugpy/bin/python')
 require('dap-python').setup('/opt/homebrew/bin/python3')
 
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint', {text='B', texthl='', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='→', texthl='', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', {text='', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='', texthl='Function', linehl='', numhl=''})
 
 vim.g.dap_virtual_text = true
 

@@ -5,8 +5,8 @@
 "
 "
 " Tmux and such
-Plug 'christoomey/vim-tmux-navigator' " Makes <C-hjkl> work between windows from tmux
-Plug 'benmills/vimux' " Send commands to tmux
+" Plug 'christoomey/vim-tmux-navigator' " Makes <C-hjkl> work between windows from tmux
+" Plug 'benmills/vimux' " Send commands to tmux
 
 Plug 'dstein64/vim-win'
 map <space>w <plug>WinWin

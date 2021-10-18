@@ -16,7 +16,7 @@ let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_fenced_languages = ['go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html']
 
 " ======== ASCIIDOC =======
-Plug 'habamax/vim-asciidoctor'
+Plug 'habamax/vim-asciidoctor', {'for': 'asciidoctor'}
 let g:asciidoctor_fenced_languages = ['go', 'c', 'python', 'tex', 'sh', 'fish', 'javascript', 'vim', 'html']
 let g:asciidoctor_syntax_conceal = 1
 let g:asciidoctor_folding = 1
@@ -28,10 +28,7 @@ Plug 'liuchengxu/graphviz.vim', {'for': 'dot'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 
 " ======== PYTHON =======
-" Plug 'vim-python/python-syntax', {'for': 'python'}
-" let g:python_highlight_all = 1
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
-let g:python_highlight_space_errors = 0
 
 Plug 'jpalardy/vim-slime'
 let g:slime_target = "kitty"
@@ -65,18 +62,18 @@ Plug 'rhysd/vim-llvm', {'for': 'llvm'}
 " let g:delve_tracepoint_sign = '◆'
 " let g:delve_tracepoint_sign_highlight = 'CocWarningSign'
 
-" ===== vimwiki =====
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_folding = 'expr'
+" " ===== vimwiki =====
+" Plug 'vimwiki/vimwiki'
+" let g:vimwiki_folding = 'expr'
 
-Plug 'cespare/vim-toml'
+Plug 'cespare/vim-toml', {'for': 'toml'}
 
 " === kitty ===
 Plug 'fladson/vim-kitty'
 
 
 " === Coq ===
-Plug 'whonore/Coqtail'
+Plug 'whonore/Coqtail', {'for': 'coq'}
 let g:coqtail_auto_set_proof_diffs = 'on'
 let g:coqtail_map_prefix = ','
 let g:coctail_imap_prefix= '<C-c>'

@@ -26,11 +26,11 @@ basic.progress_inactive = { b_components.progress, hl_list.Inactive }
 
 basic.vi_mode = {
     hl_colors = {
-        Normal = { 'black', 'red', 'bold' },
+        Normal = { 'white', 'red', 'bold' },
         Insert = { 'black', 'green', 'bold' },
-        Visual = { 'black', 'yellow', 'bold' },
-        Replace = { 'black', 'blue_light', 'bold' },
-        Command = { 'black', 'magenta', 'bold' },
+        Visual = { 'white', 'yellow', 'bold' },
+        Replace = { 'white', 'blue_light', 'bold' },
+        Command = { 'white', 'magenta', 'bold' },
         NormalBefore = { 'red', 'black' },
         InsertBefore = { 'green', 'black' },
         VisualBefore = { 'yellow', 'black' },
@@ -121,13 +121,21 @@ basic.git = {
 }
 basic.logo = {
     hl_colors = {
-        sep_before = { 'blue', 'black' },
-        default = { 'black', 'blue' },
+        Normal = { 'white', 'red'},
+        Insert = { 'black', 'green'},
+        Visual = { 'white', 'yellow'},
+        Replace = { 'white', 'blue_light'},
+        Command = { 'white', 'magenta'},
+        NormalBefore = { 'red', 'black' },
+        InsertBefore = { 'green', 'black' },
+        VisualBefore = { 'yellow', 'black' },
+        ReplaceBefore = { 'blue_light', 'black' },
+        CommandBefore = { 'magenta', 'black' },
     },
     text = function()
         return {
-            { sep.left_rounded, 'sep_before' },
-            { ' ', 'default' },
+            { sep.left_rounded, state.mode[2] .. 'Before' },
+            { ' ', state.mode[2] },
         }
     end,
 }

@@ -16,6 +16,8 @@ let g:mergetool_prefer_revision = 'local'
 
 " Magit for neovim
 Plug 'TimUntersberger/neogit'
+nnoremap <silent> <leader>gg :Neogit<cr>
+
 
 command! -nargs=0 Gupdate AsyncRun git pull --ff-only --autostash
 

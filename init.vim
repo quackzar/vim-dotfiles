@@ -30,21 +30,24 @@ silent! lua require('cfg.treesitter')
 silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
 silent! lua require('cfg.dap')
-" silent! lua require('cfg.lspconfig')
+lua require('cfg.lsp')
 silent! lua require('neogit').setup {}
 silent! lua require('nvim-tree').setup {}
 silent! lua require('numb').setup()
 silent! lua require('gitlinker').setup()
 silent! lua require('Comment').setup()
+silent! lua require("stabilize").setup()
 
 " silent! lua require('galaxybar.bubblegum')
-silent! lua require('wlsample.bubble2')
+silent! lua require('windline.bubblegum')
+" silent! lua require('wlsample.bubble2')
 silent! lua << EOF
 require("coq_3p") {
     { src = "vimtex", short_name = "vTEX" },
     { src = "nvimlua", short_name = "nLUA", conf_only = true },
     { src = "dap" },
 }
+
 EOF
 
 silent! lua << EOF
@@ -53,6 +56,7 @@ require('nvim-treesitter.configs').setup {
         enable = true,
         keymaps = {
             ['.'] = 'textsubjects-smart',
+            [';'] = 'textsubjects-container-outer',
         }
     },
 }
