@@ -2,9 +2,6 @@
 " ---------------
 " Plugins and settings that relevant to running and writing code
 " and give a IDE-like experience. And stuff that depends on LSP, etc.
-"
-" Basicly not langauge agnostic stuff but still general.
-"
 
 
 " ============ Build/Run =========== {{{
@@ -42,6 +39,7 @@ let g:asynctasks_term_pos = 'bottom'
 " Plug 'nvim-lua/lsp-status.nvim'
 " Plug 'folke/trouble.nvim'
 " Plug 'ray-x/lsp_signature.nvim'
+" Plug 'L3MON4D3/LuaSnip'
 
 
 

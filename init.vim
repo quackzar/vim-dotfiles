@@ -30,7 +30,7 @@ silent! lua require('cfg.treesitter')
 silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
 silent! lua require('cfg.dap')
-lua require('cfg.lsp')
+" silent! lua require('cfg.lsp')
 silent! lua require('neogit').setup {}
 silent! lua require('nvim-tree').setup {}
 silent! lua require('numb').setup()
