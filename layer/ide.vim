@@ -31,25 +31,52 @@ let g:asynctasks_term_pos = 'bottom'
 " Note: coc.nvim is in a seperate file.
 
 " Native LSP -- should probably use this one, but setup is annoying right now
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'williamboman/nvim-lsp-installer'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 " Plug 'hrsh7th/nvim-cmp'
-" Plug 'weilbith/nvim-code-action-menu'
-" Plug 'kosayoda/nvim-lightbulb'
-" Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'folke/trouble.nvim'
-" Plug 'ray-x/lsp_signature.nvim'
+Plug 'weilbith/nvim-code-action-menu'
+Plug 'kosayoda/nvim-lightbulb'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'ray-x/lsp_signature.nvim'
 " Plug 'L3MON4D3/LuaSnip'
-
-
-
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+" autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 " COQ -- Pretty cool
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " 9000+ Snippets
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-nnoremap <silent> <leader>cq :COQnow<cr>
+" nnoremap <silent> <leader>cq :COQnow<cr>
+let g:coq_settings = {
+    \ 'auto_start': 'shut-up',
+    \ 'display.icons.mappings': {
+        \ "Class":         " ",
+        \ "Color":         " ",
+        \ "Constant":      " ",
+        \ "Constructor":   " ",
+        \ "Enum":          " ",
+        \ "EnumMember":    " ",
+        \ "Event":         " ",
+        \ "Field":         " ",
+        \ "File":          " ",
+        \ "Folder":        " ",
+        \ "Function":      " ",
+        \ "Interface":     " ",
+        \ "Keyword":       " ",
+        \ "Method":        " ",
+        \ "Module":        " ",
+        \ "Operator":      " ",
+        \ "Property":      " ",
+        \ "Reference":     " ",
+        \ "Snippet":       " ",
+        \ "Struct":        " ",
+        \ "Text":          " ",
+        \ "TypeParameter": " ",
+        \ "Unit":          " ",
+        \ "Value":         " ",
+        \ "Variable":      " ",
+        \ } }
+
 
 
 " Plug 'liuchengxu/vista.vi fm'

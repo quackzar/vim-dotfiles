@@ -30,7 +30,7 @@ silent! lua require('cfg.treesitter')
 silent! lua require('cfg.gitsigns')
 silent! lua require('cfg.telescope')
 silent! lua require('cfg.dap')
-" silent! lua require('cfg.lsp')
+silent! lua require('cfg.lsp')
 silent! lua require('neogit').setup {}
 silent! lua require('nvim-tree').setup {}
 silent! lua require('numb').setup()
@@ -46,8 +46,15 @@ require("coq_3p") {
     { src = "vimtex", short_name = "vTEX" },
     { src = "nvimlua", short_name = "nLUA", conf_only = true },
     { src = "dap" },
+    {
+        src = "repl",
+        sh = "fish",
+        shell = { p = "perl", n = "node"},
+        max_lines = 99,
+        deadline = 500,
+        unsafe = { "rm", "poweroff", "mv", "rmdir", "shutdown" }
+    }
 }
-
 EOF
 
 silent! lua << EOF
