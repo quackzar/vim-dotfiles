@@ -71,6 +71,8 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 " === kitty ===
 Plug 'fladson/vim-kitty'
 
+" === rust ===
+Plug 'simrat39/rust-tools.nvim'
 
 " === Coq ===
 Plug 'whonore/Coqtail', {'for': 'coq'}

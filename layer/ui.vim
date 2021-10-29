@@ -55,6 +55,9 @@ augroup my_dashboard
 augroup END
 
 
+Plug 'folke/which-key.nvim'
+
+
 " Colorschemes
 Plug 'folke/tokyonight.nvim'
 Plug 'tiagovla/tokyodark.nvim'

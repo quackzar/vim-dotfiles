@@ -36,11 +36,18 @@ Plug 'williamboman/nvim-lsp-installer'
 " Plug 'hrsh7th/nvim-cmp'
 Plug 'weilbith/nvim-code-action-menu'
 Plug 'kosayoda/nvim-lightbulb'
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/trouble.nvim'
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xw <cmd>TroubleToggle lsp_workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
+nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap gR <cmd>TroubleToggle lsp_references<cr>
+nnoremap <leader>a <cmd>CodeActionMenu<cr>
 Plug 'ray-x/lsp_signature.nvim'
 " Plug 'L3MON4D3/LuaSnip'
-" autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 " COQ -- Pretty cool
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " 9000+ Snippets
@@ -119,7 +126,7 @@ nmap <silent> t<C-g> :TestVisit<CR>
 Plug 'mfussenegger/nvim-dap'
 Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'rcarriga/nvim-dap-ui'
-" Plug 'Pocco81/DAPInstall.nvim'
+Plug 'Pocco81/DAPInstall.nvim'
 
 Plug 'mfussenegger/nvim-dap-python'
 

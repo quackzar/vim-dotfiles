@@ -26,20 +26,32 @@ call plug#end()
 
 " ====== LUA setup ======= {{{
 
-silent! lua require('cfg.treesitter')
-silent! lua require('cfg.gitsigns')
-silent! lua require('cfg.telescope')
-silent! lua require('cfg.dap')
-silent! lua require('cfg.lsp')
-silent! lua require('neogit').setup {}
-silent! lua require('nvim-tree').setup {}
-silent! lua require('numb').setup()
-silent! lua require('gitlinker').setup()
-silent! lua require('Comment').setup()
-silent! lua require("stabilize").setup()
+lua require('cfg.treesitter')
+lua require('cfg.gitsigns')
+" lua require('cfg.telescope')
+lua require('cfg.dap')
+lua require('cfg.lsp')
+lua require('neogit').setup {}
+lua require('nvim-tree').setup {}
+lua require('numb').setup()
+lua require('gitlinker').setup()
+lua require('Comment').setup()
+lua require("stabilize").setup()
+lua << EOF
+require("which-key").setup {
+    plugins = {
+        marks = true, -- shows a list of your marks on ' and `
+        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        spelling = {
+            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 20, -- how many suggestions should be shown in the list?
+        },
+    }
+}
+EOF
 
 " silent! lua require('galaxybar.bubblegum')
-silent! lua require('windline.bubblegum')
+lua require('windline.bubblegum')
 " silent! lua require('wlsample.bubble2')
 silent! lua << EOF
 require("coq_3p") {
@@ -54,18 +66,6 @@ require("coq_3p") {
         deadline = 500,
         unsafe = { "rm", "poweroff", "mv", "rmdir", "shutdown" }
     }
-}
-EOF
-
-silent! lua << EOF
-require('nvim-treesitter.configs').setup {
-    textsubjects = {
-        enable = true,
-        keymaps = {
-            ['.'] = 'textsubjects-smart',
-            [';'] = 'textsubjects-container-outer',
-        }
-    },
 }
 EOF
 

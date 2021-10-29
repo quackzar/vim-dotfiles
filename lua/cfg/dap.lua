@@ -1,75 +1,53 @@
 local dap = require('dap')
 -- require('dap-python').setup('~/.local/share/.virtualenvs/debugpy/bin/python')
-require('dap-python').setup('/opt/homebrew/bin/python3')
+-- require('dap-python').setup('/opt/homebrew/bin/python3')
 
-vim.fn.sign_define('DapBreakpoint', {text='', texthl='Keyword', linehl='', numhl=''})
-vim.fn.sign_define('DapLogPoint', {text='', texthl='Keyword', linehl='', numhl=''})
+
+vim.fn.sign_define('DapBreakpoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
 vim.fn.sign_define('DapStopped', {text='', texthl='Function', linehl='', numhl=''})
 
 vim.g.dap_virtual_text = true
 
 require("dapui").setup({
-  icons = {
-    expanded = "⯆",
-    collapsed = "⯈"
-  },
+  icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
     -- Use a table to apply multiple mappings
-    expand = {"<space>", "<2-LeftMouse>"},
+    expand = { "<CR>", "<2-LeftMouse>" },
     open = "o",
     remove = "d",
     edit = "e",
+    repl = "r",
   },
   sidebar = {
+    -- You can change the order of elements in the sidebar
     elements = {
-      -- You can change the order of elements in the sidebar
-      "scopes",
-      "breakpoints",
-      "stacks",
-      "watches"
+      -- Provide as ID strings or tables with "id" and "size" keys
+      {
+        id = "scopes",
+        size = 0.25, -- Can be float or integer > 1
+      },
+      { id = "breakpoints", size = 0.25 },
+      { id = "stacks", size = 0.25 },
+      { id = "watches", size = 00.25 },
     },
     size = 40,
-    position = "left" -- Can be "left" or "right"
+    position = "left", -- Can be "left", "right", "top", "bottom"
   },
   tray = {
-    elements = {
-      "repl"
-    },
+    elements = { "repl" },
     size = 10,
-    position = "bottom" -- Can be "bottom" or "top"
+    position = "bottom", -- Can be "left", "right", "top", "bottom"
   },
   floating = {
     max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil   -- Floats will be treated as percentage of your screen.
-  }
-})
-
-dap.adapters.lldb = {
-  type = 'executable',
-  command = '/opt/homebrew/opt/llvm/bin/lldb-vscode', -- adjust as needed
-  name = "lldb"
-}
-
-dap.configurations.cpp = {
-  {
-    name = "Launch",
-    type = "lldb",
-    request = "launch",
-    -- program = function()
-    --   return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    -- end,
-    program = function()
-        return vim.fn.getcwd() .. "/a.out"
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-    args = function()
-        return vim.fn.input('Args: ')
-    end,
-    runInTerminal = true,
+    max_width = nil, -- Floats will be treated as percentage of your screen.
+    mappings = {
+      close = { "q", "<Esc>" },
+    },
   },
-}
-
+  windows = { indent = 1 },
+})
 
 -- If you want to use this for rust and c, add something like this:
 

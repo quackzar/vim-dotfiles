@@ -94,7 +94,7 @@ nnoremap <silent> gm :SignatureToggleSigns<cr>
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_delay = 100
 
-Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
+" Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 
 
 Plug 'psliwka/vim-smoothie'
@@ -119,7 +119,6 @@ augroup litecorrect
 augroup END
 Plug 'reedes/vim-lexical'
 
-
 " Plug 'skywind3000/vim-rt-format'
 Plug 'kevinhwang91/nvim-bqf'
 
@@ -135,5 +134,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 hi link TSError Normal
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'RRethy/nvim-treesitter-textsubjects'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
 
 Plug 'luukvbaal/stabilize.nvim'

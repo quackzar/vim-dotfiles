@@ -5,12 +5,11 @@ local coq = require "coq"
 function on_attach(client, bufnr)
     require"lsp_signature".on_attach()
 
-
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
@@ -32,7 +31,7 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -54,29 +53,6 @@ require("trouble").setup {
 }
 
 
-
-
-vim.fn.sign_define("LspDiagnosticsSignError", {
-    texthl = "LspDiagnosticsSignError",
-    text = " ",
-    numhl = "LspDiagnosticsSignError"
-})
-vim.fn.sign_define("LspDiagnosticsSignWarning", {
-    texthl = "LspDiagnosticsSignWarning",
-    text = " ",
-    numhl = "LspDiagnosticsSignWarning"
-})
-vim.fn.sign_define("LspDiagnosticsSignHint", {
-    texthl = "LspDiagnosticsSignHint",
-    text = "",
-    numhl = "LspDiagnosticsSignHint"
-})
-vim.fn.sign_define("LspDiagnosticsSignInformation", {
-    texthl = "LspDiagnosticsSignInformation",
-    text = " ",
-    numhl = "LspDiagnosticsSignInformation"
-})
-
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
     "   (Text) ", "   (Method)", "   (Function)",
@@ -88,14 +64,28 @@ vim.lsp.protocol.CompletionItemKind = {
     "   (Operator)", "   (TypeParameter)"
 }
 
+
+local signs = {
+    Error = " ",
+    Warning = " ",
+    Hint = " ",
+    Information = " "
+}
+
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
 -- Set Default Prefix.
 -- Note: You can set a prefix per lsp server in the lv-globals.lua file
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- virtual_text = {prefix = "!", spacing = 0},
-        virtual_text = false,
+        prefix = '●', -- Could be '●', '▎', 'x'
+        -- virtual_text = false,
         signs = true,
-        underline = true
+        underline = true,
+        source = "always",  -- Or "if_many"
+
     })
 
 vim.o.completeopt = "menuone,noselect"
