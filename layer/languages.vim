@@ -79,3 +79,8 @@ Plug 'whonore/Coqtail', {'for': 'coq'}
 let g:coqtail_auto_set_proof_diffs = 'on'
 let g:coqtail_map_prefix = ','
 let g:coctail_imap_prefix= '<C-c>'
+
+
+" === text ===
+Plug 'brymer-meneses/grammar-guard.nvim'
+

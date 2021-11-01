@@ -73,26 +73,26 @@ Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
 Plug 'mbbill/undotree'
 
 " Let's you preview marks!
-Plug 'Yilin-Yang/vim-markbar'
-nmap <space>m  <Plug>ToggleMarkbar
-let g:markbar_jump_to_mark_mapping  = 'G'
-let g:markbar_num_lines_context = {
-    \ 'around_local': 3,
-    \ 'around_file': 0,
-    \ 'peekaboo_around_local': 4,
-    \ 'peekaboo_around_file': 2,
-\ }
-
-let g:markbar_file_mark_format_string = '%s (%d, %d)'
-let g:markbar_file_mark_arguments = ['fname', 'col', 'line']
-hi link markbarContext String
+" Plug 'Yilin-Yang/vim-markbar'
+" nmap <space>m  <Plug>ToggleMarkbar
+" let g:markbar_jump_to_mark_mapping  = 'G'
+" let g:markbar_num_lines_context = {
+"     \ 'around_local': 3,
+"     \ 'around_file': 0,
+"     \ 'peekaboo_around_local': 4,
+"     \ 'peekaboo_around_file': 2,
+" \ }
+"
+" let g:markbar_file_mark_format_string = '%s (%d, %d)'
+" let g:markbar_file_mark_arguments = ['fname', 'col', 'line']
+" hi link markbarContext String
 Plug 'kshenoy/vim-signature' " marks in the sign column
 nnoremap <silent> gm :SignatureToggleSigns<cr>
 
 
 " Let's you preview the registers
-Plug 'junegunn/vim-peekaboo'
-let g:peekaboo_delay = 100
+" Plug 'junegunn/vim-peekaboo'
+" let g:peekaboo_delay = 100
 
 " Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
 
@@ -126,6 +126,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
 
 Plug 'dstein64/nvim-scrollview'
 let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista', 'GV', 'peakaboo', 'markbar']
@@ -138,3 +140,9 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 
 Plug 'luukvbaal/stabilize.nvim'
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>

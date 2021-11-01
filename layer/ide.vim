@@ -48,6 +48,8 @@ nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 nnoremap <leader>a <cmd>CodeActionMenu<cr>
 Plug 'ray-x/lsp_signature.nvim'
 " Plug 'L3MON4D3/LuaSnip'
+Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+
 
 " COQ -- Pretty cool
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " 9000+ Snippets
@@ -122,6 +124,10 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 " }}}
 
+let g:ultest_use_pty = 1
+nmap ]t <Plug>(ultest-next-fail)
+nmap [t <Plug>(ultest-prev-fail)
+
 " =========== Debugging =========== {{{
 Plug 'mfussenegger/nvim-dap'
 Plug 'theHamsta/nvim-dap-virtual-text'
@@ -138,8 +144,8 @@ nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
 nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
 nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
 nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
-nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <leader>db :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>dB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>

@@ -29,7 +29,7 @@ require("dapui").setup({
       },
       { id = "breakpoints", size = 0.25 },
       { id = "stacks", size = 0.25 },
-      { id = "watches", size = 00.25 },
+      { id = "watches", size = 0.25 },
     },
     size = 40,
     position = "left", -- Can be "left", "right", "top", "bottom"
@@ -49,7 +49,8 @@ require("dapui").setup({
   windows = { indent = 1 },
 })
 
--- If you want to use this for rust and c, add something like this:
 
+
+-- If you want to use this for rust and c, add something like this:
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp

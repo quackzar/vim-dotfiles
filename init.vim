@@ -14,7 +14,7 @@ call plug#begin(stdpath('config').'/plugged/')
     runtime layer/editor.vim
     runtime layer/experimental.vim
     runtime layer/folding.vim
-    runtime layer/fzf.vim
+    " runtime layer/fzf.vim
     runtime layer/git.vim
     runtime layer/ide.vim
     runtime layer/languages.vim
@@ -28,15 +28,19 @@ call plug#end()
 
 lua require('cfg.treesitter')
 lua require('cfg.gitsigns')
-" lua require('cfg.telescope')
+lua require('cfg.telescope')
+" lua require("grammar-guard").init()
 lua require('cfg.dap')
 lua require('cfg.lsp')
+lua require('toggle_lsp_diagnostics').init()
 lua require('neogit').setup {}
 lua require('nvim-tree').setup {}
 lua require('numb').setup()
 lua require('gitlinker').setup()
 lua require('Comment').setup()
 lua require("stabilize").setup()
+lua require('rust-tools').setup({})
+
 lua << EOF
 require("which-key").setup {
     plugins = {
@@ -46,7 +50,22 @@ require("which-key").setup {
             enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
             suggestions = 20, -- how many suggestions should be shown in the list?
         },
-    }
+        presets = {
+            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            motions = true, -- adds help for motions
+            text_objects = true, -- help for text objects triggered after entering an operator
+            windows = true, -- default bindings on <c-w>
+            nav = true, -- misc bindings to work with windows
+            z = true, -- bindings for folds, spelling and others prefixed with z
+            g = true, -- bindings for prefixed with g
+        },
+    },
+    key_labels = {
+        -- override the label used to display some keys. It doesn't effect WK in any other way.
+        ["<space>"] = "SPC",
+        ["<cr>"] = "RET",
+        ["<tab>"] = "TAB",
+  },
 }
 EOF
 

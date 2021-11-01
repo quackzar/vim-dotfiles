@@ -90,6 +90,25 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
 vim.o.completeopt = "menuone,noselect"
 
+-- lspconfig.grammar_guard.setup({
+--     settings = {
+--         ltex = {
+--             enabled = { "latex", "tex", "bib", "markdown" },
+--             language = "en",
+--             diagnosticSeverity = "information",
+--             setenceCacheSize = 2000,
+--             additionalRules = {
+--                 enablePickyRules = true,
+--                 motherTongue = "en",
+--             },
+--             trace = { server = "verbose" },
+--             dictionary = {},
+--             disabledRules = {},
+--             hiddenFalsePositives = {},
+--         },
+--     },
+-- })
+
 -- Setup nvim-cmp.
 -- local cmp = require('cmp')
 -- cmp.setup {

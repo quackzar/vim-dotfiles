@@ -23,24 +23,39 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'yamatsum/nvim-web-nonicons'
 
 Plug 'glepnir/dashboard-nvim'
-let g:dashboard_default_executive ='fzf'
+" let g:dashboard_default_executive ='fzf'
+let g:dashboard_default_executive ='telescope'
 nnoremap <silent> <Leader>h :DashboardFindHistory<CR>
 nnoremap <silent> <Leader>f :DashboardFindFile<CR>
-nnoremap <silent> <Leader>tc :DashboardChangeColorscheme<CR>
-nnoremap <silent> <Leader>dm :DashboardJumpMark<CR>
-nnoremap <silent> <Leader>dw :DashboardFindWord<CR>
-nnoremap <silent> <Leader>cn :DashboardNewFile<CR>
+nnoremap <silent> <Leader>Dc :DashboardChangeColorscheme<CR>
+nnoremap <silent> <Leader>Dm :DashboardJumpMark<CR>
+nnoremap <silent> <Leader>Dw :DashboardFindWord<CR>
+nnoremap <silent> <Leader>Dn :DashboardNewFile<CR>
 
+nmap <Leader>Ds :<C-u>SessionSave<CR>
+nmap <Leader>Dl :<C-u>SessionLoad<CR>
+
+
+" let g:dashboard_custom_shortcut={
+"             \ 'find_file'          : 'SPC f  ',
+"             \ 'find_history'       : 'SPC h  ',
+"             \ 'find_word'          : 'SPC d w',
+"             \ 'last_session'       : 'SPC s l',
+"             \ 'change_colorscheme' : 'SPC t c',
+"             \ 'book_marks'         : 'SPC d m',
+"             \ 'new_file'           : 'SPC c n',
+"             \ }
 
 let g:dashboard_custom_shortcut={
             \ 'find_file'          : 'SPC f  ',
             \ 'find_history'       : 'SPC h  ',
-            \ 'find_word'          : 'SPC d w',
-            \ 'last_session'       : 'SPC s l',
-            \ 'change_colorscheme' : 'SPC t c',
-            \ 'book_marks'         : 'SPC d m',
-            \ 'new_file'           : 'SPC c n',
+            \ 'new_file'           : 'SPC D n',
+            \ 'last_session'       : 'SPC D l',
+            \ 'find_word'          : 'SPC D w',
+            \ 'book_marks'         : 'SPC D b',
+            \ 'change_colorscheme' : 'SPC D c',
             \ }
+
 
 " let g:dashboard_preview_file = stdpath('config').'/neovim.cat'
 " let g:dashboard_preview_file_height = 12
