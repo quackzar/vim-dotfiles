@@ -323,6 +323,9 @@ let g:indentLine_color_gui = s:dark_grey
 " Beacon
 call Highlight("Beacon", s:white, s:cyan)
 
+" Copilot
+call Highlight("CopilotSuggestion", s:cyan_faded, s:background)
+
 " Telescope
 hi! link TelescopeSelection Cursorline
 hi! link TelescopeSelectionCaret Keyword

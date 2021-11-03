@@ -69,6 +69,7 @@ augroup my_dashboard
     autocmd FileType dashboard nmap <buffer> <cr> :
 augroup END
 
+Plug 'rcarriga/nvim-notify'
 
 Plug 'folke/which-key.nvim'
 
@@ -76,4 +77,9 @@ Plug 'folke/which-key.nvim'
 " Colorschemes
 Plug 'folke/tokyonight.nvim'
 Plug 'tiagovla/tokyodark.nvim'
+Plug 'mhartington/oceanic-next'
+Plug 'rose-pine/neovim'
+Plug 'tanvirtin/monokai.nvim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'morhetz/gruvbox'
 let g:tokyodark_transparent_background = 1

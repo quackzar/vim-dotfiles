@@ -20,8 +20,8 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'j5shi/CommandlineComplete.vim'
 
 Plug 'machakann/vim-sandwich' " Surround replacment, with previews and stuff
-nmap s <nop>
-xmap s <nop>
+" nmap s <nop>
+" xmap s <nop>
 xmap is <Plug>(textobj-sandwich-query-i)
 xmap as <Plug>(textobj-sandwich-query-a)
 omap is <Plug>(textobj-sandwich-query-i)
@@ -71,31 +71,8 @@ Plug 'flwyd/vim-conjoin'
 Plug 'machakann/vim-swap' " Swaps delimited things around g> g< gs
 
 Plug 'mbbill/undotree'
-
-" Let's you preview marks!
-" Plug 'Yilin-Yang/vim-markbar'
-" nmap <space>m  <Plug>ToggleMarkbar
-" let g:markbar_jump_to_mark_mapping  = 'G'
-" let g:markbar_num_lines_context = {
-"     \ 'around_local': 3,
-"     \ 'around_file': 0,
-"     \ 'peekaboo_around_local': 4,
-"     \ 'peekaboo_around_file': 2,
-" \ }
-"
-" let g:markbar_file_mark_format_string = '%s (%d, %d)'
-" let g:markbar_file_mark_arguments = ['fname', 'col', 'line']
-" hi link markbarContext String
 Plug 'kshenoy/vim-signature' " marks in the sign column
 nnoremap <silent> gm :SignatureToggleSigns<cr>
-
-
-" Let's you preview the registers
-" Plug 'junegunn/vim-peekaboo'
-" let g:peekaboo_delay = 100
-
-" Plug 'https://gitlab.com/mcepl/vim-fzfspell' " Use fzf for z=
-
 
 Plug 'psliwka/vim-smoothie'
 
@@ -137,7 +114,7 @@ hi link TSError Normal
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-
+Plug 'nvim-telescope/telescope-z.nvim'
 
 Plug 'luukvbaal/stabilize.nvim'
 

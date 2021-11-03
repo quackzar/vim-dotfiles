@@ -24,6 +24,9 @@ call plug#begin(stdpath('config').'/plugged/')
     runtime layer/ui.vim
 call plug#end()
 
+runtime macros/sandwich/keymap/surround.vim
+
+
 " ====== LUA setup ======= {{{
 
 lua require('cfg.treesitter')
@@ -73,18 +76,12 @@ EOF
 lua require('windline.bubblegum')
 " silent! lua require('wlsample.bubble2')
 silent! lua << EOF
+coq_settings.clients.tabnine.enabled=true
 require("coq_3p") {
+    { src = "copilot", short_name = "COP", tmp_accept_key = "<c-r>" },
     { src = "vimtex", short_name = "vTEX" },
     { src = "nvimlua", short_name = "nLUA", conf_only = true },
     { src = "dap" },
-    {
-        src = "repl",
-        sh = "fish",
-        shell = { p = "perl", n = "node"},
-        max_lines = 99,
-        deadline = 500,
-        unsafe = { "rm", "poweroff", "mv", "rmdir", "shutdown" }
-    }
 }
 EOF
 
@@ -242,6 +239,11 @@ augroup improved_autoread
 augroup end
 "}}}
 
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ -g='!*.pdf'\ -g='!*.eps'\ --no-heading\ --smart-case
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 " ======= MAPPINGS ======== {{{
 " Basics
 noremap <CR> :
@@ -281,7 +283,7 @@ tmap <esc> <esc><C-\><C-n>
 " ====== COLORS ======= {{{
 let g:neomolokai_no_bg=1 " Remove the normal background
 let g:neomolokai_inv_column=1 " Set the sign/number column bg to be the same as normal
-colorscheme neomolokai
+colorscheme tokyodark
 
 " }}}
 

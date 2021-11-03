@@ -1,37 +1,73 @@
 local lspconfig = require('lspconfig')
-local coq = require "coq"
+local coq = require ("coq")
 
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false,
+  underline = true,
+})
+
+local signs = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " "
+}
+
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+end
+
+vim.o.completeopt = "menuone,noselect"
+
+local function setup_handlers()
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+        update_in_insert = true,
+        -- virtual_text = { spacing = 4, prefix = "●" },
+        severity_sort = true,
+    })
+end
 
 function on_attach(client, bufnr)
-    require"lsp_signature".on_attach()
+    require("lsp_signature").on_attach()
+    setup_handlers()
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
-    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', 'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<space>a',  '<cmd>CodeActionMenu<CR>', opts)
+    buf_set_keymap('n', 'gr',        '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+
+    vim.cmd([[
+        augroup DiagnosticFloat
+            autocmd!
+            autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+        augroup END
+    ]])
 end
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -47,11 +83,8 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 require("trouble").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    use_lsp_diagnostic_signs = true,
 }
-
 
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
@@ -65,90 +98,75 @@ vim.lsp.protocol.CompletionItemKind = {
 }
 
 
-local signs = {
-    Error = " ",
-    Warning = " ",
-    Hint = " ",
-    Information = " "
+vim.fn.sign_define('LightBulbSign', { text = " ", texthl = "DiagnosticSignHint", linehl="", numhl="" })
+require('nvim-lightbulb').update_lightbulb {
+    sign = {
+        enabled = true,
+        priority = 1,
+    },
+    float = {
+        enabled = true,
+        text = " ",
+    },
+    virtual_text = {
+        enabled = true,
+        text = " ",
+        hl_mode = "replace",
+    },
+    status_text = {
+        enabled = true,
+        text = " ",
+        text_unavailable = ""
+    }
 }
 
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
-end
--- Set Default Prefix.
--- Note: You can set a prefix per lsp server in the lv-globals.lua file
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        prefix = '●', -- Could be '●', '▎', 'x'
-        -- virtual_text = false,
-        signs = true,
-        underline = true,
-        source = "always",  -- Or "if_many"
-
-    })
-
-vim.o.completeopt = "menuone,noselect"
-
--- lspconfig.grammar_guard.setup({
---     settings = {
---         ltex = {
---             enabled = { "latex", "tex", "bib", "markdown" },
---             language = "en",
---             diagnosticSeverity = "information",
---             setenceCacheSize = 2000,
---             additionalRules = {
---                 enablePickyRules = true,
---                 motherTongue = "en",
---             },
---             trace = { server = "verbose" },
---             dictionary = {},
---             disabledRules = {},
---             hiddenFalsePositives = {},
---         },
---     },
--- })
-
--- Setup nvim-cmp.
--- local cmp = require('cmp')
--- cmp.setup {
---   snippet = {
---     expand = function(args)
---       require('luasnip').lsp_expand(args.body)
---     end,
---   },
---   mapping = {
---     ['<C-p>'] = cmp.mapping.select_prev_item(),
---     ['<C-n>'] = cmp.mapping.select_next_item(),
---     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
---     ['<C-f>'] = cmp.mapping.scroll_docs(4),
---     ['<C-Space>'] = cmp.mapping.complete(),
---     ['<C-e>'] = cmp.mapping.close(),
---     ['<CR>'] = cmp.mapping.confirm {
---       behavior = cmp.ConfirmBehavior.Replace,
---       select = true,
---     },
---     ['<Tab>'] = function(fallback)
---       if cmp.visible() then
---         cmp.select_next_item()
---       elseif luasnip.expand_or_jumpable() then
---         luasnip.expand_or_jump()
---       else
---         fallback()
---       end
---     end,
---     ['<S-Tab>'] = function(fallback)
---       if cmp.visible() then
---         cmp.select_prev_item()
---       elseif luasnip.jumpable(-1) then
---         luasnip.jump(-1)
---       else
---         fallback()
---       end
---     end,
---   },
---   sources = {
---     { name = 'nvim_lsp' },
---     { name = 'luasnip' },
---   },
--- }
+vim.g.symbols_outline = {
+    highlight_hovered_item = true,
+    show_guides = true,
+    auto_preview = true,
+    position = 'right',
+    width = 25,
+    show_numbers = false,
+    show_relative_numbers = false,
+    show_symbol_details = true,
+    preview_bg_highlight = 'Pmenu',
+    keymaps = { -- These keymaps can be a string or a table for multiple keys
+        close = {"<Esc>", "q"},
+        goto_location = "<Cr>",
+        focus_location = "o",
+        hover_symbol = "<C-space>",
+        toggle_preview = "K",
+        rename_symbol = "r",
+        code_actions = "a",
+    },
+    lsp_blacklist = {},
+    symbol_blacklist = {},
+    symbols = {
+        File = {icon = " ", hl = "TSURI"},
+        Module = {icon = " ", hl = "TSNamespace"},
+        Namespace = {icon = "", hl = "TSNamespace"},
+        Package = {icon = " ", hl = "TSNamespace"},
+        Class = {icon = " ", hl = "TSType"},
+        Method = {icon = " ", hl = "TSMethod"},
+        Property = {icon = " ", hl = "TSMethod"},
+        Field = {icon = " ", hl = "TSField"},
+        Constructor = {icon = " ", hl = "TSConstructor"},
+        Enum = {icon = " ", hl = "TSType"},
+        Interface = {icon = "ﰮ", hl = "TSType"},
+        Function = {icon = " ", hl = "TSFunction"},
+        Variable = {icon = " ", hl = "TSConstant"},
+        Constant = {icon = " ", hl = "TSConstant"},
+        String = {icon = " ", hl = "TSString"},
+        Number = {icon = "#", hl = "TSNumber"},
+        Boolean = {icon = "⊨", hl = "TSBoolean"},
+        Array = {icon = "", hl = "TSConstant"},
+        Object = {icon = "⦿", hl = "TSType"},
+        Key = {icon = " ", hl = "TSType"},
+        Null = {icon = "NULL", hl = "TSType"},
+        EnumMember = {icon = "", hl = "TSField"},
+        Struct = {icon = " ", hl = "TSType"},
+        Event = {icon = " ", hl = "TSType"},
+        Operator = {icon = " ", hl = "TSOperator"},
+        TypeParameter = {icon = " ", hl = "TSParameter"}
+    }
+}

@@ -12,10 +12,10 @@ let g:asyncrun_status = ''
 let g:asyncrun_shell = 'zsh'
 let g:asyncrun_shellflag = '-c'
 let g:asyncrun_open = 6
-augroup AsyncSpinner
-    autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
-    autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
-augroup end
+" augroup AsyncSpinner
+"     autocmd User AsyncRunStart call luaeval("require'spinner'.start()")
+"     autocmd User AsyncRunStop call luaeval("require'spinner'.stop()")
+" augroup end
 Plug 'skywind3000/asynctasks.vim'
 nnoremap <silent><f5> :AsyncTask file-build<cr>
 nnoremap <silent><f9> :AsyncTask file-run<cr>
@@ -33,10 +33,9 @@ let g:asynctasks_term_pos = 'bottom'
 " Native LSP -- should probably use this one, but setup is annoying right now
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" Plug 'hrsh7th/nvim-cmp'
 Plug 'weilbith/nvim-code-action-menu'
 Plug 'kosayoda/nvim-lightbulb'
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'folke/trouble.nvim'
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
@@ -45,17 +44,17 @@ nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
 nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
 nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
-nnoremap <leader>a <cmd>CodeActionMenu<cr>
 Plug 'ray-x/lsp_signature.nvim'
-" Plug 'L3MON4D3/LuaSnip'
 Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+Plug 'simrat39/symbols-outline.nvim'
+Plug 'folke/lsp-colors.nvim'
+
 
 
 " COQ -- Pretty cool
 Plug 'ms-jpq/coq_nvim', {'branch': 'coq'} " 9000+ Snippets
 Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-" nnoremap <silent> <leader>cq :COQnow<cr>
 let g:coq_settings = {
     \ 'auto_start': 'shut-up',
     \ 'display.icons.mappings': {
@@ -86,7 +85,9 @@ let g:coq_settings = {
         \ "Variable":      " ",
         \ } }
 
-
+Plug 'github/copilot.vim'
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 " Plug 'liuchengxu/vista.vi fm'
 " let g:vista#renderer#enable_icon = 1
@@ -105,7 +106,6 @@ Plug 'honza/vim-snippets'
 
 
 " }}}
-
 " ========= Testing ========= {{{
 Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }

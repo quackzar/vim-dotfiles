@@ -11,9 +11,9 @@
 Plug 'dstein64/vim-win'
 map <space>w <plug>WinWin
 
-Plug 'pechorin/any-jump.nvim'
+" Plug 'pechorin/any-jump.nvim'
 
-Plug 'junegunn/vim-slash' " Better in buffer search
+" Plug 'junegunn/vim-slash' " Better in buffer search
 Plug 'nacro90/numb.nvim'
 
 Plug 'voldikss/vim-skylight'
@@ -23,7 +23,6 @@ nnoremap <silent>       go    :Skylight! file<CR>
 vnoremap <silent>       go    :Skylight! file<CR>
 
 Plug 'ggandor/lightspeed.nvim'
-
 
 Plug 'arp242/jumpy.vim' " Maps [[ and ]]
 

@@ -1,13 +1,18 @@
 local dap = require('dap')
--- require('dap-python').setup('~/.local/share/.virtualenvs/debugpy/bin/python')
--- require('dap-python').setup('/opt/homebrew/bin/python3')
 
 
-vim.fn.sign_define('DapBreakpoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointRejected', {text=' ', texthl='Keyword', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointCondition', {text=' ', texthl='Identifier', linehl='', numhl=''})
 vim.fn.sign_define('DapLogPoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
-vim.fn.sign_define('DapStopped', {text='', texthl='Function', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text=' ', texthl='Function', linehl='', numhl=''})
 
-vim.g.dap_virtual_text = true
+require("nvim-dap-virtual-text").setup({
+    highlight_changed_variables = true,
+    show_stop_reason = true, -- show stop reason when stopped for exceptions
+    virt_text_pos = 'eol', -- position of virtual text, see :h nvim_buf_set_extmark()
+})
+
 
 require("dapui").setup({
   icons = { expanded = "▾", collapsed = "▸" },

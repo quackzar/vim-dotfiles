@@ -9,6 +9,8 @@ local state = _G.WindLine.state
 local lsp_comps = require('windline.components.lsp')
 local git_comps = require('windline.components.git')
 
+-- local lightbulb = require('lightbulb')
+
 local hl_list = {
     Black = { 'white', 'black' },
     White = { 'black', 'white' },
@@ -148,6 +150,7 @@ local default = {
         basic.file,
         { vim_components.search_count(), { 'red', 'black_light' } },
         { sep.right_rounded, { 'black_light', 'black' } },
+        { vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]] },
         basic.lsp_diagnos,
         basic.git,
         basic.divider,
