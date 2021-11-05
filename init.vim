@@ -10,6 +10,8 @@ set runtimepath+=$HOME/.config/nvim
 
 let mapleader = " "
 call plug#begin(stdpath('config').'/plugged/')
+    Plug 'lewis6991/impatient.nvim'
+    Plug 'nathom/filetype.nvim'
     " runtime layer/coc.vim
     runtime layer/editor.vim
     runtime layer/experimental.vim
@@ -24,11 +26,11 @@ call plug#begin(stdpath('config').'/plugged/')
     runtime layer/ui.vim
 call plug#end()
 
-runtime macros/sandwich/keymap/surround.vim
+let g:did_load_filetypes = 1
 
 
 " ====== LUA setup ======= {{{
-
+lua require('impatient')
 lua require('cfg.treesitter')
 lua require('cfg.gitsigns')
 lua require('cfg.telescope')
@@ -233,9 +235,9 @@ autocmd FileType qf nnoremap <buffer> <C-]> <CR>
 augroup improved_autoread
   autocmd!
   autocmd FocusGained * silent! checktime
-  autocmd BufEnter * silent! checktime
-  autocmd VimResume * silent! checktime
-  autocmd TermLeave * silent! checktime
+  autocmd BufEnter    * silent! checktime
+  autocmd VimResume   * silent! checktime
+  autocmd TermLeave   * silent! checktime
 augroup end
 "}}}
 
@@ -283,7 +285,7 @@ tmap <esc> <esc><C-\><C-n>
 " ====== COLORS ======= {{{
 let g:neomolokai_no_bg=1 " Remove the normal background
 let g:neomolokai_inv_column=1 " Set the sign/number column bg to be the same as normal
-colorscheme tokyodark
+colorscheme neomolokai
 
 " }}}
 

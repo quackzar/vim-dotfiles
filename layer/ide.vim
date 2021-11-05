@@ -57,6 +57,11 @@ Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 let g:coq_settings = {
     \ 'auto_start': 'shut-up',
+    \ 'display': {
+        \ 'pum': {
+            \ 'fast_close': v:false
+        \ }
+    \},
     \ 'display.icons.mappings': {
         \ "Class":         " ",
         \ "Color":         " ",
