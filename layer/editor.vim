@@ -27,7 +27,7 @@ silent! nmap <unique><silent> gsdb <Plug>(operator-sandwich-delete)<Plug>(operat
 silent! nmap <unique><silent> gsrb <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
 
 let g:operator_sandwich_no_default_key_mappings = 1
-" add
+" add 
 silent! map <unique> gsa <Plug>(operator-sandwich-add)
 " delete
 silent! xmap <unique> gsd <Plug>(operator-sandwich-delete)
@@ -113,7 +113,6 @@ Plug 'kevinhwang91/nvim-bqf'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
@@ -135,3 +134,6 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+Plug 'folke/todo-comments.nvim'
+

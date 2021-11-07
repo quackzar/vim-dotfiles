@@ -4,6 +4,7 @@
 Plug 'tpope/vim-fugitive'
 
 " Git graph
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'junegunn/gv.vim'
 
 " Character wise differences hightlighting
@@ -17,8 +18,8 @@ Plug 'rickhowe/diffchar.vim'
 " Magit for neovim
 Plug 'TimUntersberger/neogit'
 nnoremap <silent> <leader>gg <cmd>Neogit<cr>
+nnoremap <silent> <leader>gl <cmd>Neogit log<cr>
 nnoremap <silent> <leader>gc <cmd>Neogit commit<cr>
-
 Plug 'ruifm/gitlinker.nvim'
 
 

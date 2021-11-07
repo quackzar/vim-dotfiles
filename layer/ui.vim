@@ -75,6 +75,8 @@ Plug 'folke/which-key.nvim'
 
 
 " Colorschemes
+Plug 'RRethy/nvim-base16'
+
 Plug 'folke/tokyonight.nvim'
 Plug 'tiagovla/tokyodark.nvim'
 Plug 'mhartington/oceanic-next'

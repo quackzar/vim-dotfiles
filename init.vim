@@ -45,6 +45,7 @@ lua require('gitlinker').setup()
 lua require('Comment').setup()
 lua require("stabilize").setup()
 lua require('rust-tools').setup({})
+lua require("todo-comments").setup{}
 
 lua << EOF
 require("which-key").setup {
