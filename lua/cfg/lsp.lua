@@ -1,6 +1,18 @@
 local lspconfig = require('lspconfig')
 local coq = require ("coq")
 
+-- coq_settings.clients.tabnine.enabled=true
+require("coq_3p") {
+    { src = "copilot", short_name = "COP", tmp_accept_key = "<c-r>" },
+    { src = "vimtex", short_name = "vTEX" },
+    { src = "nvimlua", short_name = "nLUA", conf_only = true },
+    { src = "dap" },
+}
+
+-- require("null-ls").config({
+--     sources = {
+--     },
+-- })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
@@ -28,6 +40,7 @@ local function setup_handlers()
         -- virtual_text = { spacing = 4, prefix = "●" },
         severity_sort = true,
     })
+
 end
 
 function on_attach(client, bufnr)
@@ -43,6 +56,7 @@ function on_attach(client, bufnr)
     -- Mappings.
     local opts = { noremap=true, silent=true }
 
+
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -55,6 +69,8 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
+    buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
     buf_set_keymap('n', '<space>a',  '<cmd>CodeActionMenu<CR>', opts)
     buf_set_keymap('n', 'gr',        '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -76,6 +92,26 @@ lsp_installer.on_server_ready(function(server)
     local server_config = {}
     server_config.on_attach = on_attach
 
+    if server.name == "sumneko_lua" then
+    -- only apply these settings for the "sumneko_lua" server
+        server_config.settings = {
+        Lua = {
+            diagnostics = {
+            -- Get the language server to recognize the 'vim', 'use' global
+            globals = {'vim', 'use', 'require'},
+            },
+            workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+            enable = false,
+            },
+        },
+        }
+    end
+
 
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
     server:setup(server_config)
@@ -83,7 +119,7 @@ lsp_installer.on_server_ready(function(server)
 end)
 
 require("trouble").setup {
-    use_lsp_diagnostic_signs = true,
+    use_diagnostic_signs = true,
 }
 
 -- symbols for autocomplete
@@ -170,3 +206,34 @@ vim.g.symbols_outline = {
         TypeParameter = {icon = " ", hl = "TSParameter"}
     }
 }
+
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        -- Python
+        null_ls.builtins.formatting.black,
+        -- null_ls.builtins.formatting.autopep8,
+        null_ls.builtins.formatting.isort,
+        -- null_ls.builtins.diagnostics.flake8,
+        -- null_ls.builtins.diagnostics.pylint,
+
+        -- Shell
+        null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.shellharden,
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.code_actions.shellcheck,
+
+        -- Git
+        null_ls.builtins.code_actions.gitsigns,
+
+        -- Rust
+        null_ls.builtins.formatting.rustfmt,
+
+        -- TeX
+        null_ls.builtins.diagnostics.chktex,
+    },
+    on_attach = function()
+        vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+    end,
+})

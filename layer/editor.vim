@@ -122,6 +122,8 @@ let g:scrollview_excluded_filetypes = ['LuaTree', 'vim-plug', 'vista', 'GV', 'pe
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 hi link TSError Normal
+
+Plug 'romgrk/fzy-lua-native' " for use with wilder
 Plug 'romgrk/nvim-treesitter-context'
 Plug 'RRethy/nvim-treesitter-textsubjects'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'

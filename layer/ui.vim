@@ -74,6 +74,41 @@ Plug 'rcarriga/nvim-notify'
 Plug 'folke/which-key.nvim'
 
 
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
+autocmd CmdlineEnter * ++once call s:wilder_init()
+
+function! s:wilder_init() abort
+    call wilder#setup({'modes': [':', '/', '?']})
+    call wilder#set_option('use_python_remote_plugin', 0)
+    call wilder#set_option('pipeline', [
+        \   wilder#branch(
+        \     wilder#cmdline_pipeline({
+        \       'fuzzy': 1,
+        \       'fuzzy_filter': wilder#lua_fzy_filter(),
+        \     }),
+        \     wilder#vim_search_pipeline(),
+        \   ),
+        \ ])
+    call wilder#set_option('renderer', wilder#renderer_mux({
+        \ ':': wilder#popupmenu_renderer({
+        \   'highlighter': wilder#lua_fzy_highlighter(),
+        \   'left': [
+        \     ' ',
+        \     wilder#popupmenu_devicons(),
+        \   ],
+        \   'right': [
+        \     ' ',
+        \     wilder#popupmenu_scrollbar(),
+        \   ],
+        \ }),
+        \ '/': wilder#wildmenu_renderer({
+        \   'highlighter': wilder#lua_fzy_highlighter(),
+        \ }),
+        \ }))
+endfunction
+
+
+
 " Colorschemes
 Plug 'RRethy/nvim-base16'
 

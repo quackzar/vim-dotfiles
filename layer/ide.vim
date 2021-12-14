@@ -48,6 +48,8 @@ Plug 'ray-x/lsp_signature.nvim'
 Plug 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
 Plug 'simrat39/symbols-outline.nvim'
 Plug 'folke/lsp-colors.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
 
 
 

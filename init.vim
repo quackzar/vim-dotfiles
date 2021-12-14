@@ -78,17 +78,9 @@ EOF
 " silent! lua require('galaxybar.bubblegum')
 lua require('windline.bubblegum')
 " silent! lua require('wlsample.bubble2')
-silent! lua << EOF
-coq_settings.clients.tabnine.enabled=true
-require("coq_3p") {
-    { src = "copilot", short_name = "COP", tmp_accept_key = "<c-r>" },
-    { src = "vimtex", short_name = "vTEX" },
-    { src = "nvimlua", short_name = "nLUA", conf_only = true },
-    { src = "dap" },
-}
-EOF
+"
 
-" }}}
+
 
 if has('vscode')
     source vscode.vim
@@ -127,7 +119,7 @@ set smartcase
 
 set wildmenu
 set wildmode=longest:full,full
-set wildoptions=tagfile "pum is cool though
+set wildoptions=tagfile,pum
 set wildignore+=*.o,*.obj,*.pyc,.git,.svn,*.a,*.class,*.mo,*.la,*.so
 set wildignore+=*.ttf,\*.obj,*.swp,*.jpg,*.pdf,*.png,*.xpm,*.gif,*.jpeg
 set wildignore+=build,lib,node_modules,public,_site,third_party
@@ -135,6 +127,7 @@ set suffixes+=.old
 " Ignore lib/ dirs since the contain compiled libraries typically
 " Ignore images and fonts
 " Ignore case when completing
+"
 
 set title
 set laststatus=2 " Status bar always show
@@ -226,6 +219,7 @@ augroup easy_close
     autocmd!
     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
+    autocmd FileType qf setlocal wrap
 augroup END
 
 autocmd FileType qf nnoremap <buffer> <C-]> <CR>
