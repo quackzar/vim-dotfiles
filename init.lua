@@ -1,0 +1,11 @@
+vim.opt.encoding = "utf8"
+vim.opt.shell = "/bin/zsh"
+vim.g.mapleader = ' '
+vim.opt.termguicolors = true
+vim.opt.guicursor = 'noecho'
+vim.opt.mouse = 'a'
+vim.opt.wrap = false
+vim.opt.number = true
+vim.opt.foldenable = true
+vim.opt.foldmethod = "indent"
+vim.opt.wildmenu = true
