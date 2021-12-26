@@ -107,6 +107,10 @@ function! s:wilder_init() abort
         \ }))
 endfunction
 
+Plug 'folke/twilight.nvim'
+
+" Plug 'psliwka/vim-smoothie'
+Plug 'folke/neoscroll.nvim'
 
 
 " Colorschemes

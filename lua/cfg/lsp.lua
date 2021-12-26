@@ -33,19 +33,24 @@ end
 
 vim.o.completeopt = "menuone,noselect"
 
-local function setup_handlers()
-    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false,
-        update_in_insert = true,
-        -- virtual_text = { spacing = 4, prefix = "●" },
-        severity_sort = true,
-    })
+vim.diagnostic.config({
+    underline = true,
+    signs = true,
+    virtual_text = false,
+    float = {
+        show_header = true,
+        source = 'if_many',
+        border = 'rounded',
+        focusable = false,
+    },
+    update_in_insert = true, -- default to false
+    severity_sort = true, -- default to false
+})
 
-end
+
 
 function on_attach(client, bufnr)
     require("lsp_signature").on_attach()
-    setup_handlers()
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -216,7 +221,8 @@ null_ls.setup({
         -- null_ls.builtins.formatting.autopep8,
         null_ls.builtins.formatting.isort,
         -- null_ls.builtins.diagnostics.flake8,
-        -- null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.diagnostics.mypy,
 
         -- Shell
         null_ls.builtins.formatting.shfmt,
@@ -225,13 +231,14 @@ null_ls.setup({
         null_ls.builtins.code_actions.shellcheck,
 
         -- Git
-        null_ls.builtins.code_actions.gitsigns,
+        -- null_ls.builtins.code_actions.gitsigns,
 
         -- Rust
         null_ls.builtins.formatting.rustfmt,
 
         -- TeX
-        null_ls.builtins.diagnostics.chktex,
+        -- null_ls.builtins.diagnostics.chktex,
+        null_ls.builtins.formatting.latexindent,
     },
     on_attach = function()
         vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])

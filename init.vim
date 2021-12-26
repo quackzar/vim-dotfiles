@@ -46,9 +46,14 @@ lua require('Comment').setup()
 lua require("stabilize").setup()
 lua require('rust-tools').setup({})
 lua require("todo-comments").setup{}
+lua require("renamer").setup{}
+lua require("twilight").setup {}
+lua require('neoscroll').setup()
+
 
 lua << EOF
-require("which-key").setup {
+wk = require("which-key")
+wk.setup {
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -66,13 +71,27 @@ require("which-key").setup {
             g = true, -- bindings for prefixed with g
         },
     },
+    operators = { gc = "Comments" },
     key_labels = {
         -- override the label used to display some keys. It doesn't effect WK in any other way.
         ["<space>"] = "SPC",
         ["<cr>"] = "RET",
         ["<tab>"] = "TAB",
-  },
+    },
 }
+
+wk.register({
+  ["<leader>"] = {
+    f = {
+      name = "+find",
+      f = { "<cmd>Telescope find_files<cr>", "Find File" },
+      b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+      g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+      h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+    },
+  },
+})
+
 EOF
 
 " silent! lua require('galaxybar.bubblegum')

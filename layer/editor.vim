@@ -86,7 +86,6 @@ Plug 'mbbill/undotree'
 Plug 'kshenoy/vim-signature' " marks in the sign column
 nnoremap <silent> gm :SignatureToggleSigns<cr>
 
-Plug 'psliwka/vim-smoothie'
 
 Plug 'andymass/vim-visput'
 
