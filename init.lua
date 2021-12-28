@@ -9,73 +9,173 @@ vim.opt.foldenable = true
 vim.opt.foldmethod = "indent"
 vim.opt.wildmenu = true
 
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-  -- Simple plugins can be specified as strings
-  use '9mm/vim-closer'
+    -- ui.vim {{{
+    use 'norcalli/nvim-colorizer.lua'
+    use 'kyazdani42/nvim-web-devicons'
+    use 'yamatsum/nvim-web-nonicons'
+    use 'glepnir/dashboard-nvim'
+    use 'rcarriga/nvim-notify'
+    use 'folke/which-key.nvim'
+    use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
+    use 'folke/twilight.nvim'
+    use 'folke/neoscroll.nvim'
+    use 'RRethy/nvim-base16'
+    use 'folke/tokyonight.nvim'
+    use 'tiagovla/tokyodark.nvim'
+    use 'mhartington/oceanic-next'
+    use 'rose-pine/neovim'
+    use 'tanvirtin/monokai.nvim'
+    use 'nanotech/jellybeans.vim'
+    use 'morhetz/gruvbox'
+    -- }}}
+    -- git.vim {{{
+    use 'tpope/vim-fugitive'
+    use 'lewis6991/gitsigns.nvim'
+    use 'junegunn/gv.vim'
+    use 'rickhowe/diffchar.vim'
+    use 'TimUntersberger/neogit'
+    use 'ruifm/gitlinker.nvim'
+    use 'sindrets/diffview.nvim'
+    --- }}}
 
-  -- Lazy loading:
-  -- Load on specific commands
-  use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    -- ide.vim {{{
+    use 'skywind3000/asyncrun.vim'
+    use 'skywind3000/asynctasks.vim'
+    use 'neovim/nvim-lspconfig'
+    use 'williamboman/nvim-lsp-installer'
+    use 'weilbith/nvim-code-action-menu'
+    use 'kosayoda/nvim-lightbulb'
+    use 'nvim-lua/lsp-status.nvim'
+    use 'folke/trouble.nvim'
+    use 'ray-x/lsp_signature.nvim'
+    use 'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim'
+    use 'simrat39/symbols-outline.nvim'
+    use 'folke/lsp-colors.nvim'
+    use 'jose-elias-alvarez/null-ls.nvim'
+    use {'filipdutescu/renamer.nvim',  branch = 'master' }
+    use {'ms-jpq/coq_nvim', branch = 'coq'} -- 9000+ Snippets
+    use {'ms-jpq/coq.artifacts', branch = 'artifacts'}
+    use {'ms-jpq/coq.thirdparty', branch = '3p'}
+    use 'github/copilot.vim'
+    use 'honza/vim-snippets'
+    use 'vim-test/vim-test'
+    use {'rcarriga/vim-ultest',  run = ':UpdateRemotePlugins' }
+    use 'mfussenegger/nvim-dap'
+    use 'theHamsta/nvim-dap-virtual-text'
+    use 'rcarriga/nvim-dap-ui'
+    use 'Pocco81/DAPInstall.nvim'
+    use 'mfussenegger/nvim-dap-python'
+    use 'voldikss/vim-floaterm'
+    -- }}}
 
-  -- Load on an autocommand event
-  use {'andymass/vim-matchup', event = 'VimEnter'}
 
-  -- Load on a combination of conditions: specific filetypes or commands
-  -- Also run code after load (see the "config" key)
-  use {
-    'w0rp/ale',
-    ft = {'sh', 'zsh', 'bash', 'c', 'cpp', 'cmake', 'html', 'markdown', 'racket', 'vim', 'tex'},
-    cmd = 'ALEEnable',
-    config = 'vim.cmd[[ALEEnable]]'
-  }
+    -- editor.vim {{{
+    use 'duggiefresh/vim-easydir'
+    use 'aca/vidir.nvim'
+    use 'numToStr/Comment.nvim'
+    use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
+    use 'tpope/vim-repeat' -- Improves dot
+    use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
+    use 'tpope/vim-unimpaired'
+    use 'AndrewRadev/switch.vim'
+    use 'j5shi/CommandlineComplete.vim'
+    use 'machakann/vim-sandwich' -- Surround replacment, with previews and stuff
+    use 'wellle/targets.vim'
+    use 'andymass/vim-matchup'
+    use 'junegunn/vim-easy-align'
+    use 'Konfekt/vim-sentence-chopper'
+    use 'markonm/traces.vim'
+    use 'AndrewRadev/splitjoin.vim'
+    use 'flwyd/vim-conjoin'
+    use 'mbbill/undotree'
+    use 'kshenoy/vim-signature' -- marks in the sign column
+    use 'andymass/vim-visput'
+    use 'lukas-reineke/indent-blankline.nvim'
+    use 'tpope/vim-abolish' -- like substitute
+    use 'reedes/vim-litecorrect' -- autocorrection! Fixes stupid common mistakes
+    use 'reedes/vim-lexical'
+    use 'kevinhwang91/nvim-bqf'
+    use 'nvim-lua/popup.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use 'dstein64/nvim-scrollview'
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUPDATE' }
+    use 'romgrk/fzy-lua-native' -- for use with wilder
+    use 'romgrk/nvim-treesitter-context'
+    use 'RRethy/nvim-treesitter-textsubjects'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-telescope/telescope-z.nvim'
+    use 'luukvbaal/stabilize.nvim'
+    use 'folke/todo-comments.nvim'
 
-  -- Plugins can have dependencies on other plugins
-  use {
-    'haorenW1025/completion-nvim',
-    opt = true,
-    requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
-  }
+    use 'Konfekt/FastFold' -- Faster folding
+    use 'arecarn/vim-clean-fold'
+    -- use 'scr1pt0r/crease.vim'
+    -- }}}
 
-  -- Plugins can also depend on rocks from luarocks.org:
-  use {
-    'my/supercoolplugin',
-    rocks = {'lpeg', {'lua-cjson', version = '2.1.0'}}
-  }
 
-  -- You can specify rocks in isolation
-  use_rocks 'penlight'
-  use_rocks {'lua-resty-http', 'lpeg'}
+    -- navigation.vim {{{
+    use 'dstein64/vim-win'
+    use 'nacro90/numb.nvim'
+    use 'voldikss/vim-skylight'
+    use 'ggandor/lightspeed.nvim'
+    use 'arp242/jumpy.vim' -- Maps [[ and ]]
+    use 'farmergreg/vim-lastplace'
+    use 'kyazdani42/nvim-tree.lua'
+    use {'ripxorip/aerojump.nvim',  run = ':UpdateRemotePlugins' }
+    -- languages.vim {{{
+    -- ==========  C  ==========
+    use 'justinmk/vim-syntax-extra'
+    use 'shirk/vim-gas'
+    use 'ARM9/arm-syntax-vim'
+    -- ======== MARKDOWN ========
+    use {'plasticboy/vim-markdown', ft = 'markdown'}
+    -- ======== ASCIIDOC =======
+    use {'habamax/vim-asciidoctor', ft = 'asciidoctor'}
+    -- ======== GRAPHVIZ ========
+    use {'liuchengxu/graphviz.vim', ft = 'dot'}
+    -- ======== TYPESCRIPT =======
+    use {'leafgarland/typescript-vim', ft = 'typescript'}
+    -- ======== PYTHON =======
+    use {'tmhedberg/SimpylFold', ft = 'python'}
+    use 'jpalardy/vim-slime'
+    use {'hanschen/vim-ipython-cell',  ft = 'python' }
+    -- ======== SWIFT ======
+    use {'keith/swift.vim', ft = 'swift'}
+    use {'kentaroi/ultisnips-swift', ft = 'swift'}
+    -- ======= R =======
+    use {'jalvesaq/Nvim-R', ft = 'R'} -- R IDE
+    -- ======= OCAML ======
+    use {'ELLIOTTCABLE/vim-menhir', ft = {'ocaml', 'reasonml'}}
+    -- ====== LLVM ====
+    use {'rhysd/vim-llvm', ft = 'llvm'}
+    use {'cespare/vim-toml', ft = 'toml'}
+    -- === kitty ===
+    use 'fladson/vim-kitty'
+    -- === rust ===
+    use 'simrat39/rust-tools.nvim'
+    -- === Coq ===
+    use {'whonore/Coqtail', ft = 'coq'}
+    -- === text ===
+    use 'brymer-meneses/grammar-guard.nvim'
 
-  -- Local plugins can be included
-  use '~/projects/personal/hover.nvim'
+    -- TeX
+    use {'lervag/vimtex', ft = 'tex'}
+    use {'KeitaNakamura/tex-conceal.vim', ft = 'tex'}
+    -- }}}
 
-  -- Plugins can have post-install/update hooks
-  use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
-
-  -- Post-install/update hook with neovim command
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
-  -- Post-install/update hook with call of vimscript function with argument
-  use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
-
-  -- Use specific branch, dependency and run lua file after load
-  use {
-    'glepnir/galaxyline.nvim', branch = 'main', config = function() require'statusline' end,
-    requires = {'kyazdani42/nvim-web-devicons'}
-  }
-
-  -- Use dependency and run lua function after load
-  use {
-    'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
-    config = function() require('gitsigns').setup() end
-  }
-
-  -- You can specify multiple plugins in a single call
-  use {'tjdevries/colorbuddy.vim', {'nvim-treesitter/nvim-treesitter', opt = true}}
-
-  -- You can alias plugin names
-  use {'dracula/vim', as = 'dracula'}
+    if packer_bootstrap then
+        require('packer').sync()
+    end
 end)
