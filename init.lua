@@ -1,22 +1,88 @@
-vim.opt.encoding = "utf8"
-vim.opt.shell = "/bin/zsh"
-vim.g.mapleader = ' '
-vim.opt.termguicolors = true
-vim.opt.mouse = 'a'
-vim.opt.wrap = false
-vim.opt.number = true
-vim.opt.foldenable = true
-vim.opt.wildmenu = true
+vim.o.encoding = "utf8"
+vim.o.shell = "/bin/zsh"
+vim.o.termguicolors = true
+vim.o.mouse = 'a'
+vim.o.wrap = false
+vim.o.number = true
+vim.o.foldenable = true
+vim.o.wildmenu = true
 
+vim.o.undofile = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.showmode = false
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.updatetime = 250
+vim.o.autoread = true
+
+vim.wo.signcolumn = 'yes'
+
+vim.o.backupdir="/tmp/backup//"
+vim.o.directory="/tmp/swap//"
+vim.o.undodir="/tmp/undo//"
+
+vim.o.pumblend = 20
+vim.o.winblend = 20
+
+vim.o.conceallevel = 2
+
+vim.o.dictionary="/usr/share/dict/words"
+vim.o.thesaurus=vim.fn.stdpath('config') .. '/thesaurus/words.txt'
+
+vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'Q', ':close<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'gQ', ':bd<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'x', '"_x', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'X', '"_X', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = ' '
+
+vim.g.indent_blankline_char = '┊'
+vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
 vim.cmd('colorscheme neomolokai')
 vim.g.python3_host_prog = '/usr/bin/python3'
 
+if vim.fn.executable('rg') then
+    vim.o.grepprg="rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
+    vim.o.grepformat="%f:%l:%c:%m,%f:%l:%m"
+end
+
+vim.api.nvim_exec(
+[[
+augroup term_settings
+    autocmd TermOpen * startinsert
+    autocmd TermOpen * setlocal nonumber
+augroup END
+
+augroup easy_close
+    autocmd!
+    autocmd FileType help,qf nnoremap <buffer> q :q<cr>
+    autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
+    autocmd FileType qf setlocal wrap
+augroup END
+
+autocmd FileType qf nnoremap <buffer> <C-]> <CR>
+augroup improved_autoread
+  autocmd!
+  autocmd FocusGained * silent! checktime
+  autocmd BufEnter    * silent! checktime
+  autocmd VimResume   * silent! checktime
+  autocmd TermLeave   * silent! checktime
+augroup end
+]], false
+)
+
 require('plugins')
 
--- require('impatient')
+require('impatient')
 require('cfg.treesitter')
 require('cfg.gitsigns')
 require('cfg.telescope')
@@ -34,10 +100,11 @@ require("todo-comments").setup{}
 require("renamer").setup{}
 require("twilight").setup {}
 require('neoscroll').setup()
+require('colorizer').setup()
 
--- require('windline.bubblegum')
+require('windline.bubblegum')
 
-wk = require("which-key")
+local wk = require("which-key")
 wk.setup {
     plugins = {
         marks = true, -- shows a list of your marks on ' and `
@@ -54,7 +121,7 @@ wk.setup {
             nav = true, -- misc bindings to work with windows
             z = true, -- bindings for folds, spelling and others prefixed with z
             g = true, -- bindings for prefixed with g
-        },
+	},
     },
     operators = { gc = "Comments" },
     key_labels = {
@@ -66,17 +133,17 @@ wk.setup {
 }
 
 wk.register({
-  ["<leader>"] = {
-    f = {
-      name = "+find",
-      f = { "<cmd>Telescope find_files<cr>", "Find File" },
-      b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
-      g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-      h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+    ["<leader>"] = {
+	f = {
+	    name = "+find",
+	    f = { "<cmd>Telescope find_files<cr>", "Find File" },
+	    b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+	    g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+	    h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+	},
     },
-  },
 })
 
 
 
--- vim: foldmethod=marker
+-- vim: foldmethod=marker sw=4
