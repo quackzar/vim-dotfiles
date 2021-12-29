@@ -6,22 +6,25 @@ vim.o.wrap = false
 vim.o.number = true
 vim.o.foldenable = true
 vim.o.wildmenu = true
-
-vim.o.undofile = true
-vim.o.backup = false
-vim.o.writebackup = false
 vim.o.showmode = false
 
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.o.autoread = true
+vim.o.shiftwidth = 4
 
 vim.wo.signcolumn = 'yes'
 
+vim.o.undofile = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
 vim.o.backupdir="/tmp/backup//"
 vim.o.directory="/tmp/swap//"
 vim.o.undodir="/tmp/undo//"
+
+vim.o.shortmess = "AIOTWaotc"
 
 vim.o.pumblend = 20
 vim.o.winblend = 20
@@ -36,26 +39,26 @@ vim.api.nvim_set_keymap('', 'Q', ':close<cr>', { noremap = true, silent = true }
 vim.api.nvim_set_keymap('', 'gQ', ':bd<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'x', '"_x', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'X', '"_X', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'gb', ':bn<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<Space><Space>', ':noh<cr>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 
-vim.g.indent_blankline_char = '┊'
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
+vim.g.indent_blankline_char = '▏'
+vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_show_trailing_blankline_indent = true
+vim.g.indent_blankline_show_first_indent_level = false
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
 vim.cmd('colorscheme neomolokai')
 vim.g.python3_host_prog = '/usr/bin/python3'
 
-if vim.fn.executable('rg') then
-    vim.o.grepprg="rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
-    vim.o.grepformat="%f:%l:%c:%m,%f:%l:%m"
-end
 
-vim.api.nvim_exec(
+vim.api.nvim_exec( -- TODO: use api
 [[
 augroup term_settings
     autocmd TermOpen * startinsert
@@ -77,6 +80,11 @@ augroup improved_autoread
   autocmd VimResume   * silent! checktime
   autocmd TermLeave   * silent! checktime
 augroup end
+
+augroup highlight_yank
+    autocmd!
+    au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
+augroup END
 ]], false
 )
 
@@ -144,6 +152,69 @@ wk.register({
     },
 })
 
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
+  {silent = true, noremap = true}
+)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
+  {silent = true, noremap = true}
+)
 
+
+vim.g.coq_settings = {
+     ['auto_start'] = 'shut-up',
+     ['display'] = {
+         ['pum'] = {
+             ['fast_close'] = false
+         }
+    },
+    ['display.icons.mappings'] = {
+	["Class"]         = " ",
+	["Color" ]        = " ",
+	["Constant"]      = " ",
+	["Constructor"]   = " ",
+	["Enum"]          = " ",
+	["EnumMember"]    = " ",
+	["Event"]         = " ",
+	["Field"]         = " ",
+	["File"]          = " ",
+	["Folder"]        = " ",
+	["Function"]      = " ",
+	["Interface"]     = " ",
+	["Keyword"]       = " ",
+	["Method"]        = " ",
+	["Module"]        = " ",
+	["Operator"]      = " ",
+	["Property"]      = " ",
+	["Reference"]     = " ",
+	["Snippet"]       = " ",
+	["Struct"]        = " ",
+	["Text"]          = " ",
+	["TypeParameter"] = " ",
+	["Unit"]          = " ",
+	["Value"]         = " ",
+	["Variable"]      = " ",
+    }
+}
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_exec([[
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+]], false) -- HACK: seriosly fix this
+
+if vim.fn.executable('rg') then
+    vim.o.grepprg="rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
+    vim.o.grepformat="%f:%l:%c:%m,%f:%l:%m"
+end
 
 -- vim: foldmethod=marker sw=4

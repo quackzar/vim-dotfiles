@@ -60,6 +60,10 @@ function on_attach(client, bufnr)
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
+    vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+    -- Add this <leader> bound mapping so formatting the entire document is easier.
+    buf_set_keymap("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
