@@ -5,6 +5,9 @@ spell/*
 swap/
 undo/
 backup/
+*/packer_compiled.lua
+.luarc.json
+
 *.swp
 *.netrwhist
 *.lock

@@ -4,10 +4,26 @@ if fn.empty(fn.glob(install_path)) > 0 then
     packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-local function map(...) vim.api.nvim_set_keymap(...) end
-local opts = {noremap=true, silent=true}
+-- because the other way is way too long
+function map(...) vim.api.nvim_set_keymap(...) end
+opts = {noremap=true, silent=true}
 
-return require('packer').startup(function()
+
+require('packer').init {
+    max_jobs = 25,
+}
+
+
+-- auto compile when this file is modified
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
+
+return require('packer').startup({function()
+
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -48,14 +64,50 @@ return require('packer').startup(function()
     use 'yamatsum/nvim-web-nonicons'
     use 'glepnir/dashboard-nvim'
     use 'rcarriga/nvim-notify'
-    use 'folke/which-key.nvim'
+    use {'folke/which-key.nvim',
+	config = function()
+	require("which-key").setup {
+		plugins = {
+		    marks = true, -- shows a list of your marks on ' and `
+		    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+		    spelling = {
+			enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+			suggestions = 20, -- how many suggestions should be shown in the list?
+		    },
+		    presets = {
+			operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+			motions = true, -- adds help for motions
+			text_objects = true, -- help for text objects triggered after entering an operator
+			windows = true, -- default bindings on <c-w>
+			nav = true, -- misc bindings to work with windows
+			z = true, -- bindings for folds, spelling and others prefixed with z
+			g = true, -- bindings for prefixed with g
+		    },
+		},
+		operators = { gc = "Comments" },
+		key_labels = {
+		    -- override the label used to display some keys. It doesn't effect WK in any other way.
+		    ["<space>"] = "SPC",
+		    ["<cr>"] = "RET",
+		    ["<tab>"] = "TAB",
+		},
+	    }
+	    end
+    }
     use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
     use {'folke/twilight.nvim', config = function()
 	require("twilight").setup {}
     end}
-    use {'folke/neoscroll.nvim', config = function()
+    use {'karb94/neoscroll.nvim', config = function()
 	require('neoscroll').setup()
     end}
+
+    use 'Konfekt/FastFold' -- Faster folding
+    use {'scr1pt0r/crease.vim', config = function()
+	vim.g.crease_foldtext = { marker = '%=-- %t --%=' }
+	vim.opt.fillchars:append({ fold = ' '})
+    end}
+
     use 'RRethy/nvim-base16'
     use 'folke/tokyonight.nvim'
     use 'tiagovla/tokyodark.nvim'
@@ -112,7 +164,7 @@ return require('packer').startup(function()
     use 'jose-elias-alvarez/null-ls.nvim'
     use {'filipdutescu/renamer.nvim',  branch = 'master',
 	config = function()
-	    require("renamer").setup{}
+	    require("renamer").setup()
     end}
 
     use {'ms-jpq/coq_nvim', branch = 'coq',
@@ -237,9 +289,6 @@ return require('packer').startup(function()
 	require("todo-comments").setup{}
     end}
 
-    use 'Konfekt/FastFold' -- Faster folding
-    use 'arecarn/vim-clean-fold'
-    -- use 'scr1pt0r/crease.vim'
     -- }}}
 
 
@@ -352,9 +401,9 @@ return require('packer').startup(function()
     if packer_bootstrap then
         require('packer').sync()
     end
-end)
-
-
-
-
+end, config = {
+    -- Move to lua dir so impatient.nvim can cache it
+    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
+  }
+})
 -- vim: foldmethod=marker
