@@ -89,26 +89,12 @@ augroup END
 )
 
 require('plugins')
-
 require('impatient')
 require('cfg.treesitter')
 require('cfg.gitsigns')
 require('cfg.telescope')
 require('cfg.dap')
 require('cfg.lsp')
-require('toggle_lsp_diagnostics').init()
-require('neogit').setup {}
-require('nvim-tree').setup {}
-require('numb').setup()
-require('gitlinker').setup()
-require('Comment').setup()
-require("stabilize").setup()
-require('rust-tools').setup({})
-require("todo-comments").setup{}
-require("renamer").setup{}
-require("twilight").setup {}
-require('neoscroll').setup()
-require('colorizer').setup()
 
 require('windline.bubblegum')
 
@@ -152,69 +138,15 @@ wk.register({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
-  {silent = true, noremap = true}
-)
-vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>",
-  {silent = true, noremap = true}
-)
 
 
-vim.g.coq_settings = {
-     ['auto_start'] = 'shut-up',
-     ['display'] = {
-         ['pum'] = {
-             ['fast_close'] = false
-         }
-    },
-    ['display.icons.mappings'] = {
-	["Class"]         = " ",
-	["Color" ]        = " ",
-	["Constant"]      = " ",
-	["Constructor"]   = " ",
-	["Enum"]          = " ",
-	["EnumMember"]    = " ",
-	["Event"]         = " ",
-	["Field"]         = " ",
-	["File"]          = " ",
-	["Folder"]        = " ",
-	["Function"]      = " ",
-	["Interface"]     = " ",
-	["Keyword"]       = " ",
-	["Method"]        = " ",
-	["Module"]        = " ",
-	["Operator"]      = " ",
-	["Property"]      = " ",
-	["Reference"]     = " ",
-	["Snippet"]       = " ",
-	["Struct"]        = " ",
-	["Text"]          = " ",
-	["TypeParameter"] = " ",
-	["Unit"]          = " ",
-	["Value"]         = " ",
-	["Variable"]      = " ",
-    }
-}
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_exec([[
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-]], false) -- HACK: seriosly fix this
+
 
 if vim.fn.executable('rg') then
     vim.o.grepprg="rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
     vim.o.grepformat="%f:%l:%c:%m,%f:%l:%m"
 end
+
+
 
 -- vim: foldmethod=marker sw=4

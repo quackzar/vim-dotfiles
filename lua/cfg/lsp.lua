@@ -9,10 +9,6 @@ require("coq_3p") {
     { src = "dap" },
 }
 
--- require("null-ls").config({
---     sources = {
---     },
--- })
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
@@ -127,9 +123,6 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-require("trouble").setup {
-    use_diagnostic_signs = true,
-}
 
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
