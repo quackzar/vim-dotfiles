@@ -1,14 +1,4 @@
 local lspconfig = require('lspconfig')
-local coq = require ("coq")
-
--- coq_settings.clients.tabnine.enabled=true
-require("coq_3p") {
-    { src = "copilot", short_name = "COP", tmp_accept_key = "<c-r>" },
-    { src = "vimtex", short_name = "vTEX" },
-    { src = "nvimlua", short_name = "nLUA", conf_only = true },
-    { src = "dap" },
-}
-
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,

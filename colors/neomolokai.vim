@@ -320,6 +320,8 @@ call Highlight("FloatermBorder", s:orange, s:charcoal)
 call Highlight("IndentGuide", s:dark_grey, s:background)
 let g:indentLine_color_gui = s:dark_grey
 
+call Highlight("IndentBlankLineContextChar", s:cyan, s:background)
+highlight IndentBlanklineContextStart guisp=#62D8F1 gui=underline
 " Beacon
 call Highlight("Beacon", s:white, s:cyan)
 

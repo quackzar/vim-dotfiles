@@ -9,11 +9,18 @@ vim.o.foldenable = true
 vim.o.wildmenu = true
 vim.o.showmode = false
 
+vim.o.title = true
+
+vim.o.virtualedit='block,onemore'
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.o.autoread = true
+
 vim.o.shiftwidth = 4
+vim.o.tabstop = 4
+vim.o.expandtab = true
+vim.o.smarttab = true
 
 vim.wo.signcolumn = 'yes'
 
@@ -36,6 +43,15 @@ vim.o.dictionary="/usr/share/dict/words"
 vim.o.thesaurus=vim.fn.stdpath('config') .. '/thesaurus/words.txt'
 
 
+vim.opt.list = true
+vim.opt.listchars:append("tab:▷⋅")
+vim.opt.listchars:append("nbsp:␣")
+vim.opt.listchars:append("trail:⋅")
+
+vim.opt.fillchars:append("eob: ")
+vim.opt.showbreak = "↪"
+
+
 -- some pluginless keymaps
 vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'Q', ':close<cr>', { noremap = true, silent = true })
@@ -49,13 +65,6 @@ vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 
--- blankline
-
-vim.g.indent_blankline_char = '▏'
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_show_trailing_blankline_indent = true
-vim.g.indent_blankline_show_first_indent_level = false
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
@@ -121,12 +130,4 @@ wk.register({
 	},
     },
 })
-
-
-
-
-
-
-
-
 -- vim: foldmethod=marker sw=4
