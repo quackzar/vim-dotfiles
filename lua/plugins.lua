@@ -58,56 +58,99 @@ return require('packer').startup({function()
     end
     }
     use {'norcalli/nvim-colorizer.lua', config = function()
-    require('colorizer').setup()
+        require('colorizer').setup()
     end}
+
+    use({
+        "narutoxy/themer.lua",
+        branch = "dev", -- I recommend dev branch because it has more plugin support currently
+        module = "themer",  -- load it as fast as possible
+        config = function()
+            require("themer")({colorscheme = "rose_pine"})
+        end,
+    })
+
     use 'kyazdani42/nvim-web-devicons'
     use 'yamatsum/nvim-web-nonicons'
     use 'glepnir/dashboard-nvim'
     use 'rcarriga/nvim-notify'
     use {'folke/which-key.nvim',
-    config = function()
-        require("which-key").setup {
-        plugins = {
-            marks = true, -- shows a list of your marks on ' and `
-            registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-            spelling = {
-            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-            suggestions = 20, -- how many suggestions should be shown in the list?
-            },
-            presets = {
-            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = true, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true, -- default bindings on <c-w>
-            nav = true, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = true, -- bindings for prefixed with g
-            },
-        },
-        operators = { gc = "Comments" },
-        key_labels = {
-            -- override the label used to display some keys. It doesn't effect WK in any other way.
-            ["<space>"] = "SPC",
-            ["<cr>"] = "RET",
-            ["<tab>"] = "TAB",
-        },
-        }
+        config = function()
+            require("which-key").setup {
+                plugins = {
+                    marks = true, -- shows a list of your marks on ' and `
+                    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+                    spelling = {
+                        enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+                        suggestions = 20, -- how many suggestions should be shown in the list?
+                    },
+                    presets = {
+                        operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+                        motions = true, -- adds help for motions
+                        text_objects = true, -- help for text objects triggered after entering an operator
+                        windows = true, -- default bindings on <c-w>
+                        nav = true, -- misc bindings to work with windows
+                        z = true, -- bindings for folds, spelling and others prefixed with z
+                        g = true, -- bindings for prefixed with g
+                    },
+                },
+                operators = { gc = "Comments" },
+                key_labels = {
+                    -- override the label used to display some keys. It doesn't effect WK in any other way.
+                    ["<space>"] = "SPC",
+                    ["<cr>"] = "RET",
+                    ["<tab>"] = "TAB",
+                },
+            }
         end
     }
     use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
     use {'folke/twilight.nvim', config = function()
-    require("twilight").setup {}
+        require("twilight").setup {}
     end}
     use {'karb94/neoscroll.nvim', config = function()
-    require('neoscroll').setup()
+        require('neoscroll').setup()
     end}
 
     use 'Konfekt/FastFold' -- Faster folding
-    use {'scr1pt0r/crease.vim', config = function()
-    vim.g.crease_foldtext = { marker = '%=-- %t --%=' }
-    vim.opt.fillchars:append({ fold = ' '})
-    end}
+    use{ 'anuvyklack/pretty-fold.nvim',
+        config = function()
+            require('pretty-fold').setup {
+                fill_char = ' ',
+                sections = {
+                    left = {
+                        'content',
+                    },
+                    right = {
+                        ' ', 'number_of_folded_lines', ': ', 'percentage', ' ',
+                        function(config) return config.fill_char:rep(3) end
+                    }
+                },
+                remove_fold_markers = true,
+                keep_indentation = true,
+                comment_signs = 'spaces',
+                stop_words = {
+                    '@brief%s*', -- (for cpp) Remove '@brief' and all spaces after.
+                },
+                add_close_pattern = true,
+                matchup_patterns = {
+                    { '{', '}' },
+                    { '%(', ')' }, -- % to escape lua pattern char
+                    { '%[', ']' }, -- % to escape lua pattern char
+                    { 'if%s', 'end' },
+                    { 'do%s', 'end' },
+                    { 'for%s', 'end' },
+                },
+            }
+            require('pretty-fold.preview').setup_keybinding()
+        end
+    }
 
+    use {
+        'nyngwang/NeoZoom.lua'
+    }
+
+    -- colorschemes
     use 'RRethy/nvim-base16'
     use 'folke/tokyonight.nvim'
     use 'tiagovla/tokyodark.nvim'
@@ -124,18 +167,23 @@ return require('packer').startup({function()
     use 'rickhowe/diffchar.vim'
     use {'TimUntersberger/neogit',
     config = function()
+        require('neogit').setup {}
         map("n", "<leader>gg", "<cmd>Neogit<cr>", opts)
         map("n", "<leader>gl", "<cmd>Neogit log<cr>", opts)
         map("n", "<leader>gc", "<cmd>Neogit commit<cr>", opts)
-        require('neogit').setup {}
     end
     }
+    use {'f-person/git-blame.nvim',
+        config = function()
+            vim.g.gitblame_enabled = 0
+        end
+    }
+
     use {'ruifm/gitlinker.nvim', config = function()
     require('gitlinker').setup()
     end}
     use 'sindrets/diffview.nvim'
     --- }}}
-
     -- ide.vim {{{
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
@@ -145,15 +193,15 @@ return require('packer').startup({function()
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
     use {'folke/trouble.nvim', config = function()
-    map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
-    map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
-    map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
-    map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
-    map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
-    map("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
-    require("trouble").setup {
-        use_diagnostic_signs = true,
-    }
+        map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
+        map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
+        map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
+        map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
+        map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
+        map("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
+        require("trouble").setup {
+            use_diagnostic_signs = true,
+        }
     end}
     use 'ray-x/lsp_signature.nvim'
     use {'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', config = function()
@@ -220,10 +268,10 @@ return require('packer').startup({function()
     }
     use {'ms-jpq/coq.thirdparty', branch = '3p'}
     use {'github/copilot.vim', config = function()
-    vim.g.copilot_no_tab_map = true
-    map("i", "<C-J>", [[copilot#Accept('\<CR>')]],
-        { noremap = false, silent = true, expr = true, script = true }
-    )
+        map("i", "<C-J>", [[copilot#Accept('<CR>')]],
+            { noremap = false, silent = true, expr = true, script = true }
+        )
+        vim.g.copilot_no_tab_map = true
     end}
     use 'honza/vim-snippets'
 
@@ -238,8 +286,6 @@ return require('packer').startup({function()
 
     use 'voldikss/vim-floaterm'
     -- }}}
-
-
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
     use 'aca/vidir.nvim'
@@ -303,20 +349,38 @@ return require('packer').startup({function()
     use 'dstein64/nvim-scrollview'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUPDATE' }
     use 'romgrk/fzy-lua-native' -- for use with wilder
-    use 'romgrk/nvim-treesitter-context'
+    use {'romgrk/nvim-treesitter-context',
+        config = function()
+            require'treesitter-context'.setup{
+                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+                throttle = true, -- Throttles plugin updates (may improve performance)
+                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+                patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+                    default = {
+                        'class',
+                        'function',
+                        'method',
+                        'for',
+                        'while',
+                        'if',
+                        'switch',
+                        'case',
+                    },
+                }
+            }
+        end
+    }
     use 'RRethy/nvim-treesitter-textsubjects'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-telescope/telescope-z.nvim'
     use {'luukvbaal/stabilize.nvim', config = function()
-    require("stabilize").setup()
+        require("stabilize").setup()
     end }
     use {'folke/todo-comments.nvim', config = function()
-    require("todo-comments").setup{}
+        require("todo-comments").setup{}
     end}
 
     -- }}}
-
-
     -- navigation.vim {{{
     use {'dstein64/vim-win',
     config = function()
@@ -330,19 +394,30 @@ return require('packer').startup({function()
     use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
     use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    },
-    config = function()
-        require'nvim-tree'.setup {}
-        map("n", "<leader>z", ":TreeToggle<CR>", opts)
-    end
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icon
+        },
+        config = function()
+            require'nvim-tree'.setup {
+                hijack_cursor = true,
+                diagnostics = {
+                    enable = true,
+                    icons = {
+                        hint = "",
+                        info = "",
+                        warning = "",
+                        error = "",
+                    }
+                }
+            }
+            map("n", "<leader>z", ":NvimTreeToggle<CR>", opts)
+        end
     }
     use {'ripxorip/aerojump.nvim',  run = ':UpdateRemotePlugins',
     config = function()
-        map("n", "<leader>/", ":AeroJumpSpace<CR>", {noremap = false})
-        map("n", "<leader>?", ":AeroJumpBolt<CR>", {noremap = false})
+        map("n", "<leader>/", ":AerojumpSpace<CR>", {noremap = false})
+        map("n", "<leader>?", ":AerojumpBolt<CR>", {noremap = false})
     end
     }
     -- }}}
@@ -382,6 +457,27 @@ return require('packer').startup({function()
         vim.g.asciidoctor_folding = 1
     end
     }
+    use {
+        "nvim-neorg/neorg",
+        config = function()
+            require('neorg').setup {
+                -- Tell Neorg what modules to load
+                load = {
+                    ["core.defaults"] = {}, -- Load all the default modules
+                    ["core.norg.concealer"] = {}, -- Allows for use of icons
+                    ["core.norg.dirman"] = { -- Manage your directories with Neorg
+                        config = {
+                            workspaces = {
+                                my_workspace = "~/neorg"
+                            }
+                        }
+                    }
+                },
+            }
+        end,
+        requires = "nvim-lua/plenary.nvim"
+    }
+
     -- ======== GRAPHVIZ ========
     use {'liuchengxu/graphviz.vim', ft = 'dot'}
     -- ======== TYPESCRIPT =======

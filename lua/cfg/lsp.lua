@@ -76,7 +76,7 @@ function on_attach(client, bufnr)
     vim.cmd([[
         augroup DiagnosticFloat
             autocmd!
-            autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+            autocmd CursorHold * lua vim.diagnostic.open_float()
         augroup END
     ]])
 end

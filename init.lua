@@ -10,6 +10,7 @@ vim.o.wildmenu = true
 vim.o.showmode = false
 
 vim.o.title = true
+vim.g.mapleader = ' '
 
 vim.o.virtualedit='block,onemore'
 vim.o.ignorecase = true
@@ -61,14 +62,12 @@ vim.api.nvim_set_keymap('', 'X', '"_X', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'gb', ':bn<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
 
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
-vim.cmd('colorscheme neomolokai')
+vim.cmd('colorscheme old_neomolokai')
 vim.g.python3_host_prog = '/usr/bin/python3'
 
 
@@ -108,12 +107,17 @@ if vim.fn.executable('rg') then
     vim.o.grepformat="%f:%l:%c:%m,%f:%l:%m"
 end
 
+-- loads all plugins
 require('plugins')
+require('packer_compiled')
+
+-- load specific configs
 require('cfg.treesitter')
 require('cfg.gitsigns')
 require('cfg.telescope')
 require('cfg.dap')
 require('cfg.lsp')
+require('cfg.tree')
 
 require('windline.bubblegum')
 
@@ -121,13 +125,14 @@ require('windline.bubblegum')
 local wk = require('which-key')
 wk.register({
     ["<leader>"] = {
-	f = {
-	    name = "+find",
-	    f = { "<cmd>Telescope find_files<cr>", "Find File" },
-	    b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
-	    g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-	    h = { "<cmd>Telescope help_tags<cr>", "Find help" },
-	},
+    f = {
+        name = "+find",
+        f = { "<cmd>Telescope find_files<cr>", "Find File" },
+        b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+        g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+        h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+    },
     },
 })
+
 -- vim: foldmethod=marker sw=4
