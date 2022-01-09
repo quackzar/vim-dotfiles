@@ -29,7 +29,7 @@ vim.diagnostic.config({
         border = 'rounded',
         focusable = false,
     },
-    update_in_insert = true, -- default to false
+    update_in_insert = false, -- default to false
     severity_sort = true, -- default to false
 })
 

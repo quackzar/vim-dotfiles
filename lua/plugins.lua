@@ -61,14 +61,15 @@ return require('packer').startup({function()
         require('colorizer').setup()
     end}
 
-    use({
-        "narutoxy/themer.lua",
-        branch = "dev", -- I recommend dev branch because it has more plugin support currently
-        module = "themer",  -- load it as fast as possible
-        config = function()
-            require("themer")({colorscheme = "rose_pine"})
-        end,
-    })
+    -- use({
+    --     "narutoxy/themer.lua",
+    --     branch = "dev", -- I recommend dev branch because it has more plugin support currently
+    --     module = "themer",  -- load it as fast as possible
+    --     config = function()
+    --         require("themer")({colorscheme = "rose_pine"})
+    --     end,
+    -- })
+    use  'rktjmp/lush.nvim'
 
     use 'kyazdani42/nvim-web-devicons'
     use 'yamatsum/nvim-web-nonicons'
@@ -109,8 +110,34 @@ return require('packer').startup({function()
         require("twilight").setup {}
     end}
     use {'karb94/neoscroll.nvim', config = function()
-        require('neoscroll').setup()
+        require('neoscroll').setup() -- smooth scrolling
     end}
+
+    use {'kevinhwang91/nvim-hlslens',
+        config = function()
+            map('', 'n', "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
+            map('', 'N', "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
+            map('', '*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
+            map('', '#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
+            map('', 'g*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
+            map('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
+        end
+    }
+    use {"petertriho/nvim-scrollbar",
+        requires = 'kevinhwang91/nvim-hlslens',
+        config = function()
+            require("scrollbar").setup({
+                handle = {
+                    text = " ",
+                    color = "grey",
+                },
+                handlers = {
+                    diagnostic = true,
+                    search = true, -- Requires hlslens to be loaded
+                },
+            })
+        end
+    }
 
     use 'Konfekt/FastFold' -- Faster folding
     use{ 'anuvyklack/pretty-fold.nvim',
@@ -182,7 +209,7 @@ return require('packer').startup({function()
     use {'ruifm/gitlinker.nvim', config = function()
     require('gitlinker').setup()
     end}
-    use 'sindrets/diffview.nvim'
+    use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
     --- }}}
     -- ide.vim {{{
     use 'skywind3000/asyncrun.vim'
@@ -291,7 +318,9 @@ return require('packer').startup({function()
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
     config = function()
-        require('Comment').setup()
+        require('Comment').setup({
+                ignore = '^$'
+            })
     end
     }
     use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
@@ -331,7 +360,9 @@ return require('packer').startup({function()
         -- for example, context is off by default, use this to turn it on
         space_char_blankline = " ",
         show_current_context = true,
+
         show_current_context_start = true,
+
         }
     end
     }
@@ -346,7 +377,6 @@ return require('packer').startup({function()
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'dstein64/nvim-scrollview'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUPDATE' }
     use 'romgrk/fzy-lua-native' -- for use with wilder
     use {'romgrk/nvim-treesitter-context',
@@ -390,7 +420,17 @@ return require('packer').startup({function()
     use {'nacro90/numb.nvim', config = function()
     require('numb').setup()
     end}
-    use 'ggandor/lightspeed.nvim'
+    use {'ggandor/lightspeed.nvim',
+        config = function()
+            vim.g.lightspeed_no_default_keymaps = true
+            require('lightspeed').setup({})
+            map("n", "+", "<Plug>Lightspeed_s", {silent = true})
+            map("n", "-", "<Plug>Lightspeed_S", {silent = true})
+            map("n", "f", "<Plug>Lightspeed_f", {silent = true})
+            map("n", "F", "<Plug>Lightspeed_F", {silent = true})
+            map("n", "t", "<Plug>Lightspeed_t", {silent = true})
+            map("n", "T", "<Plug>Lightspeed_T", {silent = true})
+        end}
     use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
     use {
