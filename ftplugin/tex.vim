@@ -1,12 +1,9 @@
 setlocal foldmethod=expr
 setlocal foldexpr=vimtex#fold#level(v:lnum)
 setlocal foldtext=vimtex#fold#text()
-" setlocal formatprg=latexindent
 setlocal keywordprg=texdoc
 setlocal wrap
 setlocal spell
-" nnoremap <buffer> <leader>v :VoomToggle<cr>
-" nnoremap <silent><M-tab> :Vista focus<cr>
 nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
 nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 
@@ -28,5 +25,3 @@ vmap <buffer> ac <plug>(vimtex-ac)
 xmap <buffer> ac <plug>(vimtex-ac)
 vmap <buffer> ic <plug>(vimtex-ic)
 xmap <buffer> ic <plug>(vimtex-ic)
-
-" autocmd CursorHold,CursorHoldI * silent! wall

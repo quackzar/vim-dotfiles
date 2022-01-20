@@ -39,7 +39,7 @@ require'nvim-treesitter.configs'.setup {
         select = {
             enable = true,
 
-            -- Automatically jump forward to textobj, similar to targets.vim 
+            -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
 
             keymaps = {
@@ -48,6 +48,14 @@ require'nvim-treesitter.configs'.setup {
                 ["if"] = "@function.inner",
                 ["ac"] = "@class.outer",
                 ["ic"] = "@class.inner",
+                ["ig"] = "@comment.inner",
+                ["ag"] = "@comment.outer",
+                ["il"] = "@loop.inner",
+                ["al"] = "@loop.outer",
+                ["ia"] = "@parameter.inner",
+                ["aa"] = "@parameter.outer",
+                ["aC"] = "@call.outer",
+                ["iC"] = "@call.inner",
 
                 -- Or you can define your own textobjects like this
                 ["iF"] = {
@@ -87,7 +95,17 @@ require'nvim-treesitter.configs'.setup {
                 ["[]"] = "@class.outer",
             },
         },
+        lsp_interop = {
+            enable = true,
+            border =    'none',
+            peek_definition_code = {
+                ["<leader>df"] = "@function.outer",
+                ["<leader>dF"] = "@class.outer",
+            },
+        },
+    },
+    matchup = {
+        enable = true,
     },
 }
-
-
+-- vim: foldmethod=marker foldmarker={,}

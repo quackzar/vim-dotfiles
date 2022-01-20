@@ -208,7 +208,7 @@ null_ls.setup({
         -- null_ls.builtins.formatting.autopep8,
         null_ls.builtins.formatting.isort,
         -- null_ls.builtins.diagnostics.flake8,
-        null_ls.builtins.diagnostics.pylint,
+        -- null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.diagnostics.mypy,
 
         -- Shell
@@ -220,11 +220,12 @@ null_ls.setup({
         -- Git
         -- null_ls.builtins.code_actions.gitsigns,
 
+
         -- Rust
         null_ls.builtins.formatting.rustfmt,
 
         -- TeX
-        -- null_ls.builtins.diagnostics.chktex,
+        null_ls.builtins.diagnostics.chktex,
         null_ls.builtins.formatting.latexindent,
     },
     on_attach = function()

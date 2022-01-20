@@ -32,31 +32,38 @@ return require('packer').startup({function()
 
     -- ui.vim {{{
     use 'windwp/windline.nvim'
-    use {
-    'romgrk/barbar.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
-    config = function()
-        map('n', '<A-,>', ':BufferPrevious<CR>', opts)
-        map('n', '<A-.>', ':BufferNext<CR>', opts)
-        map('n', '<A-<>', ':BufferMovePrevious<CR>', opts)
-        map('n', '<A->>', ':BufferMoveNext<CR>', opts)
-        map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
-        map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
-        map('n', '<A-3>', ':BufferGoto 3<CR>', opts)
-        map('n', '<A-4>', ':BufferGoto 4<CR>', opts)
-        map('n', '<A-5>', ':BufferGoto 5<CR>', opts)
-        map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
-        map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
-        map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
-        map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
-        map('n', '<A-0>', ':BufferLast<CR>', opts)
-        map('n', '<A-c>', ':BufferClose<CR>', opts)
-        map('n', '<C-p>', ':BufferPick<CR>', opts)
-        map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
-        map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
-        map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
-    end
+    -- use {
+    -- 'romgrk/barbar.nvim',
+    -- requires = {'kyazdani42/nvim-web-devicons'},
+    -- config = function()
+    --     map('n', '<A-,>', ':BufferPrevious<CR>', opts)
+    --     map('n', '<A-.>', ':BufferNext<CR>', opts)
+    --     map('n', '<A-<>', ':BufferMovePrevious<CR>', opts)
+    --     map('n', '<A->>', ':BufferMoveNext<CR>', opts)
+    --     map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
+    --     map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
+    --     map('n', '<A-3>', ':BufferGoto 3<CR>', opts)
+    --     map('n', '<A-4>', ':BufferGoto 4<CR>', opts)
+    --     map('n', '<A-5>', ':BufferGoto 5<CR>', opts)
+    --     map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
+    --     map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
+    --     map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
+    --     map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
+    --     map('n', '<A-0>', ':BufferLast<CR>', opts)
+    --     map('n', '<A-c>', ':BufferClose<CR>', opts)
+    --     map('n', '<C-p>', ':BufferPick<CR>', opts)
+    --     map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
+    --     map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
+    --     map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
+    -- end
+    -- }
+
+    use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require("cfg.bufferline")
+        end
     }
+
     use {'norcalli/nvim-colorizer.lua', config = function()
         require('colorizer').setup()
     end}
@@ -139,9 +146,10 @@ return require('packer').startup({function()
         end
     }
 
-    use 'Konfekt/FastFold' -- Faster folding
+    -- use 'Konfekt/FastFold' -- Faster folding
     use{ 'anuvyklack/pretty-fold.nvim',
         config = function()
+            vim.opt.fillchars:append('fold: ')
             require('pretty-fold').setup {
                 fill_char = ' ',
                 sections = {
@@ -155,10 +163,7 @@ return require('packer').startup({function()
                 },
                 remove_fold_markers = true,
                 keep_indentation = true,
-                comment_signs = 'spaces',
-                stop_words = {
-                    '@brief%s*', -- (for cpp) Remove '@brief' and all spaces after.
-                },
+                process_comment_signs = 'spaces',
                 add_close_pattern = true,
                 matchup_patterns = {
                     { '{', '}' },
@@ -169,7 +174,7 @@ return require('packer').startup({function()
                     { 'for%s', 'end' },
                 },
             }
-            require('pretty-fold.preview').setup_keybinding()
+            require('pretty-fold.preview').setup_keybinding('h') -- choose 'h' or 'l' key
         end
     }
 
@@ -179,7 +184,11 @@ return require('packer').startup({function()
 
     -- colorschemes
     use 'RRethy/nvim-base16'
-    use 'folke/tokyonight.nvim'
+    use {'folke/tokyonight.nvim',
+        config = function()
+            vim.g.tokyonight_style = 'night'
+        end
+    }
     use 'tiagovla/tokyodark.nvim'
     use 'mhartington/oceanic-next'
     use 'rose-pine/neovim'
@@ -189,16 +198,21 @@ return require('packer').startup({function()
     -- }}}
     -- git.vim {{{
     use 'tpope/vim-fugitive'
-    use 'lewis6991/gitsigns.nvim'
+    use {'lewis6991/gitsigns.nvim',
+        config = function() require('cfg.gitsigns') end
+    }
     use 'junegunn/gv.vim'
     use 'rickhowe/diffchar.vim'
     use {'TimUntersberger/neogit',
-    config = function()
-        require('neogit').setup {}
-        map("n", "<leader>gg", "<cmd>Neogit<cr>", opts)
-        map("n", "<leader>gl", "<cmd>Neogit log<cr>", opts)
-        map("n", "<leader>gc", "<cmd>Neogit commit<cr>", opts)
-    end
+        requires = 'nvim-lua/plenary.nvim',
+        config = function()
+            require('neogit').setup {
+                kind = 'split'
+            }
+            map("n", "<leader>gg", "<cmd>Neogit<cr>", opts)
+            map("n", "<leader>gl", "<cmd>Neogit log<cr>", opts)
+            map("n", "<leader>gc", "<cmd>Neogit commit<cr>", opts)
+        end
     }
     use {'f-person/git-blame.nvim',
         config = function()
@@ -206,12 +220,54 @@ return require('packer').startup({function()
         end
     }
 
-    use {'ruifm/gitlinker.nvim', config = function()
-    require('gitlinker').setup()
-    end}
+    use {'ruifm/gitlinker.nvim',
+        config = function()
+            require('gitlinker').setup()
+        end}
     use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
     --- }}}
-    -- ide.vim {{{
+    -- treesitter {{{
+    use {'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        config = function() require('cfg.treesitter') end
+    }
+    use {'romgrk/nvim-treesitter-context',
+        config = function()
+            require'treesitter-context'.setup{
+                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+                throttle = true, -- Throttles plugin updates (may improve performance)
+                max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
+                patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+                    default = {
+                        'class',
+                        'function',
+                        'method',
+                        'for',
+                        'while',
+                        'if',
+                        'switch',
+                        'case',
+                    },
+                    lua = {
+                        'require',
+                    },
+                    python = {
+                        'def',
+                    },
+                    latex = {
+                        '\\begin',
+                        '\\end',
+                        '\\section',
+                        '\\subsection'
+                    },
+                }
+            }
+        end
+    }
+    use 'RRethy/nvim-treesitter-textsubjects'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    -- }}}
+    -- LSP {{{
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
     use 'neovim/nvim-lspconfig'
@@ -279,7 +335,6 @@ return require('packer').startup({function()
                 Variable      = " ",
             }
         }
-        local coq = require ("coq")
     end
     } -- 9000+ Snippets
     use {'ms-jpq/coq.artifacts',
@@ -300,10 +355,31 @@ return require('packer').startup({function()
         )
         vim.g.copilot_no_tab_map = true
     end}
-    use 'honza/vim-snippets'
 
-    use 'vim-test/vim-test'
-    use { "rcarriga/vim-ultest", requires = {"vim-test/vim-test"}, run = ":UpdateRemotePlugins" }
+
+    use {'sidebar-nvim/sections-dap'}
+    use {'sidebar-nvim/sidebar.nvim',
+        config = function()
+            require('cfg.sidebar')
+        end
+    }
+
+    -- }}}
+    -- Testing and Debugging {{{
+
+    use {'vim-test/vim-test'}
+    use { "rcarriga/vim-ultest",
+        requires = {"vim-test/vim-test"},
+        run = ":UpdateRemotePlugins",
+        config = function()
+            vim.g.ultest_use_pty = 1
+            map('', ']t', '<Plug>(ultest-next-fail)', {silent=true})
+            map('', '[t', '<Plug>(ultest-prev-fail)', {silent=true})
+            map('n', '<leader>ta', '<Plug>(ultest-run-file)', {silent=true})
+            map('n', '<leader>tt', '<Plug>(ultest-run-nearest)', {silent=true})
+            map('i', '<C-g>tt', '<Plug>(ultest-run-nearest)', {silent=true})
+        end
+    }
 
     use 'mfussenegger/nvim-dap'
     use {'theHamsta/nvim-dap-virtual-text', requires = {"mfussenegger/nvim-dap"} }
@@ -333,14 +409,12 @@ return require('packer').startup({function()
     use 'wellle/targets.vim'
     use {'andymass/vim-matchup', event = 'VimEnter',
     config = function()
-        vim. g.loaded_matchit = 1
         vim.g.matchup_surround_enabled = 0
         vim.g.matchup_transmute_enabled = 1
         vim.g.matchup_matchparen_deferred = 1
         vim.g.matchup_override_vimtex = 1
         vim.g.matchup_matchparen_offscreen = {method = 'popup'}
-    end
-    }
+    end}
     use 'junegunn/vim-easy-align'
     use 'Konfekt/vim-sentence-chopper'
     use 'markonm/traces.vim'
@@ -352,7 +426,7 @@ return require('packer').startup({function()
     use {'lukas-reineke/indent-blankline.nvim',
     config = function()
         vim.g.indent_blankline_char = '▏'
-        vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
+            vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
         vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
         vim.g.indent_blankline_show_trailing_blankline_indent = true
         vim.g.indent_blankline_show_first_indent_level = false
@@ -374,34 +448,14 @@ return require('packer').startup({function()
     use 'nvim-lua/plenary.nvim'
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUPDATE' }
-    use 'romgrk/fzy-lua-native' -- for use with wilder
-    use {'romgrk/nvim-treesitter-context',
+        requires = { {'nvim-lua/plenary.nvim'} },
         config = function()
-            require'treesitter-context'.setup{
-                enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-                throttle = true, -- Throttles plugin updates (may improve performance)
-                max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-                patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-                    default = {
-                        'class',
-                        'function',
-                        'method',
-                        'for',
-                        'while',
-                        'if',
-                        'switch',
-                        'case',
-                    },
-                }
-            }
+            require('cfg.telescope')
         end
     }
-    use 'RRethy/nvim-treesitter-textsubjects'
-    use 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    use 'romgrk/fzy-lua-native' -- for use with wilder
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-z.nvim'
     use {'luukvbaal/stabilize.nvim', config = function()
         require("stabilize").setup()
@@ -409,6 +463,32 @@ return require('packer').startup({function()
     use {'folke/todo-comments.nvim', config = function()
         require("todo-comments").setup{}
     end}
+
+    use {
+        'abecodes/tabout.nvim',
+        config = function()
+            require('tabout').setup {
+                tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
+                backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+                act_as_tab = true, -- shift content if tab out is not possible
+                act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+                enable_backwards = true, -- well ...
+                completion = true, -- if the tabkey is used in a completion pum
+                tabouts = {
+                    {open = "'", close = "'"},
+                    {open = '"', close = '"'},
+                    {open = '`', close = '`'},
+                    {open = '(', close = ')'},
+                    {open = '[', close = ']'},
+                    {open = '{', close = '}'}
+                },
+                ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+                exclude = {} -- tabout will ignore these filetypes
+            }
+        end,
+        wants = {'nvim-treesitter'}, -- or require if not used so far
+        after = {'coq_nvim'} -- if a completion plugin is using tabs load it before
+    }
 
     -- }}}
     -- navigation.vim {{{
@@ -431,7 +511,7 @@ return require('packer').startup({function()
             map("n", "t", "<Plug>Lightspeed_t", {silent = true})
             map("n", "T", "<Plug>Lightspeed_T", {silent = true})
         end}
-    use 'arp242/jumpy.vim' -- Maps [[ and ]]
+    -- use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
     use {
         'kyazdani42/nvim-tree.lua',
@@ -454,12 +534,6 @@ return require('packer').startup({function()
             map("n", "<leader>z", ":NvimTreeToggle<CR>", opts)
         end
     }
-    use {'ripxorip/aerojump.nvim',  run = ':UpdateRemotePlugins',
-    config = function()
-        map("n", "<leader>/", ":AerojumpSpace<CR>", {noremap = false})
-        map("n", "<leader>?", ":AerojumpBolt<CR>", {noremap = false})
-    end
-    }
     -- }}}
     -- languages.vim {{{
     -- ==========  C  ==========
@@ -480,22 +554,13 @@ return require('packer').startup({function()
     }
     -- ======== ASCIIDOC =======
     use {'habamax/vim-asciidoctor', ft = 'asciidoc',
-    config = function()
-        vim.g.asciidoctor_fenced_languages = {
-        'go',
-        'c',
-        'python',
-        'tex',
-        'sh',
-        'fish',
-        'javascript',
-        'vim',
-        'html',
-        'java',
-        }
-        vim.g.asciidoctor_syntax_conceal = 1
-        vim.g.asciidoctor_folding = 1
-    end
+        config = function()
+            vim.g.asciidoctor_fenced_languages = {
+                'go', 'c', 'python', 'tex', 'sh', 'fish', 'javascript', 'vim', 'html', 'java'
+            }
+            vim.g.asciidoctor_syntax_conceal = 1
+            vim.g.asciidoctor_folding = 1
+        end
     }
     use {
         "nvim-neorg/neorg",
@@ -540,7 +605,7 @@ return require('packer').startup({function()
     require('rust-tools').setup({})
     end}
     -- === Coq ===
-    use {'whonore/Coqtail', ft = 'coq',
+    use {'whonore/Coqtail', ft = 'coqt',
     config = function()
         vim.g.coqtail_auto_set_proof_diffs = 'on'
         vim.g.coqtail_map_prefix = ','
@@ -548,22 +613,52 @@ return require('packer').startup({function()
     end
     }
     -- === text ===
-    use 'brymer-meneses/grammar-guard.nvim'
+--     use {
+--         "brymer-meneses/grammar-guard.nvim",
+--         requires = {
+--             "neovim/nvim-lspconfig",
+--             "williamboman/nvim-lsp-installer"
+--         },
+--         config = function()
+--             require("grammar-guard").init()
+--             require("lspconfig").grammar_guard.setup({
+--                 settings = {
+--                     ltex = {
+--                         enabled = { "latex", "tex", "bib", "markdown", "asciidoc" },
+--                         language = "en",
+--                         diagnosticSeverity = "information",
+--                         setenceCacheSize = 2000,
+--                         additionalRules = {
+--                             enablePickyRules = true,
+--                             motherTongue = "en",
+--                         },
+--                         trace = { server = "verbose" },
+--                         dictionary = {},
+--                         disabledRules = {},
+--                         hiddenFalsePositives = {},
+--                     },
+--                 },
+-- })
+--         end
+--     }
 
     -- TeX
     use {'lervag/vimtex', ft = 'tex',
-    config = function()
-        vim.g.vimtex_compiler_latexmk = {
-        options = {
-            '-pdf',
-            '-shell-escape',
-            '-verbose',
-            '-synctex=1',
-            '-interaction=nonstopmode',
-        },
-        build_dir = 'out',
-        }
-    end
+        config = function()
+            vim.g.vimtex_fold_enabled = 1
+            vim.g.vimtex_format_enabled = 1
+            vim.g.tex_comment_nospell = 1
+            vim.g.vimtex_compiler_latexmk = {
+                options = {
+                    '-pdf',
+                    '-shell-escape',
+                    '-verbose',
+                    '-synctex=1',
+                    '-interaction=nonstopmode',
+                },
+                build_dir = 'out',
+            }
+        end
     }
     use {'KeitaNakamura/tex-conceal.vim', ft = 'tex'}
     -- }}}
