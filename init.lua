@@ -151,6 +151,17 @@ end
 
 local wk = require('which-key')
 wk.register({
+    ["]b"] = {"<cmd>BufferLineCycleNext<CR>", "Next Buffer"},
+    ["[b"] = {"<cmd>BufferLineCyclePrev<CR>", "Previous Buffer"},
+    ["<A-1>"] = {"<Cmd>BufferLineGoToBuffer 1<CR>", "Goto buffer 1"},
+    ["<A-2>"] = {"<Cmd>BufferLineGoToBuffer 2<CR>", "Goto buffer 2"},
+    ["<A-3>"] = {"<Cmd>BufferLineGoToBuffer 3<CR>", "Goto buffer 3"},
+    ["<A-4>"] = {"<Cmd>BufferLineGoToBuffer 4<CR>", "Goto buffer 4"},
+    ["<A-5>"] = {"<Cmd>BufferLineGoToBuffer 5<CR>", "Goto buffer 5"},
+    ["<A-6>"] = {"<Cmd>BufferLineGoToBuffer 6<CR>", "Goto buffer 6"},
+    ["<A-7>"] = {"<Cmd>BufferLineGoToBuffer 7<CR>", "Goto buffer 7"},
+    ["<A-8>"] = {"<Cmd>BufferLineGoToBuffer 8<CR>", "Goto buffer 8"},
+    ["<A-9>"] = {"<Cmd>BufferLineGoToBuffer 9<CR>", "Goto buffer 9"},
     ["<leader>"] = {
         f = {
             name = "+telescope",
