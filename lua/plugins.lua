@@ -32,31 +32,6 @@ return require('packer').startup({function()
 
     -- ui.vim {{{
     use 'windwp/windline.nvim'
-    -- use {
-    -- 'romgrk/barbar.nvim',
-    -- requires = {'kyazdani42/nvim-web-devicons'},
-    -- config = function()
-    --     map('n', '<A-,>', ':BufferPrevious<CR>', opts)
-    --     map('n', '<A-.>', ':BufferNext<CR>', opts)
-    --     map('n', '<A-<>', ':BufferMovePrevious<CR>', opts)
-    --     map('n', '<A->>', ':BufferMoveNext<CR>', opts)
-    --     map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
-    --     map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
-    --     map('n', '<A-3>', ':BufferGoto 3<CR>', opts)
-    --     map('n', '<A-4>', ':BufferGoto 4<CR>', opts)
-    --     map('n', '<A-5>', ':BufferGoto 5<CR>', opts)
-    --     map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
-    --     map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
-    --     map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
-    --     map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
-    --     map('n', '<A-0>', ':BufferLast<CR>', opts)
-    --     map('n', '<A-c>', ':BufferClose<CR>', opts)
-    --     map('n', '<C-p>', ':BufferPick<CR>', opts)
-    --     map('n', '<Space>bb', ':BufferOrderByBufferNumber<CR>', opts)
-    --     map('n', '<Space>bd', ':BufferOrderByDirectory<CR>', opts)
-    --     map('n', '<Space>bl', ':BufferOrderByLanguage<CR>', opts)
-    -- end
-    -- }
 
     use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons',
         config = function()
@@ -68,14 +43,7 @@ return require('packer').startup({function()
         require('colorizer').setup()
     end}
 
-    -- use({
-    --     "narutoxy/themer.lua",
-    --     branch = "dev", -- I recommend dev branch because it has more plugin support currently
-    --     module = "themer",  -- load it as fast as possible
-    --     config = function()
-    --         require("themer")({colorscheme = "rose_pine"})
-    --     end,
-    -- })
+
     use  'rktjmp/lush.nvim'
 
     use 'kyazdani42/nvim-web-devicons'
@@ -189,7 +157,11 @@ return require('packer').startup({function()
             vim.g.tokyonight_style = 'night'
         end
     }
-    use 'tiagovla/tokyodark.nvim'
+    use {'tiagovla/tokyodark.nvim',
+        config = function()
+            vim.g.tokyodark_transparent_background = true
+        end
+    }
     use 'mhartington/oceanic-next'
     use 'rose-pine/neovim'
     use 'tanvirtin/monokai.nvim'
@@ -202,7 +174,7 @@ return require('packer').startup({function()
         config = function() require('cfg.gitsigns') end
     }
     use 'junegunn/gv.vim'
-    use 'rickhowe/diffchar.vim'
+    -- use 'rickhowe/diffchar.vim'
     use {'TimUntersberger/neogit',
         requires = 'nvim-lua/plenary.nvim',
         config = function()
@@ -367,6 +339,8 @@ return require('packer').startup({function()
     -- }}}
     -- Testing and Debugging {{{
 
+    use {'meain/vim-printer'}
+
     use {'vim-test/vim-test'}
     use { "rcarriga/vim-ultest",
         requires = {"vim-test/vim-test"},
@@ -380,6 +354,21 @@ return require('packer').startup({function()
             map('i', '<C-g>tt', '<Plug>(ultest-run-nearest)', {silent=true})
         end
     }
+
+    use { 'michaelb/sniprun', run = 'bash ./install.sh',
+        config = function()
+            require'sniprun'.setup({
+                display = {
+                    "VirtualTextOk",
+                    "NvimNotify"
+                }
+            })
+            map("n", "<C-c>", "<Plug>SnipRunOperator", {silent=true})
+            map("n", "<C-c><C-c>", "<Plug>SnipRun", {silent=true})
+            map("v", "<C-c>", "<Plug>SnipRun", {silent=true})
+        end
+    }
+
 
     use 'mfussenegger/nvim-dap'
     use {'theHamsta/nvim-dap-virtual-text', requires = {"mfussenegger/nvim-dap"} }

@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 require('impatient')
 vim.o.encoding = "utf8"
 vim.o.shell = "/bin/zsh"
@@ -152,7 +153,7 @@ local wk = require('which-key')
 wk.register({
     ["<leader>"] = {
         f = {
-            name = "+find",
+            name = "+telescope",
             f = { "<cmd>Telescope find_files<cr>", "Find File" },
             b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
             g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
@@ -178,9 +179,16 @@ wk.register({
             P = {"<cmd>Neogit push<cr>", "Push"},
             D = {"<cmd>DiffviewOpen<cr>", "Diffview"},
             H = {"<cmd>DiffviewFileHistory<cr>", "History"},
+            b = {"<cmd>Gitsigns blame_line<cr>", "Blame line"},
+            B = {"<cmd>GitBlameToggle<cr>", "Toggle Blame"},
+            s = {"<cmd>Gitsigns stage_hunk<cr>", "Stage hunk"},
+            S = {"<cmd>Gitsigns stage_buffer<cr>", "Stage buffer"},
+            u = {"<cmd>Gitsigns undo_stage_buffer<cr>", "Undo stage"},
+            r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"},
         },
-        -- TODO: t: add ultest
+        -- TODO: t: add ultest--[[  ]]
     },
+    -- TODO: <C-C>: add SnipRun
 })
 
 -- vim: foldmethod=marker sw=4
