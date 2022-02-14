@@ -15,12 +15,12 @@ require('packer').init {
 
 
 -- auto compile when this file is modified
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+--   augroup end
+-- ]])
 
 return require('packer').startup({function()
 
@@ -28,7 +28,7 @@ return require('packer').startup({function()
     use 'wbthomason/packer.nvim'
 
     use 'lewis6991/impatient.nvim' -- speed up startup
-    use 'nathom/filetype.nvim' -- faster filetype detection
+    -- use 'nathom/filetype.nvim' -- faster filetype detection
 
     -- ui.vim {{{
     use 'windwp/windline.nvim'
@@ -80,6 +80,7 @@ return require('packer').startup({function()
             }
         end
     }
+
     use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
     use {'folke/twilight.nvim', config = function()
         require("twilight").setup {}
@@ -238,6 +239,22 @@ return require('packer').startup({function()
     }
     use 'RRethy/nvim-treesitter-textsubjects'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+
+    use {
+        "danymat/neogen",
+        config = function()
+            map("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
+            map("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", opts)
+            map("n", "<C-n>", ":lua require('neogen').jump_next()<CR>", opts)
+            map("n", "<C-p>", ":lua require('neogen').jump_prev()<CR>", opts)
+            require('neogen').setup {
+                enabled = true
+            }
+        end,
+        requires = "nvim-treesitter/nvim-treesitter"
+
+    }
+
     -- }}}
     -- LSP {{{
     use 'skywind3000/asyncrun.vim'
@@ -259,8 +276,9 @@ return require('packer').startup({function()
         }
     end}
     use 'ray-x/lsp_signature.nvim'
+
     use {'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', config = function()
-    require('toggle_lsp_diagnostics').init()
+        require('toggle_lsp_diagnostics').init()
     end}
 
     use {'j-hui/fidget.nvim', config = function()
@@ -270,7 +288,7 @@ return require('packer').startup({function()
             },
         }
     end}
-    use 'simrat39/symbols-outline.nvim'
+    -- use 'simrat39/symbols-outline.nvim'
     use 'folke/lsp-colors.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
     use {'filipdutescu/renamer.nvim',  branch = 'master',
@@ -344,6 +362,16 @@ return require('packer').startup({function()
         end
     }
 
+    use {'RRethy/nvim-treesitter-endwise',
+        config = function()
+            require('nvim-treesitter.configs').setup {
+                endwise = {
+                    enable = true,
+                },
+            }
+        end
+    }
+
     -- }}}
     -- Testing and Debugging {{{
 
@@ -380,14 +408,17 @@ return require('packer').startup({function()
 
     use 'mfussenegger/nvim-dap'
     use {'theHamsta/nvim-dap-virtual-text', requires = {"mfussenegger/nvim-dap"} }
-    use { 'rcarriga/nvim-dap-ui', requires = {"mfussenegger/nvim-dap"} }
+    use {'rcarriga/nvim-dap-ui', requires = {"mfussenegger/nvim-dap"} }
     use {'Pocco81/DAPInstall.nvim', requires = {"mfussenegger/nvim-dap"} }
     use {'mfussenegger/nvim-dap-python', requires = {"mfussenegger/nvim-dap"} }
+
+
 
     use 'voldikss/vim-floaterm'
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
+
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
     config = function()
@@ -412,7 +443,13 @@ return require('packer').startup({function()
         vim.g.matchup_override_vimtex = 1
         vim.g.matchup_matchparen_offscreen = {method = 'popup'}
     end}
-    use 'junegunn/vim-easy-align'
+    use {'junegunn/vim-easy-align',
+        config = function()
+            map('x', 'ga', '<Plug>(EasyAlign)', {silent=true})
+            map('n', 'ga', '<Plug>(EasyAlign)', {silent=true})
+            map('v', 'ga', '<Plug>(EasyAlign)', {silent=true})
+        end
+    }
     use 'Konfekt/vim-sentence-chopper'
     use 'markonm/traces.vim'
     use 'AndrewRadev/splitjoin.vim'
@@ -443,22 +480,14 @@ return require('packer').startup({function()
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} },
-        config = function()
-            require('cfg.telescope')
-        end
-    }
 
-    use 'romgrk/fzy-lua-native' -- for use with wilder
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use 'nvim-telescope/telescope-z.nvim'
     use {'luukvbaal/stabilize.nvim', config = function()
         require("stabilize").setup()
     end }
-    use {'folke/todo-comments.nvim', config = function()
-        require("todo-comments").setup{}
+    use {'folke/todo-comments.nvim',
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup{}
     end}
 
     use {
@@ -486,6 +515,33 @@ return require('packer').startup({function()
         wants = {'nvim-treesitter'}, -- or require if not used so far
         after = {'coq_nvim'} -- if a completion plugin is using tabs load it before
     }
+    -- use {'ZhiyuanLck/smart-pairs',
+    --     event="InsertEnter",
+    --     config=function() require('pairs'):setup() end
+    -- }
+    use {
+        'pianocomposer321/yabs.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('cfg.yabs')
+        end
+    }
+
+
+
+    -- }}}
+    -- Telescope {{{
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { {'nvim-lua/plenary.nvim'} },
+        config = function()
+            require('cfg.telescope')
+        end
+    }
+    use "willthbill/opener.nvim"
+    use 'romgrk/fzy-lua-native' -- for use with wilder
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+    use 'nvim-telescope/telescope-z.nvim'
 
     -- }}}
     -- navigation.vim {{{
@@ -537,6 +593,7 @@ return require('packer').startup({function()
     use 'justinmk/vim-syntax-extra'
     use 'shirk/vim-gas'
     use 'ARM9/arm-syntax-vim'
+    -- use {'p00f/clangd_extensions.nvim'}
     -- ======== MARKDOWN ========
     use {'plasticboy/vim-markdown', ft = 'markdown',
     config = function()
@@ -598,9 +655,18 @@ return require('packer').startup({function()
     -- === kitty ===
     use 'fladson/vim-kitty'
     -- === rust ===
-    use {'simrat39/rust-tools.nvim', config = function()
-    require('rust-tools').setup({})
-    end}
+    use {'simrat39/rust-tools.nvim', config =
+        function()
+            require('rust-tools').setup({})
+        end
+
+    }
+    use {
+        'saecki/crates.nvim',
+        requires = { { 'nvim-lua/plenary.nvim' } },
+        event = { "BufRead Cargo.toml" },
+    }
+
     -- === Coq ===
     use {'whonore/Coqtail', ft = 'coqt',
     config = function()
@@ -610,35 +676,6 @@ return require('packer').startup({function()
     end
     }
     -- === text ===
---     use {
---         "brymer-meneses/grammar-guard.nvim",
---         requires = {
---             "neovim/nvim-lspconfig",
---             "williamboman/nvim-lsp-installer"
---         },
---         config = function()
---             require("grammar-guard").init()
---             require("lspconfig").grammar_guard.setup({
---                 settings = {
---                     ltex = {
---                         enabled = { "latex", "tex", "bib", "markdown", "asciidoc" },
---                         language = "en",
---                         diagnosticSeverity = "information",
---                         setenceCacheSize = 2000,
---                         additionalRules = {
---                             enablePickyRules = true,
---                             motherTongue = "en",
---                         },
---                         trace = { server = "verbose" },
---                         dictionary = {},
---                         disabledRules = {},
---                         hiddenFalsePositives = {},
---                     },
---                 },
--- })
---         end
---     }
-
     -- TeX
     use {'lervag/vimtex', ft = 'tex',
         config = function()

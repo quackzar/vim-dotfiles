@@ -2,8 +2,8 @@
 local lspconfig = require('lspconfig')
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  underline = true,
+    virtual_text = false,
+    underline = true,
 })
 
 local signs = {
@@ -37,7 +37,12 @@ vim.diagnostic.config({
 
 
 function on_attach(client, bufnr)
-    require("lsp_signature").on_attach()
+    require("lsp_signature").on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+            border = "rounded"
+        }
+    }, bufnr)
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -58,6 +63,7 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<space>K',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -73,13 +79,6 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-    vim.cmd([[
-        augroup DiagnosticFloat
-            autocmd!
-            autocmd CursorHold * lua vim.diagnostic.open_float()
-        augroup END
-    ]])
 end
 
 local lsp_installer = require("nvim-lsp-installer")
@@ -106,11 +105,27 @@ lsp_installer.on_server_ready(function(server)
             },
         },
         }
+        server:setup(server_config)
+    elseif server.name == "rust_analyzer" then
+        require("rust-tools").setup {
+            tools = {
+                inlay_hints = {
+                    show_parameter_hints = false,
+                    parameter_hints_prefix = "← ",
+                    other_hints_prefix = "» ",
+                },
+            },
+            -- The "server" property provided in rust-tools setup function are the
+            -- settings rust-tools will provide to lspconfig during init.
+            -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
+            -- with the user's own settings (opts).
+            server = vim.tbl_deep_extend("force", server:get_default_options(), server_config),
+        }
+        server:attach_buffers()
+    else
+        server:setup(server_config)
     end
-
-
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-    server:setup(server_config)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 

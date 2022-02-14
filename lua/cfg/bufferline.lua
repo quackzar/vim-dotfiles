@@ -1,8 +1,6 @@
 require('bufferline').setup {
   options = {
     numbers = "ordinal",
-    --- @deprecated, please specify numbers as a function to customize the styling
-    number_style =  "subscript",
     close_command = "bdelete! %d",
     -- right_mouse_command = "bdelete! %d",
     left_mouse_command = "buffer %d",

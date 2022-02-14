@@ -23,6 +23,13 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.smarttab = true
+vim.o.guicursor = table.concat({
+      [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+      [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+      [[sm:block-blinkwait175-blinkoff150-blinkon175]]
+    }, ','
+)
+
 
 vim.wo.signcolumn = 'yes'
 
@@ -69,15 +76,17 @@ vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '@', ':normal @', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-z>', '<C-\\><C-n>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
 
-vim.g.neomolokai_no_bg = true
-vim.g.neomolokai_inv_column = true
-vim.cmd('colorscheme tokyonight')
 vim.g.python3_host_prog = '/usr/bin/python3'
 
 
-vim.api.nvim_exec( -- TODO: use api
+vim.cmd( -- TODO: use api
 [[
 augroup term_settings
     autocmd TermOpen * startinsert
@@ -104,8 +113,7 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
 augroup END
-]], false
-)
+]])
 
 -- setup for ripgrep as grepper
 if vim.fn.executable('rg') then
@@ -124,6 +132,10 @@ require('cfg.tree')
 
 require('windline.bubblegum')
 
+
+vim.g.neomolokai_no_bg = true
+vim.g.neomolokai_inv_column = true
+vim.cmd('colorscheme tokyonight')
 
 function _sidebar_toggle()
     if not require('nvim-tree.view').win_open() then
@@ -201,5 +213,47 @@ wk.register({
     },
     -- TODO: <C-C>: add SnipRun
 })
+
+wk.register({
+    d = {
+        name = "Debug",
+        s = {
+            name = "Step",
+            c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
+            v = { "<cmd>lua require('dap').step_over()<CR>", "Step Over" },
+            i = { "<cmd>lua require('dap').step_into()<CR>", "Step Into" },
+            o = { "<cmd>lua require('dap').step_out()<CR>", "Step Out" },
+        },
+        h = {
+            name = "Hover",
+            h = { "<cmd>lua require('dap.ui.variables').hover()<CR>", "Hover" },
+            v = { "<cmd>lua require('dap.ui.variables').visual_hover()<CR>", "Visual Hover" },
+        },
+        u = {
+            name = "UI",
+            h = { "<cmd>lua require('dap.ui.widgets').hover()<CR>", "Hover" },
+            f = { "local widgets=require('dap.ui.widgets');widgets.centered_float(widgets.scopes)<CR>", "Float" },
+        },
+        r = {
+            name = "Repl",
+            o = { "<cmd>lua require('dap').repl.open()<CR>", "Open" },
+            l = { "<cmd>lua require('dap').repl.run_last()<CR>", "Run Last" },
+        },
+        b = {
+            name = "Breakpoints",
+            c = {
+                "<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+                "Breakpoint Condition",
+            },
+            m = {
+                "<cmd>lua require('dap').set_breakpoint({ nil, nil, vim.fn.input('Log point message: ') })<CR>",
+                "Log Point Message",
+            },
+            t = { "<cmd>lua require('dap').toggle_breakpoint()<CR>", "Create" },
+        },
+        c = { "<cmd>lua require('dap').scopes()<CR>", "Scopes" },
+        i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle" },
+    },
+}, { prefix = "<leader>" })
 
 -- vim: foldmethod=marker sw=4
