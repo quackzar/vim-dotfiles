@@ -1,5 +1,6 @@
 ---@diagnostic disable: lowercase-global
 require('impatient')
+
 vim.o.encoding = "utf8"
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true

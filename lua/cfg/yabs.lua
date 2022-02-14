@@ -71,8 +71,6 @@ require('yabs'):setup({
                     command = 'cargo run',
                     output = 'consolation',
                 },
-                build_and_run = {
-                },
             },
         }
     },
