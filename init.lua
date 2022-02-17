@@ -76,7 +76,7 @@ vim.api.nvim_set_keymap('', 'gb', ':bn<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-l>', '<C-o>:noh<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '@', ':normal @', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
@@ -129,6 +129,7 @@ require('packer_compiled')
 -- load specific configs
 require('cfg.dap')
 require('cfg.lsp')
+require('cfg.coq')
 require('cfg.tree')
 
 require('windline.bubblegum')
@@ -217,7 +218,7 @@ wk.register({
 
 wk.register({
     d = {
-        name = "Debug",
+        name = "debug",
         s = {
             name = "Step",
             c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },

@@ -8,7 +8,6 @@ end
 function map(...) vim.api.nvim_set_keymap(...) end
 opts = {noremap=true, silent=true}
 
-
 require('packer').init {
     max_jobs = 50,
 }
@@ -259,7 +258,7 @@ return require('packer').startup({function()
     -- LSP {{{
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
-    use 'neovim/nvim-lspconfig'
+    use {'neovim/nvim-lspconfig'}
     use 'williamboman/nvim-lsp-installer'
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
@@ -296,45 +295,7 @@ return require('packer').startup({function()
         require("renamer").setup()
     end}
 
-    use {'ms-jpq/coq_nvim', branch = 'coq',
-    config = function()
-        vim.g.coq_settings = {
-             auto_start = 'shut-up',
-             display = {
-                    pum = {
-                    fast_close = false
-                 }
-            },
-            ["display.icons.mappings"] = {
-                Class         = " ",
-                Color         = " ",
-                Constant      = " ",
-                Constructor   = " ",
-                Enum          = " ",
-                EnumMember    = " ",
-                Event         = " ",
-                Field         = " ",
-                File          = " ",
-                Folder        = " ",
-                Function      = " ",
-                Interface     = " ",
-                Keyword       = " ",
-                Method        = " ",
-                Module        = " ",
-                Operator      = " ",
-                Property      = " ",
-                Reference     = " ",
-                Snippet       = " ",
-                Struct        = " ",
-                Text          = " ",
-                TypeParameter = " ",
-                Unit          = " ",
-                Value         = " ",
-                Variable      = " ",
-            }
-        }
-    end
-    } -- 9000+ Snippets
+    use {'ms-jpq/coq_nvim', branch = 'coq' } -- 9000+ Snippets
     use {'ms-jpq/coq.artifacts',
         branch = 'artifacts',
         config = function()
@@ -515,10 +476,17 @@ return require('packer').startup({function()
         wants = {'nvim-treesitter'}, -- or require if not used so far
         after = {'coq_nvim'} -- if a completion plugin is using tabs load it before
     }
-    -- use {'ZhiyuanLck/smart-pairs',
-    --     event="InsertEnter",
-    --     config=function() require('pairs'):setup() end
-    -- }
+    use {'ZhiyuanLck/smart-pairs',
+        event="InsertEnter",
+        config=function()
+            require('pairs'):setup({
+                enter = {
+                    enable_mapping = false,
+                }
+            })
+
+        end
+    }
     use {
         'pianocomposer321/yabs.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
@@ -603,7 +571,7 @@ return require('packer').startup({function()
         vim.g.vim_markdown_json_frontmatter = 1
         vim.g.vim_markdown_math = 1
         vim.g.vim_markdown_strikethrough = 1
-        vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
+        -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
     end
     }
     -- ======== ASCIIDOC =======
@@ -655,12 +623,7 @@ return require('packer').startup({function()
     -- === kitty ===
     use 'fladson/vim-kitty'
     -- === rust ===
-    use {'simrat39/rust-tools.nvim', config =
-        function()
-            require('rust-tools').setup({})
-        end
-
-    }
+    use {'simrat39/rust-tools.nvim'}
     use {
         'saecki/crates.nvim',
         requires = { { 'nvim-lua/plenary.nvim' } },

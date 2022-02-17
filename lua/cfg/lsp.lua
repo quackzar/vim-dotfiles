@@ -107,20 +107,32 @@ lsp_installer.on_server_ready(function(server)
         }
         server:setup(server_config)
     elseif server.name == "rust_analyzer" then
-        require("rust-tools").setup {
+        local rustopts = {
             tools = {
+                autoSetHints = true,
+                hover_with_actions = false,
                 inlay_hints = {
-                    show_parameter_hints = false,
+                    show_parameter_hints = true,
                     parameter_hints_prefix = "← ",
                     other_hints_prefix = "» ",
                 },
             },
-            -- The "server" property provided in rust-tools setup function are the
-            -- settings rust-tools will provide to lspconfig during init.
-            -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
-            -- with the user's own settings (opts).
-            server = vim.tbl_deep_extend("force", server:get_default_options(), server_config),
+            server = vim.tbl_deep_extend("force", server:get_default_options(), server_config, {
+                settings = {
+                    ["rust-analyzer"] = {
+                        completion = {
+                            postfix = {
+                                enable = false
+                            }
+                        },
+                        checkOnSave = {
+                            command = "clippy"
+                        },
+                    }
+                }
+            }),
         }
+        require("rust-tools").setup(rustopts)
         server:attach_buffers()
     else
         server:setup(server_config)
@@ -241,7 +253,7 @@ null_ls.setup({
         null_ls.builtins.formatting.rustfmt,
 
         -- TeX
-        null_ls.builtins.diagnostics.chktex,
+        -- null_ls.builtins.diagnostics.chktex,
         null_ls.builtins.formatting.latexindent,
     },
     on_attach = function()
