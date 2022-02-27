@@ -178,7 +178,7 @@ wk.register({
     ["<A-9>"] = {"<Cmd>BufferLineGoToBuffer 9<CR>", "Goto buffer 9"},
     ["<leader>"] = {
         f = {
-            name = "+telescope",
+            name = "+telescope  ",
             f = { "<cmd>Telescope find_files<cr>", "Find File" },
             b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
             g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
@@ -188,7 +188,7 @@ wk.register({
         s = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},
         S = {":SymbolsOutline<cr>", "Toggle Symbols"},
         x = {
-            name = "+trouble",
+            name = "+trouble  ",
             x = {"<cmd>Trouble<cr>", "Trouble"},
             w = {"<cmd>Trouble workspace_diagnostics<cr>", "Workspace"},
             d = {"<cmd>Trouble document_diagnostics<cr>", "Document"},
@@ -196,7 +196,7 @@ wk.register({
             q = {"<cmd>Trouble quickfix<cr>", "Quickfix"},
         },
         g = {
-            name = "+git",
+            name = "+git  ",
             g = {"<cmd>Neogit<cr>", "Neogit"},
             l = {"<cmd>Neogit log<cr>", "Log"},
             c = {"<cmd>Neogit commit<cr>", "Commit"},
@@ -218,7 +218,7 @@ wk.register({
 
 wk.register({
     d = {
-        name = "debug",
+        name = "debug  ",
         s = {
             name = "Step",
             c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
@@ -256,6 +256,28 @@ wk.register({
         c = { "<cmd>lua require('dap').scopes()<CR>", "Scopes" },
         i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle" },
     },
-}, { prefix = "<leader>" })
+    t = {
+        name = "Test  ",
+        a = { "<Plug>(ultest-run-file)", "Test file" },
+        t = { "<Plug>(ultest-run-nearest)", "Test nearest" },
+        l = { "<Plug>(ultest-run-last)", "Test last" },
+        o = { "<Plug>(ultest-output-show)", "Show output" },
+        s = { "<Plug>(ultest-summary-toggle)", "Summary" },
+        A = { "<Plug>(ultest-attach)", "Attach" },
+        S = { "<Plug>(ultest-stop-file)", "Stop file" },
+        X = { "<Plug>(ultest-stop-nearest)", "Stop nearest" },
+        D = { "<Plug>(ultest-debug)", "Debug file" },
+        d = { "<Plug>(ultest-debug)", "Debug nearest" },
+    },
+    s = {
+        name = "Snip Run  ",
+        r = {":SnipRun<cr>", "Run"},
+        i = {":SnipInfo<cr>", "Info"},
+        d = {":SnipReset<cr>", "Reset"},
+        l = {":SnipLive<cr>", "Live"},
+    }
+}, { prefix = "<leader>", noremap = false })
+
+
 
 -- vim: foldmethod=marker sw=4

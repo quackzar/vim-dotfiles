@@ -69,6 +69,7 @@ return require('packer').startup({function()
                         g = true, -- bindings for prefixed with g
                     },
                 },
+                hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>"}, -- hide mapping boilerplate
                 operators = { gc = "Comments" },
                 key_labels = {
                     -- override the label used to display some keys. It doesn't effect WK in any other way.
@@ -338,12 +339,21 @@ return require('packer').startup({function()
 
     use {'meain/vim-printer'} -- Only debugger you will ever need
 
-    use {'vim-test/vim-test'}
+    use {'vim-test/vim-test', config =
+        function()
+            vim.g['test#strategy'] = 'neovim'
+        end,
+    }
     use { "rcarriga/vim-ultest",
         requires = {"vim-test/vim-test"},
         run = ":UpdateRemotePlugins",
         config = function()
             vim.g.ultest_use_pty = 1
+            vim.g.ultest_virtual_text = 1
+            vim.g.ultest_pass_sign = ''
+            vim.g.ultest_fail_sign = ''
+            vim.g.ultest_running_sign = ''
+            vim.g.ultest_not_run_sign = ''
             map('', ']t', '<Plug>(ultest-next-fail)', {silent=true})
             map('', '[t', '<Plug>(ultest-prev-fail)', {silent=true})
             map('n', '<leader>ta', '<Plug>(ultest-run-file)', {silent=true})
