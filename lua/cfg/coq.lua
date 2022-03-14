@@ -40,6 +40,6 @@ opts = {noremap=true, silent=true, expr=true}
 map("i", "<Esc>",  "pumvisible() ? '<C-e><Esc>' : '<Esc>'", opts)
 map("i", "<C-c>",  "pumvisible() ? '<C-e><C-c>' : '<C-c>'", opts)
 map("i", "<BS>",   "pumvisible() ? '<C-e><BS>'  : '<BS>'", opts)
--- map("i", "<CR>", [[pumvisible() ? (complete_info().selected == -1 ? "<C-e><CR>" : "<C-y>") : "<CR>"]], opts)
-map("i", "<CR>", [[pumvisible() ? (complete_info().selected == -1 ? "<C-e><Cmd>lua require('pairs.enter').type()<CR>" : "<C-y>") : "<Cmd>lua require('pairs.enter').type()<CR>"]], opts)
+map("i", "<CR>", [[pumvisible() ? (complete_info().selected == -1 ? "<C-e><CR>" : "<C-y>") : "<CR>"]], opts)
+-- map("i", "<CR>", [[pumvisible() ? (complete_info().selected == -1 ? "<C-e><Cmd>lua require('pairs.enter').type()<CR>" : "<C-y>") : "<Cmd>lua require('pairs.enter').type()<CR>"]], opts)
 

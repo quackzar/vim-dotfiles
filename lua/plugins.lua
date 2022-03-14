@@ -14,12 +14,12 @@ require('packer').init {
 
 
 -- auto compile when this file is modified
--- vim.cmd([[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
---   augroup end
--- ]])
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
 return require('packer').startup({function()
 
@@ -29,7 +29,23 @@ return require('packer').startup({function()
     use 'lewis6991/impatient.nvim' -- speed up startup
     -- use 'nathom/filetype.nvim' -- faster filetype detection
 
+    use({
+        "folke/persistence.nvim",
+        event = "BufReadPre", -- this will only start session saving when an actual file was opened
+        module = "persistence",
+        config = function()
+            require("persistence").setup()
+        end,
+    })
+
     -- ui.vim {{{
+    use {'stevearc/dressing.nvim'}
+    -- use {'hood/popui.nvim',
+    --     requires = {'RishabhRD/popfix'},
+    --     config = function()
+    --         vim.g.popui_border_style = "rounded"
+    --         vim.ui.select = require"popui.ui-overrider"
+    -- end}
     use 'windwp/windline.nvim'
 
     use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons',
@@ -45,9 +61,21 @@ return require('packer').startup({function()
 
     use  'rktjmp/lush.nvim'
 
+    use({
+        'mvllow/modes.nvim',
+        config = function()
+            vim.opt.cursorline = true
+            require('modes').setup()
+        end
+    })
+
+    use 'meznaric/conmenu'
+
     use 'kyazdani42/nvim-web-devicons'
     use 'yamatsum/nvim-web-nonicons'
-    use 'glepnir/dashboard-nvim'
+    use {'goolord/alpha-nvim', config = function()
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end}
     use 'rcarriga/nvim-notify'
     use {'folke/which-key.nvim',
         config = function()
@@ -150,8 +178,8 @@ return require('packer').startup({function()
     use {
         'nyngwang/NeoZoom.lua'
     }
-
-    -- colorschemes
+    --- }}}
+    -- colorschemes {{{
     use 'RRethy/nvim-base16'
     use {'folke/tokyonight.nvim',
         config = function()
@@ -296,19 +324,21 @@ return require('packer').startup({function()
         require("renamer").setup()
     end}
 
-    use {'ms-jpq/coq_nvim', branch = 'coq' } -- 9000+ Snippets
-    use {'ms-jpq/coq.artifacts',
-        branch = 'artifacts',
-        config = function()
-            require("coq_3p") {
-                { src = "copilot", short_name = "COP", accept_key = "<c-f>" },
-                { src = "vimtex", short_name = "vTEX" },
-                { src = "nvimlua", short_name = "nLUA", conf_only = false },
-                { src = "dap" },
-            }
-        end
+
+
+    use 'onsails/lspkind-nvim'
+    use 'hrsh7th/cmp-copilot'
+    use {'hrsh7th/nvim-cmp', config = function()
+        require('cfg.cmp')
+        end,
+        requires = {
+         'neovim/nvim-lspconfig',
+         'hrsh7th/cmp-nvim-lsp',
+         'hrsh7th/cmp-buffer',
+         'hrsh7th/cmp-path',
+         'hrsh7th/cmp-cmdline',
+        }
     }
-    use {'ms-jpq/coq.thirdparty', branch = '3p'}
     use {'github/copilot.vim', config = function()
         map("i", "<C-J>", [[copilot#Accept('<CR>')]],
             { noremap = false, silent = true, expr = true, script = true }
@@ -316,6 +346,12 @@ return require('packer').startup({function()
         vim.g.copilot_no_tab_map = true
     end}
 
+    use {'L3MON4D3/LuaSnip',
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
+        requires = {'rafamadriz/friendly-snippets'},
+    }
 
     use {'sidebar-nvim/sections-dap'}
     use {'sidebar-nvim/sidebar.nvim',
@@ -349,7 +385,7 @@ return require('packer').startup({function()
         run = ":UpdateRemotePlugins",
         config = function()
             vim.g.ultest_use_pty = 1
-            vim.g.ultest_virtual_text = 1
+            vim.g.ultest_virtual_text = 0
             vim.g.ultest_pass_sign = ''
             vim.g.ultest_fail_sign = ''
             vim.g.ultest_running_sign = ''
@@ -484,19 +520,19 @@ return require('packer').startup({function()
             }
         end,
         wants = {'nvim-treesitter'}, -- or require if not used so far
-        after = {'coq_nvim'} -- if a completion plugin is using tabs load it before
+        after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
-    use {'ZhiyuanLck/smart-pairs',
-        event="InsertEnter",
-        config=function()
-            require('pairs'):setup({
-                enter = {
-                    enable_mapping = false,
-                }
-            })
+    -- use {'ZhiyuanLck/smart-pairs',
+    --     event="InsertEnter",
+    --     config=function()
+    --         require('pairs'):setup({
+    --             enter = {
+    --                 enable_mapping = false,
+    --             }
+    --         })
 
-        end
-    }
+    --     end
+    -- }
     use {
         'pianocomposer321/yabs.nvim',
         requires = { 'nvim-lua/plenary.nvim' },
@@ -505,6 +541,14 @@ return require('packer').startup({function()
         end
     }
 
+    use {
+        'zegervdv/nrpattern.nvim',
+        config = function()
+            -- Basic setup
+            -- See below for more options
+            require"nrpattern".setup()
+        end,
+    }
 
 
     -- }}}
@@ -655,6 +699,8 @@ return require('packer').startup({function()
             vim.g.vimtex_fold_enabled = 1
             vim.g.vimtex_format_enabled = 1
             vim.g.tex_comment_nospell = 1
+            vim.g.vimtex_complete_bib = { simple = 1 }
+
             vim.g.vimtex_compiler_latexmk = {
                 options = {
                     '-pdf',

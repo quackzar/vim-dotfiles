@@ -129,7 +129,7 @@ require('packer_compiled')
 -- load specific configs
 require('cfg.dap')
 require('cfg.lsp')
-require('cfg.coq')
+-- require('cfg.coq')
 require('cfg.tree')
 
 require('windline.bubblegum')

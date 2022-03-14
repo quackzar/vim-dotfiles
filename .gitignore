@@ -5,6 +5,7 @@ spell/*
 swap/
 undo/
 backup/
+sessions/
 */packer_compiled.lua
 .luarc.json
 
