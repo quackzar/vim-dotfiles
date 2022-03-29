@@ -61,9 +61,7 @@ vim.opt.listchars:append("trail:⋅")
 vim.opt.fillchars:append("eob: ")
 vim.opt.showbreak = "↪"
 
-vim.o.foldexpr = 'foldexpr=nvim_treesitter#foldexpr()'
 vim.o.foldmethod = 'expr'
-
 
 -- some pluginless keymaps
 vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })

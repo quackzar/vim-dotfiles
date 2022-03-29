@@ -326,7 +326,7 @@ return require('packer').startup({function()
     -- use 'simrat39/symbols-outline.nvim'
     use 'folke/lsp-colors.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
-    use {'filipdutescu/renamer.nvim',  branch = 'master',
+    use {'filipdutescu/renamer.nvim',  branch = 'develop',
     config = function()
         require("renamer").setup()
     end}
