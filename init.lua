@@ -31,7 +31,6 @@ vim.o.guicursor = table.concat({
     }, ','
 )
 
-
 vim.wo.signcolumn = 'yes'
 
 vim.o.undofile = true

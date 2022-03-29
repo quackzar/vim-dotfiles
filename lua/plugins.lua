@@ -27,7 +27,7 @@ return require('packer').startup({function()
     use 'wbthomason/packer.nvim'
 
     use 'lewis6991/impatient.nvim' -- speed up startup
-    -- use 'nathom/filetype.nvim' -- faster filetype detection
+    use 'nathom/filetype.nvim' -- faster filetype detection
 
     use({
         "folke/persistence.nvim",
@@ -142,6 +142,13 @@ return require('packer').startup({function()
             })
         end
     }
+
+    use { 'bennypowers/nvim-regexplainer',
+      config = function() require'regexplainer'.setup()  end,
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'MunifTanjim/nui.nvim',
+      } }
 
     -- use 'Konfekt/FastFold' -- Faster folding
     use{ 'anuvyklack/pretty-fold.nvim',
@@ -324,10 +331,18 @@ return require('packer').startup({function()
         require("renamer").setup()
     end}
 
+    use {
+        "narutoxy/dim.lua",
+        requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+        config = function()
+            require('dim').setup({})
+        end
+    }
 
 
     use 'onsails/lspkind-nvim'
     use 'hrsh7th/cmp-copilot'
+    use 'hrsh7th/cmp-omni'
     use {'hrsh7th/nvim-cmp', config = function()
         require('cfg.cmp')
         end,
@@ -434,7 +449,18 @@ return require('packer').startup({function()
             })
     end
     }
-    use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
+    -- use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
+
+    use {'monaqa/dial.nvim', 
+        config = function()
+            vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
+            vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), {noremap = true})
+            vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), {noremap = true})
+            vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), {noremap = true})
+            vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), {noremap = true})
+            vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), {noremap = true})
+        end
+    }
     use 'tpope/vim-repeat' -- Improves dot
     use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
     use 'tpope/vim-unimpaired'
@@ -694,13 +720,16 @@ return require('packer').startup({function()
     }
     -- === text ===
     -- TeX
-    use {'lervag/vimtex', ft = 'tex',
+    use {'lervag/vimtex',
         config = function()
             vim.g.vimtex_fold_enabled = 1
             vim.g.vimtex_format_enabled = 1
             vim.g.tex_comment_nospell = 1
             vim.g.vimtex_complete_bib = { simple = 1 }
+            vim.g.vimtex_skim_sync = 1
+            vim.g.vimtex_view_method = 'skim'
 
+            vim.g.vimtex_quickfix_method = 'pplatex'
             vim.g.vimtex_compiler_latexmk = {
                 options = {
                     '-pdf',
