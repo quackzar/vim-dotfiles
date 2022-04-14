@@ -126,7 +126,8 @@ lsp_installer.on_server_ready(function(server)
                             }
                         },
                         checkOnSave = {
-                            command = "clippy"
+                            command = "clippy",
+                            extraArgs = "--target=x86_64-apple-darwin"
                         },
                     }
                 }
