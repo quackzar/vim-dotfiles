@@ -620,6 +620,7 @@ return require('packer').startup({function()
         -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
     end
     }
+    use {'dhruvasagar/vim-table-mode'}
     -- ======== ASCIIDOC =======
     use {'habamax/vim-asciidoctor', ft = 'asciidoc',
         config = function()
