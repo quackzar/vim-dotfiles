@@ -63,6 +63,9 @@ vim.opt.showbreak = "↪"
 
 vim.o.foldmethod = 'expr'
 
+-- vim.o.globalstatus = true
+vim.o.laststatus = 3
+
 -- some pluginless keymaps
 vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'Q', ':close<cr>', { noremap = true, silent = true })
@@ -182,7 +185,7 @@ wk.register({
             h = { "<cmd>Telescope help_tags<cr>", "Find help" },
         },
         z = {":NvimTreeToggle<cr>", "Toggle File Tree"},
-        s = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},
+        Z = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},
         S = {":SymbolsOutline<cr>", "Toggle Symbols"},
         x = {
             name = "+trouble  ",
@@ -267,12 +270,15 @@ wk.register({
         d = { "<Plug>(ultest-debug)", "Debug nearest" },
     },
     s = {
-        name = "Snip Run  ",
+        name = "Experiment  ",
         r = {":SnipRun<cr>", "Run"},
         i = {":SnipInfo<cr>", "Info"},
         d = {":SnipReset<cr>", "Reset"},
         l = {":SnipLive<cr>", "Live"},
-    }
+        s = {"<Plug>RestNvim", "Rest Request"},
+        p = {"<Plug>RestNvimPreview", "Rest Preview"},
+        S = {"<Plug>RestNvimLast", "Rest Last"},
+    },
 }, { prefix = "<leader>", noremap = false })
 
 

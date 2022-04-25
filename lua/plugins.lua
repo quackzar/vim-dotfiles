@@ -297,11 +297,13 @@ return require('packer').startup({function()
     -- LSP {{{
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
+
     use {'neovim/nvim-lspconfig'}
     use 'williamboman/nvim-lsp-installer'
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
+    use {'Mofiqul/trld.nvim'}
     use {'folke/trouble.nvim', config = function()
         map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
         map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
@@ -329,11 +331,11 @@ return require('packer').startup({function()
     -- use 'simrat39/symbols-outline.nvim'
     use 'folke/lsp-colors.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
-    use {'filipdutescu/renamer.nvim',  branch = 'develop',
-    config = function()
-        require("renamer").setup()
-    end}
-
+    use {
+        'filipdutescu/renamer.nvim',
+        branch = 'master',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
     use {
         "narutoxy/dim.lua",
         requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
@@ -457,7 +459,7 @@ return require('packer').startup({function()
     }
     -- use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
 
-    use {'monaqa/dial.nvim', 
+    use {'monaqa/dial.nvim',
         config = function()
             vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
             vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), {noremap = true})
@@ -546,6 +548,7 @@ return require('packer').startup({function()
         end,
     }
 
+    use {'editorconfig/editorconfig-vim'}
 
     -- }}}
     -- Telescope {{{
