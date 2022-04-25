@@ -24,31 +24,31 @@ lspkind.init({
     --
     -- default: {}
     symbol_map = {
-        Class         = " ",
-        Color         = " ",
-        Constant      = " ",
-        Constructor   = " ",
-        Enum          = " ",
-        EnumMember    = " ",
-        Event         = " ",
-        Field         = " ",
-        File          = " ",
-        Folder        = " ",
-        Function      = " ",
-        Interface     = " ",
-        Keyword       = " ",
-        Method        = " ",
-        Module        = " ",
-        Operator      = " ",
-        Property      = " ",
-        Reference     = " ",
-        Snippet       = " ",
-        Struct        = " ",
-        Text          = " ",
-        TypeParameter = " ",
-        Unit          = " ",
-        Value         = " ",
-        Variable      = " ",
+        Class         = "",
+        Color         = "",
+        Constant      = "",
+        Constructor   = "",
+        Enum          = "",
+        EnumMember    = "",
+        Event         = "",
+        Field         = "",
+        File          = "",
+        Folder        = "",
+        Function      = "",
+        Interface     = "",
+        Keyword       = "",
+        Method        = "",
+        Module        = "",
+        Operator      = "",
+        Property      = "",
+        Reference     = "",
+        Snippet       = "",
+        Struct        = "",
+        Text          = "",
+        TypeParameter = "",
+        Unit          = "",
+        Value         = "",
+        Variable      = "",
     },
 })
 
@@ -101,16 +101,14 @@ cmp.setup({
 
     },
     sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'copilot' },
+        { name = 'nvim_lsp' },
+        { name = 'copilot' },
         -- { name = 'vsnip' }, -- For vsnip users.
-    { name = 'omni'},
-    { name = 'luasnip' }, -- For luasnip users.
+        { name = 'omni'},
+        { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
-    }, {
-        { name = 'buffer' },
-        }),
+    }),
     formatting = {
         format = lspkind.cmp_format({
             mode = 'symbol', -- show only symbol annotations
@@ -151,10 +149,10 @@ cmp.setup.cmdline(':', {
         })
 })
 
-vim.cmd([[
-  inoremap <C-x><C-o> <Cmd>lua vimrc.cmp.lsp()<CR>
-  inoremap <C-x><C-s> <Cmd>lua vimrc.cmp.snippet()<CR>
-]])
+-- vim.cmd([[
+--   inoremap <C-x><C-o> <Cmd>lua vimrc.cmp.lsp()<CR>
+--   inoremap <C-x><C-> <Cmd>lua vimrc.cmp.snippet()<CR>
+-- ]])
 
 -- Setup lspconfig.
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())

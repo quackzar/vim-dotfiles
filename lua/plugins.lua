@@ -346,6 +346,7 @@ return require('packer').startup({function()
     use 'onsails/lspkind-nvim'
     use 'hrsh7th/cmp-copilot'
     use 'hrsh7th/cmp-omni'
+    use { 'saadparwaiz1/cmp_luasnip' }
     use {'hrsh7th/nvim-cmp', config = function()
         require('cfg.cmp')
         end,
@@ -366,7 +367,9 @@ return require('packer').startup({function()
 
     use {'L3MON4D3/LuaSnip',
         config = function()
+            require('cfg.luasnip')
             require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_snipmate").lazy_load()
         end,
         requires = {'rafamadriz/friendly-snippets'},
     }
@@ -726,6 +729,7 @@ return require('packer').startup({function()
             vim.g.vimtex_complete_bib = { simple = 1 }
             vim.g.vimtex_skim_sync = 1
             vim.g.vimtex_view_method = 'skim'
+            vim.g.vimtex_quickfix_mode = 0
 
             vim.g.vimtex_quickfix_method = 'pplatex'
             vim.g.vimtex_compiler_latexmk = {
@@ -737,6 +741,16 @@ return require('packer').startup({function()
                     '-interaction=nonstopmode',
                 },
                 build_dir = 'out',
+            }
+
+            vim.g.vimtex_syntax_custom_cmds = {
+                { name = 'vct', mathmode = 1, argstyle = 'bold' },
+                { name = 'R', mathmode = 1, concealchar = 'ℝ' },
+                { name = 'C', mathmode = 1, concealchar = 'ℂ' },
+                { name = 'Z', mathmode = 1, concealchar = 'ℤ' },
+                { name = 'N', mathmode = 1, concealchar = 'ℕ' },
+                { name = 'mathnote', mathmode = 1, nextgroup = 'texMathTextArg' },
+                { name = 'nospell', argspell = 0 },
             }
         end
     }
