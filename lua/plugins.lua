@@ -290,7 +290,25 @@ return require('packer').startup({function()
         requires = "nvim-treesitter/nvim-treesitter"
 
     }
-    use "ziontee113/syntax-tree-surfer"
+    use {"ziontee113/syntax-tree-surfer", config = function()
+        -- Normal Mode Swapping
+        vim.api.nvim_set_keymap("n", "vd", '<cmd>lua require("syntax-tree-surfer").move("n", false)<cr>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap("n", "vu", '<cmd>lua require("syntax-tree-surfer").move("n", true)<cr>', {noremap = true, silent = true})
+        -- .select() will show you what you will be swapping with .move(), you'll get used to .select() and .move() behavior quite soon!
+        vim.api.nvim_set_keymap("n", "vx", '<cmd>lua require("syntax-tree-surfer").select()<cr>', {noremap = true, silent = true})
+        -- .select_current_node() will select the current node at your cursor
+        vim.api.nvim_set_keymap("n", "vn", '<cmd>lua require("syntax-tree-surfer").select_current_node()<cr>', {noremap = true, silent = true})
+
+        -- NAVIGATION: Only change the keymap to your liking. I would not recommend changing anything about the .surf() parameters!
+        vim.api.nvim_set_keymap("x", "J", '<cmd>lua require("syntax-tree-surfer").surf("next", "visual")<cr>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap("x", "K", '<cmd>lua require("syntax-tree-surfer").surf("prev", "visual")<cr>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap("x", "H", '<cmd>lua require("syntax-tree-surfer").surf("parent", "visual")<cr>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap("x", "L", '<cmd>lua require("syntax-tree-surfer").surf("child", "visual")<cr>', {noremap = true, silent = true})
+
+        -- SWAPPING WITH VISUAL SELECTION: Only change the keymap to your liking. Don't change the .surf() parameters!
+        vim.api.nvim_set_keymap("x", "<A-j>", '<cmd>lua require("syntax-tree-surfer").surf("next", "visual", true)<cr>', {noremap = true, silent = true})
+        vim.api.nvim_set_keymap("x", "<A-k>", '<cmd>lua require("syntax-tree-surfer").surf("prev", "visual", true)<cr>', {noremap = true, silent = true})
+    end}
 
 
     -- }}}
@@ -520,7 +538,6 @@ return require('packer').startup({function()
     use 'reedes/vim-lexical'
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lua/popup.nvim'
-    use 'nvim-lua/plenary.nvim'
 
     use {'luukvbaal/stabilize.nvim', config = function()
         require("stabilize").setup()
@@ -607,6 +624,37 @@ return require('packer').startup({function()
             }
             map("n", "<leader>z", ":NvimTreeToggle<CR>", opts)
         end
+    }
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = { 
+            "nvim-lua/plenary.nvim",
+            "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            {
+                -- only needed if you want to use the commands with "_with_window_picker" suffix
+                's1n7ax/nvim-window-picker',
+                tag = "1.*",
+                config = function()
+                    require'window-picker'.setup({
+                        autoselect_one = true,
+                        include_current = false,
+                        filter_rules = {
+                            -- filter using buffer options
+                            bo = {
+                                -- if the file type is one of following, the window will be ignored
+                                filetype = { 'neo-tree', "neo-tree-popup", "notify", "quickfix" },
+
+                                -- if the buffer type is one of following, the window will be ignored
+                                buftype = { 'terminal' },
+                            },
+                        },
+                        other_win_hl_color = '#e35e4f',
+                    })
+                end,
+            }
+        }
     }
     -- }}}
     -- languages.vim {{{

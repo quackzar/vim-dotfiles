@@ -184,7 +184,7 @@ wk.register({
             g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
             h = { "<cmd>Telescope help_tags<cr>", "Find help" },
         },
-        z = {":NvimTreeToggle<cr>", "Toggle File Tree"},
+        z = {":NeoTreeRevealToggle<cr>", "Toggle File Tree"},
         Z = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},
         S = {":SymbolsOutline<cr>", "Toggle Symbols"},
         x = {
