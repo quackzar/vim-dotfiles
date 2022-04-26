@@ -1,6 +1,6 @@
 local function prequire(...)
-local status, lib = pcall(require, ...)
-if (status) then return lib end
+    local status, lib = pcall(require, ...)
+    if (status) then return lib end
     return nil
 end
 
@@ -23,7 +23,7 @@ end
 _G.tab_complete = function()
     if cmp and cmp.visible() then
         cmp.select_next_item()
-    elseif luasnip and luasnip.expand_or_jumpable() then
+    elseif luasnip and luasnip.expand_or_locally_jumpable() then
         return t("<Plug>luasnip-expand-or-jump")
     elseif check_back_space() then
         return t "<Tab>"
@@ -43,9 +43,26 @@ _G.s_tab_complete = function()
     return ""
 end
 
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
 vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+
+local types = require("luasnip.util.types")
+
+luasnip.config.setup({
+    ext_opts = {
+        [types.choiceNode] = {
+            active = {
+                virt_text = {{"●", "Orange"}}
+            }
+        },
+        [types.insertNode] = {
+            active = {
+                virt_text = {{"●", "Blue"}}
+            }
+        }
+    }
+})

@@ -44,6 +44,9 @@ function on_attach(client, bufnr)
         }
     }, bufnr)
 
+    require 'illuminate'.on_attach(client)
+
+
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 

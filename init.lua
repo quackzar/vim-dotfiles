@@ -1,5 +1,11 @@
 ---@diagnostic disable: lowercase-global
-require('impatient')
+local function prequire(...)
+    local status, lib = pcall(require, ...)
+    if (status) then return lib end
+    return nil
+end
+
+prequire('impatient')
 
 vim.o.encoding = "utf8"
 vim.o.shell = "/bin/zsh"

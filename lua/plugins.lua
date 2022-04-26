@@ -321,7 +321,9 @@ return require('packer').startup({function()
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
-    use {'Mofiqul/trld.nvim'}
+    use {'Mofiqul/trld.nvim', config = function()
+        require('trld').setup()
+    end}
     use {'folke/trouble.nvim', config = function()
         map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
         map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
@@ -362,11 +364,31 @@ return require('packer').startup({function()
         end
     }
 
+    use {'RRethy/vim-illuminate'}
 
-    use 'onsails/lspkind-nvim'
+    use {'github/copilot.vim', config = function()
+        map("i", "<C-J>", [[copilot#Accept('<CR>')]],
+            { noremap = false, silent = true, expr = true, script = true }
+        )
+        vim.g.copilot_no_tab_map = true
+    end}
     use 'hrsh7th/cmp-copilot'
+    -- use{
+    --     "zbirenbaum/copilot.lua",
+    --     event = {"VimEnter"},
+    --     config = function()
+    --         vim.defer_fn(function()
+    --             require("copilot").setup()
+    --         end, 100)
+    --     end,
+    -- }
+    -- use {
+    --     "zbirenbaum/copilot-cmp",
+    --     after = { "copilot.lua", "nvim-cmp" },
+    -- }
     use 'hrsh7th/cmp-omni'
     use { 'saadparwaiz1/cmp_luasnip' }
+    use 'onsails/lspkind-nvim'
     use {'hrsh7th/nvim-cmp', config = function()
         require('cfg.cmp')
         end,
@@ -376,14 +398,8 @@ return require('packer').startup({function()
          'hrsh7th/cmp-buffer',
          'hrsh7th/cmp-path',
          'hrsh7th/cmp-cmdline',
-        }
+        },
     }
-    use {'github/copilot.vim', config = function()
-        map("i", "<C-J>", [[copilot#Accept('<CR>')]],
-            { noremap = false, silent = true, expr = true, script = true }
-        )
-        vim.g.copilot_no_tab_map = true
-    end}
 
     use {'L3MON4D3/LuaSnip',
         config = function()
@@ -707,6 +723,9 @@ return require('packer').startup({function()
         requires = "nvim-lua/plenary.nvim"
     }
 
+    -- ==========  fish  ==========
+    use({ "mtoohey31/cmp-fish", ft = "fish" })
+
     -- ======== GRAPHVIZ ========
     use {'liuchengxu/graphviz.vim', ft = 'dot'}
     -- ======== TYPESCRIPT =======
@@ -731,7 +750,6 @@ return require('packer').startup({function()
         requires = { { 'nvim-lua/plenary.nvim' } },
         event = { "BufRead Cargo.toml" },
     }
-
     -- == rest client ===
     use {
         "NTBBloodbath/rest.nvim",
