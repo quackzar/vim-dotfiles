@@ -44,7 +44,6 @@ function on_attach(client, bufnr)
         }
     }, bufnr)
 
-    require 'illuminate'.on_attach(client)
 
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -82,6 +81,7 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q',  '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    require('illuminate').on_attach(client)
 end
 
 local lsp_installer = require("nvim-lsp-installer")
