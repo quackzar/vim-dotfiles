@@ -114,9 +114,14 @@ return require('packer').startup({function()
     use {'folke/twilight.nvim', config = function()
         require("twilight").setup {}
     end}
-    use {'karb94/neoscroll.nvim', config = function()
-        require('neoscroll').setup() -- smooth scrolling
-    end}
+
+    -- use {'karb94/neoscroll.nvim', config = function()
+    --     require('neoscroll').setup() -- smooth scrolling
+    -- end}
+    use {
+        'declancm/cinnamon.nvim',
+        config = function() require('cinnamon').setup() end
+    }
 
     use {'kevinhwang91/nvim-hlslens',
         config = function()
@@ -128,21 +133,22 @@ return require('packer').startup({function()
             map('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
         end
     }
-    use {"petertriho/nvim-scrollbar",
-        requires = 'kevinhwang91/nvim-hlslens',
-        config = function()
-            require("scrollbar").setup({
-                handle = {
-                    text = " ",
-                    color = "grey",
-                },
-                handlers = {
-                    diagnostic = true,
-                    search = true, -- Requires hlslens to be loaded
-                },
-            })
-        end
-    }
+    -- use {"petertriho/nvim-scrollbar",
+    --     requires = 'kevinhwang91/nvim-hlslens',
+    --     config = function()
+    --         require("scrollbar").setup({
+    --             folds = 2000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
+    --             handle = {
+    --                 text = " ",
+    --                 color = "grey",
+    --             },
+    --             handlers = {
+    --                 diagnostic = true,
+    --                 search = true, -- Requires hlslens to be loaded
+    --             },
+    --         })
+    --     end
+    -- }
 
     use { 'bennypowers/nvim-regexplainer',
       config = function() require'regexplainer'.setup()  end,
@@ -153,6 +159,7 @@ return require('packer').startup({function()
 
     -- use 'Konfekt/FastFold' -- Faster folding
     use{ 'anuvyklack/pretty-fold.nvim',
+        requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
         config = function()
             vim.opt.fillchars:append('fold: ')
             require('pretty-fold').setup {
@@ -174,12 +181,21 @@ return require('packer').startup({function()
                     { '{', '}' },
                     { '%(', ')' }, -- % to escape lua pattern char
                     { '%[', ']' }, -- % to escape lua pattern char
-                    { 'if%s', 'end' },
-                    { 'do%s', 'end' },
-                    { 'for%s', 'end' },
-                },
+                    -- ╟─ Start of line ──╭───────╮── "do" ── End of line ─╢
+                    --                    ╰─ WSP ─╯
+                    { '^%s*do$', 'end' }, -- `do ... end` blocks
+                    -- ╟─ Start of line ──╭───────╮── "if" ─╢
+                    --                    ╰─ WSP ─╯
+                    { '^%s*if', 'end' },
+                    -- ╟─ Start of line ──╭───────╮── "for" ─╢
+                    --                    ╰─ WSP ─╯
+                    { '^%s*for', 'end' },
+                    -- ╟─ "function" ──╭───────╮── "(" ─╢
+                    --                 ╰─ WSP ─╯
+                    { 'function%s*%(', 'end' }
+                }
             }
-            require('pretty-fold.preview').setup_keybinding('h') -- choose 'h' or 'l' key
+            require('pretty-fold.preview').setup()
         end
     }
 
@@ -234,6 +250,10 @@ return require('packer').startup({function()
             require('gitlinker').setup()
         end}
     use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
+
+    use {'akinsho/git-conflict.nvim', config = function()
+        require('git-conflict').setup()
+    end}
     --- }}}
     -- treesitter {{{
     use {'nvim-treesitter/nvim-treesitter',

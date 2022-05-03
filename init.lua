@@ -68,6 +68,7 @@ vim.opt.fillchars:append("eob: ")
 vim.opt.showbreak = "↪"
 
 vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 -- vim.o.globalstatus = true
 vim.o.laststatus = 3
