@@ -62,13 +62,13 @@ return require('packer').startup({function()
     use {'edluffy/specs.nvim'}
     use  'rktjmp/lush.nvim'
 
-    use({
-        'mvllow/modes.nvim',
-        config = function()
-            vim.opt.cursorline = true
-            require('modes').setup()
-        end
-    })
+    -- use({
+    --     'mvllow/modes.nvim',
+    --     config = function()
+    --         vim.opt.cursorline = true
+    --         require('modes').setup()
+    --     end
+    -- })
 
     use 'meznaric/conmenu'
 
@@ -342,7 +342,9 @@ return require('packer').startup({function()
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
     use {'Mofiqul/trld.nvim', config = function()
-        require('trld').setup()
+        require('trld').setup({
+            auto_cmds = false,
+        })
     end}
     use {'folke/trouble.nvim', config = function()
         map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)

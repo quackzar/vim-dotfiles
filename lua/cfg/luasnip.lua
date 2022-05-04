@@ -47,21 +47,25 @@ end
 -- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
-vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+vim.api.nvim_set_keymap("i", "<C-E>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
+vim.api.nvim_set_keymap("s", "<C-E>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
 
+vim.api.nvim_set_keymap("i", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
+vim.api.nvim_set_keymap("s", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
+vim.api.nvim_set_keymap("i", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
+vim.api.nvim_set_keymap("s", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
 local types = require("luasnip.util.types")
 
 luasnip.config.setup({
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = {{"●", "Orange"}}
+                virt_text = {{"●", "Keyword"}}
             }
         },
         [types.insertNode] = {
             active = {
-                virt_text = {{"●", "Blue"}}
+                virt_text = {{"●", "Type"}}
             }
         }
     }

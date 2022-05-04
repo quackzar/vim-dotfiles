@@ -2,6 +2,7 @@ setlocal foldmethod=expr
 setlocal foldexpr=vimtex#fold#level(v:lnum)
 setlocal foldtext=vimtex#fold#text()
 setlocal keywordprg=texdoc
+setlocal omnifunc=vimtex#complete#omnifunc
 setlocal wrap
 setlocal spell
 nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
@@ -25,24 +26,4 @@ vmap <buffer> ac <plug>(vimtex-ac)
 xmap <buffer> ac <plug>(vimtex-ac)
 vmap <buffer> ic <plug>(vimtex-ic)
 xmap <buffer> ic <plug>(vimtex-ic)
-
-lua << EOF
-  require('cmp').setup.buffer {
-    formatting = {
-      format = function(entry, vim_item)
-          vim_item.menu = ({
-            omni = (vim.inspect(vim_item.menu):gsub('%"', "")),
-            buffer = "[Buffer]",
-            -- formatting for other sources
-            })[entry.source.name]
-          return vim_item
-        end,
-    },
-    sources = {
-      { name = 'omni' },
-      { name = 'buffer' },
-      -- other sources
-    },
-  }
-EOF
 
