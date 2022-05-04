@@ -179,22 +179,34 @@ return require('packer').startup({function()
                 add_close_pattern = true,
                 matchup_patterns = {
                     { '{', '}' },
-                    { '%(', ')' }, -- % to escape lua pattern char
-                    { '%[', ']' }, -- % to escape lua pattern char
-                    -- ╟─ Start of line ──╭───────╮── "do" ── End of line ─╢
-                    --                    ╰─ WSP ─╯
-                    { '^%s*do$', 'end' }, -- `do ... end` blocks
-                    -- ╟─ Start of line ──╭───────╮── "if" ─╢
-                    --                    ╰─ WSP ─╯
-                    { '^%s*if', 'end' },
-                    -- ╟─ Start of line ──╭───────╮── "for" ─╢
-                    --                    ╰─ WSP ─╯
-                    { '^%s*for', 'end' },
-                    -- ╟─ "function" ──╭───────╮── "(" ─╢
-                    --                 ╰─ WSP ─╯
-                    { 'function%s*%(', 'end' }
+                    { '%(', ')' },
+                    { '%[', ']' },
                 }
             }
+            require('pretty-fold').ft_setup('lua', {
+                fill_char = ' ',
+                matchup_patterns = {
+                    { '^%s*do$', 'end' }, -- do ... end blocks
+                    { '^%s*if', 'end' },  -- if ... end
+                    { '^%s*for', 'end' }, -- for
+                    { 'function%s*%(', 'end' }, -- 'function( or 'function (''
+                    {  '{', '}' },
+                    { '%(', ')' }, -- % to escape lua pattern char
+                    { '%[', ']' }, -- % to escape lua pattern char
+                },
+            })
+            require('pretty-fold').ft_setup('cpp', {
+                fill_char = ' ',
+                process_comment_signs = false,
+                comment_signs = {
+                    '/**', -- C++ Doxygen comments
+                },
+                stop_words = {
+                    -- ╟─ "*" ──╭───────╮── "@brief" ──╭───────╮──╢
+                    --          ╰─ WSP ─╯              ╰─ WSP ─╯
+                    '%*%s*@brief%s*',
+                },
+            })
             require('pretty-fold.preview').setup()
         end
     }
@@ -343,7 +355,8 @@ return require('packer').startup({function()
     use 'nvim-lua/lsp-status.nvim'
     use {'Mofiqul/trld.nvim', config = function()
         require('trld').setup({
-            auto_cmds = false,
+            auto_cmds = true,
+            position = 'bottom',
         })
     end}
     use {'folke/trouble.nvim', config = function()

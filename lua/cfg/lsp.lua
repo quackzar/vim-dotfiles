@@ -84,66 +84,37 @@ function on_attach(client, bufnr)
     require('illuminate').on_attach(client)
 end
 
-local lsp_installer = require("nvim-lsp-installer")
+require("nvim-lsp-installer").setup({})
 
-lsp_installer.on_server_ready(function(server)
-    local server_config = {}
-    server_config.on_attach = on_attach
+lspconfig.sumneko_lua.setup({
+    diagnostics = {
+        -- Get the language server to recognize the 'vim', 'use' global
+        globals = {'vim', 'use', 'require'},
+    },
+    workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+    },
+    -- Do not send telemetry data containing a randomized but unique identifier
+    telemetry = {
+        enable = false,
+    },
+})
 
-    if server.name == "sumneko_lua" then
-    -- only apply these settings for the "sumneko_lua" server
-        server_config.settings = {
-        Lua = {
-            diagnostics = {
-            -- Get the language server to recognize the 'vim', 'use' global
-            globals = {'vim', 'use', 'require'},
-            },
-            workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-            enable = false,
-            },
+local rust_tools = require("rust-tools")
+rust_tools.setup {
+    server = { on_attach = on_attach },
+    tools = {
+        autoSetHints = true,
+        hover_with_actions = false,
+        inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "← ",
+            other_hints_prefix = "» ",
         },
-        }
-        server:setup(server_config)
-    elseif server.name == "rust_analyzer" then
-        local rustopts = {
-            tools = {
-                autoSetHints = true,
-                hover_with_actions = false,
-                inlay_hints = {
-                    show_parameter_hints = true,
-                    parameter_hints_prefix = "← ",
-                    other_hints_prefix = "» ",
-                },
-            },
-            server = vim.tbl_deep_extend("force", server:get_default_options(), server_config, {
-                settings = {
-                    ["rust-analyzer"] = {
-                        completion = {
-                            postfix = {
-                                enable = false
-                            }
-                        },
-                        checkOnSave = {
-                            command = "clippy",
-                            extraArgs = "--target=x86_64-apple-darwin"
-                        },
-                    }
-                }
-            }),
-        }
-        require("rust-tools").setup(rustopts)
-        server:attach_buffers()
-    else
-        server:setup(server_config)
-    end
-    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
+    },
+}
+
 
 
 -- symbols for autocomplete
