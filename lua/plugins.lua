@@ -48,7 +48,7 @@ return require('packer').startup({function()
     -- end}
     use 'windwp/windline.nvim'
 
-    use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons',
+    use {'akinsho/bufferline.nvim', tag = 'v2.*', requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require("cfg.bufferline")
         end
@@ -59,7 +59,6 @@ return require('packer').startup({function()
     end}
 
 
-    use {'edluffy/specs.nvim'}
     use  'rktjmp/lush.nvim'
 
     -- use({
@@ -74,9 +73,11 @@ return require('packer').startup({function()
 
     use 'kyazdani42/nvim-web-devicons'
     use 'yamatsum/nvim-web-nonicons'
+
     use {'goolord/alpha-nvim', config = function()
         require'alpha'.setup(require'alpha.themes.dashboard'.config)
     end}
+
     use 'rcarriga/nvim-notify'
     use {'folke/which-key.nvim',
         config = function()
@@ -157,7 +158,6 @@ return require('packer').startup({function()
         'MunifTanjim/nui.nvim',
       } }
 
-    -- use 'Konfekt/FastFold' -- Faster folding
     use{ 'anuvyklack/pretty-fold.nvim',
         requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
         config = function()
@@ -211,9 +211,6 @@ return require('packer').startup({function()
         end
     }
 
-    use {
-        'nyngwang/NeoZoom.lua'
-    }
     --- }}}
     -- colorschemes {{{
     use 'RRethy/nvim-base16'
@@ -356,7 +353,7 @@ return require('packer').startup({function()
     use {'Mofiqul/trld.nvim', config = function()
         require('trld').setup({
             auto_cmds = true,
-            position = 'bottom',
+            -- position = 'bottom',
         })
     end}
     use {'folke/trouble.nvim', config = function()
