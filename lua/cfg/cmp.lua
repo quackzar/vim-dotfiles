@@ -141,7 +141,7 @@ cmp.setup({
         })
     },
     experimental = {
-        ghost_text = false, -- incompatible with copilot
+        ghost_text = true, -- incompatible with copilot
     },
 })
 

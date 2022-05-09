@@ -1,5 +1,4 @@
 ---@diagnostic disable: lowercase-global
-local lspconfig = require('lspconfig')
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
@@ -63,7 +62,7 @@ function on_attach(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<space>K',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -84,6 +83,7 @@ function on_attach(client, bufnr)
     require('illuminate').on_attach(client)
 end
 
+local lspconfig = require('lspconfig')
 require("nvim-lsp-installer").setup({})
 
 lspconfig.sumneko_lua.setup({
