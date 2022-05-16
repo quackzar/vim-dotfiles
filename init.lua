@@ -7,7 +7,6 @@ end
 
 prequire('impatient')
 
-vim.o.encoding = "utf8"
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 vim.o.mouse = 'a'
@@ -143,12 +142,32 @@ require('cfg.lsp')
 -- require('cfg.coq')
 require('cfg.tree')
 
+require('functions')
+
 require('windline.bubblegum')
+
+local async = require("plenary.async")
+local packer_sync = function ()
+    async.run(function ()
+        vim.notify.async('Syncing packer.', 'info', {
+            title = 'Packer'
+        })
+    end)
+    local snap_shot_time = os.date("!%Y-%m-%dT%TZ")
+    vim.cmd('PackerSnapshot ' .. snap_shot_time)
+    vim.cmd('PackerSync')
+end
+
+map('n', '<leader>ps', '', {
+    callback = packer_sync
+})
 
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
 vim.cmd('colorscheme tokyonight')
+
+
 
 function _sidebar_toggle()
     if not require('nvim-tree.view').win_open() then

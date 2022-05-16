@@ -84,9 +84,13 @@ function on_attach(client, bufnr)
 end
 
 local lspconfig = require('lspconfig')
-require("nvim-lsp-installer").setup({})
+require("nvim-lsp-installer").setup({
+    ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+})
 
 lspconfig.sumneko_lua.setup({
+    on_attach = on_attach,
     diagnostics = {
         -- Get the language server to recognize the 'vim', 'use' global
         globals = {'vim', 'use', 'require'},
@@ -116,6 +120,8 @@ rust_tools.setup {
 }
 
 
+lspconfig.tsserver.setup { on_attach = on_attach }
+-- TODO: Use hook API when supported.
 
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
