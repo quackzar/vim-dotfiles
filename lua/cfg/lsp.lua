@@ -49,12 +49,12 @@ function on_attach(client, bufnr)
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
-    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
-    vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+    buf_set_option("tagfunc", "v:lua.vim.lsp.tagfunc")
+    buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
     -- Add this <leader> bound mapping so formatting the entire document is easier.
     buf_set_keymap("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
@@ -72,8 +72,8 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
-    buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
+    -- buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
+    -- buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
     buf_set_keymap('n', '<space>a',  '<cmd>CodeActionMenu<CR>', opts)
     buf_set_keymap('n', 'gr',        '<cmd>lua vim.buf.references()<CR>', opts)
     buf_set_keymap('n', '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
@@ -84,10 +84,18 @@ function on_attach(client, bufnr)
 end
 
 local lspconfig = require('lspconfig')
-require("nvim-lsp-installer").setup({
+local lspinstaller = require("nvim-lsp-installer")
+
+lspinstaller.setup({
     ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 })
+
+for _, server in ipairs(lspinstaller.get_installed_servers()) do
+  lspconfig[server.name].setup{
+    on_attach = on_attach,
+  }
+end
 
 lspconfig.sumneko_lua.setup({
     on_attach = on_attach,

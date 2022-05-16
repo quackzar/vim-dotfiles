@@ -79,21 +79,24 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<C-n>'] = function(fallback)
+        ['<CR>'] = cmp.mapping.confirm({ 
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
+        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             else
                 fallback()
             end
-        end,
-        ['<C-p>'] = function(fallback)
+        end, {'i', 'c'}),
+        ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             else
                 fallback()
             end
-        end,
+        end, {'i', 'c'}),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
@@ -102,7 +105,7 @@ cmp.setup({
             else
                 fallback()
             end
-        end, { "i", "s" }),
+        end, { "i", "s", "c" }),
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if luasnip.jumpable(-1) then
@@ -110,7 +113,7 @@ cmp.setup({
             else
                 fallback()
             end
-        end, { "i", "s" }),
+        end, { "i", "s", "c" }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp', group_index = 2 },
@@ -123,7 +126,13 @@ cmp.setup({
                 { name = "crates", group_index = 2 },
 
     }),
+    completion = {
+        completeopt = "menu,menuone,noinsert",
+        keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
+        keyword_length = 1,
+    },
     formatting = {
+        fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format({
             mode = 'symbol', -- show only symbol annotations
             maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
@@ -145,21 +154,25 @@ cmp.setup({
     },
 })
 
+vim.api.nvim_set_keymap("c", "<Tab>", "<cmd>lua require'cmp'.select_next_item()<cr>", {noremap=true})
+vim.api.nvim_set_keymap("c", "<S-Tab>", "<cmd>lua require'cmp'.select_prev_item()<cr>", {noremap=true})
+
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+        { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
-        { name = 'buffer' },
+            { name = 'buffer' },
         })
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline("/", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
-    { name = 'buffer' }
-    }
+        { name = "buffer" },
+    },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
@@ -189,3 +202,4 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- vim: foldmethod=marker, foldmarker={,}

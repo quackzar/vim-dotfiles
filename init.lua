@@ -48,8 +48,8 @@ vim.o.undodir="/tmp/undo//"
 
 vim.o.shortmess = "AIOTWaotc"
 
-vim.o.pumblend = 20
-vim.o.winblend = 20
+vim.o.pumblend = 0
+vim.o.winblend = 0
 
 vim.o.conceallevel = 2
 
@@ -224,6 +224,7 @@ wk.register({
             d = {"<cmd>Trouble document_diagnostics<cr>", "Document"},
             l = {"<cmd>Trouble loclist<cr>", "Loclist"},
             q = {"<cmd>Trouble quickfix<cr>", "Quickfix"},
+            c = {"<cmd>TroubleClose<cr>", "Close"},
         },
         g = {
             name = "+git  ",
@@ -242,13 +243,20 @@ wk.register({
             r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"},
         },
         -- TODO: t: add ultest--[[  ]]
+        o = {
+            name = "+options",
+            t = {"<cmd>Twilight<cr>", "Twilight"},
+            z = {"<cmd>ZenMode<cr>", "Zen Mode"},
+            i = {"<cmd>IlluminationToggle<cr>", "Illuminate"},
+            l = {"<cmd>IndentBlanklineToggle<cr>", "Indent Line"},
+        }
     },
     -- TODO: <C-C>: add SnipRun
 })
 
 wk.register({
     d = {
-        name = "debug  ",
+        name = "+debug  ",
         s = {
             name = "Step",
             c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },
@@ -287,7 +295,7 @@ wk.register({
         i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle" },
     },
     t = {
-        name = "Test  ",
+        name = "+test  ",
         a = { "<Plug>(ultest-run-file)", "Test file" },
         t = { "<Plug>(ultest-run-nearest)", "Test nearest" },
         l = { "<Plug>(ultest-run-last)", "Test last" },
@@ -300,7 +308,7 @@ wk.register({
         d = { "<Plug>(ultest-debug)", "Debug nearest" },
     },
     s = {
-        name = "Experiment  ",
+        name = "+experiment  ",
         r = {":SnipRun<cr>", "Run"},
         i = {":SnipInfo<cr>", "Info"},
         d = {":SnipReset<cr>", "Reset"},
@@ -309,6 +317,10 @@ wk.register({
         p = {"<Plug>RestNvimPreview", "Rest Preview"},
         S = {"<Plug>RestNvimLast", "Rest Last"},
     },
+    r = {
+        name = "+refactor  ",
+        n = {"<cmd> lua vim.lsp.buf.rename()<cr>", "Rename"},
+    }
 }, { prefix = "<leader>", noremap = false })
 
 

@@ -112,9 +112,17 @@ return require('packer').startup({function()
     }
 
     use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
-    use {'folke/twilight.nvim', config = function()
-        require("twilight").setup {}
-    end}
+    use {'folke/twilight.nvim',
+        config = function()
+            require("twilight").setup {}
+        end
+    }
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {}
+        end
+    }
 
     -- use {'karb94/neoscroll.nvim', config = function()
     --     require('neoscroll').setup() -- smooth scrolling
@@ -241,7 +249,10 @@ return require('packer').startup({function()
         requires = 'nvim-lua/plenary.nvim',
         config = function()
             require('neogit').setup {
-                kind = 'split'
+                kind = 'split',
+                integrations = {
+                    diffview = true
+                }
             }
             map("n", "<leader>gg", "<cmd>Neogit<cr>", opts)
             map("n", "<leader>gl", "<cmd>Neogit log<cr>", opts)
@@ -298,6 +309,13 @@ return require('packer').startup({function()
                         '\\section',
                         '\\subsection'
                     },
+                    rust = {
+                        'mod',
+                        'trait',
+                        'struct',
+                        'match',
+                        'impl',
+                    },
                 }
             }
         end
@@ -345,7 +363,7 @@ return require('packer').startup({function()
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
 
-    use {'neovim/nvim-lspconfig'}
+    use {'neovim/nvim-lspconfig', after = 'nvim-lsp-installer'}
     use 'williamboman/nvim-lsp-installer'
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
@@ -567,16 +585,15 @@ return require('packer').startup({function()
     use {'lukas-reineke/indent-blankline.nvim',
     config = function()
         vim.g.indent_blankline_char = '▏'
-            vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
+        vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
         vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
         vim.g.indent_blankline_show_trailing_blankline_indent = true
         vim.g.indent_blankline_show_first_indent_level = false
         require("indent_blankline").setup {
-        -- for example, context is off by default, use this to turn it on
-        space_char_blankline = " ",
-        show_current_context = true,
-
-        show_current_context_start = true,
+            -- for example, context is off by default, use this to turn it on
+            space_char_blankline = " ",
+            show_current_context = true,
+            show_current_context_start = true,
 
         }
     end
