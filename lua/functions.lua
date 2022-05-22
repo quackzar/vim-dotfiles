@@ -84,30 +84,30 @@ vim.api.nvim_create_user_command('LspRename', LspRename, {})
 
 local ask_install = {}
 
-function EnsureTSParserInstalled()
-    local parsers = require 'nvim-treesitter.parsers'
-    local lang = parsers.get_buf_lang()
+-- function EnsureTSParserInstalled()
+--     local parsers = require 'nvim-treesitter.parsers'
+--     local lang = parsers.get_buf_lang()
 
-    if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) and ask_install[lang] ~= false then
-        vim.schedule_wrap(function()
+--     if parsers.get_parser_configs()[lang] and not parsers.has_parser(lang) and ask_install[lang] ~= false then
+--         vim.schedule_wrap(function()
 
-            local is_confirmed = false
-            -- TODO: implement a Y/n prompt util func
-            print('Install treesitter parser for ' .. lang .. ' ? Y/n')
-            local res = U.get_char_input()
-            if res:match('\r') then is_confirmed = true end
-            if res:match('y') then is_confirmed = true end
-            if res:match('Y') then is_confirmed = true end
-            U.clear_prompt()
+--             local is_confirmed = false
+--             -- TODO: implement a Y/n prompt util func
+--             print('Install treesitter parser for ' .. lang .. ' ? Y/n')
+--             local res = U.get_char_input()
+--             if res:match('\r') then is_confirmed = true end
+--             if res:match('y') then is_confirmed = true end
+--             if res:match('Y') then is_confirmed = true end
+--             U.clear_prompt()
 
-            if (is_confirmed) then
-                vim.cmd('TSInstall ' .. lang)
-            else
-                ask_install[lang] = false
-            end
-        end)()
-    end
-end
+--             if (is_confirmed) then
+--                 vim.cmd('TSInstall ' .. lang)
+--             else
+--                 ask_install[lang] = false
+--             end
+--         end)()
+--     end
+-- end
 
 -- TODO: convert to auto group
-vim.cmd [[au FileType * :lua EnsureTSParserInstalled()]]
+-- vim.cmd [[au FileType * :lua EnsureTSParserInstalled()]]

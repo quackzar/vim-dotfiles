@@ -54,6 +54,13 @@ return require('packer').startup({function()
         end
     }
 
+    use {"b0o/incline.nvim",
+        config = function()
+            require('incline').setup()
+        end
+    }
+
+
     use {'norcalli/nvim-colorizer.lua', config = function()
         require('colorizer').setup()
     end}
@@ -129,7 +136,12 @@ return require('packer').startup({function()
     -- end}
     use {
         'declancm/cinnamon.nvim',
-        config = function() require('cinnamon').setup() end
+        config = function()
+            require('cinnamon').setup({
+                extra_keymaps = true,
+                extended_keymaps = true,
+            })
+        end
     }
 
     use {'kevinhwang91/nvim-hlslens',
@@ -476,6 +488,8 @@ return require('packer').startup({function()
             }
         end
     }
+    use 'rstacruz/vim-closer' -- only closes delimiters on <cr>
+
 
     -- }}}
     -- Testing and Debugging {{{
@@ -575,10 +589,11 @@ return require('packer').startup({function()
             map('v', 'ga', '<Plug>(EasyAlign)', {silent=true})
         end
     }
-    use 'Konfekt/vim-sentence-chopper'
     use 'markonm/traces.vim'
-    use 'AndrewRadev/splitjoin.vim'
-    use 'flwyd/vim-conjoin'
+    use 'Konfekt/vim-sentence-chopper'
+    use 'AndrewRadev/splitjoin.vim' -- NOTE: Consider lua + treesitter version
+    use {'flwyd/vim-conjoin', after = 'splitjoin.vim'}
+
     use 'mbbill/undotree'
     -- use 'kshenoy/vim-signature' -- marks in the sign column
     use 'andymass/vim-visput'
@@ -600,7 +615,7 @@ return require('packer').startup({function()
     }
     use 'tpope/vim-abolish' -- like substitute
     use 'reedes/vim-litecorrect' -- autocorrection! Fixes stupid common mistakes
-    use 'reedes/vim-lexical'
+    use 'reedes/vim-lexical' -- NOTE: Maybe unused.
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lua/popup.nvim'
 
@@ -660,8 +675,8 @@ return require('packer').startup({function()
         config = function()
             vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({})
-            map("n", "+", "<Plug>Lightspeed_s", {silent = true})
-            map("n", "-", "<Plug>Lightspeed_S", {silent = true})
+            map("n", "L", "<Plug>Lightspeed_s", {silent = true})
+            map("n", "H", "<Plug>Lightspeed_S", {silent = true})
             map("n", "f", "<Plug>Lightspeed_f", {silent = true})
             map("n", "F", "<Plug>Lightspeed_F", {silent = true})
             map("n", "t", "<Plug>Lightspeed_t", {silent = true})

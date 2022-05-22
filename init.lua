@@ -249,6 +249,8 @@ wk.register({
             z = {"<cmd>ZenMode<cr>", "Zen Mode"},
             i = {"<cmd>IlluminationToggle<cr>", "Illuminate"},
             l = {"<cmd>IndentBlanklineToggle<cr>", "Indent Line"},
+            c = {"<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "Autocompletion Off"},
+            C = {"<cmd>lua require('cmp').setup.buffer { enabled = true }<cr>", "Autocompletion On"},
         }
     },
     -- TODO: <C-C>: add SnipRun

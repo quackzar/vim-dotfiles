@@ -11,10 +11,10 @@ nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 nnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 
-" nnoremap <buffer> K <Plug>(vimtex-doc-package)
+nnoremap <buffer> K <Plug>(vimtex-doc-package)
 
 " So the other one doesn't seem to work, so I did this instead
-nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
+" nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
 
 nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
 
