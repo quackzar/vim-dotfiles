@@ -11,6 +11,7 @@ vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 vim.o.mouse = 'a'
 vim.o.wrap = false
+vim.o.linebreak = true
 vim.o.number = true
 vim.o.foldenable = true
 vim.o.wildmenu = true
@@ -165,7 +166,7 @@ map('n', '<leader>ps', '', {
 
 vim.g.neomolokai_no_bg = true
 vim.g.neomolokai_inv_column = true
-vim.cmd('colorscheme tokyonight')
+vim.cmd('colorscheme tokyodark')
 
 
 
@@ -213,6 +214,10 @@ wk.register({
             b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
             g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
             h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+            c = {
+                "<cmd>lua require('telescope.builtin').colorscheme({enable_preview=true})<cr>",
+                "Change colorscheme",
+            },
         },
         z = {":NeoTreeRevealToggle<cr>", "Toggle File Tree"},
         Z = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},

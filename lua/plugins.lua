@@ -40,12 +40,6 @@ return require('packer').startup({function()
 
     -- ui.vim {{{
     use {'stevearc/dressing.nvim'}
-    -- use {'hood/popui.nvim',
-    --     requires = {'RishabhRD/popfix'},
-    --     config = function()
-    --         vim.g.popui_border_style = "rounded"
-    --         vim.ui.select = require"popui.ui-overrider"
-    -- end}
     use 'windwp/windline.nvim'
 
     use {'akinsho/bufferline.nvim', tag = 'v2.*', requires = 'kyazdani42/nvim-web-devicons',
@@ -68,13 +62,6 @@ return require('packer').startup({function()
 
     use  'rktjmp/lush.nvim'
 
-    -- use({
-    --     'mvllow/modes.nvim',
-    --     config = function()
-    --         vim.opt.cursorline = true
-    --         require('modes').setup()
-    --     end
-    -- })
 
     use 'meznaric/conmenu'
 
@@ -426,7 +413,7 @@ return require('packer').startup({function()
         end
     }
 
-    use {'RRethy/vim-illuminate'}
+    use { 'RRethy/vim-illuminate' }
 
     -- use {'github/copilot.vim', config = function()
     --     map("i", "<C-J>", [[copilot#Accept('<CR>')]],
@@ -540,12 +527,24 @@ return require('packer').startup({function()
     use {'Pocco81/DAPInstall.nvim', requires = {"mfussenegger/nvim-dap"} }
     use {'mfussenegger/nvim-dap-python', requires = {"mfussenegger/nvim-dap"} }
 
-
-
     use 'voldikss/vim-floaterm'
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
+    
+    use {'linty-org/readline.nvim',
+        config = function()
+            local readline = require 'readline'
+            vim.keymap.set('!', '<M-f>', readline.forward_word)
+            vim.keymap.set('!', '<M-b>', readline.backward_word)
+            vim.keymap.set('!', '<C-a>', readline.beginning_of_line)
+            vim.keymap.set('!', '<C-e>', readline.end_of_line)
+            vim.keymap.set('!', '<M-d>', readline.kill_word)
+            vim.keymap.set('!', '<C-w>', readline.backward_kill_word)
+            -- vim.keymap.set('!', '<C-k>', readline.kill_line)
+            vim.keymap.set('!', '<C-u>', readline.backward_kill_line)
+        end
+    }
 
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
@@ -634,15 +633,6 @@ return require('packer').startup({function()
         config = function()
             require('cfg.yabs')
         end
-    }
-
-    use {
-        'zegervdv/nrpattern.nvim',
-        config = function()
-            -- Basic setup
-            -- See below for more options
-            require"nrpattern".setup()
-        end,
     }
 
     use {'editorconfig/editorconfig-vim'}
@@ -856,6 +846,7 @@ return require('packer').startup({function()
     -- TeX
     use {'lervag/vimtex',
         config = function()
+            vim.g.tex_flavor = 'latex'
             vim.g.vimtex_fold_enabled = 1
             vim.g.vimtex_format_enabled = 1
             vim.g.tex_comment_nospell = 1

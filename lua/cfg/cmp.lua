@@ -79,10 +79,13 @@ cmp.setup({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         }),
-        ['<CR>'] = cmp.mapping.confirm({ 
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = function(fallback)
+            if cmp.visible() then 
+                cmp.mapping.confirm({select = false})
+            else
+                fallback()
+            end
+        end,
         ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -123,7 +126,7 @@ cmp.setup({
         { name = 'luasnip', group_index = 2 }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
-                { name = "crates", group_index = 2 },
+        { name = "crates", group_index = 2 },
 
     }),
     completion = {
@@ -160,6 +163,7 @@ vim.api.nvim_set_keymap("c", "<S-Tab>", "<cmd>lua require'cmp'.select_prev_item(
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
         { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
     }, {
@@ -177,10 +181,11 @@ cmp.setup.cmdline("/", {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-    { name = 'path' }
+        { name = 'path' }
     }, {
-        { name = 'cmdline' }
+            { name = 'cmdline' }
         })
 })
 
