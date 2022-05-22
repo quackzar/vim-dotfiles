@@ -21,6 +21,7 @@ require('telescope').setup{
             },
     }
   },
+  file_ignore_patterns = { "node_modules", ".git" },
   pickers = {
     -- Default configuration for builtin pickers goes here:
     -- picker_name = {

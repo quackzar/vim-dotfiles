@@ -193,7 +193,7 @@ local quickfix = {
 }
 
 local explorer = {
-    filetypes = { 'fern', 'NvimTree', 'lir' },
+    filetypes = { 'fern', 'NvimTree', 'lir', 'neo-tree' },
     active = {
         { '  ', { 'white', 'black' } },
         { helper.separators.slant_right, { 'black', 'black_light' } },

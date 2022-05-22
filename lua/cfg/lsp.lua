@@ -1,22 +1,8 @@
-local lspconfig = require('lspconfig')
-local coq = require ("coq")
-
--- coq_settings.clients.tabnine.enabled=true
-require("coq_3p") {
-    { src = "copilot", short_name = "COP", tmp_accept_key = "<c-r>" },
-    { src = "vimtex", short_name = "vTEX" },
-    { src = "nvimlua", short_name = "nLUA", conf_only = true },
-    { src = "dap" },
-}
-
--- require("null-ls").config({
---     sources = {
---     },
--- })
+---@diagnostic disable: lowercase-global
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  underline = true,
+    virtual_text = false,
+    underline = true,
 })
 
 local signs = {
@@ -43,30 +29,42 @@ vim.diagnostic.config({
         border = 'rounded',
         focusable = false,
     },
-    update_in_insert = true, -- default to false
+    update_in_insert = false, -- default to false
     severity_sort = true, -- default to false
 })
 
 
 
 function on_attach(client, bufnr)
-    require("lsp_signature").on_attach()
+    require("lsp_signature").on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        handler_opts = {
+            border = "rounded"
+        }
+    }, bufnr)
+
+
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
+    buf_set_option("tagfunc", "v:lua.vim.lsp.tagfunc")
+    buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
+    -- Add this <leader> bound mapping so formatting the entire document is easier.
+    buf_set_keymap("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    -- buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<space>K',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
     buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -74,58 +72,64 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>D',  '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
-    buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
+    -- buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
+    -- buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
     buf_set_keymap('n', '<space>a',  '<cmd>CodeActionMenu<CR>', opts)
-    buf_set_keymap('n', 'gr',        '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '[d',        '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d',        '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q',  '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', 'gr',        '<cmd>lua vim.buf.references()<CR>', opts)
+    buf_set_keymap('n', '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<space>q',  '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-    vim.cmd([[
-        augroup DiagnosticFloat
-            autocmd!
-            autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
-        augroup END
-    ]])
+    require('illuminate').on_attach(client)
 end
 
-local lsp_installer = require("nvim-lsp-installer")
+local lspconfig = require('lspconfig')
+local lspinstaller = require("nvim-lsp-installer")
 
-lsp_installer.on_server_ready(function(server)
-    local server_config = {}
-    server_config.on_attach = on_attach
+lspinstaller.setup({
+    ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+})
 
-    if server.name == "sumneko_lua" then
-    -- only apply these settings for the "sumneko_lua" server
-        server_config.settings = {
-        Lua = {
-            diagnostics = {
-            -- Get the language server to recognize the 'vim', 'use' global
-            globals = {'vim', 'use', 'require'},
-            },
-            workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-            enable = false,
-            },
+for _, server in ipairs(lspinstaller.get_installed_servers()) do
+  lspconfig[server.name].setup{
+    on_attach = on_attach,
+  }
+end
+
+lspconfig.sumneko_lua.setup({
+    on_attach = on_attach,
+    diagnostics = {
+        -- Get the language server to recognize the 'vim', 'use' global
+        globals = {'vim', 'use', 'require'},
+    },
+    workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+    },
+    -- Do not send telemetry data containing a randomized but unique identifier
+    telemetry = {
+        enable = false,
+    },
+})
+
+local rust_tools = require("rust-tools")
+rust_tools.setup {
+    server = { on_attach = on_attach },
+    tools = {
+        autoSetHints = true,
+        hover_with_actions = false,
+        inlay_hints = {
+            show_parameter_hints = true,
+            parameter_hints_prefix = "← ",
+            other_hints_prefix = "» ",
         },
-        }
-    end
-
-
-    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-    server:setup(server_config)
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
-
-require("trouble").setup {
-    use_diagnostic_signs = true,
+    },
 }
+
+
+lspconfig.tsserver.setup { on_attach = on_attach }
+-- TODO: Use hook API when supported.
 
 -- symbols for autocomplete
 vim.lsp.protocol.CompletionItemKind = {
@@ -221,7 +225,7 @@ null_ls.setup({
         -- null_ls.builtins.formatting.autopep8,
         null_ls.builtins.formatting.isort,
         -- null_ls.builtins.diagnostics.flake8,
-        null_ls.builtins.diagnostics.pylint,
+        -- null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.diagnostics.mypy,
 
         -- Shell
@@ -232,6 +236,7 @@ null_ls.setup({
 
         -- Git
         -- null_ls.builtins.code_actions.gitsigns,
+
 
         -- Rust
         null_ls.builtins.formatting.rustfmt,
