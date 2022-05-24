@@ -546,6 +546,8 @@ return require('packer').startup({function()
         end
     }
 
+    use 'jaxbot/selective-undo.vim'
+
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
     config = function()
