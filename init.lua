@@ -5,7 +5,7 @@ local function prequire(...)
     return nil
 end
 
--- prequire('impatient')
+prequire('impatient')
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
@@ -256,9 +256,11 @@ wk.register({
             l = {"<cmd>IndentBlanklineToggle<cr>", "Indent Line"},
             c = {"<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "Autocompletion Off"},
             C = {"<cmd>lua require('cmp').setup.buffer { enabled = true }<cr>", "Autocompletion On"},
+        },
+        p = {
+            name = "+perf  ",
         }
     },
-    -- TODO: <C-C>: add SnipRun
 })
 
 wk.register({
@@ -315,7 +317,7 @@ wk.register({
         d = { "<Plug>(ultest-debug)", "Debug nearest" },
     },
     s = {
-        name = "+experiment  ",
+        name = "+snip run  ",
         r = {":SnipRun<cr>", "Run"},
         i = {":SnipInfo<cr>", "Info"},
         d = {":SnipReset<cr>", "Reset"},

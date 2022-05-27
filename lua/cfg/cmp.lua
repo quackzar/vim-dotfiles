@@ -75,10 +75,10 @@ cmp.setup({
         ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ['<C-j>'] = function(fallback)
-            if cmp.visible() then
-                cmp.mapping.confirm({select = true})
-            else
+            if luasnip.jumpable(1) then
                 luasnip.jump(1)
+            else
+                cmp.mapping.confirm({select = true})
             end
         end,
         ['<C-e>'] = cmp.mapping({
