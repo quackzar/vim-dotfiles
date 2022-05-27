@@ -4,8 +4,8 @@ local function prequire(...)
     return nil
 end
 
-local luasnip = prequire('luasnip')
-local cmp = prequire("cmp")
+local luasnip = require('luasnip')
+local cmp = require("cmp")
 
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -47,25 +47,27 @@ end
 -- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 -- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-E>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
-vim.api.nvim_set_keymap("s", "<C-E>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
+vim.api.nvim_set_keymap("i", "<C-h>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
+vim.api.nvim_set_keymap("s", "<C-h>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
 
-vim.api.nvim_set_keymap("i", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
-vim.api.nvim_set_keymap("s", "<C-L>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
-vim.api.nvim_set_keymap("i", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
-vim.api.nvim_set_keymap("s", "<C-H>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
+-- vim.api.nvim_set_keymap("i", "<C-j>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
+-- vim.api.nvim_set_keymap("s", "<C-j>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
+vim.api.nvim_set_keymap("i", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
+vim.api.nvim_set_keymap("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
 local types = require("luasnip.util.types")
 
 luasnip.config.setup({
+    store_selection_keys = '<c-s>',
+    history = true,
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = {{"●", "Keyword"}}
+                virt_text = {{" ", "Keyword"}}
             }
         },
         [types.insertNode] = {
             active = {
-                virt_text = {{"●", "Type"}}
+                virt_text = {{" ", "Type"}}
             }
         }
     }

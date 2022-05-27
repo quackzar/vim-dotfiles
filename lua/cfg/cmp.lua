@@ -29,26 +29,26 @@ lspkind.init({
         Constant      = "",
         Constructor   = "",
         Enum          = "",
-        EnumMember    = "",
-        Event         = "",
-        Field         = "",
-        File          = "",
-        Folder        = "",
-        Function      = "",
-        Interface     = "",
-        Keyword       = "",
-        Method        = "",
-        Module        = "",
-        Operator      = "",
-        Property      = "",
-        Reference     = "",
-        Snippet       = "",
-        Struct        = "",
-        Text          = "",
-        TypeParameter = "",
-        Unit          = "",
-        Value         = "",
-        Variable      = "",
+        EnumMember    = " ",
+        Event         = " ",
+        Field         = " ",
+        File          = " ",
+        Folder        = " ",
+        Function      = " ",
+        Interface     = " ",
+        Keyword       = " ",
+        Method        = " ",
+        Module        = " ",
+        Operator      = " ",
+        Property      = " ",
+        Reference     = " ",
+        Snippet       = " ",
+        Struct        = " ",
+        Text          = " ",
+        TypeParameter = " ",
+        Unit          = " ",
+        Value         = " ",
+        Variable      = " ",
     },
 })
 
@@ -74,7 +74,13 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ['<C-j>'] = cmp.mapping.confirm({select = true}),
+        ['<C-j>'] = function(fallback)
+            if cmp.visible() then
+                cmp.mapping.confirm({select = true})
+            else
+                luasnip.jump(1)
+            end
+        end,
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),

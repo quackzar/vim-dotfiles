@@ -7,6 +7,10 @@ setlocal wrap
 setlocal spell
 nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
 nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
+nmap <buffer> j gj
+nmap <buffer> k gk
+vmap <buffer> j gj
+vmap <buffer> k gk
 
 nnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
@@ -17,9 +21,6 @@ nnoremap <buffer> K <Plug>(vimtex-doc-package)
 " nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
 
 nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
-
-" c: content, t: todo:, l: label, i: include
-nnoremap <buffer> <silent> <leader>t :call vimtex#fzf#run('ctli', g:fzf_layout)<cr>
 
 " In case these are already taken, reclaim them!
 vmap <buffer> ac <plug>(vimtex-ac)

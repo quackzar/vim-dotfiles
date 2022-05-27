@@ -5,7 +5,7 @@ local function prequire(...)
     return nil
 end
 
-prequire('impatient')
+-- prequire('impatient')
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true

@@ -15,6 +15,15 @@ let g:vimtex_compiler_latexmk = {
 
 let g:vimtex_fold_enabled = 1
 let g:vimtex_format_enabled = 1
+set foldmethod=expr
+set foldexpr=vimtex#fold#level(v:lnum)
+set foldtext=foldtext()
+
+nmap <buffer> j gj
+nmap <buffer> k gk
+
+vmap <buffer> j gj
+vmap <buffer> k gk
 
 if executable('pplatex')
     let g:vimtex_quickfix_method = 'pplatex'
