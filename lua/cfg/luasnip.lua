@@ -62,12 +62,12 @@ luasnip.config.setup({
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = {{" ", "Keyword"}}
+                virt_text = {{" ", "Special"}}
             }
         },
         [types.insertNode] = {
             active = {
-                virt_text = {{" ", "Type"}}
+                virt_text = {{" ", "Special"}}
             }
         }
     }

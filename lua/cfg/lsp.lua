@@ -82,7 +82,7 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '<space>q',  '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
-    require('illuminate').on_attach(client)
+    -- require('illuminate').on_attach(client)
 end
 
 local lspconfig = require('lspconfig')

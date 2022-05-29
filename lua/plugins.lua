@@ -280,7 +280,7 @@ return require('packer').startup({function()
         run = ':TSUpdate',
         config = function() require('cfg.treesitter') end
     }
-    use {'romgrk/nvim-treesitter-context',
+    use {'romgrk/nvim-treesitter-context', -- Repo moved to nvim-treesitter
         config = function()
             require'treesitter-context'.setup{
                 enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
@@ -322,6 +322,28 @@ return require('packer').startup({function()
     }
     use 'RRethy/nvim-treesitter-textsubjects'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/nvim-treesitter-refactor'
+    use 'nvim-treesitter/playground'
+    use "nvim-treesitter/nvim-treesitter-angular"
+
+    use {'RRethy/nvim-treesitter-endwise',
+        config = function()
+            require('nvim-treesitter.configs').setup {
+                endwise = {
+                    enable = true,
+                },
+            }
+        end
+    }
+
+    use {'windwp/nvim-autopairs', config = function()
+        require('nvim-autopairs').setup{
+            disable_filetype = { "TelescopePrompt" , "guihua", "guihua_rust", "clap_input" },
+            check_ts = true,
+        }
+    end}
+
+    use 'windwp/nvim-ts-autotag'
 
     use {
         "danymat/neogen",
@@ -341,6 +363,18 @@ return require('packer').startup({function()
         require('cfg.syntax-tree-surfer')
     end}
 
+    use {'ray-x/sad.nvim', config = function()
+        require'sad'.setup({
+            diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+            ls_file = 'fd', -- also git ls_file
+            exact = false, -- exact match
+            vsplit = true, -- split sad window the screen vertically, when set to number
+            -- it is a threadhold when window is larger than the threshold sad will split vertically,
+            height_ratio = 0.6, -- height ratio of sad window when split horizontally
+            width_ratio = 0.6, -- height ratio of sad window when split vertically
+
+        })
+    end}
 
     -- }}}
     -- LSP {{{
@@ -371,6 +405,17 @@ return require('packer').startup({function()
     end}
     use 'ray-x/lsp_signature.nvim'
 
+    use({
+        'ray-x/navigator.lua',
+        requires = {
+            { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+            { 'neovim/nvim-lspconfig' },
+        },
+        config = function()
+            require'navigator'.setup()
+        end
+    })
+
     use {'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', config = function()
         require('toggle_lsp_diagnostics').init()
     end}
@@ -398,7 +443,7 @@ return require('packer').startup({function()
         end
     }
 
-    use { 'RRethy/vim-illuminate' }
+    -- use { 'RRethy/vim-illuminate' }
 
     -- use {'github/copilot.vim', config = function()
     --     map("i", "<C-J>", [[copilot#Accept('<CR>')]],
@@ -451,23 +496,6 @@ return require('packer').startup({function()
         end
     }
 
-    use {'RRethy/nvim-treesitter-endwise',
-        config = function()
-            require('nvim-treesitter.configs').setup {
-                endwise = {
-                    enable = true,
-                },
-            }
-        end
-    }
-
-    use {'windwp/nvim-autopairs', config = function()
-        require('nvim-autopairs').setup{
-            check_ts = true,
-        }
-    end}
-
-    use 'windwp/nvim-ts-autotag'
 
     -- use 'rstacruz/vim-closer' -- only closes delimiters on <cr>
 
@@ -527,10 +555,11 @@ return require('packer').startup({function()
     }
 
     use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
+    use 'samjwill/nvim-unception'
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
-    
+
     use {'linty-org/readline.nvim',
         config = function()
             local readline = require 'readline'
@@ -571,7 +600,6 @@ return require('packer').startup({function()
     use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
     use 'tpope/vim-unimpaired'
     use 'AndrewRadev/switch.vim'
-    use 'j5shi/CommandlineComplete.vim'
     use 'machakann/vim-sandwich' -- Surround replacment, with previews and stuff
     use 'wellle/targets.vim'
     use {'andymass/vim-matchup', event = 'VimEnter',
@@ -596,7 +624,6 @@ return require('packer').startup({function()
 
     use 'mbbill/undotree'
     -- use 'kshenoy/vim-signature' -- marks in the sign column
-    use 'andymass/vim-visput'
     use {'lukas-reineke/indent-blankline.nvim',
     config = function()
         vim.g.indent_blankline_char = '▏'

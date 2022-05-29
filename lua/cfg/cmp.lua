@@ -73,7 +73,6 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
         ['<C-j>'] = function(fallback)
             if luasnip.jumpable(1) then
                 luasnip.jump(1)
@@ -86,7 +85,7 @@ cmp.setup({
             c = cmp.mapping.close(),
         }),
         ['<CR>'] = function(fallback)
-            if cmp.visible() then 
+            if cmp.visible() then
                 cmp.mapping.confirm({select = false})
             else
                 fallback()
@@ -176,6 +175,9 @@ cmp.setup.filetype('gitcommit', {
             { name = 'buffer' },
         })
 })
+
+cmp.setup.filetype('guihua', { completion = {enable = false} })
+cmp.setup.filetype('guihua_rust', { completion = {enable = false} })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
