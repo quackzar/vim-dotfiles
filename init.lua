@@ -72,7 +72,7 @@ vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldminlines=5
 vim.o.foldnestmax=5
 
-
+vim.o.scrolloff = 10
 
 -- vim.o.globalstatus = true
 vim.o.laststatus = 3

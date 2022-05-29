@@ -73,13 +73,21 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-j>'] = function(fallback)
-            if luasnip.jumpable(1) then
-                luasnip.jump(1)
-            else
-                cmp.mapping.confirm({select = true})
-            end
-        end,
+        ['<C-j>'] = cmp.mapping({
+            i = function()
+                if cmp.visible() then
+                    local entry = cmp.get_selected_entry()
+                    if not entry then
+                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                    else
+                        cmp.confirm()
+                    end
+                else
+                    luasnip.jump(1)
+                end
+            end,
+            c = cmp.mapping.confirm({select = true})
+        }),
         ['<C-e>'] = cmp.mapping({
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),

@@ -57,6 +57,7 @@ vim.api.nvim_set_keymap("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<cr>"
 local types = require("luasnip.util.types")
 
 luasnip.config.setup({
+    enable_autosnippets = true,
     store_selection_keys = '<c-s>',
     history = true,
     ext_opts = {

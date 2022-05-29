@@ -221,7 +221,6 @@ return require('packer').startup({function()
 
     --- }}}
     -- colorschemes {{{
-    use 'RRethy/nvim-base16'
     use {'folke/tokyonight.nvim',
         config = function()
             vim.g.tokyonight_style = 'night'
@@ -346,6 +345,7 @@ return require('packer').startup({function()
             require('nvim-autopairs').setup{
                 disable_filetype = { "TelescopePrompt" , "guihua", "guihua_rust", "clap_input" },
                 check_ts = true,
+                enable_check_bracket_line = true,
                 fast_wrap = {
                     map = '<M-e>',
                     chars = { '{', '[', '(', '"', "'" },
