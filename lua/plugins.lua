@@ -229,7 +229,7 @@ return require('packer').startup({function()
     }
     use {'tiagovla/tokyodark.nvim',
         config = function()
-            vim.g.tokyodark_transparent_background = true
+            vim.g.tokyodark_transparent_background = false
         end
     }
     use 'mhartington/oceanic-next'
@@ -237,6 +237,11 @@ return require('packer').startup({function()
     use 'tanvirtin/monokai.nvim'
     use 'nanotech/jellybeans.vim'
     use 'morhetz/gruvbox'
+    use 'ful1e5/onedark.nvim'
+    use 'sainnhe/everforest'
+    use 'sainnhe/sonokai'
+    use "savq/melange"
+
     -- }}}
     -- git.vim {{{
     use 'tpope/vim-fugitive'
@@ -405,17 +410,6 @@ return require('packer').startup({function()
     end}
     use 'ray-x/lsp_signature.nvim'
 
-    use({
-        'ray-x/navigator.lua',
-        requires = {
-            { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
-            { 'neovim/nvim-lspconfig' },
-        },
-        config = function()
-            require'navigator'.setup()
-        end
-    })
-
     use {'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', config = function()
         require('toggle_lsp_diagnostics').init()
     end}
@@ -555,7 +549,7 @@ return require('packer').startup({function()
     }
 
     use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
-    use 'samjwill/nvim-unception'
+    -- use 'samjwill/nvim-unception'-- NOTE: screws with multiple instances
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'

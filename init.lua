@@ -143,8 +143,6 @@ require('cfg.lsp')
 -- require('cfg.coq')
 require('cfg.tree')
 
-require('functions')
-
 require('windline.bubblegum')
 
 local async = require("plenary.async")
