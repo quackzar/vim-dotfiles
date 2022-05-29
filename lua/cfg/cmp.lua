@@ -165,6 +165,9 @@ cmp.setup({
 vim.api.nvim_set_keymap("c", "<Tab>", "<cmd>lua require'cmp'.select_next_item()<cr>", {noremap=true})
 vim.api.nvim_set_keymap("c", "<S-Tab>", "<cmd>lua require'cmp'.select_prev_item()<cr>", {noremap=true})
 
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype('gitcommit', {

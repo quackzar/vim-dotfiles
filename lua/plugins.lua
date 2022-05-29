@@ -26,7 +26,7 @@ return require('packer').startup({function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-     use 'lewis6991/impatient.nvim' -- speed up startup
+    use 'lewis6991/impatient.nvim' -- speed up startup
     use 'nathom/filetype.nvim' -- faster filetype detection
 
     use({
@@ -159,11 +159,11 @@ return require('packer').startup({function()
     -- }
 
     use { 'bennypowers/nvim-regexplainer',
-      config = function() require'regexplainer'.setup()  end,
-      requires = {
-        'nvim-lua/plenary.nvim',
-        'MunifTanjim/nui.nvim',
-      } }
+        config = function() require'regexplainer'.setup()  end,
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'MunifTanjim/nui.nvim',
+        } }
 
     use{ 'anuvyklack/pretty-fold.nvim',
         requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
@@ -341,12 +341,30 @@ return require('packer').startup({function()
         end
     }
 
-    use {'windwp/nvim-autopairs', config = function()
-        require('nvim-autopairs').setup{
-            disable_filetype = { "TelescopePrompt" , "guihua", "guihua_rust", "clap_input" },
-            check_ts = true,
-        }
-    end}
+    use {'windwp/nvim-autopairs',
+        config = function()
+            require('nvim-autopairs').setup{
+                disable_filetype = { "TelescopePrompt" , "guihua", "guihua_rust", "clap_input" },
+                check_ts = true,
+                fast_wrap = {
+                    map = '<M-e>',
+                    chars = { '{', '[', '(', '"', "'" },
+                    pattern = [=[[%'%"%)%>%]%)%}%,]]=],
+                    end_key = '$',
+                    keys = 'qwertyuiopzxcvbnmasdfghjkl',
+                    check_comma = true,
+                    highlight = 'Search',
+                    highlight_grey='Comment'
+                },
+
+            }
+            local Rule = require('nvim-autopairs.rule')
+            local npairs = require('nvim-autopairs')
+            npairs.add_rule(Rule("\\(","\\)","tex"))
+            npairs.add_rule(Rule("\\[","\\]","tex"))
+            npairs.add_rule(Rule("\\left","\\right","tex"))
+        end
+    }
 
     use 'windwp/nvim-ts-autotag'
 
@@ -368,18 +386,20 @@ return require('packer').startup({function()
         require('cfg.syntax-tree-surfer')
     end}
 
-    use {'ray-x/sad.nvim', config = function()
-        require'sad'.setup({
-            diff = 'delta', -- you can use `diff`, `diff-so-fancy`
-            ls_file = 'fd', -- also git ls_file
-            exact = false, -- exact match
-            vsplit = true, -- split sad window the screen vertically, when set to number
-            -- it is a threadhold when window is larger than the threshold sad will split vertically,
-            height_ratio = 0.6, -- height ratio of sad window when split horizontally
-            width_ratio = 0.6, -- height ratio of sad window when split vertically
+    use {'ray-x/sad.nvim',
+        requires = {'ray-x/guihua.lua'},
+        config = function()
+            require'sad'.setup({
+                diff = 'delta', -- you can use `diff`, `diff-so-fancy`
+                ls_file = 'fd', -- also git ls_file
+                exact = false, -- exact match
+                vsplit = true, -- split sad window the screen vertically, when set to number
+                -- it is a threadhold when window is larger than the threshold sad will split vertically,
+                height_ratio = 0.6, -- height ratio of sad window when split horizontally
+                width_ratio = 0.6, -- height ratio of sad window when split vertically
 
-        })
-    end}
+            })
+        end}
 
     -- }}}
     -- LSP {{{
@@ -464,13 +484,13 @@ return require('packer').startup({function()
     use 'onsails/lspkind-nvim'
     use {'hrsh7th/nvim-cmp', config = function()
         require('cfg.cmp')
-        end,
+    end,
         requires = {
-         'neovim/nvim-lspconfig',
-         'hrsh7th/cmp-nvim-lsp',
-         'hrsh7th/cmp-buffer',
-         'hrsh7th/cmp-path',
-         'hrsh7th/cmp-cmdline',
+            'neovim/nvim-lspconfig',
+            'hrsh7th/cmp-nvim-lsp',
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline',
         },
     }
 
@@ -544,8 +564,8 @@ return require('packer').startup({function()
     use {'mfussenegger/nvim-dap-python', requires = {"mfussenegger/nvim-dap"} }
 
     use {'t-troebst/perfanno.nvim', config = function()
-            require('cfg.perfanno')
-        end
+        require('cfg.perfanno')
+    end
     }
 
     use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
@@ -572,11 +592,11 @@ return require('packer').startup({function()
 
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
-    config = function()
-        require('Comment').setup({
+        config = function()
+            require('Comment').setup({
                 ignore = '^$'
             })
-    end
+        end
     }
     -- use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
 
@@ -597,13 +617,13 @@ return require('packer').startup({function()
     use 'machakann/vim-sandwich' -- Surround replacment, with previews and stuff
     use 'wellle/targets.vim'
     use {'andymass/vim-matchup', event = 'VimEnter',
-    config = function()
-        vim.g.matchup_surround_enabled = 0
-        vim.g.matchup_transmute_enabled = 1
-        vim.g.matchup_matchparen_deferred = 1
-        vim.g.matchup_override_vimtex = 1
-        vim.g.matchup_matchparen_offscreen = {method = 'popup'}
-    end}
+        config = function()
+            vim.g.matchup_surround_enabled = 0
+            vim.g.matchup_transmute_enabled = 1
+            vim.g.matchup_matchparen_deferred = 1
+            vim.g.matchup_override_vimtex = 1
+            vim.g.matchup_matchparen_offscreen = {method = 'popup'}
+        end}
     use {'junegunn/vim-easy-align',
         config = function()
             map('x', 'ga', '<Plug>(EasyAlign)', {silent=true})
@@ -619,20 +639,20 @@ return require('packer').startup({function()
     use 'mbbill/undotree'
     -- use 'kshenoy/vim-signature' -- marks in the sign column
     use {'lukas-reineke/indent-blankline.nvim',
-    config = function()
-        vim.g.indent_blankline_char = '▏'
-        vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
-        vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-        vim.g.indent_blankline_show_trailing_blankline_indent = true
-        vim.g.indent_blankline_show_first_indent_level = false
-        require("indent_blankline").setup {
-            -- for example, context is off by default, use this to turn it on
-            space_char_blankline = " ",
-            show_current_context = true,
-            show_current_context_start = true,
+        config = function()
+            vim.g.indent_blankline_char = '▏'
+            vim.g.indent_blankline_filetype_exclude = { 'help', 'packer', 'undotree', 'text', 'dashboard', 'man' }
+            vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
+            vim.g.indent_blankline_show_trailing_blankline_indent = true
+            vim.g.indent_blankline_show_first_indent_level = false
+            require("indent_blankline").setup {
+                -- for example, context is off by default, use this to turn it on
+                space_char_blankline = " ",
+                show_current_context = true,
+                show_current_context_start = true,
 
-        }
-    end
+            }
+        end
     }
     use 'tpope/vim-abolish' -- like substitute
     use 'reedes/vim-litecorrect' -- autocorrection! Fixes stupid common mistakes
@@ -647,7 +667,7 @@ return require('packer').startup({function()
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require("todo-comments").setup{}
-    end}
+        end}
 
     use {
         'pianocomposer321/yabs.nvim',
@@ -676,12 +696,12 @@ return require('packer').startup({function()
     -- }}}
     -- navigation.vim {{{
     use {'dstein64/vim-win',
-    config = function()
-        map("n", "<space>w", "<plug>WinWin", {silent = true, noremap = false})
-    end
+        config = function()
+            map("n", "<space>w", "<plug>WinWin", {silent = true, noremap = false})
+        end
     }
     use {'nacro90/numb.nvim', config = function()
-    require('numb').setup()
+        require('numb').setup()
     end}
     use {'ggandor/lightspeed.nvim',
         config = function()
@@ -757,15 +777,15 @@ return require('packer').startup({function()
     -- use {'p00f/clangd_extensions.nvim'}
     -- ======== MARKDOWN ========
     use {'plasticboy/vim-markdown', ft = 'markdown',
-    config = function()
-        vim.g.vim_markdown_frontmatter = 1
-        vim.g.vim_markdown_math = 1
-        vim.g.vim_markdown_toml_frontmatter = 1
-        vim.g.vim_markdown_json_frontmatter = 1
-        vim.g.vim_markdown_math = 1
-        vim.g.vim_markdown_strikethrough = 1
-        -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
-    end
+        config = function()
+            vim.g.vim_markdown_frontmatter = 1
+            vim.g.vim_markdown_math = 1
+            vim.g.vim_markdown_toml_frontmatter = 1
+            vim.g.vim_markdown_json_frontmatter = 1
+            vim.g.vim_markdown_math = 1
+            vim.g.vim_markdown_strikethrough = 1
+            -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
+        end
     }
     use {'dhruvasagar/vim-table-mode'}
     -- ======== ASCIIDOC =======
@@ -858,11 +878,11 @@ return require('packer').startup({function()
 
     -- === Coq ===
     use {'whonore/Coqtail', ft = 'coqt',
-    config = function()
-        vim.g.coqtail_auto_set_proof_diffs = 'on'
-        vim.g.coqtail_map_prefix = ','
-        vim.g.coctail_imap_prefix = '<C-c>'
-    end
+        config = function()
+            vim.g.coqtail_auto_set_proof_diffs = 'on'
+            vim.g.coqtail_map_prefix = ','
+            vim.g.coctail_imap_prefix = '<C-c>'
+        end
     }
     -- === text ===
     -- TeX
