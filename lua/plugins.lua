@@ -837,6 +837,8 @@ return require('packer').startup({function()
     -- ====== LLVM ====
     use {'rhysd/vim-llvm', ft = 'llvm'}
     use {'cespare/vim-toml', ft = 'toml'}
+    -- === LUA ===
+    use 'folke/lua-dev.nvim'
     -- === kitty ===
     use 'fladson/vim-kitty'
     -- === rust ===
@@ -927,8 +929,13 @@ return require('packer').startup({function()
         require('packer').sync()
     end
 end, config = {
-    -- Move to lua dir so impatient.nvim can cache it
-    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
-  }
+        -- Move to lua dir so impatient.nvim can cache it
+        compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua',
+        git = {
+            subcommands ={
+                update = 'pull --progress --rebase=false --allow-unrelated-histories'
+            }
+        }
+    }
 })
 -- vim: foldmethod=marker

@@ -39,6 +39,9 @@ vim.o.guicursor = table.concat({
 
 vim.wo.signcolumn = 'yes'
 
+vim.o.cursorlineopt = 'number'
+vim.o.cursorline = true
+
 vim.o.undofile = true
 vim.o.backup = false
 vim.o.writebackup = false

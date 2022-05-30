@@ -99,21 +99,14 @@ for _, server in ipairs(lspinstaller.get_installed_servers()) do
   }
 end
 
-lspconfig.sumneko_lua.setup({
+local luadev = require("lua-dev").setup({
+  -- add any options here, or leave empty to use the default settings
+  lspconfig = {
     on_attach = on_attach,
-    diagnostics = {
-        -- Get the language server to recognize the 'vim', 'use' global
-        globals = {'vim', 'use', 'require'},
-    },
-    workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-    },
-    -- Do not send telemetry data containing a randomized but unique identifier
-    telemetry = {
-        enable = false,
-    },
+  },
 })
+
+lspconfig.sumneko_lua.setup(luadev)
 
 local rust_tools = require("rust-tools")
 rust_tools.setup {
@@ -121,6 +114,9 @@ rust_tools.setup {
     tools = {
         autoSetHints = true,
         hover_with_actions = false,
+        diagnostics = {
+            disabled = { 'inactive-code' }
+        },
         inlay_hints = {
             show_parameter_hints = true,
             parameter_hints_prefix = "← ",
