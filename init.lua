@@ -9,6 +9,8 @@ prequire('impatient')
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
+vim.o.guifont = "JetBrainsMono Nerd Font:h11"
+vim.g.neovide_transparency=0.8
 vim.o.mouse = 'a'
 vim.o.wrap = false
 vim.o.linebreak = true
