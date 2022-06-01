@@ -27,4 +27,3 @@ vmap <buffer> ac <plug>(vimtex-ac)
 xmap <buffer> ac <plug>(vimtex-ac)
 vmap <buffer> ic <plug>(vimtex-ic)
 xmap <buffer> ic <plug>(vimtex-ic)
-

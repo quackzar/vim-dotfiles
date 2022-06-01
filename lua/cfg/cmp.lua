@@ -75,15 +75,11 @@ cmp.setup({
         ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-j>'] = cmp.mapping({
             i = function()
-                if cmp.visible() then
-                    local entry = cmp.get_selected_entry()
-                    if not entry then
-                        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-                    else
-                        cmp.confirm()
-                    end
+                local entry = cmp.get_selected_entry()
+                if not entry then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                 else
-                    luasnip.jump(1)
+                    cmp.confirm()
                 end
             end,
             c = cmp.mapping.confirm({select = true})
@@ -113,32 +109,12 @@ cmp.setup({
                 fallback()
             end
         end, {'i', 'c'}),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            elseif has_words_before() then
-                cmp.complete()
-            else
-                fallback()
-            end
-        end, { "i", "s", "c" }),
-
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if luasnip.jumpable(-1) then
-                luasnip.jump(-1)
-            else
-                fallback()
-            end
-        end, { "i", "s", "c" }),
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp', group_index = 2 },
         { name = 'copilot', group_index = 2 },
-        -- { name = 'vsnip' }, -- For vsnip users.
         { name = 'omni', group_index = 2},
         { name = 'luasnip', group_index = 2 }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
         { name = "crates", group_index = 2 },
 
     }),
@@ -146,6 +122,10 @@ cmp.setup({
         completeopt = "menu,menuone,noinsert",
         keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
         keyword_length = 1,
+    },
+    window = {
+        -- completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },

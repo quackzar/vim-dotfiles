@@ -166,9 +166,6 @@ map('n', '<leader>ps', '', {
     callback = packer_sync
 })
 
-
-vim.g.neomolokai_no_bg = true
-vim.g.neomolokai_inv_column = true
 vim.cmd('colorscheme tokyodark')
 
 
@@ -335,6 +332,22 @@ wk.register({
     }
 }, { prefix = "<leader>", noremap = false })
 
+wk.register({
+    name = "Insert mode completion",
+    ['<c-l>'] = "Lines",
+    ['<c-n>'] = "Current file",
+    ['<c-k>'] = "Dictionary",
+    ['<c-t>'] = "Thesarus",
+    ['<c-i>'] = "Included",
+    ['<c-]>'] = "Tags",
+    ['<c-f>'] = "File names",
+    ['<c-d>'] = "Defintions",
+    ['<c-v>'] = "Vim CMD",
+    ['<c-u>'] = "User defined",
+    ['<c-o>'] = "Omni",
+    ['s'] = "Spell suggest",
+    ['<c-z>'] = "Stop Completion",
+}, {mode = 'i', prefix = '<C-x>'})
 
 
 -- vim: foldmethod=marker sw=4

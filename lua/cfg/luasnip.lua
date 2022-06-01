@@ -1,60 +1,25 @@
-local function prequire(...)
-    local status, lib = pcall(require, ...)
-    if (status) then return lib end
-    return nil
-end
-
 local luasnip = require('luasnip')
-local cmp = require("cmp")
-
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
-
-_G.tab_complete = function()
-    if cmp and cmp.visible() then
-        cmp.select_next_item()
-    elseif luasnip and luasnip.expand_or_locally_jumpable() then
-        return t("<Plug>luasnip-expand-or-jump")
-    elseif check_back_space() then
-        return t "<Tab>"
-    else
-        cmp.complete()
-    end
-    return ""
-end
-_G.s_tab_complete = function()
-    if cmp and cmp.visible() then
-        cmp.select_prev_item()
-    elseif luasnip and luasnip.jumpable(-1) then
-        return t("<Plug>luasnip-jump-prev")
-    else
-        return t "<S-Tab>"
-    end
-    return ""
-end
-
--- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<C-h>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
-vim.api.nvim_set_keymap("s", "<C-h>", "<cmd>lua require('luasnip').next-choice()<cr>", {})
-
--- vim.api.nvim_set_keymap("i", "<C-j>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
--- vim.api.nvim_set_keymap("s", "<C-j>", "<cmd>lua require('luasnip').jump(1)<cr>", {})
-vim.api.nvim_set_keymap("i", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
-vim.api.nvim_set_keymap("s", "<C-k>", "<cmd>lua require('luasnip').jump(-1)<cr>", {})
+vim.keymap.set({"i", "s"}, "<C-s><C-o>", function() require("luasnip.extras.select_choice")() end)
+vim.keymap.set({"i", "s"}, "<C-s><C-k>", '<Plug>luasnip-next-choice')
+vim.keymap.set({"i", "s"}, "<C-s><C-j>", function() require('luasnip').expand() end)
+vim.keymap.set({"i", "s"}, "<C-s><C-n>", function() require('luasnip').jump(1) end)
+vim.keymap.set({"i", "s"}, "<C-s><C-p>", function() require('luasnip').jump(-1) end)
+vim.keymap.set({"i", "s"}, "<C-s><C-l>", function() require('luasnip').unlink_current_if_deleted() end)
+vim.keymap.set({"v"}, "<C-s><C-f>", '"sc<cmd>lua require("luasnip.extras.otf").on_the_fly()<cr>')
+vim.keymap.set({"i"}, "<C-s><C-f>", '<cmd>lua require("luasnip.extras.otf").on_the_fly("s")<cr>')
+-- TODO: Make generic register version
 local types = require("luasnip.util.types")
+
+require('which-key').register({
+    name = 'Snippets',
+    ['<C-o>'] = 'Select choice',
+    ['<C-k>'] = 'Next choice',
+    ['<C-j>'] = 'Expand',
+    ['<C-n>'] = 'Jump next',
+    ['<C-p>'] = 'Jump previous',
+    ['<C-f>'] = 'Fly snippet',
+    ['<C-l>'] = 'Stop',
+}, {mode = 'i', prefix = '<C-s>'})
 
 luasnip.config.setup({
     enable_autosnippets = true,
