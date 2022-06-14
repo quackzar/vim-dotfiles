@@ -11,6 +11,7 @@ require('cmp').setup.buffer {
                 buffer = "[BUF]",
                 luasnip = "[SNIP]",
                 copilot = "[COP]",
+                nvim_lsp = "[TeXLab]",
                 -- formatting for other sources
             })[entry.source.name]
             return vim_item
@@ -18,7 +19,7 @@ require('cmp').setup.buffer {
     },
     sources = {
         { name = 'omni' },
-        { name = 'buffer' },
+        { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'copilot' },
         -- other sources

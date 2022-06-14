@@ -5,7 +5,7 @@ require'nvim-treesitter.configs'.setup {
             -- Highlight the @foo
         },
         -- Setting this to true or a list of languages will run `:h syntax` and tree-sitter at the same time.
-        additional_vim_regex_highlighting = true,
+        additional_vim_regex_highlighting = false,
         disable = { "tex", "latex" },
     },
     incremental_selection = {
@@ -31,9 +31,11 @@ require'nvim-treesitter.configs'.setup {
     },
     textsubjects = {
         enable = true,
+        prev_selection = ',', -- (Optional) keymap to select the previous selection
         keymaps = {
             ['.'] = 'textsubjects-smart',
             [';'] = 'textsubjects-container-outer',
+            ['i;'] = 'textsubjects-container-inner',
         }
     },
     textobjects = {
@@ -90,7 +92,7 @@ require'nvim-treesitter.configs'.setup {
         },
         lsp_interop = {
             enable = true,
-            border =    'none',
+            border =    'rounded',
             peek_definition_code = {
                 ["<leader>df"] = "@function.outer",
                 ["<leader>dF"] = "@class.outer",

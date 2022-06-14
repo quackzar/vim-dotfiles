@@ -18,6 +18,7 @@ vim.o.number = true
 vim.o.foldenable = true
 vim.o.wildmenu = true
 vim.o.showmode = false
+vim.o.breakindent = true
 
 vim.o.title = true
 vim.g.mapleader = ' '
@@ -210,13 +211,16 @@ wk.register({
     ["<leader>"] = {
         f = {
             name = "+telescope  ",
-            f = { "<cmd>Telescope find_files<cr>", "Find File" },
-            b = { "<cmd>Telescope buffers<cr>", "Find Buffer" },
+            f = { "<cmd>Telescope find_files<cr>", "Files" },
+            b = { "<cmd>Telescope buffers<cr>", "Buffers" },
             g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
-            h = { "<cmd>Telescope help_tags<cr>", "Find help" },
+            h = { "<cmd>Telescope help_tags<cr>", "Help" },
+            r = { "<cmd>Telescope lsp_references<cr>", "References" },
+            s = { "<cmd>Telescope lsp_workspace_symbols<cr>", "Symbols" },
+            d = { "<cmd>Telescope lsp_workspace_diagnostics<cr>", "Diagntics" },
             c = {
                 "<cmd>lua require('telescope.builtin').colorscheme({enable_preview=true})<cr>",
-                "Change colorscheme",
+                "Colorschemes",
             },
         },
         z = {":NeoTreeRevealToggle<cr>", "Toggle File Tree"},
@@ -246,6 +250,8 @@ wk.register({
             S = {"<cmd>Gitsigns stage_buffer<cr>", "Stage buffer"},
             u = {"<cmd>Gitsigns undo_stage_buffer<cr>", "Undo stage"},
             r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"},
+            R = {"Reset buffer index"},
+            y = {"Link buffer"},
         },
         -- TODO: t: add ultest--[[  ]]
         o = {
@@ -349,5 +355,23 @@ wk.register({
     ['<c-z>'] = "Stop Completion",
 }, {mode = 'i', prefix = '<C-x>'})
 
+wk.register({
+    ["co"] = "Select ours",
+    ["ct"] = "Select theirs",
+    ["cb"] = "Select both",
+    ["c0"] = "Select none",
+    ["[x"] = "Previous Conflict",
+    ["]x"] = "Next conflict",
+}, {mode = "n"})
+
+
+wk.register({
+    name = "Show mappings",
+    o = {"<cmd>WhichKey '' o<cr>", "Operators"},
+    i = {"<cmd>WhichKey '' i<cr>", "Insert Mode"},
+    v = {"<cmd>WhichKey '' v<cr>", "Visual Mode"},
+    n = {"<cmd>WhichKey '' n<cr>", "Normal Mode"},
+    x = {"<cmd>WhichKey '' x<cr>", "Mode"},
+}, {prefix = "<space><space>", mode = "n"})
 
 -- vim: foldmethod=marker sw=4

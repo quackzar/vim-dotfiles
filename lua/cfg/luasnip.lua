@@ -4,12 +4,13 @@ vim.keymap.set({"i", "s"}, "<C-s><C-k>", '<Plug>luasnip-next-choice')
 vim.keymap.set({"i", "s"}, "<C-s><C-j>", function() require('luasnip').expand() end)
 vim.keymap.set({"i", "s"}, "<C-s><C-n>", function() require('luasnip').jump(1) end)
 vim.keymap.set({"i", "s"}, "<C-s><C-p>", function() require('luasnip').jump(-1) end)
-vim.keymap.set({"i", "s"}, "<C-s><C-l>", function() require('luasnip').unlink_current_if_deleted() end)
+vim.keymap.set({"i", "s", "n", "v"}, "<C-s><C-l>", function() require('luasnip').unlink_current_if_deleted() end)
 vim.keymap.set({"v"}, "<C-s><C-f>", '"sc<cmd>lua require("luasnip.extras.otf").on_the_fly()<cr>')
 vim.keymap.set({"i"}, "<C-s><C-f>", '<cmd>lua require("luasnip.extras.otf").on_the_fly("s")<cr>')
 -- TODO: Make generic register version
 local types = require("luasnip.util.types")
 
+vim.keymap.set("i", "<C-s>", "<nop>")
 require('which-key').register({
     name = 'Snippets',
     ['<C-o>'] = 'Select choice',

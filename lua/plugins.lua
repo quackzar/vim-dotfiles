@@ -29,6 +29,8 @@ return require('packer').startup({function()
     use 'lewis6991/impatient.nvim' -- speed up startup
     use 'nathom/filetype.nvim' -- faster filetype detection
 
+    use 'antoinemadec/FixCursorHold.nvim'
+
     use({
         "folke/persistence.nvim",
         event = "BufReadPre", -- this will only start session saving when an actual file was opened
@@ -95,6 +97,7 @@ return require('packer').startup({function()
                 },
                 hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>"}, -- hide mapping boilerplate
                 operators = { gc = "Comments" },
+                ignore_missing = false, -- fun if one decides to register everything
                 key_labels = {
                     -- override the label used to display some keys. It doesn't effect WK in any other way.
                     ["<space>"] = "SPC",
@@ -126,7 +129,7 @@ return require('packer').startup({function()
         config = function()
             require('cinnamon').setup({
                 extra_keymaps = true,
-                extended_keymaps = true,
+                extended_keymaps = false,
             })
         end
     }
@@ -170,7 +173,7 @@ return require('packer').startup({function()
         config = function()
             vim.opt.fillchars:append('fold: ')
             require('pretty-fold').setup {
-                ft_ignore = {'neorg', 'tex'},
+                ft_ignore = {'neorg', 'tex', 'latex'},
                 fill_char = ' ',
                 sections = {
                     left = {
@@ -211,11 +214,11 @@ return require('packer').startup({function()
                 },
                 stop_words = {
                     -- ╟─ "*" ──╭───────╮── "@brief" ──╭───────╮──╢
-                    --          ╰─ WSP ─╯              ╰─ WSP ─╯
+                    --         ╰─ WSP ─╯              ╰─ WSP ─╯
                     '%*%s*@brief%s*',
                 },
             })
-            require('pretty-fold.preview').setup()
+            require('pretty-fold.preview').setup({})
         end
     }
 
@@ -231,6 +234,7 @@ return require('packer').startup({function()
             vim.g.tokyodark_transparent_background = false
         end
     }
+    use "rafamadriz/neon"
     use 'mhartington/oceanic-next'
     use 'rose-pine/neovim'
     use 'tanvirtin/monokai.nvim'
@@ -272,11 +276,19 @@ return require('packer').startup({function()
     use {'ruifm/gitlinker.nvim',
         config = function()
             require('gitlinker').setup()
-        end}
-    use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
+        end
+    }
+    -- use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
 
     use {'akinsho/git-conflict.nvim', config = function()
-        require('git-conflict').setup()
+        require('git-conflict').setup({
+            default_mappings = true, -- disable buffer local mapping created by this plugin
+            disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
+            highlights = { -- They must have background color, otherwise the default color will be used
+                incoming = 'DiffText',
+                current = 'DiffAdd',
+            }
+        })
     end}
     --- }}}
     -- treesitter {{{
@@ -465,11 +477,13 @@ return require('packer').startup({function()
     -- use 'simrat39/symbols-outline.nvim'
     use 'folke/lsp-colors.nvim'
     use 'jose-elias-alvarez/null-ls.nvim'
-    use {
-        'filipdutescu/renamer.nvim',
-        branch = 'master',
-        requires = { {'nvim-lua/plenary.nvim'} }
+
+    use { "johmsalas/text-case.nvim",
+        config = function()
+            require('textcase').setup {}
+        end
     }
+
     use {
         "narutoxy/dim.lua",
         requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
@@ -531,36 +545,42 @@ return require('packer').startup({function()
         end
     }
 
-
-    -- use 'rstacruz/vim-closer' -- only closes delimiters on <cr>
-
-
     -- }}}
     -- Testing and Debugging {{{
 
     -- use {'meain/vim-printer'} -- Only debugger you will ever need
 
-    use {'vim-test/vim-test', config =
-        function()
-            vim.g['test#strategy'] = 'neovim'
-        end,
-    }
-    use { "rcarriga/vim-ultest",
-        requires = {"vim-test/vim-test"},
-        run = ":UpdateRemotePlugins",
-        config = function()
-            vim.g.ultest_use_pty = 1
-            vim.g.ultest_virtual_text = 0
-            vim.g.ultest_pass_sign = ''
-            vim.g.ultest_fail_sign = ''
-            vim.g.ultest_running_sign = ''
-            vim.g.ultest_not_run_sign = ''
-            map('', ']t', '<Plug>(ultest-next-fail)', {silent=true})
-            map('', '[t', '<Plug>(ultest-prev-fail)', {silent=true})
-            map('n', '<leader>ta', '<Plug>(ultest-run-file)', {silent=true})
-            map('n', '<leader>tt', '<Plug>(ultest-run-nearest)', {silent=true})
-            map('i', '<C-g>tt', '<Plug>(ultest-run-nearest)', {silent=true})
-        end
+
+    -- use {'vim-test/vim-test', config =
+    --     function()
+    --         vim.g['test#strategy'] = 'neovim'
+    --     end,
+    -- }
+    -- use { "rcarriga/vim-ultest",
+    --     requires = {"vim-test/vim-test"},
+    --     run = ":UpdateRemotePlugins",
+    --     config = function()
+    --         vim.g.ultest_use_pty = 1
+    --         vim.g.ultest_virtual_text = 0
+    --         vim.g.ultest_pass_sign = ''
+    --         vim.g.ultest_fail_sign = ''
+    --         vim.g.ultest_running_sign = ''
+    --         vim.g.ultest_not_run_sign = ''
+    --         map('', ']t', '<Plug>(ultest-next-fail)', {silent=true})
+    --         map('', '[t', '<Plug>(ultest-prev-fail)', {silent=true})
+    --         map('n', '<leader>ta', '<Plug>(ultest-run-file)', {silent=true})
+    --         map('n', '<leader>tt', '<Plug>(ultest-run-nearest)', {silent=true})
+    --         map('i', '<C-g>tt', '<Plug>(ultest-run-nearest)', {silent=true})
+    --     end
+    -- }
+
+    use { -- TODO: Wait upon more support for neotest
+        "rcarriga/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim"
+        }
     }
 
     use { 'michaelb/sniprun', run = 'bash ./install.sh',
@@ -609,7 +629,7 @@ return require('packer').startup({function()
         end
     }
 
-    use 'jaxbot/selective-undo.vim'
+    -- use 'jaxbot/selective-undo.vim'
 
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
@@ -734,6 +754,9 @@ return require('packer').startup({function()
             map("n", "F", "<Plug>Lightspeed_F", {silent = true})
             map("n", "t", "<Plug>Lightspeed_t", {silent = true})
             map("n", "T", "<Plug>Lightspeed_T", {silent = true})
+            map("o", "x", "<Plug>Lightspeed_x", {silent = true})
+            map("o", "X", "<Plug>Lightspeed_X", {silent = true})
+            map("n", "S", "<Plug>Lightspeed_omni_s", {silent = true})
         end}
     -- use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
@@ -944,6 +967,15 @@ return require('packer').startup({function()
         end
     }
     use {'KeitaNakamura/tex-conceal.vim', ft = 'tex'}
+    -- Mac OS / Xcode
+    use {
+        'tami5/xbase',
+        run = 'make install',
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
+    }
     -- }}}
 
     if packer_bootstrap then

@@ -49,3 +49,13 @@ require('bufferline').setup {
     sort_by = 'id',
   }
 }
+
+require('which-key').register({
+    name = "Bufferline",
+    [']'] = {'<cmd>BufferLineMoveNext<cr>', 'Move next'},
+    ['['] = {'<cmd>BufferLineMovePrev<cr>', 'Move previous'},
+    ['e'] = {'<cmd>BufferLineSortByExtension<cr>', 'Sort by extension'},
+    ['d'] = {'<cmd>BufferLineSortByDirectory<cr>', 'Sort by directory'},
+    ['b'] = {'<cmd>BufferLinePick<cr>', 'Pick...'},
+    ['c'] = {'<cmd>BufferLinePickClose<cr>', 'Close...'},
+}, {prefix = '<leader>b'})
