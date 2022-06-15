@@ -130,6 +130,26 @@ rust_tools.setup {
     },
 }
 
+lspconfig.ltex.setup{
+    on_attach = on_attach,
+    settings = {
+        ltex = {
+            language = "en-US",
+            additionalRules = {
+                enablePickyRules = false,
+            },
+            disabledRules = {
+                ["en-US"] = {
+                    'TYPOS',
+                    'MORFOLOGIK_RULE_EN',
+                    'MORFOLOGIK_RULE_EN_US',
+                    'EN_QUOTES',
+                    'PASSIVE_VOICE',
+                }
+            }
+        }
+    }
+}
 
 lspconfig.tsserver.setup { on_attach = on_attach }
 -- TODO: Use hook API when supported.
