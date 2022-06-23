@@ -368,7 +368,10 @@ return require('packer').startup({function()
         end
     }
 
-    use 'windwp/nvim-ts-autotag'
+    use {'windwp/nvim-ts-autotag',
+                config = function() require("nvim-autopairs").setup {} end
+    }
+                
 
     use {
         'abecodes/tabout.nvim',
@@ -653,8 +656,8 @@ return require('packer').startup({function()
     }
     use 'tpope/vim-repeat' -- Improves dot
     use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
-    use 'tpope/vim-unimpaired'
-    use 'AndrewRadev/switch.vim'
+    use 'tpope/vim-unimpaired' -- TODO: Reconsider some mappings
+    use 'AndrewRadev/switch.vim' -- TODO: Unused
     use 'machakann/vim-sandwich' -- Surround replacment, with previews and stuff
     use 'wellle/targets.vim'
     use {'andymass/vim-matchup', event = 'VimEnter',
