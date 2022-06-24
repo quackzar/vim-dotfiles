@@ -503,26 +503,19 @@ return require('packer').startup({function()
 
     -- use { 'RRethy/vim-illuminate' }
 
-    -- use {'github/copilot.vim', config = function()
-    --     map("i", "<C-J>", [[copilot#Accept('<CR>')]],
-    --         { noremap = false, silent = true, expr = true, script = true }
-    --     )
-    --     vim.g.copilot_no_tab_map = true
-    -- end}
-    -- use 'hrsh7th/cmp-copilot'
-    use{
-        "zbirenbaum/copilot.lua",
-        event = {"VimEnter"},
-        config = function()
-            vim.defer_fn(function()
-                require("copilot").setup()
-            end, 100)
-        end,
-    }
-    use {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua", "nvim-cmp" },
-    }
+    -- use{
+    --     "zbirenbaum/copilot.lua",
+    --     event = {"VimEnter"},
+    --     config = function()
+    --         vim.defer_fn(function()
+    --             require("copilot").setup()
+    --         end, 100)
+    --     end,
+    -- }
+    -- use {
+    --     "zbirenbaum/copilot-cmp",
+    --     after = { "copilot.lua", "nvim-cmp" },
+    -- }
     use 'hrsh7th/cmp-omni'
     use { 'saadparwaiz1/cmp_luasnip' }
     use 'onsails/lspkind-nvim'
