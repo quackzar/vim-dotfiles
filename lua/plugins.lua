@@ -887,6 +887,8 @@ return require('packer').startup({function()
     use 'folke/lua-dev.nvim'
     -- === kitty ===
     use 'fladson/vim-kitty'
+    -- === GLSL ===
+    use 'tikhomirov/vim-glsl'
     -- === rust ===
     use {'simrat39/rust-tools.nvim'}
     use {
