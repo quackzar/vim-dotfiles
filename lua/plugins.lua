@@ -544,6 +544,8 @@ return require('packer').startup({function()
     --     after = { "copilot.lua", "nvim-cmp" },
     -- }
     use 'hrsh7th/cmp-omni'
+    use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+
     use { 'saadparwaiz1/cmp_luasnip' }
     use 'onsails/lspkind-nvim'
     use {'hrsh7th/nvim-cmp', config = function()

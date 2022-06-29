@@ -119,7 +119,7 @@ cmp.setup({
         { name = 'omni', group_index = 2},
         { name = 'luasnip', group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
-
+        { name = 'cmp_tabnine', group_index = 2 },
     }),
     completion = {
         completeopt = "menu,menuone,noinsert,preview,noselect",
