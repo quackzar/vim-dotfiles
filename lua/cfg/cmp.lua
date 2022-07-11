@@ -119,7 +119,7 @@ cmp.setup({
 
     }),
     completion = {
-        completeopt = "menu,menuone,noinsert",
+        completeopt = "menu,menuone,noinsert,preview,noselect",
         keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
         keyword_length = 1,
     },
@@ -173,6 +173,9 @@ cmp.setup.filetype('guihua_rust', { completion = {enable = false} })
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
+    view = {
+        entries = {name = 'wildmenu', separator = ' ⋅ ' }
+    },
     sources = {
         { name = "buffer" },
     },
@@ -181,6 +184,9 @@ cmp.setup.cmdline("/", {
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
+    view = {
+        entries = {name = 'wildmenu', separator = ' ⋅ ' }
+    },
     sources = cmp.config.sources({
         { name = 'path' }
     }, {

@@ -93,6 +93,13 @@ end
 local lspconfig = require('lspconfig')
 local lspinstaller = require("nvim-lsp-installer")
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
 lspinstaller.setup({
     ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
@@ -101,6 +108,7 @@ lspinstaller.setup({
 for _, server in ipairs(lspinstaller.get_installed_servers()) do
   lspconfig[server.name].setup{
     on_attach = on_attach,
+    capabilities = capabilities,
   }
 end
 
@@ -108,6 +116,7 @@ local luadev = require("lua-dev").setup({
   -- add any options here, or leave empty to use the default settings
   lspconfig = {
     on_attach = on_attach,
+    capabilities = capabilities,
   },
 })
 
@@ -115,7 +124,10 @@ lspconfig.sumneko_lua.setup(luadev)
 
 local rust_tools = require("rust-tools")
 rust_tools.setup {
-    server = { on_attach = on_attach },
+    server = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    },
     tools = {
         autoSetHints = true,
         hover_with_actions = false,
@@ -132,6 +144,7 @@ rust_tools.setup {
 
 lspconfig.ltex.setup{
     on_attach = on_attach,
+    capabilities = capabilities,
     settings = {
         ltex = {
             language = "en-US",
@@ -151,7 +164,10 @@ lspconfig.ltex.setup{
     }
 }
 
-lspconfig.tsserver.setup { on_attach = on_attach }
+lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 -- TODO: Use hook API when supported.
 
 -- symbols for autocomplete

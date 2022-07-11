@@ -89,7 +89,7 @@ return require('packer').startup({function()
                         operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
                         motions = true, -- adds help for motions
                         text_objects = true, -- help for text objects triggered after entering an operator
-                        windows = true, -- default bindings on <c-w>
+                        windows = false, -- default bindings on <c-w>
                         nav = true, -- misc bindings to work with windows
                         z = true, -- bindings for folds, spelling and others prefixed with z
                         g = true, -- bindings for prefixed with g
@@ -97,7 +97,7 @@ return require('packer').startup({function()
                 },
                 hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>"}, -- hide mapping boilerplate
                 operators = { gc = "Comments" },
-                ignore_missing = false, -- fun if one decides to register everything
+                ignore_missing = true, -- fun if one decides to register everything
                 key_labels = {
                     -- override the label used to display some keys. It doesn't effect WK in any other way.
                     ["<space>"] = "SPC",
@@ -105,6 +105,16 @@ return require('packer').startup({function()
                     ["<tab>"] = "TAB",
                 },
             }
+        end
+    }
+
+    use 'jlanzarotta/bufexplorer'
+    use 'sindrets/winshift.nvim'
+
+    use { 'anuvyklack/hydra.nvim', 
+        requires = 'anuvyklack/keymap-layer.nvim', -- needed only for pink hydras
+        config = function()
+            require('cfg.hydra')
         end
     }
 
@@ -168,59 +178,69 @@ return require('packer').startup({function()
             'MunifTanjim/nui.nvim',
         } }
 
-    use{ 'anuvyklack/pretty-fold.nvim',
-        requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    -- use{ 'anuvyklack/pretty-fold.nvim',
+    --     requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
+    --     config = function()
+    --         vim.opt.fillchars:append('fold: ')
+    --         require('pretty-fold').setup {
+    --             ft_ignore = {'neorg', 'tex', 'latex'},
+    --             fill_char = ' ',
+    --             sections = {
+    --                 left = {
+    --                     'content',
+    --                 },
+    --                 right = {
+    --                     ' ', 'number_of_folded_lines', ': ', 'percentage', ' ',
+    --                     function(config) return config.fill_char:rep(3) end
+    --                 }
+    --             },
+    --             remove_fold_markers = true,
+    --             keep_indentation = true,
+    --             process_comment_signs = 'spaces',
+    --             add_close_pattern = true,
+    --             matchup_patterns = {
+    --                 { '{', '}' },
+    --                 { '%(', ')' },
+    --                 { '%[', ']' },
+    --             }
+    --         }
+    --         require('pretty-fold').ft_setup('lua', {
+    --             fill_char = ' ',
+    --             matchup_patterns = {
+    --                 { '^%s*do$', 'end' }, -- do ... end blocks
+    --                 { '^%s*if', 'end' },  -- if ... end
+    --                 { '^%s*for', 'end' }, -- for
+    --                 { 'function%s*%(', 'end' }, -- 'function( or 'function (''
+    --                 {  '{', '}' },
+    --                 { '%(', ')' }, -- % to escape lua pattern char
+    --                 { '%[', ']' }, -- % to escape lua pattern char
+    --             },
+    --         })
+    --         require('pretty-fold').ft_setup('cpp', {
+    --             fill_char = ' ',
+    --             process_comment_signs = false,
+    --             comment_signs = {
+    --                 '/**', -- C++ Doxygen comments
+    --             },
+    --             stop_words = {
+    --                 -- ╟─ "*" ──╭───────╮── "@brief" ──╭───────╮──╢
+    --                 --         ╰─ WSP ─╯              ╰─ WSP ─╯
+    --                 '%*%s*@brief%s*',
+    --             },
+    --         })
+    --         require('pretty-fold.preview').setup({})
+    --     end
+    -- }
+
+    use {'kevinhwang91/nvim-ufo',
+        requires = 'kevinhwang91/promise-async',
+        after = {'nvim-lspconfig'},
         config = function()
-            vim.opt.fillchars:append('fold: ')
-            require('pretty-fold').setup {
-                ft_ignore = {'neorg', 'tex', 'latex'},
-                fill_char = ' ',
-                sections = {
-                    left = {
-                        'content',
-                    },
-                    right = {
-                        ' ', 'number_of_folded_lines', ': ', 'percentage', ' ',
-                        function(config) return config.fill_char:rep(3) end
-                    }
-                },
-                remove_fold_markers = true,
-                keep_indentation = true,
-                process_comment_signs = 'spaces',
-                add_close_pattern = true,
-                matchup_patterns = {
-                    { '{', '}' },
-                    { '%(', ')' },
-                    { '%[', ']' },
-                }
-            }
-            require('pretty-fold').ft_setup('lua', {
-                fill_char = ' ',
-                matchup_patterns = {
-                    { '^%s*do$', 'end' }, -- do ... end blocks
-                    { '^%s*if', 'end' },  -- if ... end
-                    { '^%s*for', 'end' }, -- for
-                    { 'function%s*%(', 'end' }, -- 'function( or 'function (''
-                    {  '{', '}' },
-                    { '%(', ')' }, -- % to escape lua pattern char
-                    { '%[', ']' }, -- % to escape lua pattern char
-                },
-            })
-            require('pretty-fold').ft_setup('cpp', {
-                fill_char = ' ',
-                process_comment_signs = false,
-                comment_signs = {
-                    '/**', -- C++ Doxygen comments
-                },
-                stop_words = {
-                    -- ╟─ "*" ──╭───────╮── "@brief" ──╭───────╮──╢
-                    --         ╰─ WSP ─╯              ╰─ WSP ─╯
-                    '%*%s*@brief%s*',
-                },
-            })
-            require('pretty-fold.preview').setup({})
+            vim.wo.foldcolumn = '0'
+            require('ufo').setup()
         end
     }
+
 
     --- }}}
     -- colorschemes {{{
@@ -606,10 +626,10 @@ return require('packer').startup({function()
     use {'Pocco81/DAPInstall.nvim', requires = {"mfussenegger/nvim-dap"} }
     use {'mfussenegger/nvim-dap-python', requires = {"mfussenegger/nvim-dap"} }
 
-    use {'t-troebst/perfanno.nvim', config = function()
-        require('cfg.perfanno')
-    end
-    }
+    -- use {'t-troebst/perfanno.nvim', config = function()
+    --     require('cfg.perfanno')
+    -- end
+    -- }
 
     use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
     -- use 'samjwill/nvim-unception'-- NOTE: screws with multiple instances

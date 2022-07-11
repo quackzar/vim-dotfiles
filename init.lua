@@ -10,12 +10,12 @@ prequire('impatient')
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 vim.o.guifont = "JetBrainsMono Nerd Font:h11"
+vim.o.guioptions = 'ad'
 vim.g.neovide_transparency=0.8
 vim.o.mouse = 'a'
 vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.number = true
-vim.o.foldenable = true
 vim.o.wildmenu = true
 vim.o.showmode = false
 vim.o.breakindent = true
@@ -71,8 +71,14 @@ vim.opt.listchars:append("nbsp:␣")
 vim.opt.listchars:append("trail:⋅")
 
 vim.opt.fillchars:append("eob: ")
+vim.opt.fillchars:append("fold: ")
+vim.opt.fillchars:append("foldopen:")
+vim.opt.fillchars:append("foldclose:")
+vim.opt.fillchars:append("foldsep: ")
+
 vim.opt.showbreak = "↪"
 
+vim.o.foldenable = true
 vim.o.foldmethod = 'expr'
 vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldminlines=5
@@ -235,7 +241,7 @@ wk.register({
             q = {"<cmd>Trouble quickfix<cr>", "Quickfix"},
             c = {"<cmd>TroubleClose<cr>", "Close"},
         },
-        g = {
+        G = {
             name = "+git  ",
             g = {"<cmd>Neogit<cr>", "Neogit"},
             l = {"<cmd>Neogit log<cr>", "Log"},
