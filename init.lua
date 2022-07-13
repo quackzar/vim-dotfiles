@@ -40,7 +40,7 @@ vim.o.guicursor = table.concat({
     }, ','
 )
 
-vim.wo.signcolumn = 'yes'
+vim.wo.signcolumn = 'auto:1'
 
 vim.o.cursorlineopt = 'number'
 vim.o.cursorline = true
@@ -79,10 +79,12 @@ vim.opt.fillchars:append("foldsep: ")
 vim.opt.showbreak = "↪"
 
 vim.o.foldenable = true
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.o.foldmethod = 'expr'
+-- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldminlines=5
 vim.o.foldnestmax=5
+vim.o.foldlevelstart = -1
+vim.o.foldlevel=99
 
 vim.o.scrolloff = 10
 
@@ -215,7 +217,7 @@ wk.register({
     ["<A-8>"] = {"<Cmd>BufferLineGoToBuffer 8<CR>", "Goto buffer 8"},
     ["<A-9>"] = {"<Cmd>BufferLineGoToBuffer 9<CR>", "Goto buffer 9"},
     ["<leader>"] = {
-        f = {
+        F = {
             name = "+telescope  ",
             f = { "<cmd>Telescope find_files<cr>", "Files" },
             b = { "<cmd>Telescope buffers<cr>", "Buffers" },

@@ -44,6 +44,8 @@ return require('packer').startup({function()
     use {'stevearc/dressing.nvim'}
     use 'windwp/windline.nvim'
 
+
+    use 'famiu/bufdelete.nvim'
     use {'akinsho/bufferline.nvim', tag = 'v2.*', requires = 'kyazdani42/nvim-web-devicons',
         config = function()
             require("cfg.bufferline")
@@ -63,7 +65,6 @@ return require('packer').startup({function()
 
 
     use  'rktjmp/lush.nvim'
-
 
     use 'meznaric/conmenu'
 
@@ -108,8 +109,12 @@ return require('packer').startup({function()
         end
     }
 
-    use 'jlanzarotta/bufexplorer'
     use 'sindrets/winshift.nvim'
+    use {'mrjones2014/smart-splits.nvim',
+        config = function()
+            require('smart-splits').setup({})
+        end
+    }
 
     use { 'anuvyklack/hydra.nvim', 
         requires = 'anuvyklack/keymap-layer.nvim', -- needed only for pink hydras
@@ -118,7 +123,6 @@ return require('packer').startup({function()
         end
     }
 
-    use  {'gelguy/wilder.nvim', run = ':UpdateRemotePlugins' }
     use {'folke/twilight.nvim',
         config = function()
             require("twilight").setup {}
@@ -131,9 +135,6 @@ return require('packer').startup({function()
         end
     }
 
-    -- use {'karb94/neoscroll.nvim', config = function()
-    --     require('neoscroll').setup() -- smooth scrolling
-    -- end}
     use {
         'declancm/cinnamon.nvim',
         config = function()
@@ -154,23 +155,6 @@ return require('packer').startup({function()
             map('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
         end
     }
-    -- use {"petertriho/nvim-scrollbar",
-    --     requires = 'kevinhwang91/nvim-hlslens',
-    --     config = function()
-    --         require("scrollbar").setup({
-    --             folds = 2000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
-    --             handle = {
-    --                 text = " ",
-    --                 color = "grey",
-    --             },
-    --             handlers = {
-    --                 diagnostic = true,
-    --                 search = true, -- Requires hlslens to be loaded
-    --             },
-    --         })
-    --     end
-    -- }
-
     use { 'bennypowers/nvim-regexplainer',
         config = function() require'regexplainer'.setup({})  end,
         requires = {
@@ -178,66 +162,14 @@ return require('packer').startup({function()
             'MunifTanjim/nui.nvim',
         } }
 
-    -- use{ 'anuvyklack/pretty-fold.nvim',
-    --     requires = 'anuvyklack/nvim-keymap-amend', -- only for preview
-    --     config = function()
-    --         vim.opt.fillchars:append('fold: ')
-    --         require('pretty-fold').setup {
-    --             ft_ignore = {'neorg', 'tex', 'latex'},
-    --             fill_char = ' ',
-    --             sections = {
-    --                 left = {
-    --                     'content',
-    --                 },
-    --                 right = {
-    --                     ' ', 'number_of_folded_lines', ': ', 'percentage', ' ',
-    --                     function(config) return config.fill_char:rep(3) end
-    --                 }
-    --             },
-    --             remove_fold_markers = true,
-    --             keep_indentation = true,
-    --             process_comment_signs = 'spaces',
-    --             add_close_pattern = true,
-    --             matchup_patterns = {
-    --                 { '{', '}' },
-    --                 { '%(', ')' },
-    --                 { '%[', ']' },
-    --             }
-    --         }
-    --         require('pretty-fold').ft_setup('lua', {
-    --             fill_char = ' ',
-    --             matchup_patterns = {
-    --                 { '^%s*do$', 'end' }, -- do ... end blocks
-    --                 { '^%s*if', 'end' },  -- if ... end
-    --                 { '^%s*for', 'end' }, -- for
-    --                 { 'function%s*%(', 'end' }, -- 'function( or 'function (''
-    --                 {  '{', '}' },
-    --                 { '%(', ')' }, -- % to escape lua pattern char
-    --                 { '%[', ']' }, -- % to escape lua pattern char
-    --             },
-    --         })
-    --         require('pretty-fold').ft_setup('cpp', {
-    --             fill_char = ' ',
-    --             process_comment_signs = false,
-    --             comment_signs = {
-    --                 '/**', -- C++ Doxygen comments
-    --             },
-    --             stop_words = {
-    --                 -- ╟─ "*" ──╭───────╮── "@brief" ──╭───────╮──╢
-    --                 --         ╰─ WSP ─╯              ╰─ WSP ─╯
-    --                 '%*%s*@brief%s*',
-    --             },
-    --         })
-    --         require('pretty-fold.preview').setup({})
-    --     end
-    -- }
-
     use {'kevinhwang91/nvim-ufo',
         requires = 'kevinhwang91/promise-async',
         after = {'nvim-lspconfig'},
         config = function()
             vim.wo.foldcolumn = '0'
-            require('ufo').setup()
+            require('ufo').setup({
+                {'lsp', 'treesitter'}
+            })
         end
     }
 
@@ -397,7 +329,6 @@ return require('packer').startup({function()
                         }
                 end
     }
-                
 
     use {
         'abecodes/tabout.nvim',
@@ -473,12 +404,7 @@ return require('packer').startup({function()
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
-    use {'Mofiqul/trld.nvim', config = function()
-        require('trld').setup({
-            auto_cmds = true,
-            -- position = 'bottom',
-        })
-    end}
+    use { 'Issafalcon/lsp-overloads.nvim'}
     use {'folke/trouble.nvim', config = function()
         map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
         map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
@@ -632,7 +558,6 @@ return require('packer').startup({function()
     -- }
 
     use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
-    -- use 'samjwill/nvim-unception'-- NOTE: screws with multiple instances
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
@@ -651,8 +576,6 @@ return require('packer').startup({function()
         end
     }
 
-    -- use 'jaxbot/selective-undo.vim'
-
     use 'aca/vidir.nvim'
     use {'numToStr/Comment.nvim',
         config = function()
@@ -661,7 +584,6 @@ return require('packer').startup({function()
             })
         end
     }
-    -- use 'tpope/vim-speeddating' -- allows <C-A> <C-X> for dates
 
     use {'monaqa/dial.nvim',
         config = function()
@@ -699,7 +621,6 @@ return require('packer').startup({function()
     use 'AndrewRadev/splitjoin.vim' -- NOTE: Consider lua + treesitter version
     use {'flwyd/vim-conjoin', after = 'splitjoin.vim'}
 
-    use 'mbbill/undotree'
     -- use 'kshenoy/vim-signature' -- marks in the sign column
     use {'lukas-reineke/indent-blankline.nvim',
         config = function()
@@ -717,9 +638,7 @@ return require('packer').startup({function()
             }
         end
     }
-    use 'tpope/vim-abolish' -- like substitute
     use 'reedes/vim-litecorrect' -- autocorrection! Fixes stupid common mistakes
-    use 'reedes/vim-lexical' -- NOTE: Maybe unused.
     use 'kevinhwang91/nvim-bqf'
     use 'nvim-lua/popup.nvim'
 
@@ -894,10 +813,6 @@ return require('packer').startup({function()
     use {'leafgarland/typescript-vim', ft = 'typescript'}
     -- ======== PYTHON =======
     use {'tmhedberg/SimpylFold', ft = 'python'}
-    -- ======== SWIFT ======
-    use {'keith/swift.vim', ft = 'swift'}
-    -- ======= R =======
-    use {'jalvesaq/Nvim-R', ft = 'R'} -- R IDE
     -- ======= OCAML ======
     use {'ELLIOTTCABLE/vim-menhir', ft = {'ocaml', 'reasonml'}}
     -- ====== LLVM ====

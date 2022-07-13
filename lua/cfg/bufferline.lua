@@ -1,7 +1,7 @@
 require('bufferline').setup {
   options = {
     numbers = "ordinal",
-    close_command = "bdelete! %d",
+    close_command = "Bdelete! %d",
     -- right_mouse_command = "bdelete! %d",
     left_mouse_command = "buffer %d",
     middle_mouse_command = nil,

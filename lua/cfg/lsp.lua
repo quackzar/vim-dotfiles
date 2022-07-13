@@ -48,7 +48,20 @@ function on_attach(client, bufnr)
         }
     }, bufnr)
 
-
+    if client.server_capabilities.signatureHelpProvider then
+        require('lsp-overloads').setup(client, {
+            ui = {
+                -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
+                border = "double"
+            },
+            keymaps = {
+                next_signature = "<C-x><C-l>",
+                previous_signature = "<C-k>",
+                next_parameter = "<C-l>",
+                previous_parameter = "<C-x><C-h>",
+            },
+        })
+    end
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -86,8 +99,6 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q',  '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
-    -- require('illuminate').on_attach(client)
 end
 
 local lspconfig = require('lspconfig')
