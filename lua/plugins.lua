@@ -418,6 +418,13 @@ return require('packer').startup({function()
     end}
     use 'ray-x/lsp_signature.nvim'
 
+    use({
+        "andrewferrier/textobj-diagnostic.nvim",
+        config = function()
+            require("textobj-diagnostic").setup()
+        end,
+    })
+
     use {'WhoIsSethDaniel/toggle-lsp-diagnostics.nvim', config = function()
         require('toggle_lsp_diagnostics').init()
     end}

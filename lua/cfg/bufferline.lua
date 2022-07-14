@@ -36,6 +36,11 @@ require('bufferline').setup {
             {filetype = "SidebarNvim", text = "Sidebar NVIM", text_align = "left" },
             {filetype = "Outline", text = "Symbols", text_align = "right" }
         },
+    custom_filter = function(buf_num, buf_numbers)
+        if vim.bo[buf_num].filetype ~= 'NvimTree' then
+            return true
+        end
+    end,
     show_buffer_icons = true,
     show_buffer_close_icons = true,
     show_close_icon = true,
