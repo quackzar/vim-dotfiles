@@ -4,7 +4,7 @@ local gitsigns = require('gitsigns')
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo stage hunk   _p_: preview hunk   _B_: blame show full 
- ^ ^              _S_: stage buffer      ^ ^                 _/_: show base file
+ ^ ^              _S_: stage buffer      _y_: yank link      _/_: show base file
  ^
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
@@ -46,6 +46,7 @@ Hydra({
       { 's', ':Gitsigns stage_hunk<CR>', { silent = true } },
       { 'u', gitsigns.undo_stage_hunk },
       { 'S', gitsigns.stage_buffer },
+      { 'y', '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>'},
       { 'p', gitsigns.preview_hunk },
       { 'd', gitsigns.toggle_deleted, { nowait = true } },
       { 'b', gitsigns.blame_line },

@@ -186,9 +186,17 @@ return require('packer').startup({function()
             vim.g.tokyodark_transparent_background = false
         end
     }
+    use {
+    'meliora-theme/neovim',
+        as = 'melioria',
+        requires = {'rktjmp/lush.nvim'}
+    }
     use "rafamadriz/neon"
     use 'mhartington/oceanic-next'
-    use 'rose-pine/neovim'
+    use {
+        'rose-pine/neovim',
+        as = 'rose-pine'
+    }
     use 'tanvirtin/monokai.nvim'
     use 'nanotech/jellybeans.vim'
     use 'morhetz/gruvbox'
@@ -227,7 +235,29 @@ return require('packer').startup({function()
 
     use {'ruifm/gitlinker.nvim',
         config = function()
-            require('gitlinker').setup()
+            require('gitlinker').setup({
+                callbacks = {
+                    ["github.com"] = require"gitlinker.hosts".get_github_type_url,
+                    ["gitlab.com"] = require"gitlinker.hosts".get_gitlab_type_url,
+                    ["try.gitea.io"] = require"gitlinker.hosts".get_gitea_type_url,
+                    ["codeberg.org"] = require"gitlinker.hosts".get_gitea_type_url,
+                    ["bitbucket.org"] = require"gitlinker.hosts".get_bitbucket_type_url,
+                    ["try.gogs.io"] = require"gitlinker.hosts".get_gogs_type_url,
+                    ["git.sr.ht"] = require"gitlinker.hosts".get_srht_type_url,
+                    ["git.launchpad.net"] = require"gitlinker.hosts".get_launchpad_type_url,
+                    ["repo.or.cz"] = require"gitlinker.hosts".get_repoorcz_type_url,
+                    ["git.kernel.org"] = require"gitlinker.hosts".get_cgit_type_url,
+                    ["git.savannah.gnu.org"] = require"gitlinker.hosts".get_cgit_type_url,
+                    ["git.fish.princh.com"] = require"gitlinker.hosts".get_gitlab_type_url,
+                },
+            })
+        end
+    }
+
+    use {
+        'lewis6991/satellite.nvim',
+        config = function()
+            require('satellite').setup()
         end
     }
     -- use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
@@ -451,6 +481,45 @@ return require('packer').startup({function()
         requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
         config = function()
             require('dim').setup({})
+        end
+    }
+
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig",
+        config = function() 
+            vim.g.navic_silence = true
+            require('nvim-navic').setup({
+
+                icons = {
+                    File = ' ',
+                    Module = ' ',
+                    Namespace = ' ',
+                    Package = ' ',
+                    Class = ' ',
+                    Method = ' ',
+                    Property = ' ',
+                    Field = ' ',
+                    Constructor = ' ',
+                    Enum = ' ',
+                    Interface = ' ',
+                    Function = ' ',
+                    Variable = ' ',
+                    Constant = ' ',
+                    String = ' ',
+                    Number = ' ',
+                    Boolean = ' ',
+                    Array = ' ',
+                    Object = ' ',
+                    Key = ' ',
+                    Null = ' ',
+                    EnumMember = ' ',
+                    Struct = ' ',
+                    Event = ' ',
+                    Operator = ' ',
+                    TypeParameter = ' '
+                }
+            })
         end
     }
 
@@ -708,27 +777,6 @@ return require('packer').startup({function()
         end}
     -- use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = {
-            'kyazdani42/nvim-web-devicons', -- optional, for file icon
-        },
-        config = function()
-            require'nvim-tree'.setup {
-                hijack_cursor = true,
-                diagnostics = {
-                    enable = true,
-                    icons = {
-                        hint = "",
-                        info = "",
-                        warning = "",
-                        error = "",
-                    }
-                }
-            }
-            map("n", "<leader>z", ":NvimTreeToggle<CR>", opts)
-        end
-    }
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",

@@ -62,17 +62,14 @@ cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-            -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
     },
     mapping = {
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete({}), { 'i', 'c' }),
+        ['<C-x><C-o>'] = cmp.mapping(cmp.mapping.complete({}), { 'i', 'c' }),
         ['<C-j>'] = cmp.mapping({
             i = function()
                 local entry = cmp.get_selected_entry()
@@ -109,6 +106,12 @@ cmp.setup({
                 fallback()
             end
         end, {'i', 'c'}),
+        ['<tab>'] = cmp.mapping({
+            c = cmp.confirm({select=true})
+        }),
+        ['<s-tab>'] = cmp.mapping({
+            c = cmp.select_prev_item()
+        })
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp', group_index = 2 },
@@ -150,8 +153,6 @@ cmp.setup({
     },
 })
 
-vim.api.nvim_set_keymap("c", "<Tab>", "<cmd>lua require'cmp'.select_next_item()<cr>", {noremap=true})
-vim.api.nvim_set_keymap("c", "<S-Tab>", "<cmd>lua require'cmp'.select_prev_item()<cr>", {noremap=true})
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))

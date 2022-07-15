@@ -71,6 +71,19 @@ basic.lsp_diagnos = {
     end,
 }
 
+basic.navic = {
+    hl_colors = {
+        magenta = {'magenta', 'black'}
+    },
+    text = function(bufnr)
+        local navic = require("nvim-navic")
+        if navic.is_available() then
+            return {{' 殺' .. navic.get_location({highlight=false}), 'magenta'}}
+        end
+        return ''
+    end
+}
+
 
 local icon_comp = b_components.cache_file_icon({ default = '', hl_colors = {'white','black_light'} })
 
@@ -152,8 +165,9 @@ local default = {
         { sep.right_rounded, { 'black_light', 'black' } },
         { vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]] },
         basic.lsp_diagnos,
-        basic.git,
+        basic.navic,
         basic.divider,
+        basic.git,
         { git_comps.git_branch({ icon = '  ' }), { 'green', 'black' }, 90 },
         { ' ', hl_list.Black },
         basic.vi_mode,

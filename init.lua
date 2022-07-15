@@ -90,10 +90,11 @@ vim.o.scrolloff = 10
 
 -- vim.o.globalstatus = true
 vim.o.laststatus = 3
+-- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 -- some pluginless keymaps
 vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'Q', ':close<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('', '<c-w>q', ':close<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'gQ', ':bd<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'x', '"_x', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', 'X', '"_X', { noremap = true, silent = true })

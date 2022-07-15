@@ -47,6 +47,11 @@ function on_attach(client, bufnr)
             border = "rounded"
         }
     }, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+        require("nvim-navic").attach(client, bufnr)
+    end
+
+
 
     if client.server_capabilities.signatureHelpProvider then
         require('lsp-overloads').setup(client, {
