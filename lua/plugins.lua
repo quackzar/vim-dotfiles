@@ -199,11 +199,16 @@ return require('packer').startup({function()
     }
     use 'tanvirtin/monokai.nvim'
     use 'nanotech/jellybeans.vim'
-    use 'morhetz/gruvbox'
+    use 'ellisonleao/gruvbox.nvim' 
     use 'ful1e5/onedark.nvim'
     use 'sainnhe/everforest'
     use 'sainnhe/sonokai'
-    use "savq/melange"
+    use 'savq/melange'
+    use 'projekt0n/github-nvim-theme'
+    use "EdenEast/nightfox.nvim"
+    use "rebelot/kanagawa.nvim"
+
+
 
     -- }}}
     -- git.vim {{{
