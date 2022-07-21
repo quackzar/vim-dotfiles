@@ -213,4 +213,3 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   },
 }
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- vim: foldmethod=marker, foldmarker={,}

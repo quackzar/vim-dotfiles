@@ -490,7 +490,7 @@ return require('packer').startup({function()
         config = function() 
             vim.g.navic_silence = true
             require('nvim-navic').setup({
-
+                separator = " ",
                 icons = {
                     File = ' ',
                     Module = ' ',
@@ -780,7 +780,7 @@ return require('packer').startup({function()
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
-        requires = { 
+        requires = {
             "nvim-lua/plenary.nvim",
             "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",

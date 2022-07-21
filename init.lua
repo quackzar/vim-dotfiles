@@ -263,7 +263,7 @@ wk.register({
             y = {"Link buffer"},
         },
         -- TODO: t: add ultest--[[  ]]
-        o = {
+        O = {
             name = "+options",
             t = {"<cmd>Twilight<cr>", "Twilight"},
             z = {"<cmd>ZenMode<cr>", "Zen Mode"},
@@ -281,6 +281,14 @@ wk.register({
 wk.register({
     d = {
         name = "+debug  ",
+        a = {
+            function()
+                require'dap'.set_breakpoint()
+                require'dap'.run({type='python', request='attach', host='127.0.0.1', port=5678})
+                require'hydra'.spawn('dap-hydra')
+            end,
+            'Attach (localhost, 5678)'
+        },
         s = {
             name = "Step",
             c = { "<cmd>lua require('dap').continue()<CR>", "Continue" },

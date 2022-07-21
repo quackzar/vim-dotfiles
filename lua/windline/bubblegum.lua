@@ -1,5 +1,6 @@
 local windline = require('windline')
 local helper = require('windline.helpers')
+local hydra = require('hydra.statusline')
 local sep = helper.separators
 local vim_components = require('windline.components.vim')
 
@@ -43,8 +44,24 @@ basic.vi_mode = {
         VisualAfter = { 'white', 'yellow' },
         ReplaceAfter = { 'white', 'blue_light' },
         CommandAfter = { 'white', 'magenta' },
+        teal = {'white', 'cyan', 'bold'},
+        pink = {'white', 'magenta', 'bold'},
+        red = {'white', 'red', 'bold'},
+        blue = {'white', 'blue_light', 'bold'},
+        amaranth = {'white', 'red_light', 'bold'},
+        tealBefore = {'cyan', 'black'},
+        pinkBefore = {'magenta', 'black'},
+        redBefore = {'red', 'black'},
+        blueBefore = {'blue_light', 'black'},
+        amaranthBefore = {'red_light', 'black'}
     },
     text = function()
+        if hydra.is_active() and hydra.get_name() then
+            return {
+                {sep.left_rounded, hydra.get_color() .. 'Before'},
+                { hydra.get_name() .. ' ', hydra.get_color()}
+            }
+        end
         return {
             { sep.left_rounded, state.mode[2] .. 'Before' },
             { state.mode[1] .. ' ', state.mode[2] },
@@ -146,12 +163,29 @@ basic.logo = {
         VisualBefore = { 'yellow', 'black' },
         ReplaceBefore = { 'blue_light', 'black' },
         CommandBefore = { 'magenta', 'black' },
+        teal = {'white', 'cyan', 'bold'},
+        pink = {'white', 'magenta', 'bold'},
+        red = {'white', 'red', 'bold'},
+        blue = {'white', 'blue_light', 'bold'},
+        amaranth = {'white', 'red_light', 'bold'},
+        tealBefore = {'cyan', 'black'},
+        pinkBefore = {'magenta', 'black'},
+        redBefore = {'red', 'black'},
+        blueBefore = {'blue_light', 'black'},
+        amaranthBefore = {'red_light', 'black'}
     },
     text = function()
-        return {
-            { sep.left_rounded, state.mode[2] .. 'Before' },
-            { ' ', state.mode[2] },
-        }
+        if hydra.is_active() and hydra.get_name() then
+            return {
+                { sep.left_rounded, hydra.get_color() .. 'Before' },
+                { ' ', hydra.get_color() },
+            }
+        else
+            return {
+                { sep.left_rounded, state.mode[2] .. 'Before' },
+                { ' ', state.mode[2] },
+            }
+        end
     end,
 }
 
