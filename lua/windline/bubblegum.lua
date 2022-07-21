@@ -59,7 +59,8 @@ basic.vi_mode = {
         if hydra.is_active() and hydra.get_name() then
             return {
                 {sep.left_rounded, hydra.get_color() .. 'Before'},
-                { hydra.get_name() .. ' ', hydra.get_color()}
+                ---@diagnostic disable-next-line: param-type-mismatch
+                { string.upper(hydra.get_name()) .. ' ', hydra.get_color()}
             }
         end
         return {
@@ -95,7 +96,7 @@ basic.navic = {
     text = function(bufnr)
         local navic = require("nvim-navic")
         if navic.is_available() then
-            return {{' 殺' .. navic.get_location({highlight=false}), 'magenta'}}
+            return {{' 殺 ' .. navic.get_location({highlight=false}), 'magenta'}}
         end
         return ''
     end

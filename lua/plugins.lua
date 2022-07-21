@@ -487,7 +487,7 @@ return require('packer').startup({function()
     use {
         "SmiteshP/nvim-navic",
         requires = "neovim/nvim-lspconfig",
-        config = function() 
+        config = function()
             vim.g.navic_silence = true
             require('nvim-navic').setup({
                 separator = " ",

@@ -3,6 +3,8 @@ local Hydra = require('hydra')
 require('cfg.hydras.git')
 require('cfg.hydras.windows')
 require('cfg.hydras.telescope')
+require('cfg.hydras.options')
+require('cfg.hydras.dap')
 
 Hydra({
    name = 'Side scroll',
