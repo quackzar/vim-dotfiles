@@ -758,6 +758,20 @@ return require('packer').startup({function()
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use 'nvim-telescope/telescope-z.nvim'
 
+    use({
+        "ziontee113/icon-picker.nvim",
+        config = function()
+            require("icon-picker")
+        end,
+    })
+    use {
+        "max397574/colortils.nvim",
+        cmd = "Colortils",
+        config = function()
+            require("colortils").setup()
+        end,
+    }
+
     -- }}}
     -- navigation.vim {{{
     use {'dstein64/vim-win',

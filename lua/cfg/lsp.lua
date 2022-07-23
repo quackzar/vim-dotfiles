@@ -72,7 +72,7 @@ function on_attach(client, bufnr)
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
+    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
 
     -- Mappings.
     local opts = { noremap=true, silent=true }
