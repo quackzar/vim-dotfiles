@@ -329,6 +329,7 @@ return require('packer').startup({function()
     use 'nvim-treesitter/playground'
     use "nvim-treesitter/nvim-treesitter-angular"
 
+
     use {'RRethy/nvim-treesitter-endwise',
         config = function()
             require('nvim-treesitter.configs').setup {
@@ -395,7 +396,6 @@ return require('packer').startup({function()
         wants = {'nvim-treesitter'}, -- or require if not used so far
         after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
-
     use {
         "danymat/neogen",
         config = function()
@@ -528,8 +528,6 @@ return require('packer').startup({function()
         end
     }
 
-    -- use { 'RRethy/vim-illuminate' }
-
     -- use{
     --     "zbirenbaum/copilot.lua",
     --     event = {"VimEnter"},
@@ -578,32 +576,6 @@ return require('packer').startup({function()
 
     -- }}}
     -- Testing and Debugging {{{
-
-    -- use {'meain/vim-printer'} -- Only debugger you will ever need
-
-
-    -- use {'vim-test/vim-test', config =
-    --     function()
-    --         vim.g['test#strategy'] = 'neovim'
-    --     end,
-    -- }
-    -- use { "rcarriga/vim-ultest",
-    --     requires = {"vim-test/vim-test"},
-    --     run = ":UpdateRemotePlugins",
-    --     config = function()
-    --         vim.g.ultest_use_pty = 1
-    --         vim.g.ultest_virtual_text = 0
-    --         vim.g.ultest_pass_sign = ''
-    --         vim.g.ultest_fail_sign = ''
-    --         vim.g.ultest_running_sign = ''
-    --         vim.g.ultest_not_run_sign = ''
-    --         map('', ']t', '<Plug>(ultest-next-fail)', {silent=true})
-    --         map('', '[t', '<Plug>(ultest-prev-fail)', {silent=true})
-    --         map('n', '<leader>ta', '<Plug>(ultest-run-file)', {silent=true})
-    --         map('n', '<leader>tt', '<Plug>(ultest-run-nearest)', {silent=true})
-    --         map('i', '<C-g>tt', '<Plug>(ultest-run-nearest)', {silent=true})
-    --     end
-    -- }
 
     use { -- TODO: Wait upon more support for neotest
         "rcarriga/neotest",
@@ -885,8 +857,6 @@ return require('packer').startup({function()
 
     -- ======== GRAPHVIZ ========
     use {'liuchengxu/graphviz.vim', ft = 'dot'}
-    -- ======== TYPESCRIPT =======
-    use {'leafgarland/typescript-vim', ft = 'typescript'}
     -- ======== PYTHON =======
     use {'tmhedberg/SimpylFold', ft = 'python'}
     -- ======= OCAML ======
@@ -981,7 +951,6 @@ return require('packer').startup({function()
             }
         end
     }
-    use {'KeitaNakamura/tex-conceal.vim', ft = 'tex'}
     -- Mac OS / Xcode
     use {
         'tami5/xbase',
