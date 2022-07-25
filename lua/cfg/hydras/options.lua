@@ -1,5 +1,13 @@
 local Hydra = require("hydra")
 
+local function diagnostic()
+    if vim.diagnostic.config().virtual_lines then
+        return '[x]'
+    else
+        return '[ ]'
+    end
+end
+
 local hint = [[
   ^ ^        Options
   ^
@@ -10,6 +18,7 @@ local hint = [[
   _c_ %{cul} cursor line
   _n_ %{nu} number
   _r_ %{rnu} relative number
+  _l_ %{diag} diagnostics
   ^
        ^^^^                _<Esc>_
 ]]
@@ -22,7 +31,10 @@ Hydra({
         invoke_on_body = true,
         hint = {
             border = 'rounded',
-            position = 'middle'
+            position = 'middle',
+            funcs = {
+                ['diag'] = diagnostic
+            }
         }
     },
     mode = {'n','x'},
@@ -90,6 +102,9 @@ Hydra({
                 vim.o.cursorline = true
             end
         end, { desc = 'cursor line' } },
+        { 'l', function()
+            require("lsp_lines").toggle()
+        end, { desc = 'virtual line diagnostics'} },
         { '<Esc>', nil, { exit = true } }
     }
 })

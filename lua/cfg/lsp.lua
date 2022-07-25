@@ -9,6 +9,37 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
 
+vim.lsp.protocol.CompletionItemKind = {
+    "   (Text) ", "   (Method)", "   (Function)",
+    "   (Constructor)", " ﴲ  (Field)", "[] (Variable)", "   (Class)",
+    " ﰮ  (Interface)", "   (Module)", " 襁 (Property)", "   (Unit)",
+    "   (Value)", " 練 (Enum)", "   (Keyword)", "   (Snippet)",
+    "   (Color)", "   (File)", "   (Reference)", "   (Folder)",
+    "   (EnumMember)", " ﲀ  (Constant)", " ﳤ  (Struct)", "   (Event)",
+    "   (Operator)", "   (TypeParameter)"
+}
+
+vim.fn.sign_define('LightBulbSign', { text = " ", texthl = "DiagnosticSignHint", linehl="", numhl="" })
+require('nvim-lightbulb').update_lightbulb {
+    sign = {
+        enabled = true,
+        priority = 1,
+    },
+    float = {
+        enabled = true,
+        text = " ",
+    },
+    virtual_text = {
+        enabled = true,
+        text = " ",
+        hl_mode = "replace",
+    },
+    status_text = {
+        enabled = true,
+        text = " ",
+        text_unavailable = ""
+    }
+}
 
 local signs = {
     Error = " ",
@@ -28,6 +59,7 @@ vim.diagnostic.config({
     underline = true,
     signs = true,
     virtual_text = false,
+    virtual_lines = true,
     float = {
         show_header = true,
         source = 'if_many',
@@ -106,8 +138,6 @@ function on_attach(client, bufnr)
     buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local lspconfig = require('lspconfig')
-local lspinstaller = require("nvim-lsp-installer")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -116,109 +146,109 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true
 }
 
-lspinstaller.setup({
+require("mason").setup()
+local lspconfig = require('lspconfig')
+local mason_lsp = require("mason-lspconfig")
+
+mason_lsp.setup({
     ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 })
 
-for _, server in ipairs(lspinstaller.get_installed_servers()) do
-  lspconfig[server.name].setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
-
-local luadev = require("lua-dev").setup({
-  -- add any options here, or leave empty to use the default settings
-  lspconfig = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  },
-})
-
-lspconfig.sumneko_lua.setup(luadev)
-
-local rust_tools = require("rust-tools")
-rust_tools.setup {
-    server = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-    },
-    tools = {
-        autoSetHints = true,
-        hover_with_actions = false,
-        diagnostics = {
-            disabled = { 'inactive-code' }
-        },
-        inlay_hints = {
-            show_parameter_hints = true,
-            parameter_hints_prefix = "← ",
-            other_hints_prefix = "» ",
-        },
-    },
-}
-
-lspconfig.ltex.setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        ltex = {
-            language = "en-US",
-            additionalRules = {
-                enablePickyRules = false,
+mason_lsp.setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup({
+            on_attach = on_attach,
+            capabilities = capabilities
+        })
+    end,
+    ['sumneko_lua'] = function()
+        local luadev = require("lua-dev").setup({
+          -- add any options here, or leave empty to use the default settings
+          lspconfig = {
+            on_attach = on_attach,
+            capabilities = capabilities,
+          },
+        })
+        lspconfig.sumneko_lua.setup(luadev)
+    end,
+    ['rust_analyzer'] = function()
+        require("rust-tools").setup {
+            server = {
+                on_attach = on_attach,
+                capabilities = capabilities,
             },
-            disabledRules = {
-                ["en-US"] = {
-                    'TYPOS',
-                    'MORFOLOGIK_RULE_EN',
-                    'MORFOLOGIK_RULE_EN_US',
-                    'EN_QUOTES',
-                    'PASSIVE_VOICE',
+            tools = {
+                autoSetHints = true,
+                hover_with_actions = false,
+                diagnostics = {
+                    disabled = { 'inactive-code' }
+                },
+                inlay_hints = {
+                    show_parameter_hints = true,
+                    parameter_hints_prefix = "← ",
+                    other_hints_prefix = "» ",
+                },
+            },
+        }
+    end,
+    ['ltex'] = function ()
+        lspconfig.ltex.setup{
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                ltex = {
+                    language = "en-US",
+                    additionalRules = {
+                        enablePickyRules = false,
+                    },
+                    disabledRules = {
+                        ["en-US"] = {
+                            'TYPOS',
+                            'MORFOLOGIK_RULE_EN',
+                            'MORFOLOGIK_RULE_EN_US',
+                            'EN_QUOTES',
+                            'PASSIVE_VOICE',
+                        }
+                    }
                 }
             }
         }
-    }
-}
+    end
+})
 
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
--- TODO: Use hook API when supported.
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        -- Python
+        null_ls.builtins.formatting.black,
+        -- null_ls.builtins.formatting.autopep8,
+        null_ls.builtins.formatting.isort,
+        -- null_ls.builtins.diagnostics.flake8,
+        -- null_ls.builtins.diagnostics.pylint,
+        null_ls.builtins.diagnostics.mypy,
 
--- symbols for autocomplete
-vim.lsp.protocol.CompletionItemKind = {
-    "   (Text) ", "   (Method)", "   (Function)",
-    "   (Constructor)", " ﴲ  (Field)", "[] (Variable)", "   (Class)",
-    " ﰮ  (Interface)", "   (Module)", " 襁 (Property)", "   (Unit)",
-    "   (Value)", " 練 (Enum)", "   (Keyword)", "   (Snippet)",
-    "   (Color)", "   (File)", "   (Reference)", "   (Folder)",
-    "   (EnumMember)", " ﲀ  (Constant)", " ﳤ  (Struct)", "   (Event)",
-    "   (Operator)", "   (TypeParameter)"
-}
+        -- Shell
+        null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.shellharden,
+        null_ls.builtins.diagnostics.shellcheck,
+        null_ls.builtins.code_actions.shellcheck,
+
+        -- Git
+        -- null_ls.builtins.code_actions.gitsigns,
 
 
-vim.fn.sign_define('LightBulbSign', { text = " ", texthl = "DiagnosticSignHint", linehl="", numhl="" })
-require('nvim-lightbulb').update_lightbulb {
-    sign = {
-        enabled = true,
-        priority = 1,
+        -- Rust
+        null_ls.builtins.formatting.rustfmt,
+
+        -- TeX
+        -- null_ls.builtins.diagnostics.chktex,
+        null_ls.builtins.formatting.latexindent,
     },
-    float = {
-        enabled = true,
-        text = " ",
-    },
-    virtual_text = {
-        enabled = true,
-        text = " ",
-        hl_mode = "replace",
-    },
-    status_text = {
-        enabled = true,
-        text = " ",
-        text_unavailable = ""
-    }
-}
+    on_attach = function()
+        vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+    end,
+})
 
 vim.g.symbols_outline = {
     highlight_hovered_item = true,
@@ -270,37 +300,3 @@ vim.g.symbols_outline = {
         TypeParameter = {icon = " ", hl = "TSParameter"}
     }
 }
-
-
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        -- Python
-        null_ls.builtins.formatting.black,
-        -- null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.isort,
-        -- null_ls.builtins.diagnostics.flake8,
-        -- null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.diagnostics.mypy,
-
-        -- Shell
-        null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.shellharden,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.code_actions.shellcheck,
-
-        -- Git
-        -- null_ls.builtins.code_actions.gitsigns,
-
-
-        -- Rust
-        null_ls.builtins.formatting.rustfmt,
-
-        -- TeX
-        -- null_ls.builtins.diagnostics.chktex,
-        null_ls.builtins.formatting.latexindent,
-    },
-    on_attach = function()
-        vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-    end,
-})

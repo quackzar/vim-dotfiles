@@ -434,11 +434,23 @@ return require('packer').startup({function()
     use 'skywind3000/asyncrun.vim'
     use 'skywind3000/asynctasks.vim'
 
-    use {'neovim/nvim-lspconfig', after = 'nvim-lsp-installer'}
-    use 'williamboman/nvim-lsp-installer'
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    }
+
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
+    
+    use {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require("lsp_lines").setup()
+        end,
+    }
+
     use { 'Issafalcon/lsp-overloads.nvim'}
     use {'folke/trouble.nvim', config = function()
         map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
