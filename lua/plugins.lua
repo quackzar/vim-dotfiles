@@ -1,3 +1,4 @@
+-- Prelude {{{
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then -- check if packer is installed
@@ -19,9 +20,11 @@ vim.cmd([[
     autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
+-- }}}
 
 return require('packer').startup({function()
 
+    -- Meta {{{
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -38,8 +41,8 @@ return require('packer').startup({function()
             require("persistence").setup()
         end,
     })
-
-    -- ui.vim {{{
+    -- }}}
+    -- User Interface {{{
     use {'stevearc/dressing.nvim'}
     use 'windwp/windline.nvim'
 
@@ -174,7 +177,7 @@ return require('packer').startup({function()
 
 
     --- }}}
-    -- colorschemes {{{
+    -- Colorschemes {{{
     use {'folke/tokyonight.nvim',
         config = function()
             vim.g.tokyonight_style = 'night'
@@ -210,13 +213,25 @@ return require('packer').startup({function()
 
 
     -- }}}
-    -- git.vim {{{
+    -- Version Control and Git {{{
     use 'tpope/vim-fugitive'
     use {'lewis6991/gitsigns.nvim',
         config = function() require('cfg.gitsigns') end
     }
+
+    use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
+
+    use {'akinsho/git-conflict.nvim', config = function()
+        require('git-conflict').setup({
+            default_mappings = true, -- disable buffer local mapping created by this plugin
+            disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
+            highlights = { -- They must have background color, otherwise the default color will be used
+                incoming = 'DiffText',
+                current = 'DiffAdd',
+            }
+        })
+    end}
     use 'junegunn/gv.vim'
-    -- use 'rickhowe/diffchar.vim'
     use {'TimUntersberger/neogit',
         requires = 'nvim-lua/plenary.nvim',
         config = function()
@@ -264,20 +279,8 @@ return require('packer').startup({function()
             require('satellite').setup()
         end
     }
-    -- use {'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim'}
-
-    use {'akinsho/git-conflict.nvim', config = function()
-        require('git-conflict').setup({
-            default_mappings = true, -- disable buffer local mapping created by this plugin
-            disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
-            highlights = { -- They must have background color, otherwise the default color will be used
-                incoming = 'DiffText',
-                current = 'DiffAdd',
-            }
-        })
-    end}
     --- }}}
-    -- treesitter {{{
+    -- Treesitter {{{
     use {'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
         config = function() require('cfg.treesitter') end
@@ -396,7 +399,7 @@ return require('packer').startup({function()
         after = {'nvim-cmp'} -- if a completion plugin is using tabs load it before
     }
     use {
-        "danymat/neogen",
+        "danymat/neogen", -- TODO: research
         config = function()
             vim.keymap.set("n", "<Leader>nf", ":lua require('neogen').generate()<CR>")
             vim.keymap.set("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>")
@@ -409,7 +412,7 @@ return require('packer').startup({function()
         requires = "nvim-treesitter/nvim-treesitter"
 
     }
-    use {"ziontee113/syntax-tree-surfer", config = function()
+    use {"ziontee113/syntax-tree-surfer", config = function() -- TODO: redo keymaps
         require('cfg.syntax-tree-surfer')
     end}
 
@@ -428,10 +431,11 @@ return require('packer').startup({function()
         end}
 
     -- }}}
-    -- LSP {{{
+    -- LSP, DAP, running and testing {{{
     use {
         'stevearc/overseer.nvim',
-        config = function() require('overseer').setup() end
+        config = function() require('overseer').setup({}) end
+        -- TODO: Add mappings and better setup
     }
 
     use {
@@ -579,7 +583,7 @@ return require('packer').startup({function()
     }
 
     use {'sidebar-nvim/sections-dap'}
-    use {'sidebar-nvim/sidebar.nvim',
+    use {'sidebar-nvim/sidebar.nvim', -- TODO: Kill
         config = function()
             require('cfg.sidebar')
         end
@@ -588,13 +592,17 @@ return require('packer').startup({function()
     -- }}}
     -- Testing and Debugging {{{
 
-    use { -- TODO: Wait upon more support for neotest
+    use { -- TODO: Setup mappings
         "rcarriga/neotest",
+        "nvim-neotest/neotest-python",
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
             "antoinemadec/FixCursorHold.nvim"
-        }
+        },
+        config = function ()
+            require('cfg.neotest')
+        end
     }
 
     use { 'michaelb/sniprun', run = 'bash ./install.sh',
@@ -615,7 +623,6 @@ return require('packer').startup({function()
     use 'mfussenegger/nvim-dap'
     use {'theHamsta/nvim-dap-virtual-text', requires = {"mfussenegger/nvim-dap"} }
     use {'rcarriga/nvim-dap-ui', requires = {"mfussenegger/nvim-dap"} }
-    use {'Pocco81/DAPInstall.nvim', requires = {"mfussenegger/nvim-dap"} }
     use {'mfussenegger/nvim-dap-python', requires = {"mfussenegger/nvim-dap"} }
 
     -- use {'t-troebst/perfanno.nvim', config = function()
@@ -624,7 +631,7 @@ return require('packer').startup({function()
     -- }
 
     -- }}}
-    -- editor.vim {{{
+    -- Generic Editor Plugins {{{
     use 'duggiefresh/vim-easydir'
 
     use {'linty-org/readline.nvim',
@@ -755,7 +762,7 @@ return require('packer').startup({function()
     }
 
     -- }}}
-    -- navigation.vim {{{
+    -- Navigation {{{
     use {'dstein64/vim-win',
         config = function()
             map("n", "<space>w", "<plug>WinWin", {silent = true, noremap = false})
@@ -823,7 +830,7 @@ return require('packer').startup({function()
         end
     })
     -- }}}
-    -- languages.vim {{{
+    -- Language Specific Plugins {{{
     -- ==========  C  ==========
     use 'justinmk/vim-syntax-extra'
     use 'shirk/vim-gas'

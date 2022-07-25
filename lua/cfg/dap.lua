@@ -1,6 +1,5 @@
 local dap = require('dap')
 
-
 vim.fn.sign_define('DapBreakpoint', {text=' ', texthl='Keyword', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointRejected', {text=' ', texthl='Keyword', linehl='', numhl=''})
 vim.fn.sign_define('DapBreakpointCondition', {text=' ', texthl='Identifier', linehl='', numhl=''})
@@ -20,11 +19,12 @@ require("dapui").setup()
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
-dap.adapters.chrome = {
-    type = "executable",
-    command = "node",
-    args = {vim.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }} -- TODO adjust
-}
+-- dap.adapters.chrome = {
+--     type = "executable",
+--     command = "node",
+--     args = require('mason').setup().get
+--     -- args = {vim.fn.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }}
+-- }
 
 dap.configurations.typescript = { -- change to typescript if needed
     {
@@ -39,11 +39,11 @@ dap.configurations.typescript = { -- change to typescript if needed
     }
 }
 
-dap.adapters.python = {
-    type = 'executable';
-    command = 'path/to/virtualenvs/debugpy/bin/python';
-    args = {'-m', vim.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }} -- TODO adjust
-}
+-- dap.adapters.python = {
+--     type = 'executable';
+--     command = 'path/to/virtualenvs/debugpy/bin/python';
+--     args = {'-m', vim.fn.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }} -- TODO adjust
+-- }
 
 dap.configurations.python = {
   {

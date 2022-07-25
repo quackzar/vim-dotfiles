@@ -163,11 +163,12 @@ mason_lsp.setup_handlers({
     end,
     ['sumneko_lua'] = function()
         local luadev = require("lua-dev").setup({
-          -- add any options here, or leave empty to use the default settings
-          lspconfig = {
-            on_attach = on_attach,
-            capabilities = capabilities,
-          },
+            -- add any options here, or leave empty to use the default settings
+            lspconfig = {
+                on_attach = on_attach,
+                capabilities = capabilities,
+            },
+            library = { plugins = { "neotest" }, types = true },
         })
         lspconfig.sumneko_lua.setup(luadev)
     end,
