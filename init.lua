@@ -104,8 +104,8 @@ vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', '<C-l>', '<C-o>:noh<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '@', ':normal @', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<C-z>', '<C-\\><C-n>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<esc>', '<C-\\><C-n>', { noremap = true, silent = true })
 
@@ -160,8 +160,7 @@ require('cfg.tree')
 
 require('windline.bubblegum')
 
-vim.cmd('colorscheme tokyodark')
-
+vim.cmd.colorscheme('tokyodark')
 
 
 function _sidebar_toggle()

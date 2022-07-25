@@ -12,7 +12,6 @@ require('packer').init {
     max_jobs = 50,
 }
 
-
 -- auto compile when this file is modified
 vim.cmd([[
   augroup packer_user_config
@@ -116,7 +115,7 @@ return require('packer').startup({function()
         end
     }
 
-    use { 'anuvyklack/hydra.nvim', 
+    use { 'anuvyklack/hydra.nvim',
         requires = 'anuvyklack/keymap-layer.nvim', -- needed only for pink hydras
         config = function()
             require('cfg.hydra')
@@ -147,12 +146,12 @@ return require('packer').startup({function()
 
     use {'kevinhwang91/nvim-hlslens',
         config = function()
-            map('', 'n', "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
-            map('', 'N', "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
-            map('', '*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
-            map('', '#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
-            map('', 'g*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
-            map('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', 'n', "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', 'N', "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', '*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', '#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', 'g*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
         end
     }
     use { 'bennypowers/nvim-regexplainer',
@@ -199,7 +198,7 @@ return require('packer').startup({function()
     }
     use 'tanvirtin/monokai.nvim'
     use 'nanotech/jellybeans.vim'
-    use 'ellisonleao/gruvbox.nvim' 
+    use 'ellisonleao/gruvbox.nvim'
     use 'ful1e5/onedark.nvim'
     use 'sainnhe/everforest'
     use 'sainnhe/sonokai'
@@ -227,9 +226,9 @@ return require('packer').startup({function()
                     diffview = true
                 }
             }
-            map("n", "<leader>gg", "<cmd>Neogit<cr>", opts)
-            map("n", "<leader>gl", "<cmd>Neogit log<cr>", opts)
-            map("n", "<leader>gc", "<cmd>Neogit commit<cr>", opts)
+            vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", {desc = "Neogit"})
+            vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", {desc = "Neogit log"})
+            vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", {desc = "Neogit commit"})
         end
     }
     use {'f-person/git-blame.nvim',
@@ -399,10 +398,10 @@ return require('packer').startup({function()
     use {
         "danymat/neogen",
         config = function()
-            map("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", opts)
-            map("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", opts)
-            map("n", "<C-n>", ":lua require('neogen').jump_next()<CR>", opts)
-            map("n", "<C-p>", ":lua require('neogen').jump_prev()<CR>", opts)
+            vim.keymap.set("n", "<Leader>nf", ":lua require('neogen').generate()<CR>")
+            vim.keymap.set("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>")
+            vim.keymap.set("n", "<C-n>", ":lua require('neogen').jump_next()<CR>")
+            vim.keymap.set("n", "<C-p>", ":lua require('neogen').jump_prev()<CR>")
             require('neogen').setup {
                 enabled = true
             }
@@ -425,14 +424,15 @@ return require('packer').startup({function()
                 -- it is a threadhold when window is larger than the threshold sad will split vertically,
                 height_ratio = 0.6, -- height ratio of sad window when split horizontally
                 width_ratio = 0.6, -- height ratio of sad window when split vertically
-
             })
         end}
 
     -- }}}
     -- LSP {{{
-    use 'skywind3000/asyncrun.vim'
-    use 'skywind3000/asynctasks.vim'
+    use {
+        'stevearc/overseer.nvim',
+        config = function() require('overseer').setup() end
+    }
 
     use {
         "williamboman/mason.nvim",
@@ -443,7 +443,6 @@ return require('packer').startup({function()
     use 'weilbith/nvim-code-action-menu'
     use 'kosayoda/nvim-lightbulb'
     use 'nvim-lua/lsp-status.nvim'
-    
     use {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = function()
@@ -453,12 +452,12 @@ return require('packer').startup({function()
 
     use { 'Issafalcon/lsp-overloads.nvim'}
     use {'folke/trouble.nvim', config = function()
-        map("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
-        map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
-        map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
-        map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
-        map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
-        map("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
+        vim.keymap.set("n", "<leader>xx", "<cmd>Trouble<cr>")
+        vim.keymap.set("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>")
+        vim.keymap.set("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>")
+        vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
+        vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
+        vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
         require("trouble").setup {
             use_diagnostic_signs = true,
         }
@@ -606,9 +605,9 @@ return require('packer').startup({function()
                     "NvimNotify"
                 }
             })
-            map("n", "<C-c>", "<Plug>SnipRunOperator", {silent=true})
-            map("n", "<C-c><C-c>", "<Plug>SnipRun", {silent=true})
-            map("v", "<C-c>", "<Plug>SnipRun", {silent=true})
+            vim.keymap.set("n", "<C-c>", "<Plug>SnipRunOperator", {silent=true})
+            vim.keymap.set("n", "<C-c><C-c>", "<Plug>SnipRun", {silent=true})
+            vim.keymap.set("v", "<C-c>", "<Plug>SnipRun", {silent=true})
         end
     }
 
@@ -624,7 +623,6 @@ return require('packer').startup({function()
     -- end
     -- }
 
-    use 'voldikss/vim-floaterm' -- NOTE: Maybe unused?
     -- }}}
     -- editor.vim {{{
     use 'duggiefresh/vim-easydir'
@@ -654,12 +652,12 @@ return require('packer').startup({function()
 
     use {'monaqa/dial.nvim',
         config = function()
-            vim.api.nvim_set_keymap("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
-            vim.api.nvim_set_keymap("n", "<C-x>", require("dial.map").dec_normal(), {noremap = true})
-            vim.api.nvim_set_keymap("v", "<C-a>", require("dial.map").inc_visual(), {noremap = true})
-            vim.api.nvim_set_keymap("v", "<C-x>", require("dial.map").dec_visual(), {noremap = true})
-            vim.api.nvim_set_keymap("v", "g<C-a>", require("dial.map").inc_gvisual(), {noremap = true})
-            vim.api.nvim_set_keymap("v", "g<C-x>", require("dial.map").dec_gvisual(), {noremap = true})
+            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal)
+            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal)
+            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual)
+            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual)
+            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual)
+            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual)
         end
     }
     use 'tpope/vim-repeat' -- Improves dot
@@ -678,9 +676,9 @@ return require('packer').startup({function()
         end}
     use {'junegunn/vim-easy-align',
         config = function()
-            map('x', 'ga', '<Plug>(EasyAlign)', {silent=true})
-            map('n', 'ga', '<Plug>(EasyAlign)', {silent=true})
-            map('v', 'ga', '<Plug>(EasyAlign)', {silent=true})
+            vim.keymap.set('x', 'ga', '<Plug>(EasyAlign)', {silent=true})
+            vim.keymap.set('n', 'ga', '<Plug>(EasyAlign)', {silent=true})
+            vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)', {silent=true})
         end
     }
     use 'markonm/traces.vim'
@@ -752,7 +750,7 @@ return require('packer').startup({function()
         "max397574/colortils.nvim",
         cmd = "Colortils",
         config = function()
-            require("colortils").setup()
+            require("colortils").setup({})
         end,
     }
 
@@ -813,6 +811,17 @@ return require('packer').startup({function()
             }
         }
     }
+
+    use({
+        "gbprod/stay-in-place.nvim",
+        config = function()
+            require("stay-in-place").setup({
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            })
+        end
+    })
     -- }}}
     -- languages.vim {{{
     -- ==========  C  ==========

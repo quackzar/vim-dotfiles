@@ -66,7 +66,7 @@ vim.diagnostic.config({
         border = 'rounded',
         focusable = false,
     },
-    update_in_insert = false, -- default to false
+    update_in_insert = true, -- default to false
     severity_sort = true, -- default to false
 })
 
@@ -100,42 +100,41 @@ function on_attach(client, bufnr)
         })
     end
 
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     -- Enable completion triggered by <c-x><c-o>
     -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
 
     -- Mappings.
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap=true, silent=true, buffer=bufnr }
     buf_set_option("tagfunc", "v:lua.vim.lsp.tagfunc")
     buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
     -- Add this <leader> bound mapping so formatting the entire document is easier.
-    buf_set_keymap("n", "<leader>gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    vim.keymap.set("n", "<leader>gq", "vim.lsp.buf.formatting", opts)
 
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'K',         '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', '<space>K',  '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    -- buf_set_keymap('n', '<C-]>',     '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gd',        '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gD',        '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gi',        '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', 'go',        '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', 'gr',        '<cmd>lua vim.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<C-k>',     '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    -- buf_set_keymap('n', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
-    -- buf_set_keymap('v', '<leader>rn', '<cmd>lua require("renamer").rename()<cr>', opts)
-    buf_set_keymap('n', '<space>a',  '<cmd>CodeActionMenu<CR>', opts)
-    buf_set_keymap('x', '<space>a',  '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts) -- NOTE: Untested
-    buf_set_keymap('n', '[d',        '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d',        '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q',  '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap('n', '<space>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    vim.keymap.set('n', 'K',         vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<space>K',  vim.diagnostic.open_float, opts)
+    -- vim.keymap.set('n', '<C-]>',     'vim.lsp.buf.definition', opts)
+    vim.keymap.set('n', 'gd',        vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', 'go',        vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', 'gr',        vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<C-k>',     vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+    vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    -- vim.keymap.set('n', '<leader>rn', 'require("renamer").rename', opts)
+    -- vim.keymap.set('v', '<leader>rn', 'require("renamer").rename', opts)
+    vim.keymap.set('n', '<space>a',  '<cmd>CodeActionMenu<cr>', opts)
+    vim.keymap.set('x', '<space>a',  vim.lsp.buf.range_code_action, opts) -- NOTE: Untested
+    vim.keymap.set('n', '[d',        vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d',        vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<space>q',  vim.diagnostic.setloclist, opts)
+    vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, opts)
 end
 
 
