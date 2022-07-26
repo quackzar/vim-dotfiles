@@ -93,32 +93,27 @@ vim.o.laststatus = 3
 -- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 -- some pluginless keymaps
-vim.api.nvim_set_keymap('', '<cr>', ':', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', '<c-w>q', ':close<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gQ', ':bd<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'x', '"_x', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'X', '"_X', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gb', ':bn<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('', 'gB', ':bp<cr>', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v'}, 'Q', '<nop>')
+vim.keymap.set('n', '<c-w>q', ':close<cr>')
+vim.keymap.set({'n', 'v'}, 'x', '"_x')
+vim.keymap.set({'n', 'v'}, 'X', '"_X')
+vim.keymap.set({'n', 'v', 'i'}, '<C-l>', ':noh<cr>')
+vim.keymap.set('i', '<C-l>', '<C-o>:noh<cr>')
+vim.keymap.set('v', '@', ':normal @')
+-- vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
+-- vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-z>', '<C-\\><C-n>')
+vim.keymap.set('t', '<esc>', '<C-\\><C-n>')
 
-vim.api.nvim_set_keymap('', '<C-l>', ':noh<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-l>', '<C-o>:noh<cr>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '@', ':normal @', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('v', '>', '>gv', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('v', '<', '<gv', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-z>', '<C-\\><C-n>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<esc>', '<C-\\><C-n>', { noremap = true, silent = true })
-
-
-vim.g.python3_host_prog = '/usr/bin/python3'
-
-
+vim.api.nvim_create_autocmd('TermOpen', {
+    group = vim.api.nvim_create_augroup('term_settings', {clear = true}),
+    callback = function ()
+        vim.wo.number = false
+        vim.cmd.startinsert()
+    end
+})
 vim.cmd( -- TODO: use api
 [[
-augroup term_settings
-    autocmd TermOpen * startinsert
-    autocmd TermOpen * setlocal nonumber
-augroup END
 
 augroup easy_close
     autocmd!
@@ -215,9 +210,6 @@ wk.register({
                 "Colorschemes",
             },
         },
-        z = {":NeoTreeRevealToggle<cr>", "Toggle File Tree"},
-        Z = {":SidebarNvimToggle<cr>", "Toggle File Sidebar"},
-        S = {":SymbolsOutline<cr>", "Toggle Symbols"},
         x = {
             name = "+trouble  ",
             x = {"<cmd>Trouble<cr>", "Trouble"},

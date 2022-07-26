@@ -13,18 +13,20 @@ require("nvim-dap-virtual-text").setup({
 })
 
 
-require("dapui").setup()
+require("dapui").setup({})
+vim.keymap.set('n', '<leader>du', require("dapui").toggle, {desc='Toggle DAP UI'})
+
 
 -- If you want to use this for rust and c, add something like this:
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
 
--- dap.adapters.chrome = {
---     type = "executable",
---     command = "node",
---     args = require('mason').setup().get
---     -- args = {vim.fn.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }}
--- }
+dap.adapters.chrome = {
+    type = "executable",
+    command = "node",
+    args = '~/.local/share/nvim/mason/bin/chrome-debug-adapter'
+    -- args = {vim.fn.path.concat { vim.fn.stdpath "data", "mason", "bin", "chrome-debug-adapter" }}
+}
 
 dap.configurations.typescript = { -- change to typescript if needed
     {

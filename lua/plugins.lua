@@ -100,7 +100,7 @@ return require('packer').startup({function()
                 },
                 hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>"}, -- hide mapping boilerplate
                 operators = { gc = "Comments" },
-                ignore_missing = true, -- fun if one decides to register everything
+                ignore_missing = false, -- fun if one decides to register everything
                 key_labels = {
                     -- override the label used to display some keys. It doesn't effect WK in any other way.
                     ["<space>"] = "SPC",
@@ -434,8 +434,15 @@ return require('packer').startup({function()
     -- LSP, DAP, running and testing {{{
     use {
         'stevearc/overseer.nvim',
-        config = function() require('overseer').setup({}) end
-        -- TODO: Add mappings and better setup
+        config = function() require('overseer').setup({
+            task_list = {
+                direction = 'right',
+            },
+        })
+        vim.keymap.set('n', '<leader>c', '<cmd>OverseerToggle<cr>', {desc = 'Toggle Overseer'})
+        vim.keymap.set('n', '<leader>C', '<cmd>OverseerRun<cr>', {desc='Run a task'})
+        vim.keymap.set('n', '<leader>A', '<cmd>OverseerQuickAction<cr>', {desc = 'Overseer Action'})
+        end
     }
 
     use {
@@ -593,8 +600,10 @@ return require('packer').startup({function()
     -- Testing and Debugging {{{
 
     use { -- TODO: Setup mappings
-        "rcarriga/neotest",
-        "nvim-neotest/neotest-python",
+        'rcarriga/neotest',
+        'nvim-neotest/neotest-python',
+        'rouge8/neotest-rust',
+        'haydenmeade/neotest-jest',
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
@@ -816,7 +825,22 @@ return require('packer').startup({function()
                     })
                 end,
             }
-        }
+        },
+        config = function ()
+            vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+            require('neo-tree').setup({
+                filesystem = {
+                    use_libuv_file_watcher = true,
+                },
+                mappings = {
+                    ['za'] = 'toggle_node',
+                    ['zR'] = 'expand_all_nodes',
+                    ['zM'] = 'close_all_nodes',
+                }
+            })
+            vim.keymap.set('n', '<leader>z', '<cmd>Neotree toggle<cr>', {desc='Toggle file tree'})
+
+        end
     }
 
     use({
