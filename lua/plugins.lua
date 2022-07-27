@@ -71,7 +71,6 @@ return require('packer').startup({function()
     use 'meznaric/conmenu'
 
     use 'kyazdani42/nvim-web-devicons'
-    use 'yamatsum/nvim-web-nonicons'
 
     use {'goolord/alpha-nvim', config = function()
         require'alpha'.setup(require'alpha.themes.dashboard'.config)
