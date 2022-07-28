@@ -138,6 +138,9 @@ return require('packer').startup({function()
             require('cinnamon').setup({
                 extra_keymaps = true,
                 extended_keymaps = false,
+                scroll_limit = 100,
+                hide_cursor = true,
+                default_delay = 5,
             })
         end
     }
@@ -426,20 +429,7 @@ return require('packer').startup({function()
         end}
 
     -- }}}
-    -- LSP, DAP, running and testing {{{
-    use {
-        'stevearc/overseer.nvim',
-        config = function() require('overseer').setup({
-            task_list = {
-                direction = 'right',
-            },
-        })
-        vim.keymap.set('n', '<leader>c', '<cmd>OverseerToggle<cr>', {desc = 'Toggle Overseer'})
-        vim.keymap.set('n', '<leader>C', '<cmd>OverseerRun<cr>', {desc='Run a task'})
-        vim.keymap.set('n', '<leader>A', '<cmd>OverseerQuickAction<cr>', {desc = 'Overseer Action'})
-        end
-    }
-
+    -- LSP + Snippets {{{
     use {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -584,15 +574,20 @@ return require('packer').startup({function()
         requires = {'rafamadriz/friendly-snippets'},
     }
 
-    use {'sidebar-nvim/sections-dap'}
-    use {'sidebar-nvim/sidebar.nvim', -- TODO: Kill
-        config = function()
-            require('cfg.sidebar')
+    -- }}}
+    -- Running, Testing and Debugging {{{
+    use {
+        'stevearc/overseer.nvim',
+        config = function() require('overseer').setup({
+            task_list = {
+                direction = 'right',
+            },
+        })
+        vim.keymap.set('n', '<leader>c', '<cmd>OverseerToggle<cr>', {desc = 'Toggle Overseer'})
+        vim.keymap.set('n', '<leader>C', '<cmd>OverseerRun<cr>', {desc='Run a task'})
+        vim.keymap.set('n', '<leader>A', '<cmd>OverseerQuickAction<cr>', {desc = 'Overseer Action'})
         end
     }
-
-    -- }}}
-    -- Testing and Debugging {{{
 
     use { -- TODO: Setup mappings
         'rcarriga/neotest',
@@ -636,7 +631,13 @@ return require('packer').startup({function()
 
     -- }}}
     -- Generic Editor Plugins {{{
+    use 'tpope/vim-repeat' -- Improves dot
+    use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
+    use 'tpope/vim-unimpaired'
     use 'duggiefresh/vim-easydir'
+
+    use 'markonm/traces.vim' -- Consider relavance
+
 
     use {'linty-org/readline.nvim',
         config = function()
@@ -663,19 +664,15 @@ return require('packer').startup({function()
 
     use {'monaqa/dial.nvim',
         config = function()
-            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal)
-            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal)
-            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual)
-            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual)
-            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual)
-            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual)
+            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal, {desc="Dial up"})
+            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal, {desc="Dial down"})
+            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual, {desc="Dial up"})
+            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual, {desc="Dial down"})
+            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual, {desc="Dial up relative"})
+            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual, {desc="Dial down relative"})
         end
     }
-    use 'tpope/vim-repeat' -- Improves dot
-    use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
-    use 'tpope/vim-unimpaired' -- TODO: Reconsider some mappings
-    use 'AndrewRadev/switch.vim' -- TODO: Unused
-    use 'machakann/vim-sandwich' -- Surround replacment, with previews and stuff
+    use 'machakann/vim-sandwich'
     use 'wellle/targets.vim'
     use {'andymass/vim-matchup', event = 'VimEnter',
         config = function()
@@ -692,7 +689,6 @@ return require('packer').startup({function()
             vim.keymap.set('v', 'ga', '<Plug>(EasyAlign)', {silent=true})
         end
     }
-    use 'markonm/traces.vim'
     use 'Konfekt/vim-sentence-chopper'
     use 'AndrewRadev/splitjoin.vim' -- NOTE: Consider lua + treesitter version
     use {'flwyd/vim-conjoin', after = 'splitjoin.vim'}
@@ -735,7 +731,7 @@ return require('packer').startup({function()
         end
     }
 
-    use {'editorconfig/editorconfig-vim'}
+    use {'gpanders/editorconfig.nvim'}
 
     -- }}}
     -- Telescope {{{
@@ -1001,6 +997,7 @@ return require('packer').startup({function()
         end
     }
     -- Mac OS / Xcode
+    use 'darfink/vim-plist'
     use {
         'tami5/xbase',
         run = 'make install',
