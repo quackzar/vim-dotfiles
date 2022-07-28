@@ -155,12 +155,6 @@ return require('packer').startup({function()
             vim.keymap.set('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
         end
     }
-    use { 'bennypowers/nvim-regexplainer',
-        config = function() require'regexplainer'.setup({})  end,
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'MunifTanjim/nui.nvim',
-        } }
 
     use {'kevinhwang91/nvim-ufo',
         requires = 'kevinhwang91/promise-async',
@@ -273,6 +267,7 @@ return require('packer').startup({function()
 
     use {
         'lewis6991/satellite.nvim',
+        event = 'BufRead',
         config = function()
             require('satellite').setup()
         end
@@ -327,10 +322,11 @@ return require('packer').startup({function()
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/nvim-treesitter-refactor'
     use 'nvim-treesitter/playground'
-    use "nvim-treesitter/nvim-treesitter-angular"
+    use {'nvim-treesitter/nvim-treesitter-angular', ft = 'html'}
 
 
     use {'RRethy/nvim-treesitter-endwise',
+        event = 'InsertEnter',
         config = function()
             require('nvim-treesitter.configs').setup {
                 endwise = {
@@ -357,17 +353,19 @@ return require('packer').startup({function()
     }
 
     use {'windwp/nvim-ts-autotag',
-                config = function()
-                       require'nvim-treesitter.configs'.setup {
-                            autotag = {
-                                 enable = true,
-                               }
-                        }
-                end
+        event = 'InsertEnter',
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+                autotag = {
+                    enable = true,
+                }
+            }
+        end
     }
 
     use {
         'abecodes/tabout.nvim',
+        event = 'InsertEnter',
         config = function()
             require('tabout').setup {
                 tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
@@ -483,6 +481,7 @@ return require('packer').startup({function()
     use 'jose-elias-alvarez/null-ls.nvim'
 
     use { "johmsalas/text-case.nvim",
+        event = 'VimEnter',
         config = function()
             require('textcase').setup {}
         end
@@ -548,11 +547,10 @@ return require('packer').startup({function()
     --     "zbirenbaum/copilot-cmp",
     --     after = { "copilot.lua", "nvim-cmp" },
     -- }
-    use 'hrsh7th/cmp-omni'
     use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
 
     use { 'saadparwaiz1/cmp_luasnip' }
-    use 'onsails/lspkind-nvim'
+    use {'onsails/lspkind-nvim'}
     use {'hrsh7th/nvim-cmp', config = function()
         require('cfg.cmp')
     end,
@@ -561,6 +559,7 @@ return require('packer').startup({function()
             'hrsh7th/cmp-nvim-lsp',
             'hrsh7th/cmp-buffer',
             'hrsh7th/cmp-path',
+            'hrsh7th/cmp-omni',
             'hrsh7th/cmp-cmdline',
         },
     }
@@ -572,6 +571,7 @@ return require('packer').startup({function()
             require("luasnip.loaders.from_snipmate").lazy_load()
         end,
         requires = {'rafamadriz/friendly-snippets'},
+        event = 'InsertEnter'
     }
 
     -- }}}
@@ -718,6 +718,7 @@ return require('packer').startup({function()
         require("stabilize").setup()
     end }
     use {'folke/todo-comments.nvim',
+        event = 'BufRead',
         requires = "nvim-lua/plenary.nvim",
         config = function()
             require("todo-comments").setup{}
@@ -738,6 +739,7 @@ return require('packer').startup({function()
     use {
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} },
+        event = 'VimEnter',
         config = function()
             require('cfg.telescope')
         end

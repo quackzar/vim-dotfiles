@@ -4,6 +4,7 @@ local function prequire(...)
     if (status) then return lib end
     return nil
 end
+vim.opt.shadafile = "NONE"
 
 prequire('impatient')
 
@@ -366,4 +367,5 @@ wk.register({
     x = {"<cmd>WhichKey '' x<cr>", "Mode"},
 }, {prefix = "<space><space>", mode = "n"})
 
+vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4
