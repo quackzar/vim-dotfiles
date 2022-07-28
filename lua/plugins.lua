@@ -5,10 +5,6 @@ if fn.empty(fn.glob(install_path)) > 0 then -- check if packer is installed
     packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
--- because the other way is way too long
-function map(...) vim.api.nvim_set_keymap(...) end
-opts = {noremap=true, silent=true}
-
 require('packer').init {
     max_jobs = 50,
 }
@@ -773,7 +769,7 @@ return require('packer').startup({function()
     -- Navigation {{{
     use {'dstein64/vim-win',
         config = function()
-            map("n", "<space>w", "<plug>WinWin", {silent = true, noremap = false})
+            vim.keymap.set("n", "<space>w", "<plug>WinWin");
         end
     }
     use {'nacro90/numb.nvim', config = function()
@@ -783,15 +779,15 @@ return require('packer').startup({function()
         config = function()
             vim.g.lightspeed_no_default_keymaps = true
             require('lightspeed').setup({})
-            map("n", "L", "<Plug>Lightspeed_s", {silent = true})
-            map("n", "H", "<Plug>Lightspeed_S", {silent = true})
-            map("n", "f", "<Plug>Lightspeed_f", {silent = true})
-            map("n", "F", "<Plug>Lightspeed_F", {silent = true})
-            map("n", "t", "<Plug>Lightspeed_t", {silent = true})
-            map("n", "T", "<Plug>Lightspeed_T", {silent = true})
-            map("o", "x", "<Plug>Lightspeed_x", {silent = true})
-            map("o", "X", "<Plug>Lightspeed_X", {silent = true})
-            map("n", "S", "<Plug>Lightspeed_omni_s", {silent = true})
+            vim.keymap.set("n", "L", "<Plug>Lightspeed_s", {silent = true})
+            vim.keymap.set("n", "H", "<Plug>Lightspeed_S", {silent = true})
+            vim.keymap.set("n", "f", "<Plug>Lightspeed_f", {silent = true})
+            vim.keymap.set("n", "F", "<Plug>Lightspeed_F", {silent = true})
+            vim.keymap.set("n", "t", "<Plug>Lightspeed_t", {silent = true})
+            vim.keymap.set("n", "T", "<Plug>Lightspeed_T", {silent = true})
+            vim.keymap.set("o", "x", "<Plug>Lightspeed_x", {silent = true})
+            vim.keymap.set("o", "X", "<Plug>Lightspeed_X", {silent = true})
+            vim.keymap.set("n", "S", "<Plug>Lightspeed_omni_s", {silent = true})
         end}
     -- use 'arp242/jumpy.vim' -- Maps [[ and ]]
     use 'farmergreg/vim-lastplace'
@@ -967,6 +963,8 @@ return require('packer').startup({function()
         end
     }
     -- === text ===
+    use { "barreiroleo/ltex-extra.nvim" }
+
     -- TeX
     use {'lervag/vimtex',
         config = function()
