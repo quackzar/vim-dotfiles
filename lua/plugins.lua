@@ -269,7 +269,15 @@ return require('packer').startup({function()
         'lewis6991/satellite.nvim',
         event = 'BufRead',
         config = function()
-            require('satellite').setup()
+            require('satellite').setup({
+                winblend = 80,
+                handlers = {
+                    marks = {
+                        enable = true,
+                        show_builtins = false,
+                    }
+                }
+            })
         end
     }
     --- }}}
@@ -591,13 +599,13 @@ return require('packer').startup({function()
 
     use { -- TODO: Setup mappings
         'rcarriga/neotest',
-        'nvim-neotest/neotest-python',
-        'rouge8/neotest-rust',
-        'haydenmeade/neotest-jest',
         requires = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
-            "antoinemadec/FixCursorHold.nvim"
+            "antoinemadec/FixCursorHold.nvim",
+            'rouge8/neotest-rust',
+            'nvim-neotest/neotest-python',
+            'haydenmeade/neotest-jest',
         },
         config = function ()
             require('cfg.neotest')
@@ -618,6 +626,12 @@ return require('packer').startup({function()
         end
     }
 
+    use {
+        '0x100101/lab.nvim',
+        requires = {'nvim-lua/plenary.nvim'},
+        run = 'cd js && npm ci',
+    }
+
 
     use 'mfussenegger/nvim-dap'
     use {'theHamsta/nvim-dap-virtual-text', requires = {"mfussenegger/nvim-dap"} }
@@ -633,7 +647,7 @@ return require('packer').startup({function()
     -- Generic Editor Plugins {{{
     use 'tpope/vim-repeat' -- Improves dot
     use 'tpope/vim-eunuch' -- Basic (Delete, Move, Rename) unix commands
-    use 'tpope/vim-unimpaired'
+    -- use 'tpope/vim-unimpaired'
     use 'duggiefresh/vim-easydir'
 
     use 'markonm/traces.vim' -- Consider relavance
@@ -822,6 +836,7 @@ return require('packer').startup({function()
         config = function ()
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
             require('neo-tree').setup({
+                close_if_last_window = true,
                 filesystem = {
                     use_libuv_file_watcher = true,
                 },
@@ -829,6 +844,9 @@ return require('packer').startup({function()
                     ['za'] = 'toggle_node',
                     ['zR'] = 'expand_all_nodes',
                     ['zM'] = 'close_all_nodes',
+                },
+                buffers = {
+                    follow_current_file = true
                 }
             })
             vim.keymap.set('n', '<leader>z', '<cmd>Neotree toggle<cr>', {desc='Toggle file tree'})
@@ -865,7 +883,7 @@ return require('packer').startup({function()
             -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
         end
     }
-    use {'dhruvasagar/vim-table-mode'}
+    -- use {'dhruvasagar/vim-table-mode'} -- FIX: Conflicting keymaps, lazy-load
     -- ======== ASCIIDOC =======
     use {'habamax/vim-asciidoctor', ft = 'asciidoc',
         config = function()

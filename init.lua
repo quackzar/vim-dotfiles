@@ -113,6 +113,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.cmd.startinsert()
     end
 })
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+    group = vim.api.nvim_create_augroup('highlight_yank', {clear = true}),
+    callback = function ()
+        vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
+    end
+})
 vim.cmd( -- TODO: use api
 [[
 
@@ -131,11 +138,6 @@ augroup improved_autoread
   autocmd VimResume   * silent! checktime
   autocmd TermLeave   * silent! checktime
 augroup end
-
-augroup highlight_yank
-    autocmd!
-    au TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=200 }
-augroup END
 ]])
 
 -- setup for ripgrep as grepper
@@ -302,19 +304,19 @@ wk.register({
         c = { "<cmd>lua require('dap').scopes()<CR>", "Scopes" },
         i = { "<cmd>lua require('dap').toggle()<CR>", "Toggle" },
     },
-    t = {
-        name = "+test  ",
-        a = { "<Plug>(ultest-run-file)", "Test file" },
-        t = { "<Plug>(ultest-run-nearest)", "Test nearest" },
-        l = { "<Plug>(ultest-run-last)", "Test last" },
-        o = { "<Plug>(ultest-output-show)", "Show output" },
-        s = { "<Plug>(ultest-summary-toggle)", "Summary" },
-        A = { "<Plug>(ultest-attach)", "Attach" },
-        S = { "<Plug>(ultest-stop-file)", "Stop file" },
-        X = { "<Plug>(ultest-stop-nearest)", "Stop nearest" },
-        D = { "<Plug>(ultest-debug)", "Debug file" },
-        d = { "<Plug>(ultest-debug)", "Debug nearest" },
-    },
+    -- t = {
+    --     name = "+test  ",
+    --     a = { "<Plug>(ultest-run-file)", "Test file" },
+    --     t = { "<Plug>(ultest-run-nearest)", "Test nearest" },
+    --     l = { "<Plug>(ultest-run-last)", "Test last" },
+    --     o = { "<Plug>(ultest-output-show)", "Show output" },
+    --     s = { "<Plug>(ultest-summary-toggle)", "Summary" },
+    --     A = { "<Plug>(ultest-attach)", "Attach" },
+    --     S = { "<Plug>(ultest-stop-file)", "Stop file" },
+    --     X = { "<Plug>(ultest-stop-nearest)", "Stop nearest" },
+    --     D = { "<Plug>(ultest-debug)", "Debug file" },
+    --     d = { "<Plug>(ultest-debug)", "Debug nearest" },
+    -- },
     s = {
         name = "+snip run  ",
         r = {":SnipRun<cr>", "Run"},

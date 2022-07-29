@@ -18,6 +18,7 @@ vim.keymap.set('n', '<leader>td',
     {desc = 'Debug nearest test'})
 
 vim.keymap.set('n', '<leader>ts', require("neotest").run.stop, {desc = 'Stop nearest test'})
+vim.keymap.set('n', '<leader>tf', function() require("neotest").run.run(vim.fn.expand('%')) end, {desc = 'Stop nearest test'})
 vim.keymap.set('n', '<leader>ta', require("neotest").run.attach, {desc = 'Attach nearest test'})
 vim.keymap.set('n', '<leader>to', require("neotest").summary.toggle, {desc = 'Toggle test summary'})
 

@@ -2,11 +2,6 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 
 lspkind.init({
-    -- DEPRECATED (use mode instead): enables text annotations
-    --
-    -- default: true
-    -- with_text = true,
-
     -- defines how annotations are shown
     -- default: symbol
     -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
@@ -20,35 +15,34 @@ lspkind.init({
     preset = 'codicons',
 
     -- override preset symbols
-    --
     -- default: {}
-    symbol_map = {
-        Class         = "",
-        Color         = "",
-        Constant      = "",
-        Constructor   = "",
-        Enum          = "",
-        EnumMember    = " ",
-        Event         = " ",
-        Field         = " ",
-        File          = " ",
-        Folder        = " ",
-        Function      = " ",
-        Interface     = " ",
-        Keyword       = " ",
-        Method        = " ",
-        Module        = " ",
-        Operator      = " ",
-        Property      = " ",
-        Reference     = " ",
-        Snippet       = " ",
-        Struct        = " ",
-        Text          = " ",
-        TypeParameter = " ",
-        Unit          = " ",
-        Value         = " ",
-        Variable      = " ",
-    },
+    -- symbol_map = {
+    --     Class         = "",
+    --     Color         = "",
+    --     Constant      = "",
+    --     Constructor   = "",
+    --     Enum          = "",
+    --     EnumMember    = " ",
+    --     Event         = " ",
+    --     Field         = " ",
+    --     File          = " ",
+    --     Folder        = " ",
+    --     Function      = " ",
+    --     Interface     = " ",
+    --     Keyword       = " ",
+    --     Method        = " ",
+    --     Module        = " ",
+    --     Operator      = " ",
+    --     Property      = " ",
+    --     Reference     = " ",
+    --     Snippet       = " ",
+    --     Struct        = " ",
+    --     Text          = " ",
+    --     TypeParameter = " ",
+    --     Unit          = " ",
+    --     Value         = " ",
+    --     Variable      = " ",
+    -- },
 })
 
 
