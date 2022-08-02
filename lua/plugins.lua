@@ -147,12 +147,12 @@ return require('packer').startup({function()
 
     use {'kevinhwang91/nvim-hlslens',
         config = function()
-            vim.keymap.set('', 'n', "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
-            vim.keymap.set('', 'N', "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", opts)
-            vim.keymap.set('', '*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
-            vim.keymap.set('', '#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
-            vim.keymap.set('', 'g*', "*<Cmd>lua require('hlslens').start()<CR>", opts)
-            vim.keymap.set('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", opts)
+            vim.keymap.set('', 'n', "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>", {desc="next"})
+            vim.keymap.set('', 'N', "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>", {desc="prev"})
+            vim.keymap.set('', '*', "*<Cmd>lua require('hlslens').start()<CR>", {desc="star-search"})
+            vim.keymap.set('', '#', "#<Cmd>lua require('hlslens').start()<CR>", {desc="hash-search"})
+            vim.keymap.set('', 'g*', "*<Cmd>lua require('hlslens').start()<CR>", {desc="g-star-search"})
+            vim.keymap.set('', 'g#', "#<Cmd>lua require('hlslens').start()<CR>", {desc="g-hash-search"})
         end
     }
 
@@ -565,13 +565,18 @@ return require('packer').startup({function()
     --     "zbirenbaum/copilot-cmp",
     --     after = { "copilot.lua", "nvim-cmp" },
     -- }
-    use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+    use {
+        'tzachar/cmp-tabnine',
+        run='./install.sh',
+        before = 'nvim-cmp',
+    }
 
     use { 'saadparwaiz1/cmp_luasnip' }
     use {'onsails/lspkind-nvim'}
-    use {'hrsh7th/nvim-cmp', config = function()
-        require('cfg.cmp')
-    end,
+    use {'tzachar/nvim-cmp', -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
+        config = function()
+            require('cfg.cmp')
+        end,
         requires = {
             'neovim/nvim-lspconfig',
             'hrsh7th/cmp-nvim-lsp',
@@ -728,23 +733,23 @@ return require('packer').startup({function()
             require('refactoring').setup({})
             vim.keymap.set({"v"}, "<space>rr", require("refactoring").select_refactor, {desc="select refactor"})
             vim.keymap.set("v", "<space>re", function()
-                    require("refactoring").refactor('Extract Function')
-                end, {desc="extract function"})
+                require("refactoring").refactor('Extract Function')
+            end, {desc="extract function"})
             vim.keymap.set("v", "<space>rf", function()
-                    require("refactoring").refactor('Extract Function To File')
-                end, {desc="extract function to file"})
+                require("refactoring").refactor('Extract Function To File')
+            end, {desc="extract function to file"})
             vim.keymap.set("v", "<space>rv", function()
-                    require("refactoring").refactor('Extract Varible')
-                end, {desc="extract variable"})
+                require("refactoring").refactor('Extract Varible')
+            end, {desc="extract variable"})
             vim.keymap.set({"n","v"}, "<space>ri", function()
-                    require("refactoring").refactor('Inline Varible')
-                end, {desc="inline variable"})
+                require("refactoring").refactor('Inline Varible')
+            end, {desc="inline variable"})
             vim.keymap.set("n", "<space>rb", function()
-                    require("refactoring").refactor('Extract Block')
-                end, {desc="extract block"})
+                require("refactoring").refactor('Extract Block')
+            end, {desc="extract block"})
             vim.keymap.set("n", "<space>rbf", function()
-                    require("refactoring").refactor('Extract Block To File')
-                end, {desc="extract block to file"})
+                require("refactoring").refactor('Extract Block To File')
+            end, {desc="extract block to file"})
         end
     }
 

@@ -34,7 +34,8 @@ require('bufferline').setup {
             {filetype = "NvimTree", text = "File Explorer", text_align = "left" },
             {filetype = "neo-tree", text = "File Explorer", text_align = "left" },
             {filetype = "SidebarNvim", text = "Sidebar NVIM", text_align = "left" },
-            {filetype = "Outline", text = "Symbols", text_align = "right" }
+            {filetype = "Outline", text = "Symbols", text_align = "right" },
+            {filetype = "OverseerList", text = "Overseer", text_align = "right" }
         },
     custom_filter = function(buf_num, buf_numbers)
         if vim.bo[buf_num].filetype ~= 'NvimTree' then

@@ -160,18 +160,6 @@ require('windline.bubblegum')
 
 vim.cmd.colorscheme('tokyodark')
 
-
-function _sidebar_toggle()
-    if not require('nvim-tree.view').win_open() then
-        if require('sidebar-nvim.view').win_open() then
-            require('bufferline.state').set_offset(0)
-        else
-            require('bufferline.state').set_offset(31, 'FileTree')
-        end
-        require('sidebar-nvim').toggle()
-    end
-end
-
 function _tree_toggle()
     if require('nvim-tree.view').win_open() then
         require('bufferline.state').set_offset(0)

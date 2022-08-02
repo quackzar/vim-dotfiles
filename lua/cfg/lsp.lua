@@ -107,11 +107,9 @@ function on_attach(client, bufnr)
     -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
 
     -- Mappings.
-    local opts = { noremap=true, silent=true, buffer=bufnr }
     buf_set_option("tagfunc", "v:lua.vim.lsp.tagfunc")
     buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
     -- Add this <leader> bound mapping so formatting the entire document is easier.
-    vim.keymap.set("n", "<leader>gq", "vim.lsp.buf.formatting", opts)
 
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -121,7 +119,7 @@ function on_attach(client, bufnr)
     vim.keymap.set('n', '<space>K',  vim.diagnostic.open_float,   {buffer=bufnr, desc="hover diagnostic"})
     vim.keymap.set('n', 'gd',        vim.lsp.buf.definition,      {buffer=bufnr, desc="go to definition"})
     vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration,     {buffer=bufnr, desc="go to declaration"})
-    vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation,  {buffer=bufnr, desc="go to implementation"})
+    vim.keymap.set('n', 'gI',        vim.lsp.buf.implementation,  {buffer=bufnr, desc="go to implementation"})
     vim.keymap.set('n', 'go',        vim.lsp.buf.type_definition, {buffer=bufnr, desc="go to type definition"})
     vim.keymap.set('n', 'gr',        vim.lsp.buf.references,      {buffer=bufnr, desc="references"})
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer=bufnr, desc="add workspace folder"})
@@ -134,8 +132,7 @@ function on_attach(client, bufnr)
     vim.keymap.set('x', '<space>a',  vim.lsp.buf.range_code_action, {buffer=bufnr, desc="code action"}) -- NOTE: Untested
     vim.keymap.set('n', '[d',        vim.diagnostic.goto_prev, {buffer=bufnr, desc="prev diagnostic"})
     vim.keymap.set('n', ']d',        vim.diagnostic.goto_next, {buffer=bufnr, desc="next diagnostic"})
-    vim.keymap.set('n', '<space>q',  vim.diagnostic.setloclist, opts)
-    vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, opts)
+    vim.keymap.set('n', '<space>rf', vim.lsp.buf.formatting, {buffer=bufnr, desc="format buffer"})
 end
 
 
