@@ -50,7 +50,8 @@ local signs = {
 
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+    -- vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+    vim.fn.sign_define(hl, {numhl = hl})
 end
 
 vim.o.completeopt = "menuone,noselect"
@@ -114,25 +115,25 @@ function on_attach(client, bufnr)
 
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.keymap.set('n', 'K',         vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<space>K',  vim.diagnostic.open_float, opts)
-    -- vim.keymap.set('n', '<C-]>',     'vim.lsp.buf.definition', opts)
-    vim.keymap.set('n', 'gd',        vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'go',        vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', 'gr',        vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<C-k>',     vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({'n', 'i'}, '<C-k>',
+        vim.lsp.buf.signature_help,  {buffer=bufnr, desc="signature help"})
+    vim.keymap.set('n', 'K',         vim.lsp.buf.hover,           {buffer=bufnr, desc="hover"})
+    vim.keymap.set('n', '<space>K',  vim.diagnostic.open_float,   {buffer=bufnr, desc="hover diagnostic"})
+    vim.keymap.set('n', 'gd',        vim.lsp.buf.definition,      {buffer=bufnr, desc="go to definition"})
+    vim.keymap.set('n', 'gD',        vim.lsp.buf.declaration,     {buffer=bufnr, desc="go to declaration"})
+    vim.keymap.set('n', 'gi',        vim.lsp.buf.implementation,  {buffer=bufnr, desc="go to implementation"})
+    vim.keymap.set('n', 'go',        vim.lsp.buf.type_definition, {buffer=bufnr, desc="go to type definition"})
+    vim.keymap.set('n', 'gr',        vim.lsp.buf.references,      {buffer=bufnr, desc="references"})
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, {buffer=bufnr, desc="add workspace folder"})
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, {buffer=bufnr, desc="remove workspace folder"})
+    vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders)) end, {buffer=bufnr, desc="list workspace folders"})
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, {desc="rename...", buffer=bufnr})
     -- vim.keymap.set('n', '<leader>rn', 'require("renamer").rename', opts)
     -- vim.keymap.set('v', '<leader>rn', 'require("renamer").rename', opts)
-    vim.keymap.set('n', '<space>a',  '<cmd>CodeActionMenu<cr>', opts)
-    vim.keymap.set('x', '<space>a',  vim.lsp.buf.range_code_action, opts) -- NOTE: Untested
-    vim.keymap.set('n', '[d',        vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d',        vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', '<space>a',  '<cmd>CodeActionMenu<cr>', {buffer=bufnr, desc="code action"})
+    vim.keymap.set('x', '<space>a',  vim.lsp.buf.range_code_action, {buffer=bufnr, desc="code action"}) -- NOTE: Untested
+    vim.keymap.set('n', '[d',        vim.diagnostic.goto_prev, {buffer=bufnr, desc="prev diagnostic"})
+    vim.keymap.set('n', ']d',        vim.diagnostic.goto_next, {buffer=bufnr, desc="next diagnostic"})
     vim.keymap.set('n', '<space>q',  vim.diagnostic.setloclist, opts)
     vim.keymap.set('n', '<space>lf', vim.lsp.buf.formatting, opts)
 end
@@ -214,7 +215,7 @@ mason_lsp.setup_handlers({
                 }
             }
         }
-    end
+    end,
 })
 
 local null_ls = require("null-ls")
@@ -226,7 +227,7 @@ null_ls.setup({
         null_ls.builtins.formatting.isort,
         -- null_ls.builtins.diagnostics.flake8,
         -- null_ls.builtins.diagnostics.pylint,
-        null_ls.builtins.diagnostics.mypy,
+        -- null_ls.builtins.diagnostics.mypy,
 
         -- Shell
         null_ls.builtins.formatting.shfmt,

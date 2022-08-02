@@ -454,16 +454,26 @@ return require('packer').startup({function()
 
     use { 'Issafalcon/lsp-overloads.nvim'}
     use {'folke/trouble.nvim', config = function()
-        vim.keymap.set("n", "<leader>xx", "<cmd>Trouble<cr>")
+        vim.keymap.set("n", "<leader>xx", "<cmd>Trouble<cr>", {desc="open trouble"})
         vim.keymap.set("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>")
         vim.keymap.set("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>")
         vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
         vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
+        vim.keymap.set("n", "<leader>xc", "<cmd>TroubleClose<cr>")
         vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
         require("trouble").setup {
             use_diagnostic_signs = true,
         }
     end}
+    use {
+        "mrbjarksen/neo-tree-diagnostics.nvim",
+        requires = "nvim-neo-tree/neo-tree.nvim",
+        module = "neo-tree.sources.diagnostics", -- if wanting to lazyload
+        config = function ()
+            vim.keymap.set("n", "<leader>xt", "<cmd>Neotree diagnostics toggle bottom<cr>", {desc="neotree diagnostics"})
+        end
+    }
+
     use 'ray-x/lsp_signature.nvim'
 
     use({
@@ -620,9 +630,10 @@ return require('packer').startup({function()
                     "NvimNotify"
                 }
             })
-            vim.keymap.set("n", "<C-c>", "<Plug>SnipRunOperator", {silent=true})
-            vim.keymap.set("n", "<C-c><C-c>", "<Plug>SnipRun", {silent=true})
-            vim.keymap.set("v", "<C-c>", "<Plug>SnipRun", {silent=true})
+            vim.keymap.set("n", "<leader>s", "<Plug>SnipRunOperator", {desc="snip run"})
+            vim.keymap.set({"v", "n"}, "<leader>ss", "<Plug>SnipRun", {desc="snip run"})
+            vim.keymap.set("n", "<leader>sR", "<cmd>SnipReset<cr>", {desc="snip reset"})
+            vim.keymap.set("n", "<leader>sl", "<cmd>SnipLive<cr>", {desc="snip live"})
         end
     }
 
@@ -706,6 +717,36 @@ return require('packer').startup({function()
     use 'Konfekt/vim-sentence-chopper'
     use 'AndrewRadev/splitjoin.vim' -- NOTE: Consider lua + treesitter version
     use {'flwyd/vim-conjoin', after = 'splitjoin.vim'}
+
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-treesitter/nvim-treesitter"}
+        },
+        config = function()
+            require('refactoring').setup({})
+            vim.keymap.set({"v"}, "<space>rr", require("refactoring").select_refactor, {desc="select refactor"})
+            vim.keymap.set("v", "<space>re", function()
+                    require("refactoring").refactor('Extract Function')
+                end, {desc="extract function"})
+            vim.keymap.set("v", "<space>rf", function()
+                    require("refactoring").refactor('Extract Function To File')
+                end, {desc="extract function to file"})
+            vim.keymap.set("v", "<space>rv", function()
+                    require("refactoring").refactor('Extract Varible')
+                end, {desc="extract variable"})
+            vim.keymap.set({"n","v"}, "<space>ri", function()
+                    require("refactoring").refactor('Inline Varible')
+                end, {desc="inline variable"})
+            vim.keymap.set("n", "<space>rb", function()
+                    require("refactoring").refactor('Extract Block')
+                end, {desc="extract block"})
+            vim.keymap.set("n", "<space>rbf", function()
+                    require("refactoring").refactor('Extract Block To File')
+                end, {desc="extract block to file"})
+        end
+    }
 
     -- use 'kshenoy/vim-signature' -- marks in the sign column
     use {'lukas-reineke/indent-blankline.nvim',
@@ -836,6 +877,12 @@ return require('packer').startup({function()
         config = function ()
             vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
             require('neo-tree').setup({
+                sources = {
+                    "filesystem",
+                    "buffers",
+                    "git_status",
+                    "diagnostics",
+                },
                 close_if_last_window = true,
                 filesystem = {
                     use_libuv_file_watcher = true,

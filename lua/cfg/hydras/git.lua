@@ -1,12 +1,12 @@
 local Hydra = require('hydra')
 local gitsigns = require('gitsigns')
-
+-- try not to map p, y, w, b, i, a,
 local hint = [[
- _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo stage hunk   _p_: preview hunk   _B_: blame show full 
- ^ ^              _S_: stage buffer      _y_: yank link      _/_: show base file
+ _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
+ _K_: prev hunk   _u_: undo stage hunk   _D_: diff this     _p_: preview hunk   _B_: blame show full 
+ ^ ^              _S_: stage buffer      _R_: reset buffer  _Y_: yank link      _/_: show base file
  ^
- ^ ^              _<Enter>_: Neogit              _q_: exit
+ ^ ^              _<Enter>_: Neogit                         _q_: exit
 ]]
 
 Hydra({
@@ -46,7 +46,10 @@ Hydra({
       { 's', ':Gitsigns stage_hunk<CR>', { silent = true } },
       { 'u', gitsigns.undo_stage_hunk },
       { 'S', gitsigns.stage_buffer },
-      { 'y', '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>'},
+      { 'r', gitsigns.reset_hunk },
+      { 'D', gitsigns.diffthis },
+      { 'R', gitsigns.reset_buffer },
+      { 'Y', '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>'},
       { 'p', gitsigns.preview_hunk },
       { 'd', gitsigns.toggle_deleted, { nowait = true } },
       { 'b', gitsigns.blame_line },
