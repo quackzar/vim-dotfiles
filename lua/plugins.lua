@@ -636,6 +636,12 @@ return require("packer").startup({
 			"tzachar/cmp-tabnine",
 			run = "./install.sh",
 			before = "nvim-cmp",
+			config = function()
+				local tabnine = require("cmp_tabnine")
+				tabnine.setup({
+					show_prediction_strength = true,
+				})
+			end,
 		})
 
 		use({ "saadparwaiz1/cmp_luasnip" })
@@ -1028,6 +1034,10 @@ return require("packer").startup({
 				vim.g.vim_markdown_strikethrough = 1
 				-- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
 			end,
+		})
+		use({
+			"AckslD/nvim-FeMaco.lua",
+			config = 'require("femaco").setup()',
 		})
 		-- use {'dhruvasagar/vim-table-mode'} -- FIX: Conflicting keymaps, lazy-load
 		-- ======== ASCIIDOC =======

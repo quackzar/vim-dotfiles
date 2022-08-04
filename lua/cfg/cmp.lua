@@ -92,10 +92,29 @@ cmp.setup({
 		{ name = "crates", group_index = 2 },
 		{ name = "cmp_tabnine", group_index = 2 },
 	}),
-	completion = {
-		completeopt = "menu,menuone,noinsert,preview,noselect",
-		keyword_pattern = [[\%(-\?\d\+\%(\.\d\+\)\?\|\h\w*\%(-\w*\)*\)]],
-		keyword_length = 1,
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			-- TODO: Handle them not existing
+			-- require("copilot_cmp.comparators").prioritize,
+			-- require("copilot_cmp.comparators").score,
+
+			-- Below is the default comparitor list and order for nvim-cmp
+			cmp.config.compare.offset,
+			-- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+			cmp.config.compare.exact,
+			cmp.config.compare.score,
+			require("cmp_tabnine.compare"),
+			cmp.config.compare.recently_used,
+			cmp.config.compare.locality,
+			cmp.config.compare.kind,
+			cmp.config.compare.sort_text,
+			cmp.config.compare.length,
+			cmp.config.compare.order,
+		},
+	},
+	view = {
+		entries = { name = "custom", selection_order = "near_cursor" },
 	},
 	window = {
 		-- completion = cmp.config.window.bordered(),
@@ -108,26 +127,44 @@ cmp.setup({
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-			local strings = vim.split(kind.kind, "%s", { trimempty = true })
-			kind.kind = " " .. strings[1] .. " "
-			local sources = {
-				buffer = "BUF",
-				nvim_lsp = "LSP",
-				copilot = "COP",
-				luasnip = "SNIP",
-				omni = "OMNI",
-				cmp_tabnine = "TAB9",
-			}
-			local menu = sources[entry.source.name]
-			if menu == nil then
-				kind.menu = strings[2]
-			else
-				kind.menu = "[" .. menu .. "]"
-			end
-			return kind
-		end,
+		format = lspkind.cmp_format({
+			mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+			maxwidth = 40, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+
+			-- The function below will be called before any actual modifications from lspkind
+			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+			before = function(entry, vim_item)
+				local strings = vim.split(lspkind.presets.default[vim_item.kind], "%s", { trimempty = true })
+				vim_item.kind = strings[1] .. " "
+				local source_mapping = {
+					buffer = "BUF",
+					nvim_lsp = "LSP",
+					copilot = "COP",
+					luasnip = "SNIP",
+					omni = "OMNI",
+					cmp_tabnine = "TAB9",
+				}
+
+				local menu = source_mapping[entry.source.name]
+				if entry.source.name == "cmp_tabnine" then
+					if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+						menu = entry.completion_item.data.detail .. " " .. menu
+					end
+					vim_item.kind_hl_group = "CmpItemKindCopilot"
+					vim_item.kind = " "
+				elseif entry.source.name == "copilot" then
+					if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+						menu = entry.completion_item.data.detail .. " " .. menu
+					end
+					vim_item.kind_hl_group = "CmpItemKindCopilot"
+					vim_item.kind = " "
+				end
+
+				vim_item.menu = menu
+
+				return vim_item
+			end,
+		}),
 	},
 	experimental = {
 		ghost_text = true, -- incompatible with copilot
@@ -193,9 +230,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.(
 local highlighting = {
-	PmenuSel = { bg = "#282C34", fg = "NONE" },
-	Pmenu = { fg = "#C5CDD9", bg = "#22252A" },
-
+	-- PmenuSel                 = { bg = "#282C34", fg = "NONE" },
+	-- Pmenu                    = { fg = "#C5CDD9", bg = "#22252A" },
 	CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
 	CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
 	CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
@@ -233,8 +269,14 @@ local highlighting = {
 	CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
 	CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
 	CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" },
+	CmpItemKindCopilot = { fg = "#D8EEEB", bg = "#6CC644" },
 }
 
--- for key, hl in pairs(highlighting) do
---     vim.api.nvim_set_hl(0, key, hl)
--- end
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("set_cmp_colors", { clear = true }),
+	callback = function()
+		for key, hl in pairs(highlighting) do
+			vim.api.nvim_set_hl(0, key, hl)
+		end
+	end,
+})
