@@ -80,7 +80,12 @@ return require("packer").startup({
 			end,
 		})
 
-		use("rcarriga/nvim-notify")
+		use({
+			"rcarriga/nvim-notify",
+			config = function()
+				vim.notify = require("notify")
+			end,
+		})
 		use({
 			"folke/which-key.nvim",
 			config = function()
@@ -226,6 +231,7 @@ return require("packer").startup({
 		use("projekt0n/github-nvim-theme")
 		use("EdenEast/nightfox.nvim")
 		use("rebelot/kanagawa.nvim")
+		use("shaunsingh/moonlight.nvim")
 
 		-- }}}
 		-- Version Control and Git {{{
@@ -465,7 +471,8 @@ return require("packer").startup({
 		use({
 			"mizlan/iswap.nvim",
 			config = function()
-				vim.keymap.set("n", "g.", "<cmd>ISwap<cr>", { desc = "Swap" })
+				vim.keymap.set("n", "g,", "<cmd>ISwap<cr>", { desc = "Swap" })
+				vim.keymap.set("n", "g.", "<cmd>ISwapWith<cr>", { desc = "Swap with" })
 			end,
 		})
 
