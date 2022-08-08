@@ -1,8 +1,8 @@
-vim.bo.omnifunc='vimtex#complete#omnifunc'
+vim.bo.omnifunc = "vimtex#complete#omnifunc"
 
-local lspkind = require('lspkind')
+local lspkind = require("lspkind")
 
-require('cmp').setup.buffer {
+require("cmp").setup.buffer {
     formatting = {
         format = function(entry, vim_item)
             vim_item.kind = lspkind.symbolic(vim_item.kind)
@@ -18,12 +18,12 @@ require('cmp').setup.buffer {
         end,
     },
     sources = {
-        { name = 'nvim_lsp', group_index = 2 },
-        { name = 'copilot', group_index = 2 },
-        { name = 'omni', group_index = 2},
-        { name = 'luasnip', group_index = 2 }, -- For luasnip users.
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot", group_index = 2 },
+        { name = "omni", group_index = 2 },
+        { name = "luasnip", group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
-        { name = 'cmp_tabnine', group_index = 2 },
+        { name = "cmp_tabnine", group_index = 2 },
         -- other sources
     },
 }

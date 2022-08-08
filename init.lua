@@ -1,10 +1,10 @@
 ---@diagnostic disable: lowercase-global
 local function prequire(...)
-	local status, lib = pcall(require, ...)
-	if status then
-		return lib
-	end
-	return nil
+    local status, lib = pcall(require, ...)
+    if status then
+        return lib
+    end
+    return nil
 end
 vim.opt.shadafile = "NONE"
 
@@ -37,9 +37,9 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.smarttab = true
 vim.o.guicursor = table.concat({
-	[[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
-	-- [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
-	[[sm:block-blinkwait175-blinkoff150-blinkon175]],
+    [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+    -- [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+    [[sm:block-blinkwait175-blinkoff150-blinkon175]],
 }, ",")
 
 vim.wo.signcolumn = "auto:1"
@@ -108,21 +108,21 @@ vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 
 vim.api.nvim_create_autocmd("TermOpen", {
-	group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
-	callback = function()
-		vim.wo.number = false
-		vim.cmd.startinsert()
-	end,
+    group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
+    callback = function()
+        vim.wo.number = false
+        vim.cmd.startinsert()
+    end,
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
-	end,
+    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
+    end,
 })
 vim.cmd( -- TODO: use api
-	[[
+    [[
 
 augroup easy_close
     autocmd!
@@ -144,8 +144,8 @@ augroup end
 
 -- setup for ripgrep as grepper
 if vim.fn.executable("rg") then
-	vim.o.grepprg = "rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
-	vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
+    vim.o.grepprg = "rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
+    vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
 -- loads all plugins
@@ -163,16 +163,16 @@ require("windline.bubblegum")
 vim.cmd.colorscheme("tokyodark")
 
 function _tree_toggle()
-	if require("nvim-tree.view").win_open() then
-		require("bufferline.state").set_offset(0)
-	else
-		require("bufferline.state").set_offset(31, "FileTree")
-		if require("sidebar-nvim.view").win_open() then
-			require("sidebar-nvim").close()
-		end
-		require("nvim-tree.lib").refresh_tree()
-	end
-	require("nvim-tree").toggle()
+    if require("nvim-tree.view").win_open() then
+        require("bufferline.state").set_offset(0)
+    else
+        require("bufferline.state").set_offset(31, "FileTree")
+        if require("sidebar-nvim.view").win_open() then
+            require("sidebar-nvim").close()
+        end
+        require("nvim-tree.lib").refresh_tree()
+    end
+    require("nvim-tree").toggle()
 end
 
 require("cfg.whichkey")

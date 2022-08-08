@@ -1,5 +1,5 @@
-local Hydra = require('hydra')
-local dap = require'dap'
+local Hydra = require("hydra")
+local dap = require("dap")
 
 local hint = [[
  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
@@ -10,36 +10,36 @@ local hint = [[
  ^ ^              _q_: exit
 ]]
 
-local dap_hydra = Hydra({
+local dap_hydra = Hydra {
     hint = hint,
     config = {
-        color = 'pink',
+        color = "pink",
         invoke_on_body = true,
         hint = {
-            position = 'bottom',
-            border = 'rounded'
+            position = "bottom",
+            border = "rounded",
         },
     },
-    name = 'dap',
-    mode = {'n','x'},
-    body = '<leader>dh',
+    name = "dap",
+    mode = { "n", "x" },
+    body = "<leader>dh",
     heads = {
-        { 'n', dap.step_over, { silent = true } },
-        { 'i', dap.step_into, { silent = true } },
-        { 'o', dap.step_out, { silent = true } },
-        { 'c', dap.run_to_cursor, { silent = true } },
-        { 's', dap.continue, { silent = true } },
-        { 'x', ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", {exit=true, silent = true } },
-        { 'X', dap.close, { silent = true } },
-        { 'C', ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
-        { 'b', dap.toggle_breakpoint, { silent = true } },
-        { 'K', ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
-        { 'q', nil, { exit = true, nowait = true } },
-    }
-})
+        { "n", dap.step_over, { silent = true } },
+        { "i", dap.step_into, { silent = true } },
+        { "o", dap.step_out, { silent = true } },
+        { "c", dap.run_to_cursor, { silent = true } },
+        { "s", dap.continue, { silent = true } },
+        { "x", ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", { exit = true, silent = true } },
+        { "X", dap.close, { silent = true } },
+        { "C", ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
+        { "b", dap.toggle_breakpoint, { silent = true } },
+        { "K", ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
+        { "q", nil, { exit = true, nowait = true } },
+    },
+}
 
 Hydra.spawn = function(head)
-	if head == 'dap-hydra' then
-		dap_hydra:activate()
-	end
+    if head == "dap-hydra" then
+        dap_hydra:activate()
+    end
 end

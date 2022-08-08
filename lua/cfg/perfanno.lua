@@ -9,7 +9,7 @@ perfanno.setup {
 }
 
 local keymap = vim.api.nvim_set_keymap
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 keymap("n", "<LEADER>plf", ":PerfLoadFlat<CR>", opts)
 keymap("n", "<LEADER>plg", ":PerfLoadCallGraph<CR>", opts)
@@ -27,5 +27,3 @@ keymap("n", "<LEADER>ph", ":PerfHottestLines<CR>", opts)
 keymap("n", "<LEADER>ps", ":PerfHottestSymbols<CR>", opts)
 keymap("n", "<LEADER>pc", ":PerfHottestCallersFunction<CR>", opts)
 keymap("v", "<LEADER>pc", ":PerfHottestCallersSelection<CR>", opts)
-
-
