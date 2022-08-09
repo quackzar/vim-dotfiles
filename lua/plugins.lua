@@ -689,6 +689,12 @@ return require("packer").startup {
                     task_list = {
                         direction = "right",
                     },
+                    log = {
+                        {
+                            type = "notify",
+                            level = vim.log.levels.INFO,
+                        },
+                    },
                 }
                 vim.keymap.set("n", "<leader>c", "<cmd>OverseerToggle<cr>", { desc = "Toggle Overseer" })
                 vim.keymap.set("n", "<leader>C", "<cmd>OverseerRun<cr>", { desc = "Run a task" })
@@ -790,7 +796,7 @@ return require("packer").startup {
             end,
         }
         use("machakann/vim-sandwich")
-        use("wellle/targets.vim")
+        -- use("wellle/targets.vim")
         use {
             "andymass/vim-matchup",
             event = "VimEnter",

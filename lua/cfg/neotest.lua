@@ -1,4 +1,22 @@
 require("neotest").setup {
+    icons = {
+        passed = " ",
+        running = " ",
+        failed = " ",
+        skipped = " ",
+        unknown = " ",
+        non_collapsible = "─",
+        collapsed = "─",
+        expanded = "╮",
+        child_prefix = "├",
+        final_child_prefix = "╰",
+        child_indent = "│",
+        final_child_indent = " ",
+    },
+    status = {
+        virtual_text = true,
+        signs = false,
+    },
     default_strategy = "overseer",
     adapters = {
         require("neotest-rust"),
@@ -11,6 +29,23 @@ require("neotest").setup {
         },
     },
 }
+
+local highlighting = {
+    NeotestPassed = { link = "GitSignsAdd" },
+    NeotestRunning = { link = "GitSignsChange" },
+    NeotestFailed = { link = "GitSignsDelete" },
+    NeotestSkipped = { link = "DiagnosticWarn" },
+    NeotestUnknown = { link = "DiagnosticInfo" },
+}
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("set_neotest_colors", { clear = true }),
+    callback = function()
+        for key, hl in pairs(highlighting) do
+            vim.api.nvim_set_hl(0, key, hl)
+        end
+    end,
+})
 
 vim.keymap.set("n", "<leader>tt", require("neotest").run.run, { desc = "Run nearest test" })
 vim.keymap.set("n", "<leader>td", function()
