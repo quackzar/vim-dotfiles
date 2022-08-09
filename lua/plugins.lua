@@ -563,7 +563,8 @@ return require("packer").startup {
             config = function()
                 require("fidget").setup {
                     text = {
-                        spinner = "pipe",
+                        spinner = "dots",
+                        done = " ", -- character shown when all tasks are complete
                     },
                 }
             end,
@@ -797,6 +798,14 @@ return require("packer").startup {
         }
         use("machakann/vim-sandwich")
         -- use("wellle/targets.vim")
+        use {
+            "kylechui/nvim-surround",
+            config = function()
+                require("nvim-surround").setup {
+                    -- Configuration here, or leave empty to use defaults
+                }
+            end,
+        }
         use {
             "andymass/vim-matchup",
             event = "VimEnter",

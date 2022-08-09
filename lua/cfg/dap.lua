@@ -15,6 +15,28 @@ require("nvim-dap-virtual-text").setup {
 require("dapui").setup {}
 vim.keymap.set("n", "<leader>du", require("dapui").toggle, { desc = "Toggle DAP UI" })
 
+-- Adapters and Config
+--
+dap.adapters.lldb = {
+    type = "executable",
+    command = "~/.local/share/nvim/mason/bin/codelldb", -- adjust as needed, must be absolute path
+    name = "lldb",
+}
+
+dap.configurations.cpp = {
+    {
+        name = "Launch",
+        type = "lldb",
+        request = "launch",
+        program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+    },
+}
+
 -- If you want to use this for rust and c, add something like this:
 dap.configurations.c = dap.configurations.cpp
 dap.configurations.rust = dap.configurations.cpp
