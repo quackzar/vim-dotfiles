@@ -881,6 +881,9 @@ return require("packer").startup {
                 }
             end,
         }
+
+        use("lcheylus/overlength.nvim")
+
         use("reedes/vim-litecorrect") -- autocorrection! Fixes stupid common mistakes
         use("kevinhwang91/nvim-bqf")
         use("nvim-lua/popup.nvim")

@@ -5,6 +5,7 @@ require("cfg.hydras.windows")
 require("cfg.hydras.telescope")
 require("cfg.hydras.options")
 require("cfg.hydras.dap")
+require("cfg.hydras.neotest")
 
 Hydra {
     name = "Side scroll",

@@ -22,7 +22,7 @@ local dap_hydra = Hydra {
     },
     name = "dap",
     mode = { "n", "x" },
-    body = "<leader>dh",
+    body = "<leader>d",
     heads = {
         { "n", dap.step_over, { silent = true } },
         { "i", dap.step_into, { silent = true } },
