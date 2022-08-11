@@ -135,7 +135,9 @@ cmp.setup {
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
             before = function(entry, vim_item)
                 local strings = vim.split(lspkind.presets.default[vim_item.kind], "%s", { trimempty = true })
-                vim_item.kind = strings[1] .. " "
+                if strings[1] then
+                    vim_item.kind = strings[1] .. " "
+                end
                 local source_mapping = {
                     buffer = "BUF",
                     nvim_lsp = "LSP",
