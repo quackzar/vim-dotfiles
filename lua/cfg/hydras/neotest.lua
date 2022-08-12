@@ -22,7 +22,13 @@ local dap_hydra = Hydra {
     mode = { "n", "x" },
     body = "<leader>t",
     heads = {
-        { "t", neotest.run.run, { silent = true } },
+        {
+            "t",
+            function()
+                neotest.run.run()
+            end,
+            { silent = true },
+        },
         {
             "f",
             function()
@@ -37,8 +43,20 @@ local dap_hydra = Hydra {
             end,
             { silent = true },
         },
-        { "a", neotest.run.attach, { silent = true } },
-        { "o", neotest.summary.toggle, { silent = true } },
+        {
+            "a",
+            function()
+                neotest.run.attach()
+            end,
+            { silent = true },
+        },
+        {
+            "o",
+            function()
+                neotest.summary.toggle()
+            end,
+            { silent = true },
+        },
         { "q", nil, { exit = true, nowait = true } },
     },
 }
