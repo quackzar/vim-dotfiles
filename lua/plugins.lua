@@ -29,6 +29,7 @@ return require("packer").startup {
         use("nathom/filetype.nvim") -- faster filetype detection
 
         use("antoinemadec/FixCursorHold.nvim")
+        use("anuvyklack/keymap-amend.nvim")
 
         use {
             "folke/persistence.nvim",
@@ -189,10 +190,33 @@ return require("packer").startup {
             requires = "kevinhwang91/promise-async",
             after = { "nvim-lspconfig" },
             config = function()
+                local keymap = vim.keymap
+                keymap.amend = require("keymap-amend")
                 vim.wo.foldcolumn = "0"
                 require("ufo").setup {
                     { "lsp", "treesitter" },
+                    preview = {
+                        win_config = {
+                            border = { "", "─", "", "", "", "─", "", "" },
+                            winhighlight = "Normal:Folded",
+                            winblend = 0,
+                        },
+                        mappings = {
+                            scrollU = "<C-u>",
+                            scrollD = "<C-d>",
+                        },
+                    },
                 }
+                vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
+                vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Minimize all folds" })
+                vim.keymap.set("n", "zr", require("ufo").openAllFolds, { desc = "Open all folds under cursor" })
+                vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close all folds under cursor" }) -- closeAllFolds == closeFoldsWith(0)
+                vim.keymap.amend("n", "l", function(fallback)
+                    local winid = require("ufo").peekFoldedLinesUnderCursor()
+                    if not winid then
+                        fallback()
+                    end
+                end)
             end,
         }
 
@@ -466,10 +490,15 @@ return require("packer").startup {
                 vim.keymap.set("n", "<Leader>nc", function()
                     require("neogen").generate { type = "class" }
                 end, { desc = "document class" })
-                vim.keymap.set("n", "<C-n>", require("neogen").jump_next, { desc = "next doc" })
-                vim.keymap.set("n", "<C-p>", require("neogen").jump_prev, { desc = "prev doc" })
+                vim.keymap.set("n", "<Leader>nF", function()
+                    require("neogen").generate { type = "file" }
+                end, { desc = "document file" })
+                vim.keymap.set("n", "<Leader>nt", function()
+                    require("neogen").generate { type = "type" }
+                end, { desc = "document type" })
                 require("neogen").setup {
                     enabled = true,
+                    snippet_engine = "luasnip",
                 }
             end,
             requires = "nvim-treesitter/nvim-treesitter",
@@ -838,8 +867,14 @@ return require("packer").startup {
             end,
         }
         use("Konfekt/vim-sentence-chopper")
-        use("AndrewRadev/splitjoin.vim") -- NOTE: Consider lua + treesitter version
-        use { "flwyd/vim-conjoin", after = "splitjoin.vim" }
+        use("flwyd/vim-conjoin")
+        use {
+            "AckslD/nvim-trevJ.lua",
+            config = function()
+                require("trevj").setup()
+                vim.keymap.set("n", "gS", require("trevj").format_at_cursor, { desc = "Split line" })
+            end,
+        }
 
         use {
             "ThePrimeagen/refactoring.nvim",

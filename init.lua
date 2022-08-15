@@ -160,7 +160,7 @@ require("cfg.tree")
 
 require("windline.bubblegum")
 
-vim.cmd.colorscheme("tokyodark")
+vim.cmd.colorscheme("catppuccin")
 
 function _tree_toggle()
     if require("nvim-tree.view").win_open() then
