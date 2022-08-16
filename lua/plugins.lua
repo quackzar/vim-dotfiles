@@ -837,8 +837,6 @@ return require("packer").startup {
                 vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual, { desc = "Dial down relative" })
             end,
         }
-        use("machakann/vim-sandwich")
-        -- use("wellle/targets.vim")
         use {
             "kylechui/nvim-surround",
             config = function()
@@ -1003,23 +1001,14 @@ return require("packer").startup {
                 require("numb").setup()
             end,
         }
+
         use {
-            "ggandor/lightspeed.nvim",
+            "ggandor/leap.nvim",
             config = function()
-                vim.g.lightspeed_no_default_keymaps = true
-                require("lightspeed").setup {}
-                vim.keymap.set("n", "L", "<Plug>Lightspeed_s", { silent = true })
-                vim.keymap.set("n", "H", "<Plug>Lightspeed_S", { silent = true })
-                vim.keymap.set("n", "f", "<Plug>Lightspeed_f", { silent = true })
-                vim.keymap.set("n", "F", "<Plug>Lightspeed_F", { silent = true })
-                vim.keymap.set("n", "t", "<Plug>Lightspeed_t", { silent = true })
-                vim.keymap.set("n", "T", "<Plug>Lightspeed_T", { silent = true })
-                vim.keymap.set("o", "x", "<Plug>Lightspeed_x", { silent = true })
-                vim.keymap.set("o", "X", "<Plug>Lightspeed_X", { silent = true })
-                vim.keymap.set("n", "S", "<Plug>Lightspeed_omni_s", { silent = true })
+                require("leap").set_default_keymaps()
             end,
         }
-        -- use 'arp242/jumpy.vim' -- Maps [[ and ]]
+
         use("farmergreg/vim-lastplace")
         use {
             "nvim-neo-tree/neo-tree.nvim",
