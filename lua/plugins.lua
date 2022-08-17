@@ -53,6 +53,12 @@ return require("packer").startup {
                 require("cfg.bufferline")
             end,
         }
+        use {
+            "tiagovla/scope.nvim",
+            config = function()
+                require("scope").setup()
+            end,
+        }
 
         use {
             "b0o/incline.nvim",
@@ -697,7 +703,7 @@ return require("packer").startup {
         use { "saadparwaiz1/cmp_luasnip" }
         use { "onsails/lspkind-nvim" }
         use {
-            "tzachar/nvim-cmp", -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
+            "hrsh7th/nvim-cmp", -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
             config = function()
                 require("cfg.cmp")
             end,

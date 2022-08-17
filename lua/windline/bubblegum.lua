@@ -266,5 +266,6 @@ windline.setup {
         "NvimTree",
         "fern",
         "lir",
+        "OverseerList",
     },
 }

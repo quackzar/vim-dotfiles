@@ -155,25 +155,11 @@ require("packer_compiled")
 -- load specific configs
 require("cfg.dap")
 require("cfg.lsp")
--- require('cfg.coq')
 require("cfg.tree")
 
 require("windline.bubblegum")
 
 vim.cmd.colorscheme("catppuccin")
-
-function _tree_toggle()
-    if require("nvim-tree.view").win_open() then
-        require("bufferline.state").set_offset(0)
-    else
-        require("bufferline.state").set_offset(31, "FileTree")
-        if require("sidebar-nvim.view").win_open() then
-            require("sidebar-nvim").close()
-        end
-        require("nvim-tree.lib").refresh_tree()
-    end
-    require("nvim-tree").toggle()
-end
 
 require("cfg.whichkey")
 

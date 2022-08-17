@@ -32,7 +32,14 @@ require("bufferline").setup {
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
             { filetype = "NvimTree", text = "File Explorer", text_align = "left" },
-            { filetype = "neo-tree", text = "File Explorer", text_align = "left" },
+            {
+                filetype = "neo-tree",
+                text = function()
+                    return "File Explorer (" .. vim.fn.getcwd() .. ")"
+                end,
+                highlight = "Directory",
+                text_align = "left",
+            },
             { filetype = "SidebarNvim", text = "Sidebar NVIM", text_align = "left" },
             { filetype = "Outline", text = "Symbols", text_align = "right" },
             { filetype = "OverseerList", text = "Overseer", text_align = "right" },
