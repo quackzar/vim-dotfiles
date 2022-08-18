@@ -8,7 +8,7 @@ local hint = [[
  ^ ^                  _q_: exit
 ]]
 
-local dap_hydra = Hydra {
+local test_hydra = Hydra {
     hint = hint,
     config = {
         color = "pink",
@@ -62,7 +62,7 @@ local dap_hydra = Hydra {
 }
 
 Hydra.spawn = function(head)
-    if head == "dap-hydra" then
-        dap_hydra:activate()
+    if head == "test-hydra" then
+        test_hydra:activate()
     end
 end

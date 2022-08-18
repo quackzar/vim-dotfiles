@@ -1,11 +1,12 @@
 local Hydra = require("hydra")
 
-require("cfg.hydras.git")
-require("cfg.hydras.windows")
-require("cfg.hydras.telescope")
-require("cfg.hydras.options")
-require("cfg.hydras.dap")
-require("cfg.hydras.neotest")
+require("hydras.git")
+require("hydras.windows")
+require("hydras.telescope")
+require("hydras.options")
+require("hydras.dap")
+require("hydras.neotest")
+require("hydras.refactoring")
 
 local highlighting = {
     HydraRed = { fg = "#FF5733" },

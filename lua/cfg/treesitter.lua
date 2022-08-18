@@ -21,9 +21,9 @@ require("nvim-treesitter.configs").setup {
         highlight_definitions = { enable = true },
         smart_rename = {
             enable = true,
-            keymaps = {
-                smart_rename = "<leader>rn",
-            },
+            -- keymaps = {
+            --     smart_rename = "<leader>rn",
+            -- },
         },
     },
     indent = {
@@ -123,8 +123,8 @@ require("which-key").register({
         ["rc"] = "Scope increment",
         ["rm"] = "Node decrement",
     },
-    ["<leader>"] = {
-        ["rn"] = "Rename",
-    },
+    -- ["<leader>"] = {
+    --     ["rn"] = "Rename",
+    -- },
 }, {})
 -- vim: foldmethod=marker foldmarker={,}

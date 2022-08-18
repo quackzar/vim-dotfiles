@@ -765,6 +765,8 @@ return require("packer").startup {
             end,
         }
 
+        -- So these three are very much alike
+        -- SnipRun: supports more languages, requires rust
         use {
             "michaelb/sniprun",
             run = "bash ./install.sh",
@@ -782,13 +784,17 @@ return require("packer").startup {
             end,
         }
 
+        -- Lab: seems promising for TS/JS
         use {
             "0x100101/lab.nvim",
             requires = { "nvim-lua/plenary.nvim" },
             run = "cd js && npm ci",
         }
 
-        use("mfussenegger/nvim-dap")
+        -- Conjure: Seems like the biggest project, but mostly lisp and rust for some reason.
+        use("Olical/conjure")
+
+        use("mfussenegger/nvim-dap") -- I really need to get this actually working at some point
         use { "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
         use { "mfussenegger/nvim-dap-python", requires = { "mfussenegger/nvim-dap" } }
@@ -800,7 +806,7 @@ return require("packer").startup {
 
         -- }}}
         -- Generic Editor Plugins {{{
-        use("tpope/vim-repeat") -- Improves dot
+        use("tpope/vim-repeat")
         use("tpope/vim-eunuch") -- Basic (Delete, Move, Rename) unix commands
         -- use 'tpope/vim-unimpaired'
         use("duggiefresh/vim-easydir")
@@ -888,34 +894,33 @@ return require("packer").startup {
             },
             config = function()
                 require("refactoring").setup {}
-                vim.keymap.set(
-                    { "v" },
-                    "<space>rr",
-                    require("refactoring").select_refactor,
-                    { desc = "select refactor" }
-                )
-                vim.keymap.set("v", "<space>re", function()
-                    require("refactoring").refactor("Extract Function")
-                end, { desc = "extract function" })
-                vim.keymap.set("v", "<space>rf", function()
-                    require("refactoring").refactor("Extract Function To File")
-                end, { desc = "extract function to file" })
-                vim.keymap.set("v", "<space>rv", function()
-                    require("refactoring").refactor("Extract Varible")
-                end, { desc = "extract variable" })
-                vim.keymap.set({ "n", "v" }, "<space>ri", function()
-                    require("refactoring").refactor("Inline Varible")
-                end, { desc = "inline variable" })
-                vim.keymap.set("n", "<space>rb", function()
-                    require("refactoring").refactor("Extract Block")
-                end, { desc = "extract block" })
-                vim.keymap.set("n", "<space>rbf", function()
-                    require("refactoring").refactor("Extract Block To File")
-                end, { desc = "extract block to file" })
+                -- vim.keymap.set(
+                --     { "v" },
+                --     "<space>rr",
+                --     require("refactoring").select_refactor,
+                --     { desc = "select refactor" }
+                -- )
+                -- vim.keymap.set("v", "<space>re", function()
+                --     require("refactoring").refactor("Extract Function")
+                -- end, { desc = "extract function" })
+                -- vim.keymap.set("v", "<space>rf", function()
+                --     require("refactoring").refactor("Extract Function To File")
+                -- end, { desc = "extract function to file" })
+                -- vim.keymap.set("v", "<space>rv", function()
+                --     require("refactoring").refactor("Extract Varible")
+                -- end, { desc = "extract variable" })
+                -- vim.keymap.set({ "n", "v" }, "<space>ri", function()
+                --     require("refactoring").refactor("Inline Varible")
+                -- end, { desc = "inline variable" })
+                -- vim.keymap.set("n", "<space>rb", function()
+                --     require("refactoring").refactor("Extract Block")
+                -- end, { desc = "extract block" })
+                -- vim.keymap.set("n", "<space>rbf", function()
+                --     require("refactoring").refactor("Extract Block To File")
+                -- end, { desc = "extract block to file" })
             end,
         }
 
-        -- use 'kshenoy/vim-signature' -- marks in the sign column
         use {
             "lukas-reineke/indent-blankline.nvim",
             config = function()
@@ -1047,28 +1052,7 @@ return require("packer").startup {
                 },
             },
             config = function()
-                vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-                require("neo-tree").setup {
-                    sources = {
-                        "filesystem",
-                        "buffers",
-                        "git_status",
-                        "diagnostics",
-                    },
-                    close_if_last_window = true,
-                    filesystem = {
-                        use_libuv_file_watcher = true,
-                    },
-                    mappings = {
-                        ["za"] = "toggle_node",
-                        ["zR"] = "expand_all_nodes",
-                        ["zM"] = "close_all_nodes",
-                    },
-                    buffers = {
-                        follow_current_file = true,
-                    },
-                }
-                vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
+                require("cfg.neotree")
             end,
         }
 
