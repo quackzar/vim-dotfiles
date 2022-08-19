@@ -8,22 +8,27 @@ local function vcmd(command)
     return table.concat { [[<Esc><Cmd>]], command, [[<CR>]] }
 end
 
+-- For rereference:
+--   ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
+--   _n_: Rename      _b_: Extract block   ^e^: Extract function      _p_: Print var  ^
+--   _i_: Inline      _B_:   ... to file   ^f^:   ... to file         _c_: Clear up   ^
+--   ^v^: Extract
+--   ^ ^                   _q_: Format     _r_: Select refactor           _<Esc>_
+--
 local hint_visual = [[
-   ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT
-   _n_: Rename      _b_: Extract block   _e_: Extract function      _p_: Print var
-   _i_: Inline      _B_:   ... to file   _f_:   ... to file         ^c^: Clear up
-   _v_: Extract
-   ^ ^                   ^q^: Format     _r_: Select refactor           _<Esc>_
+   ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
+   _n_: Rename      _b_: Extract block   _e_: Extract function      _p_: Print var  ^
+   _i_: Inline      _B_:   ... to file   _f_:   ... to file                         ^
+   _v_: Extract                                                                     ^
+   ^ ^                                   _r_: Select refactor           _<Esc>_     ^
 ]]
 local hint_normal = [[
-   ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT
-   _n_: Rename      _b_: Extract block   ^e^: Extract function      _p_: Print var
-   _i_: Inline      _B_:   ... to file   ^f^:   ... to file         _c_: Clear up
-   ^v^: Extract
-   ^ ^                   _q_: Format     _r_: Select refactor           _<Esc>_
+   ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
+   _n_: Rename      _b_: Extract block                              _p_: Print var  ^
+   _i_: Inline      _B_:   ... to file                              _c_: Clear up   ^
+   ^                                                                                ^
+   ^ ^                   _q_: Format     _r_: Select refactor           _<Esc>_     ^
 ]]
-
-local x = 1
 
 -- Normal Mode Version
 Hydra {

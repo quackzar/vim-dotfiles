@@ -61,13 +61,6 @@ return require("packer").startup {
         }
 
         use {
-            "b0o/incline.nvim",
-            config = function()
-                require("incline").setup()
-            end,
-        }
-
-        use {
             "norcalli/nvim-colorizer.lua",
             config = function()
                 require("colorizer").setup()
