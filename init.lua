@@ -148,6 +148,11 @@ if vim.fn.executable("rg") then
     vim.o.grepformat = "%f:%l:%c:%m,%f:%l:%m"
 end
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("auto_create_dir", { clear = true }),
+    command = [[call mkdir(expand('<afile>:p:h'), 'p')]],
+})
+
 -- loads all plugins
 require("plugins")
 require("packer_compiled")

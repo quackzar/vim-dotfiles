@@ -517,22 +517,6 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "ray-x/sad.nvim",
-            requires = { "ray-x/guihua.lua" },
-            config = function()
-                require("sad").setup {
-                    diff = "delta", -- you can use `diff`, `diff-so-fancy`
-                    ls_file = "fd", -- also git ls_file
-                    exact = false, -- exact match
-                    vsplit = true, -- split sad window the screen vertically, when set to number
-                    -- it is a threadhold when window is larger than the threshold sad will split vertically,
-                    height_ratio = 0.6, -- height ratio of sad window when split horizontally
-                    width_ratio = 0.6, -- height ratio of sad window when split vertically
-                }
-            end,
-        }
-
         -- }}}
         -- LSP + Snippets {{{
         use {
@@ -802,7 +786,6 @@ return require("packer").startup {
         use("tpope/vim-repeat")
         use("tpope/vim-eunuch") -- Basic (Delete, Move, Rename) unix commands
         -- use 'tpope/vim-unimpaired'
-        use("duggiefresh/vim-easydir")
 
         use("markonm/traces.vim") -- Consider relavance
 
@@ -944,19 +927,11 @@ return require("packer").startup {
             end,
         }
         use {
-            "folke/todo-comments.nvim",
+            "B4mbus/todo-comments.nvim",
             event = "BufRead",
             requires = "nvim-lua/plenary.nvim",
             config = function()
                 require("todo-comments").setup {}
-            end,
-        }
-
-        use {
-            "pianocomposer321/yabs.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-            config = function()
-                require("cfg.yabs")
             end,
         }
 
@@ -1067,6 +1042,12 @@ return require("packer").startup {
         use("ARM9/arm-syntax-vim")
         -- use {'p00f/clangd_extensions.nvim'}
         -- ======== MARKDOWN ========
+        use {
+            "gaoDean/autolist.nvim",
+            config = function()
+                require("autolist").setup {}
+            end,
+        }
         use {
             "plasticboy/vim-markdown",
             ft = "markdown",

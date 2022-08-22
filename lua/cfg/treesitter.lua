@@ -8,22 +8,18 @@ require("nvim-treesitter.configs").setup {
         additional_vim_regex_highlighting = false,
         disable = { "tex", "latex", "css" },
     },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-        },
-    },
     refactor = {
-        highlight_definitions = { enable = true },
-        smart_rename = {
+        highlight_definitions = {
             enable = true,
-            -- keymaps = {
-            --     smart_rename = "<leader>rn",
-            -- },
+            -- Set to false if you have an `updatetime` of ~100.
+            clear_on_cursor_move = true,
+        },
+        navigation = {
+            enable = true,
+            keymaps = {
+                goto_next_usage = "<c-n>",
+                goto_previous_usage = "<c-p>",
+            },
         },
     },
     indent = {
@@ -118,10 +114,6 @@ require("which-key").register({
     ["g"] = {
         ["<"] = "Swap previous parameter",
         [">"] = "Swap next parameter",
-        ["nn"] = "Init incr. selection",
-        ["rn"] = "Node increment",
-        ["rc"] = "Scope increment",
-        ["rm"] = "Node decrement",
     },
     -- ["<leader>"] = {
     --     ["rn"] = "Rename",

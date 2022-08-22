@@ -136,6 +136,8 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
     vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definition" })
     vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
+    vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "Outgoing calls" })
+    vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "Incoming calls" })
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
     vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action" })
     vim.keymap.set("x", "<space>a", vim.lsp.buf.range_code_action, { buffer = bufnr, desc = "Code action" }) -- NOTE: Untested
