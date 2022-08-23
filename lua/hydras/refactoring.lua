@@ -18,14 +18,14 @@ end
 local hint_visual = [[
    ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
    _n_: Rename      _b_: Extract block   _e_: Extract function      _p_: Print var  ^
-   _i_: Inline      _B_:   ... to file   _f_:   ... to file                         ^
+   _i_: Inline      _B_: ...to file      _f_: ...to file                            ^
    _v_: Extract                                                                     ^
    ^ ^                                   _r_: Select refactor           _<Esc>_     ^
 ]]
 local hint_normal = [[
    ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
    _n_: Rename      _b_: Extract block                              _p_: Print var  ^
-   _i_: Inline      _B_:   ... to file                              _c_: Clear up   ^
+   _i_: Inline      _B_: ...to file                                 _c_: Clear up   ^
    ^                                                                                ^
    ^ ^                   _q_: Format     _r_: Select refactor           _<Esc>_     ^
 ]]

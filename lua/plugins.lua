@@ -54,7 +54,7 @@ return require("packer").startup {
             end,
         }
         use {
-            "tiagovla/scope.nvim",
+            "tiagovla/scope.nvim", -- Makes tabs work like other editors
             config = function()
                 require("scope").setup()
             end,
@@ -120,9 +120,9 @@ return require("packer").startup {
             end,
         }
 
-        use("sindrets/winshift.nvim")
+        use("sindrets/winshift.nvim") -- Used in a Hydra
         use {
-            "mrjones2014/smart-splits.nvim",
+            "mrjones2014/smart-splits.nvim", -- Used in a Hydra
             config = function()
                 require("smart-splits").setup {}
             end,
@@ -158,6 +158,7 @@ return require("packer").startup {
                     scroll_limit = 100,
                     hide_cursor = true,
                     default_delay = 5,
+                    max_length = 500,
                 }
             end,
         }
@@ -408,7 +409,7 @@ return require("packer").startup {
         use("nvim-treesitter/nvim-treesitter-textobjects")
         use("nvim-treesitter/nvim-treesitter-refactor")
         use("nvim-treesitter/playground")
-        use { "nvim-treesitter/nvim-treesitter-angular", ft = "html" }
+        use { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } }
 
         use {
             "RRethy/nvim-treesitter-endwise",
@@ -754,10 +755,10 @@ return require("packer").startup {
                         "NvimNotify",
                     },
                 }
-                vim.keymap.set("n", "<leader>s", "<Plug>SnipRunOperator", { desc = "snip run" })
-                vim.keymap.set({ "v", "n" }, "<leader>ss", "<Plug>SnipRun", { desc = "snip run" })
-                vim.keymap.set("n", "<leader>sR", "<cmd>SnipReset<cr>", { desc = "snip reset" })
-                vim.keymap.set("n", "<leader>sl", "<cmd>SnipLive<cr>", { desc = "snip live" })
+                vim.keymap.set({ "v", "n" }, "<leader>ee", "<Plug>SnipRun", { desc = "snip run" })
+                vim.keymap.set("n", "<leader>e", "<Plug>SnipRunOperator", { desc = "snip run" })
+                vim.keymap.set("n", "<leader>eR", "<cmd>SnipReset<cr>", { desc = "snip reset" })
+                vim.keymap.set("n", "<leader>el", "<cmd>SnipLive<cr>", { desc = "snip live" })
             end,
         }
 
@@ -769,7 +770,7 @@ return require("packer").startup {
         }
 
         -- Conjure: Seems like the biggest project, but mostly lisp and rust for some reason.
-        use("Olical/conjure")
+        use { "Olical/conjure", event = "VimEnter" }
 
         use("mfussenegger/nvim-dap") -- I really need to get this actually working at some point
         use { "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }
@@ -870,30 +871,7 @@ return require("packer").startup {
             },
             config = function()
                 require("refactoring").setup {}
-                -- vim.keymap.set(
-                --     { "v" },
-                --     "<space>rr",
-                --     require("refactoring").select_refactor,
-                --     { desc = "select refactor" }
-                -- )
-                -- vim.keymap.set("v", "<space>re", function()
-                --     require("refactoring").refactor("Extract Function")
-                -- end, { desc = "extract function" })
-                -- vim.keymap.set("v", "<space>rf", function()
-                --     require("refactoring").refactor("Extract Function To File")
-                -- end, { desc = "extract function to file" })
-                -- vim.keymap.set("v", "<space>rv", function()
-                --     require("refactoring").refactor("Extract Varible")
-                -- end, { desc = "extract variable" })
-                -- vim.keymap.set({ "n", "v" }, "<space>ri", function()
-                --     require("refactoring").refactor("Inline Varible")
-                -- end, { desc = "inline variable" })
-                -- vim.keymap.set("n", "<space>rb", function()
-                --     require("refactoring").refactor("Extract Block")
-                -- end, { desc = "extract block" })
-                -- vim.keymap.set("n", "<space>rbf", function()
-                --     require("refactoring").refactor("Extract Block To File")
-                -- end, { desc = "extract block to file" })
+                -- Used in a Hydra
             end,
         }
 
@@ -984,6 +962,7 @@ return require("packer").startup {
         use {
             "ggandor/leap.nvim",
             config = function()
+                vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
                 require("leap").set_default_keymaps()
             end,
         }
@@ -1065,7 +1044,7 @@ return require("packer").startup {
             "AckslD/nvim-FeMaco.lua",
             config = 'require("femaco").setup()',
         }
-        -- use {'dhruvasagar/vim-table-mode'} -- FIX: Conflicting keymaps, lazy-load
+
         -- ======== ASCIIDOC =======
         use {
             "habamax/vim-asciidoctor",
@@ -1113,8 +1092,6 @@ return require("packer").startup {
 
         -- ======== GRAPHVIZ ========
         use { "liuchengxu/graphviz.vim", ft = "dot" }
-        -- ======== PYTHON =======
-        use { "tmhedberg/SimpylFold", ft = "python" }
         -- ======= OCAML ======
         use { "ELLIOTTCABLE/vim-menhir", ft = { "ocaml", "reasonml" } }
         -- ====== LLVM ====

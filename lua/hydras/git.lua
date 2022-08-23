@@ -19,12 +19,11 @@ Hydra {
             border = "rounded",
         },
         on_enter = function()
-            vim.bo.modifiable = false
-            gitsigns.toggle_signs(true)
+            -- gitsigns.toggle_signs(true)
             gitsigns.toggle_linehl(false)
         end,
         on_exit = function()
-            gitsigns.toggle_signs(false)
+            -- gitsigns.toggle_signs(false)
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             vim.cmd("echo") -- clear the echo area
