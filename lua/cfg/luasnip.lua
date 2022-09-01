@@ -21,16 +21,16 @@ vim.keymap.set({ "i" }, "<C-s><C-f>", '<cmd>lua require("luasnip.extras.otf").on
 local types = require("luasnip.util.types")
 
 vim.keymap.set("i", "<C-s>", "<nop>")
-require("which-key").register({
-    name = "Snippets",
-    ["<C-o>"] = "Select choice",
-    ["<C-k>"] = "Next choice",
-    ["<C-j>"] = "Expand",
-    ["<C-n>"] = "Jump next",
-    ["<C-p>"] = "Jump previous",
-    ["<C-f>"] = "Fly snippet",
-    ["<C-l>"] = "Stop",
-}, { mode = "i", prefix = "<C-s>" })
+-- require("which-key").register({
+--     name = "Snippets",
+--     ["<C-o>"] = "Select choice",
+--     ["<C-k>"] = "Next choice",
+--     ["<C-j>"] = "Expand",
+--     ["<C-n>"] = "Jump next",
+--     ["<C-p>"] = "Jump previous",
+--     ["<C-f>"] = "Fly snippet",
+--     ["<C-l>"] = "Stop",
+-- }, { mode = "i", prefix = "<C-s>" })
 
 luasnip.config.setup {
     enable_autosnippets = true,

@@ -100,23 +100,23 @@ require("nvim-treesitter.configs").setup {
     playground = { enable = true },
 }
 
-require("which-key").register({
-    -- ['v.'] = 'Textsubject smart',
-    -- ['v;'] = 'Textsubject outer container',
-    ["]m"] = "Go to next function start",
-    ["]]"] = "Go to next class start",
-    ["]M"] = "Go to next function end",
-    ["]["] = "Go to next class end",
-    ["[m"] = "Go to previous function start",
-    ["[]"] = "Go to previous class start",
-    ["[M"] = "Go to previous function end",
-    ["[["] = "Go to previous class end",
-    ["g"] = {
-        ["<"] = "Swap previous parameter",
-        [">"] = "Swap next parameter",
-    },
-    -- ["<leader>"] = {
-    --     ["rn"] = "Rename",
-    -- },
-}, {})
+-- require("which-key").register({
+--     -- ['v.'] = 'Textsubject smart',
+--     -- ['v;'] = 'Textsubject outer container',
+--     ["]m"] = "Go to next function start",
+--     ["]]"] = "Go to next class start",
+--     ["]M"] = "Go to next function end",
+--     ["]["] = "Go to next class end",
+--     ["[m"] = "Go to previous function start",
+--     ["[]"] = "Go to previous class start",
+--     ["[M"] = "Go to previous function end",
+--     ["[["] = "Go to previous class end",
+--     ["g"] = {
+--         ["<"] = "Swap previous parameter",
+--         [">"] = "Swap next parameter",
+--     },
+--     -- ["<leader>"] = {
+--     --     ["rn"] = "Rename",
+--     -- },
+-- }, {})
 -- vim: foldmethod=marker foldmarker={,}
