@@ -44,6 +44,14 @@ return require("packer").startup {
         use { "stevearc/dressing.nvim" }
         use("windwp/windline.nvim")
 
+        --  Sadly doesn't quite work with statusline
+        -- use { 'levouh/tint.nvim', config = function()
+        --         require("tint").setup({
+        --             ignore = {"StatusLine*"}
+        --         })
+        --     end
+        -- }
+
         use("famiu/bufdelete.nvim")
         use {
             "akinsho/bufferline.nvim",
@@ -1015,6 +1023,9 @@ return require("packer").startup {
         }
         -- }}}
         -- Language Specific Plugins {{{
+        use {
+            'krady21/compiler-explorer.nvim', requires = { 'nvim-lua/plenary.nvim' }
+        }
         -- ==========  C  ==========
         use("justinmk/vim-syntax-extra")
         use("shirk/vim-gas")
