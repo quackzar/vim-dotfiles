@@ -605,6 +605,8 @@ return require("packer").startup {
         -- use 'simrat39/symbols-outline.nvim'
         use("folke/lsp-colors.nvim")
         use("jose-elias-alvarez/null-ls.nvim")
+        use('raddari/last-color.nvim')
+
 
         use {
             "johmsalas/text-case.nvim",
@@ -913,7 +915,7 @@ return require("packer").startup {
             end,
         }
         use {
-            "B4mbus/todo-comments.nvim",
+            "folke/todo-comments.nvim",
             event = "BufRead",
             requires = "nvim-lua/plenary.nvim",
             config = function()
