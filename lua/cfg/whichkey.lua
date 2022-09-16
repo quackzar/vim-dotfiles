@@ -1,7 +1,5 @@
 local wk = require("which-key")
 wk.register {
-    ["]b"] = { "<cmd>BufferLineCycleNext<CR>", "Next Buffer" },
-    ["[b"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer" },
     ["<A-1>"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Goto buffer 1" },
     ["<A-2>"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Goto buffer 2" },
     ["<A-3>"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Goto buffer 3" },
@@ -19,6 +17,7 @@ wk.register({
     g = { "Git  " },
     o = { "Options  " },
     s = { "+surf ﲋ" },
+    b = { "+buffer ﲋ" },
     x = { "+trouble  " },
     t = { "+test  " },
     e = { "+experiment  " },

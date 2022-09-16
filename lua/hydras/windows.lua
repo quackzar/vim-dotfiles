@@ -12,8 +12,8 @@ local buffer_hydra = Hydra {
         position = "middle",
     },
     heads = {
-        { "h", cmd("BufferPrevious") },
-        { "l", cmd("BufferNext"), { desc = "choose" } },
+        { "h", cmd("BufferLinePrev"), { desc = "previous"}},
+        { "l", cmd("BufferLineNext"), { desc = "next" } },
 
         -- Execute an async functions synchronously to preserve the animation.
         {
@@ -46,7 +46,7 @@ local buffer_hydra = Hydra {
             { desc = "close" },
         },
 
-        { "b", cmd("BufferLinePick"), { exit = true, desc = "Explorer" } },
+        { "b", cmd("BufferLinePick"), { exit = true, desc = "pick" } },
         { "od", cmd("BufferLineSortByDirectory"), { desc = "by directory" } },
         { "ol", cmd("BufferLineSortByExtension"), { desc = "by language" } },
         { "<Esc>", nil, { exit = true } },

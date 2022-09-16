@@ -12,7 +12,7 @@ prequire("impatient")
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
-vim.o.guifont = "JetBrainsMono Nerd Font:h11,Symbols Nerd Font:h11,nonicons,codicons"
+vim.o.guifont = "JetBrainsMono Nerd Font:h11,nonicons,codicons"
 vim.o.guioptions = "ad"
 vim.g.neovide_transparency = 0.8
 vim.o.mouse = "a"
@@ -166,7 +166,7 @@ require("windline.bubblegum")
 
 vim.cmd.colorscheme("catppuccin")
 
--- require("cfg.whichkey")
+require("cfg.whichkey")
 
 vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4

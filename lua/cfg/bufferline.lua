@@ -65,12 +65,10 @@ require("bufferline").setup {
     },
 }
 
--- require("which-key").register({
---     name = "Bufferline",
---     ["]"] = { "<cmd>BufferLineMoveNext<cr>", "Move next" },
---     ["["] = { "<cmd>BufferLineMovePrev<cr>", "Move previous" },
---     ["e"] = { "<cmd>BufferLineSortByExtension<cr>", "Sort by extension" },
---     ["d"] = { "<cmd>BufferLineSortByDirectory<cr>", "Sort by directory" },
---     ["b"] = { "<cmd>BufferLinePick<cr>", "Pick..." },
---     ["c"] = { "<cmd>BufferLinePickClose<cr>", "Close..." },
--- }, { prefix = "<leader>b" })
+vim.keymap.set('n', ']b', '<cmd>BufferLineCycleNext<cr>', {desc="Next buffer"})
+vim.keymap.set('n', '[b', '<cmd>BufferLineCyclePrev<cr>', {desc="Prev buffer"})
+-- vim.keymap.set('n', '<leader>be', '<cmd>BufferLineSortByExtension<cr>', {desc="Sort by extension"})
+-- vim.keymap.set('n', '<leader>bd', '<cmd>BufferLineSortByDirectory<cr>', {desc="Sort by directory"})
+-- vim.keymap.set('n', '<leader>bb', '<cmd>BufferLinePick<cr>', {desc="Pick..."})
+-- vim.keymap.set('n', '<leader>bc', '<cmd>BufferLinePickClose<cr>', {desc="Close..."})
+
