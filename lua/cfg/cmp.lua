@@ -35,6 +35,12 @@ lspkind.init {
     -- },
 }
 
+
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+
 cmp.setup {
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -62,21 +68,35 @@ cmp.setup {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
-        ["<CR>"] = cmp.mapping.confirm { select = false },
-        ["<C-n>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            else
-                fallback()
+        ["<CR>"] = cmp.mapping.confirm { select = true },
+        ['<C-n>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+                end
+            end,
+            i = function()
+                if cmp.visible() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                end
             end
-        end, { "i", "c" }),
-        ["<C-p>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            else
-                fallback()
+        }),
+        ['<C-p>'] = cmp.mapping({
+            c = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                else
+                    vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+                end
+            end,
+            i = function()
+                if cmp.visible() then
+                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                end
             end
-        end, { "i", "c" }),
+        }),
         ["<tab>"] = cmp.mapping {
             c = cmp.confirm { select = true },
         },
@@ -90,7 +110,7 @@ cmp.setup {
         { name = "omni", group_index = 2 },
         { name = "luasnip", group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
-        { name = "cmp_tabnine", group_index = 2 },
+        -- { name = "cmp_tabnine", group_index = 1 },
     },
     sorting = {
         priority_weight = 2,

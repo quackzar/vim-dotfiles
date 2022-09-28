@@ -4,7 +4,7 @@ local neotest = require("neotest")
 local hint = [[
  _t_: test nearest    _a_: attach nearest    _o_: summary
  _f_: test file       _x_: stop nearest      _d_: debug nearest
- ^
+ ^ ^
  ^ ^                  _q_: exit
 ]]
 
@@ -18,7 +18,7 @@ local test_hydra = Hydra {
             border = "rounded",
         },
     },
-    name = "dap",
+    name = "test",
     mode = { "n", "x" },
     body = "<leader>t",
     heads = {
@@ -26,6 +26,13 @@ local test_hydra = Hydra {
             "t",
             function()
                 neotest.run.run()
+            end,
+            { silent = true },
+        },
+        {
+            "x",
+            function()
+                neotest.run.stop()
             end,
             { silent = true },
         },

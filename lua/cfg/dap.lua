@@ -1,3 +1,4 @@
+require("mason-nvim-dap").setup()
 local dap = require("dap")
 
 vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "Keyword", linehl = "", numhl = "" })

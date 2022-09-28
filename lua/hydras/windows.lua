@@ -70,6 +70,7 @@ Hydra {
  _h_ ^ ^ _l_   _H_ ^ ^ _L_    _<C-h>_ _<C-l>_   _v_: vertically
  ^ ^ _j_ ^ ^   ^ ^ _J_ ^ ^    ^   _<C-j>_   ^   _q_: close
  focus^^^^^^   window^^^^^^   ^ _=_ equalize^   _b_: choose buffer
+      ^^^^^^         ^^^^^^   ^ _z_ maxmimize^  ^^
 ]],
     config = {
         timeout = 4000,
@@ -116,7 +117,7 @@ Hydra {
             end,
         },
         { "=", "<C-w>=", { desc = "equalize" } },
-
+        { "z", "<cmd>WindowsMaximize<cr>", { exit = true, desc = "maximize" } },
         { "s", "<C-w>s" },
         { "v", "<C-w>v" },
         { "b", choose_buffer, { exit = true, desc = "choose buffer" } },

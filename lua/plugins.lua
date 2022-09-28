@@ -51,6 +51,26 @@ return require("packer").startup {
         --         })
         --     end
         -- }
+        use { "anuvyklack/windows.nvim",
+            requires = {
+                "anuvyklack/middleclass",
+                "anuvyklack/animation.nvim"
+            },
+            config = function()
+                vim.o.winwidth = 10
+                vim.o.winminwidth = 10
+                vim.o.equalalways = false
+                require('windows').setup({
+                    autowidth = {
+                        enable = false
+                    },
+                    ignore = {
+                        buftype = { "quickfix" },
+                        filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "packer", "OverseerList" }
+                    },
+                })
+            end
+        }
 
         use("famiu/bufdelete.nvim")
         use {
@@ -526,6 +546,7 @@ return require("packer").startup {
         use {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
+            "jayp0521/mason-nvim-dap.nvim",
             "neovim/nvim-lspconfig",
         }
 
@@ -775,7 +796,7 @@ return require("packer").startup {
         }
 
         -- Conjure: Seems like the biggest project, but mostly lisp and rust for some reason.
-        use { "Olical/conjure", event = "VimEnter" }
+        -- use { "Olical/conjure", event = "VimEnter" }
 
         use("mfussenegger/nvim-dap") -- I really need to get this actually working at some point
         use { "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }

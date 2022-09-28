@@ -47,17 +47,17 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 
-vim.keymap.set("n", "<leader>tt", require("neotest").run.run, { desc = "Run nearest test" })
-vim.keymap.set("n", "<leader>td", function()
-    require("neotest").run.run { strategy = "dap" }
-end, { desc = "Debug nearest test" })
+-- vim.keymap.set("n", "<leader>tt", require("neotest").run.run, { desc = "Run nearest test" })
+-- vim.keymap.set("n", "<leader>td", function()
+--     require("neotest").run.run { strategy = "dap" }
+-- end, { desc = "Debug nearest test" })
 
-vim.keymap.set("n", "<leader>ts", require("neotest").run.stop, { desc = "Stop nearest test" })
-vim.keymap.set("n", "<leader>tf", function()
-    require("neotest").run.run(vim.fn.expand("%"))
-end, { desc = "Stop nearest test" })
-vim.keymap.set("n", "<leader>ta", require("neotest").run.attach, { desc = "Attach nearest test" })
-vim.keymap.set("n", "<leader>to", require("neotest").summary.toggle, { desc = "Toggle test summary" })
+-- vim.keymap.set("n", "<leader>ts", require("neotest").run.stop, { desc = "Stop nearest test" })
+-- vim.keymap.set("n", "<leader>tf", function()
+--     require("neotest").run.run(vim.fn.expand("%"))
+-- end, { desc = "Stop nearest test" })
+-- vim.keymap.set("n", "<leader>ta", require("neotest").run.attach, { desc = "Attach nearest test" })
+-- vim.keymap.set("n", "<leader>to", require("neotest").summary.toggle, { desc = "Toggle test summary" })
 
 vim.keymap.set("n", "]t", require("neotest").jump.next, { desc = "next test" })
 vim.keymap.set("n", "[t", require("neotest").jump.prev, { desc = "prev test" })
