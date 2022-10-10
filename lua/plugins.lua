@@ -108,12 +108,51 @@ return require("packer").startup {
             end,
         }
 
+        -- use { 'melkster/modicator.nvim',
+        --     after = 'catppuccin', -- Add your colorscheme plugin here
+        --     config = function()
+        --         local modicator = require('modicator')
+        --         modicator.setup({
+        --             highlights = {
+        --                 modes = {
+        --                     ['i'] = vim.g.terminal_color_2, -- green
+        --                     ['v'] = vim.g.terminal_color_3, -- yellow
+        --                     ['V'] = vim.g.terminal_color_3,
+        --                     ['�'] = vim.g.terminal_color_3,
+        --                     ['s'] = vim.g.terminal_color_6, -- cyan
+        --                     ['S'] = vim.g.terminal_color_6,
+        --                     ['R'] = vim.g.terminal_color_4, -- blue
+        --                     ['c'] = vim.g.terminal_color_5, -- magenta
+        --                 },
+        --             }
+        --         })
+        --     end
+        -- }
+
         use {
             "rcarriga/nvim-notify",
             config = function()
                 vim.notify = require("notify")
             end,
         }
+
+        -- use({
+        --     "folke/noice.nvim",
+        --     event = "VimEnter",
+        --     config = function()
+        --         require("noice").setup({
+        --             popupmenu = {
+        --                 enabled = false
+        --             }
+        --         })
+        --     end,
+        --     requires = {
+        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        --         "MunifTanjim/nui.nvim",
+        --         "rcarriga/nvim-notify",
+        --         "hrsh7th/nvim-cmp",
+        --     }
+        -- })
 
         use {
             "folke/which-key.nvim",
@@ -179,7 +218,7 @@ return require("packer").startup {
                     extra_keymaps = true,
                     extended_keymaps = false,
                     scroll_limit = 100,
-                    hide_cursor = true,
+                    hide_cursor = false,
                     default_delay = 5,
                     max_length = 500,
                 }
@@ -262,7 +301,14 @@ return require("packer").startup {
             as = "melioria",
             requires = { "rktjmp/lush.nvim" },
         }
-        use { "catppuccin/nvim", as = "catppuccin" }
+        use {
+            "catppuccin/nvim",
+            as = "catppuccin",
+            config = function()
+                vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
+                require("catppuccin").setup()
+            end
+        }
         use("rafamadriz/neon")
         use("mhartington/oceanic-next")
         use {
@@ -632,13 +678,13 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "narutoxy/dim.lua",
-            requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-            config = function()
-                require("dim").setup {}
-            end,
-        }
+        -- use {
+        --     "narutoxy/dim.lua",
+        --     requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+        --     config = function()
+        --         require("dim").setup {}
+        --     end,
+        -- }
 
         use {
             "SmiteshP/nvim-navic",
@@ -646,6 +692,8 @@ return require("packer").startup {
             config = function()
                 vim.g.navic_silence = true
                 require("nvim-navic").setup {
+                    depth_limit = 4,
+                    depth_limit_indicator = '',
                     separator = " ",
                     icons = {
                         File = " ",
@@ -973,17 +1021,14 @@ return require("packer").startup {
         -- }}}
         -- Navigation {{{
         use {
-            "dstein64/vim-win",
-            config = function()
-                vim.keymap.set("n", "<space>w", "<plug>WinWin")
-            end,
-        }
-        use {
             "nacro90/numb.nvim",
             config = function()
                 require("numb").setup()
             end,
         }
+
+        use 'chaoren/vim-wordmotion'
+        use 'anuvyklack/vim-smartword'
 
         use {
             "ggandor/leap.nvim",

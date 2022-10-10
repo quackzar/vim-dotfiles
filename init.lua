@@ -96,11 +96,11 @@ vim.o.laststatus = 3
 
 -- some pluginless keymaps
 vim.keymap.set({ "n", "v" }, "Q", "<nop>")
-vim.keymap.set("n", "<c-w>q", ":close<cr>")
+vim.keymap.set("n", "<c-w>q", ":close<cr>", {silent=true})
 vim.keymap.set({ "n", "v" }, "x", '"_x')
 vim.keymap.set({ "n", "v" }, "X", '"_X')
-vim.keymap.set({ "n", "v", "i" }, "<C-l>", ":noh<cr>")
-vim.keymap.set("i", "<C-l>", "<C-o>:noh<cr>")
+vim.keymap.set({ "n", "v", "i" }, "<C-l>", ":noh<cr>", {silent = true})
+vim.keymap.set("i", "<C-l>", "<C-o>:noh<cr>", {silent = true})
 vim.keymap.set("v", "@", ":normal @")
 -- vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
 -- vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })

@@ -75,6 +75,7 @@ Hydra {
     config = {
         timeout = 4000,
         hint = {
+            invoke_on_body = true,
             border = "rounded",
             position = "middle",
         },

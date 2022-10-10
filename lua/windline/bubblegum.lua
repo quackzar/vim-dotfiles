@@ -97,6 +97,10 @@ basic.navic = {
         magenta = { "magenta", "black" },
     },
     text = function(bufnr)
+        local hint = require('hydra.statusline').get_hint()
+        if hint then
+            return ' ' .. hint
+        end
         local navic = require("nvim-navic")
         if navic.is_available() then
             return { { " 殺 " .. navic.get_location { highlight = false }, "magenta" } }
@@ -254,6 +258,8 @@ local explorer = {
     always_active = true,
     show_last_status = true,
 }
+
+
 windline.setup {
     colors_name = function(colors)
         -- ADD MORE COLOR HERE ----

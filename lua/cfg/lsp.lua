@@ -118,15 +118,7 @@ function on_attach(client, bufnr)
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
-
-    -- Enable completion triggered by <c-x><c-o>
-    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc') -- a bit redundant with cmp
-
     -- Mappings.
-    buf_set_option("tagfunc", "v:lua.vim.lsp.tagfunc")
-    buf_set_option("formatexpr", "v:lua.vim.lsp.formatexpr")
-    -- Add this <leader> bound mapping so formatting the entire document is easier.
-
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
@@ -139,8 +131,7 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "Outgoing calls" })
     vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "Incoming calls" })
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-    vim.keymap.set("n", "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action" })
-    vim.keymap.set("x", "<space>a", vim.lsp.buf.range_code_action, { buffer = bufnr, desc = "Code action" }) -- NOTE: Untested
+    vim.keymap.set({"n", "v"}, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action" })
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Prev diagnostic" })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })
     -- vim.keymap.set("n", "<space>rf", vim.lsp.buf.formatting, { buffer = bufnr, desc = "Format buffer" })
