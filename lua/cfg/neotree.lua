@@ -234,38 +234,40 @@ require("neo-tree").setup {
             end,
         },
     },
-    mappings = {
-        ["z"] = "none",
-        ["zo"] = neotree_zo,
-        ["zO"] = neotree_zO,
-        ["zc"] = neotree_zc,
-        ["zC"] = neotree_zC,
-        ["za"] = neotree_za,
-        ["zA"] = neotree_zA,
-        ["zx"] = neotree_zx,
-        ["zX"] = neotree_zX,
-        ["zm"] = neotree_zm,
-        ["zM"] = neotree_zM,
-        ["zr"] = neotree_zr,
-        ["zR"] = neotree_zR,
-        ["h"] = function(state)
-            local node = state.tree:get_node()
-            if node.type == "directory" and node:is_expanded() then
-                require("neo-tree.sources.filesystem").toggle_directory(state, node)
-            else
-                require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-            end
-        end,
-        ["l"] = function(state)
-            local node = state.tree:get_node()
-            if node.type == "directory" then
-                if not node:is_expanded() then
+    window = {
+        mappings = {
+            ["z"] = "none",
+            ["zo"] = neotree_zo,
+            ["zO"] = neotree_zO,
+            ["zc"] = neotree_zc,
+            ["zC"] = neotree_zC,
+            ["za"] = neotree_za,
+            ["zA"] = neotree_zA,
+            ["zx"] = neotree_zx,
+            ["zX"] = neotree_zX,
+            ["zm"] = neotree_zm,
+            ["zM"] = neotree_zM,
+            ["zr"] = neotree_zr,
+            ["zR"] = neotree_zR,
+            ["h"] = function(state)
+                local node = state.tree:get_node()
+                if node.type == "directory" and node:is_expanded() then
                     require("neo-tree.sources.filesystem").toggle_directory(state, node)
-                elseif node:has_children() then
-                    require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+                else
+                    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
                 end
-            end
-        end,
+            end,
+            ["l"] = function(state)
+                local node = state.tree:get_node()
+                if node.type == "directory" then
+                    if not node:is_expanded() then
+                        require("neo-tree.sources.filesystem").toggle_directory(state, node)
+                    elseif node:has_children() then
+                        require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+                    end
+                end
+            end,
+        },
     },
     buffers = {
         follow_current_file = true,
