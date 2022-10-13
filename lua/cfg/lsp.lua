@@ -197,6 +197,16 @@ mason_lsp.setup_handlers { -- check if this actually works
                     -- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
                 end,
                 capabilities = capabilities,
+                settings = {
+                    ['rust-analyzer'] = {
+                        cargo = {
+                            features = "all"
+                        },
+                        checkOnSave = {
+                            command = "clippy"
+                        }
+                    }
+                }
             },
             tools = {
                 autoSetHints = true,

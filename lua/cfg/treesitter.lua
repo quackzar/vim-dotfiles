@@ -6,7 +6,7 @@ require("nvim-treesitter.configs").setup {
         },
         -- Setting this to true or a list of languages will run `:h syntax` and tree-sitter at the same time.
         additional_vim_regex_highlighting = false,
-        disable = { "tex", "latex", "css" },
+        disable = { "tex", "latex", "css", "toml" },
     },
     refactor = {
         highlight_definitions = {

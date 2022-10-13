@@ -164,9 +164,8 @@ require("cfg.tree")
 
 require("windline.bubblegum")
 
-vim.cmd.colorscheme("catppuccin")
-
 require("cfg.whichkey")
 
+vim.cmd.colorscheme("catppuccin")
 vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4
