@@ -664,7 +664,8 @@ return require("packer").startup {
                 }
             end,
         }
-        -- use 'simrat39/symbols-outline.nvim'
+
+
         use("folke/lsp-colors.nvim")
         use("jose-elias-alvarez/null-ls.nvim")
         use('raddari/last-color.nvim')
@@ -685,6 +686,42 @@ return require("packer").startup {
         --         require("dim").setup {}
         --     end,
         -- }
+
+        use {'simrat39/symbols-outline.nvim',
+            config = function ()
+                require("symbols-outline").setup({
+                    symbols = {
+                        File          = {icon = " ", hl = "TSURI"},
+                        Module        = {icon = " ", hl = "TSNamespace"},
+                        Namespace     = {icon = " ", hl = "TSNamespace"},
+                        Package       = {icon = " ", hl = "TSNamespace"},
+                        Class         = {icon = " ", hl = "TSType"},
+                        Method        = {icon = " ", hl = "TSMethod"},
+                        Property      = {icon = " ", hl = "TSMethod"},
+                        Field         = {icon = " ", hl = "TSField"},
+                        Constructor   = {icon = " ", hl = "TSConstructor"},
+                        Enum          = {icon = " ", hl = "TSType"},
+                        Interface     = {icon = " ", hl = "TSType"},
+                        Function      = {icon = " ", hl = "TSFunction"},
+                        Variable      = {icon = " ", hl = "TSConstant"},
+                        Constant      = {icon = " ", hl = "TSConstant"},
+                        String        = {icon = " ", hl = "TSString"},
+                        Number        = {icon = " ", hl = "TSNumber"},
+                        Boolean       = {icon = " ", hl = "TSBoolean"},
+                        Array         = {icon = " ", hl = "TSConstant"},
+                        Object        = {icon = " ", hl = "TSType"},
+                        Key           = {icon = " ", hl = "TSType"},
+                        Null          = {icon = " ", hl = "TSType"},
+                        EnumMember    = {icon = " ", hl = "TSField"},
+                        Struct        = {icon = " ", hl = "TSType"},
+                        Event         = {icon = " ", hl = "TSType"},
+                        Operator      = {icon = " ", hl = "TSOperator"},
+                        TypeParameter = {icon = " ", hl = "TSParameter"}
+                    }
+                })
+                vim.keymap.set("n", "<leader>v", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Outline" })
+            end
+        }
 
         use {
             "SmiteshP/nvim-navic",
