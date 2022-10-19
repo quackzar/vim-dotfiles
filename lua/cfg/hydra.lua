@@ -1,7 +1,7 @@
 local Hydra = require("hydra")
 
 require("hydras.git")
-require("hydras.windows")
+-- require("hydras.windows")
 require("hydras.telescope")
 require("hydras.options")
 require("hydras.dap")

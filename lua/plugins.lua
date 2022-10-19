@@ -183,12 +183,12 @@ return require("packer").startup {
         }
 
         use("sindrets/winshift.nvim") -- Used in a Hydra
-        use {
-            "mrjones2014/smart-splits.nvim", -- Used in a Hydra
-            config = function()
-                require("smart-splits").setup {}
-            end,
-        }
+        -- use {
+        --     "mrjones2014/smart-splits.nvim", -- Used in a Hydra
+        --     config = function()
+        --         require("smart-splits").setup {}
+        --     end,
+        -- }
 
         use {
             "anuvyklack/hydra.nvim",
@@ -856,22 +856,22 @@ return require("packer").startup {
 
         -- So these three are very much alike
         -- SnipRun: supports more languages, requires rust
-        use {
-            "michaelb/sniprun",
-            run = "bash ./install.sh",
-            config = function()
-                require("sniprun").setup {
-                    display = {
-                        "VirtualTextOk",
-                        "NvimNotify",
-                    },
-                }
-                vim.keymap.set({ "v", "n" }, "<leader>ee", "<Plug>SnipRun", { desc = "snip run" })
-                vim.keymap.set("n", "<leader>e", "<Plug>SnipRunOperator", { desc = "snip run" })
-                vim.keymap.set("n", "<leader>eR", "<cmd>SnipReset<cr>", { desc = "snip reset" })
-                vim.keymap.set("n", "<leader>el", "<cmd>SnipLive<cr>", { desc = "snip live" })
-            end,
-        }
+        -- use {
+        --     "michaelb/sniprun",
+        --     run = "bash ./install.sh",
+        --     config = function()
+        --         require("sniprun").setup {
+        --             display = {
+        --                 "VirtualTextOk",
+        --                 "NvimNotify",
+        --             },
+        --         }
+        --         vim.keymap.set({ "v", "n" }, "<leader>ee", "<Plug>SnipRun", { desc = "snip run" })
+        --         vim.keymap.set("n", "<leader>e", "<Plug>SnipRunOperator", { desc = "snip run" })
+        --         vim.keymap.set("n", "<leader>eR", "<cmd>SnipReset<cr>", { desc = "snip reset" })
+        --         vim.keymap.set("n", "<leader>el", "<cmd>SnipLive<cr>", { desc = "snip live" })
+        --     end,
+        -- }
 
         -- Lab: seems promising for TS/JS
         use {
@@ -1209,7 +1209,7 @@ return require("packer").startup {
         use { "rhysd/vim-llvm", ft = "llvm" }
         use { "cespare/vim-toml", ft = "toml" }
         -- === LUA ===
-        use("folke/lua-dev.nvim")
+        use("folke/neodev.nvim")
         -- === kitty ===
         use("fladson/vim-kitty")
         -- === GLSL ===

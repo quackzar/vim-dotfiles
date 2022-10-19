@@ -153,8 +153,7 @@ function on_attach(client, bufnr)
     end, { buffer = bufnr, desc = "list workspace folders" })
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
@@ -163,6 +162,7 @@ capabilities.textDocument.foldingRange = {
 require("mason").setup()
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
+require("neodev").setup({})
 
 mason_lsp.setup {
     ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
@@ -175,17 +175,6 @@ mason_lsp.setup_handlers { -- check if this actually works
             on_attach = on_attach,
             capabilities = capabilities,
         }
-    end,
-    ["sumneko_lua"] = function()
-        local luadev = require("lua-dev").setup {
-            -- add any options here, or leave empty to use the default settings
-            lspconfig = {
-                on_attach = on_attach,
-                capabilities = capabilities,
-            },
-            library = { plugins = { "neotest" }, types = true },
-        }
-        lspconfig.sumneko_lua.setup(luadev)
     end,
     ["rust_analyzer"] = function()
         local rt = require("rust-tools")
