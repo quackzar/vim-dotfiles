@@ -183,12 +183,12 @@ return require("packer").startup {
         }
 
         use("sindrets/winshift.nvim") -- Used in a Hydra
-        -- use {
-        --     "mrjones2014/smart-splits.nvim", -- Used in a Hydra
-        --     config = function()
-        --         require("smart-splits").setup {}
-        --     end,
-        -- }
+        use {
+            "mrjones2014/smart-splits.nvim", -- Used in a Hydra
+            config = function()
+                require("smart-splits").setup {}
+            end,
+        }
 
         use {
             "anuvyklack/hydra.nvim",
