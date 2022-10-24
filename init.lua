@@ -12,9 +12,14 @@ prequire("impatient")
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
-vim.o.guifont = "JetBrainsMono Nerd Font:h11,nonicons,codicons"
+-- GUI options
+vim.o.guifont = "JetBrainsMono Nerd Font:h11,Iosevka,nonicons,codicons"
 vim.o.guioptions = "ad"
 vim.g.neovide_transparency = 0.8
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_underline_automatic_scaling = true
+vim.neovide_input_macos_alt_is_meta = true
+
 vim.o.mouse = "a"
 vim.o.wrap = false
 vim.o.linebreak = true

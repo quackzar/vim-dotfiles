@@ -189,7 +189,8 @@ mason_lsp.setup_handlers { -- check if this actually works
                 settings = {
                     ['rust-analyzer'] = {
                         cargo = {
-                            features = "all"
+                            features = "all",
+                            buildScripts = { enable = true },
                         },
                         checkOnSave = {
                             command = "clippy"
