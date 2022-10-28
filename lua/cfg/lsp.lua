@@ -100,20 +100,20 @@ function on_attach(client, bufnr)
         require("nvim-navic").attach(client, bufnr)
     end
 
-    if client.server_capabilities.signatureHelpProvider then
-        require("lsp-overloads").setup(client, {
-            ui = {
-                -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
-                border = "double",
-            },
-            keymaps = {
-                next_signature = "<C-x><C-l>",
-                previous_signature = "<C-k>",
-                next_parameter = "<C-l>",
-                previous_parameter = "<C-x><C-h>",
-            },
-        })
-    end
+    -- if client.server_capabilities.signatureHelpProvider then
+    --     require("lsp-overloads").setup(client, {
+    --         ui = {
+    --             -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
+    --             border = "double",
+    --         },
+    --         keymaps = {
+    --             next_signature = "<C-x><C-l>",
+    --             previous_signature = "<C-k>",
+    --             next_parameter = "<C-l>",
+    --             previous_parameter = "<C-x><C-h>",
+    --         },
+    --     })
+    -- end
 
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)

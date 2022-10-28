@@ -129,30 +129,71 @@ return require("packer").startup {
         --     end
         -- }
 
-        use {
-            "rcarriga/nvim-notify",
-            config = function()
-                vim.notify = require("notify")
-            end,
-        }
-
-        -- use({
-        --     "folke/noice.nvim",
-        --     event = "VimEnter",
+        -- use {
+        --     "rcarriga/nvim-notify",
         --     config = function()
-        --         require("noice").setup({
-        --             popupmenu = {
-        --                 enabled = false
-        --             }
-        --         })
+        --         vim.notify = require("notify")
         --     end,
-        --     requires = {
-        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-        --         "MunifTanjim/nui.nvim",
-        --         "rcarriga/nvim-notify",
-        --         "hrsh7th/nvim-cmp",
-        --     }
-        -- })
+        -- }
+    
+        -- use {
+        --     "j-hui/fidget.nvim",
+        --     config = function()
+        --         require("fidget").setup {
+        --             text = {
+        --                 spinner = "dots",
+        --                 done = " ", -- character shown when all tasks are complete
+        --             },
+        --         }
+        --     end,
+        -- }
+        --
+        
+        -- use {
+        --     "kevinhwang91/nvim-hlslens",
+        --     config = function()
+        --         require('hlslens').setup({})
+        --         vim.keymap.set(
+        --             "",
+        --             "n",
+        --             "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
+        --             { desc = "next" }
+        --         )
+        --         vim.keymap.set(
+        --             "",
+        --             "N",
+        --             "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
+        --             { desc = "prev" }
+        --         )
+        --         vim.keymap.set("", "*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "star-search" })
+        --         vim.keymap.set("", "#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "hash-search" })
+        --         vim.keymap.set("", "g*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "g-star-search" })
+        --         vim.keymap.set("", "g#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "g-hash-search" })
+        --     end,
+        -- }
+
+
+        use({
+            "folke/noice.nvim",
+            event = "VimEnter",
+            config = function()
+                require("noice").setup({
+                    messages = {
+                        view = "mini",
+                        view_warn = "notify",
+                        view_error = "notify",
+                    }
+                })
+                require("telescope").load_extension("noice")
+            end,
+            requires = {
+                -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+                "MunifTanjim/nui.nvim",
+                "rcarriga/nvim-notify",
+                "hrsh7th/nvim-cmp",
+            },
+            after = { 'telescope.nvim' },
+        })
 
         use {
             "folke/which-key.nvim",
@@ -212,7 +253,10 @@ return require("packer").startup {
         }
 
         use {
-            "declancm/cinnamon.nvim",
+            "declancm/cinnamon.nvim", -- FIX: Disable when running neovide
+            -- cond = function()
+            --     return not vim.fn.exists("g:neovide")
+            -- end,
             config = function()
                 require("cinnamon").setup {
                     extra_keymaps = true,
@@ -222,29 +266,6 @@ return require("packer").startup {
                     default_delay = 5,
                     max_length = 500,
                 }
-            end,
-        }
-
-        use {
-            "kevinhwang91/nvim-hlslens",
-            config = function()
-                require('hlslens').setup({})
-                vim.keymap.set(
-                    "",
-                    "n",
-                    "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
-                    { desc = "next" }
-                )
-                vim.keymap.set(
-                    "",
-                    "N",
-                    "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
-                    { desc = "prev" }
-                )
-                vim.keymap.set("", "*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "star-search" })
-                vim.keymap.set("", "#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "hash-search" })
-                vim.keymap.set("", "g*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "g-star-search" })
-                vim.keymap.set("", "g#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "g-hash-search" })
             end,
         }
 
@@ -365,7 +386,6 @@ return require("packer").startup {
                 })
             end,
         }
-        use("junegunn/gv.vim")
         use {
             "TimUntersberger/neogit",
             requires = "nvim-lua/plenary.nvim",
@@ -419,12 +439,13 @@ return require("packer").startup {
                     handlers = {
                         marks = {
                             enable = true,
-                            show_builtins = false,
+                            show_builtins = true,
                         },
                     },
                 }
             end,
         }
+
         --- }}}
         -- Treesitter {{{
         use {
@@ -607,8 +628,6 @@ return require("packer").startup {
             end,
         }
 
-        use { "Issafalcon/lsp-overloads.nvim" } -- conflict with lsp_signature?
-
         use {
             "folke/trouble.nvim",
             config = function()
@@ -638,7 +657,8 @@ return require("packer").startup {
             end,
         }
 
-        use("ray-x/lsp_signature.nvim") -- confict with lsp_overload?
+        -- use { 'Issafalcon/lsp-overloads.nvim'}
+        use("ray-x/lsp_signature.nvim")
 
         use {
             "andrewferrier/textobj-diagnostic.nvim",
@@ -654,23 +674,9 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "j-hui/fidget.nvim",
-            config = function()
-                require("fidget").setup {
-                    text = {
-                        spinner = "dots",
-                        done = " ", -- character shown when all tasks are complete
-                    },
-                }
-            end,
-        }
-
-
-        use("folke/lsp-colors.nvim")
         use("jose-elias-alvarez/null-ls.nvim")
-        use('raddari/last-color.nvim')
 
+        use('raddari/last-color.nvim')
 
         use {
             "johmsalas/text-case.nvim",
@@ -734,31 +740,31 @@ return require("packer").startup {
                     depth_limit_indicator = '',
                     separator = " ",
                     icons = {
-                        File = " ",
-                        Module = " ",
-                        Namespace = " ",
-                        Package = " ",
-                        Class = " ",
-                        Method = " ",
-                        Property = " ",
-                        Field = " ",
-                        Constructor = " ",
-                        Enum = " ",
-                        Interface = " ",
-                        Function = " ",
-                        Variable = " ",
-                        Constant = " ",
-                        String = " ",
-                        Number = " ",
-                        Boolean = " ",
-                        Array = " ",
-                        Object = " ",
-                        Key = " ",
-                        Null = " ",
-                        EnumMember = " ",
-                        Struct = " ",
-                        Event = " ",
-                        Operator = " ",
+                        File          = " ",
+                        Module        = " ",
+                        Namespace     = " ",
+                        Package       = " ",
+                        Class         = " ",
+                        Method        = " ",
+                        Property      = " ",
+                        Field         = " ",
+                        Constructor   = " ",
+                        Enum          = " ",
+                        Interface     = " ",
+                        Function      = " ",
+                        Variable      = " ",
+                        Constant      = " ",
+                        String        = " ",
+                        Number        = " ",
+                        Boolean       = " ",
+                        Array         = " ",
+                        Object        = " ",
+                        Key           = " ",
+                        Null          = " ",
+                        EnumMember    = " ",
+                        Struct        = " ",
+                        Event         = " ",
+                        Operator      = " ",
                         TypeParameter = " ",
                     },
                 }
@@ -778,6 +784,7 @@ return require("packer").startup {
         --	   "zbirenbaum/copilot-cmp",
         --	   after = { "copilot.lua", "nvim-cmp" },
         -- }
+
         use {
             "tzachar/cmp-tabnine",
             run = "./install.sh",
@@ -855,36 +862,9 @@ return require("packer").startup {
             end,
         }
 
-        -- So these three are very much alike
-        -- SnipRun: supports more languages, requires rust
-        -- use {
-        --     "michaelb/sniprun",
-        --     run = "bash ./install.sh",
-        --     config = function()
-        --         require("sniprun").setup {
-        --             display = {
-        --                 "VirtualTextOk",
-        --                 "NvimNotify",
-        --             },
-        --         }
-        --         vim.keymap.set({ "v", "n" }, "<leader>ee", "<Plug>SnipRun", { desc = "snip run" })
-        --         vim.keymap.set("n", "<leader>e", "<Plug>SnipRunOperator", { desc = "snip run" })
-        --         vim.keymap.set("n", "<leader>eR", "<cmd>SnipReset<cr>", { desc = "snip reset" })
-        --         vim.keymap.set("n", "<leader>el", "<cmd>SnipLive<cr>", { desc = "snip live" })
-        --     end,
-        -- }
-
-        -- Lab: seems promising for TS/JS
-        use {
-            "0x100101/lab.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-            run = "cd js && npm ci",
-        }
-
-        -- Conjure: Seems like the biggest project, but mostly lisp and rust for some reason.
         -- use { "Olical/conjure", event = "VimEnter" }
 
-        use("mfussenegger/nvim-dap") -- I really need to get this actually working at some point
+        use("mfussenegger/nvim-dap")
         use { "theHamsta/nvim-dap-virtual-text", requires = { "mfussenegger/nvim-dap" } }
         use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
         use { "mfussenegger/nvim-dap-python", requires = { "mfussenegger/nvim-dap" } }
@@ -895,6 +875,7 @@ return require("packer").startup {
         -- }
 
         -- }}}
+
         -- Generic Editor Plugins {{{
         use("tpope/vim-repeat")
         use("tpope/vim-eunuch") -- Basic (Delete, Move, Rename) unix commands
@@ -1178,26 +1159,6 @@ return require("packer").startup {
                 vim.g.asciidoctor_folding = 1
             end,
         }
-        -- use {
-        --     "nvim-neorg/neorg",
-        --     config = function()
-        --         require("neorg").setup {
-        --             -- Tell Neorg what modules to load
-        --             load = {
-        --                 ["core.defaults"] = {}, -- Load all the default modules
-        --                 ["core.norg.concealer"] = {}, -- Allows for use of icons
-        --                 ["core.norg.dirman"] = { -- Manage your directories with Neorg
-        --                     config = {
-        --                         workspaces = {
-        --                             my_workspace = "~/neorg",
-        --                         },
-        --                     },
-        --                 },
-        --             },
-        --         }
-        --     end,
-        --     requires = "nvim-lua/plenary.nvim",
-        -- }
 
         -- ==========  fish  ==========
         use { "mtoohey31/cmp-fish", ft = "fish" }

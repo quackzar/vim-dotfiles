@@ -158,6 +158,7 @@ basic.git = {
         return ""
     end,
 }
+
 basic.logo = {
     hl_colors = {
         Normal = { "white", "red" },
@@ -194,6 +195,27 @@ basic.logo = {
             }
         end
     end,
+}
+
+basic.noice = {
+    hl_colors = {
+        green = { "green", "black" },
+        red = { "red", "black" },
+        blue = { "blue", "black" },
+    },
+    text = function()
+        local noice = require("noice").api.status
+        if noice.command.has() then
+            return {noice.command.get(), 'green'}
+        elseif noice.message.has() then
+            return {noice.message.get(), 'red'}
+        elseif noice.search.has() then
+            return {noice.search.get(), 'blue'}
+        elseif noice.mode.has() then
+            return {noice.mode.get(), 'red'}
+        end
+        return ''
+    end
 }
 
 local default = {

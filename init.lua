@@ -15,10 +15,14 @@ vim.o.termguicolors = true
 -- GUI options
 vim.o.guifont = "JetBrainsMono Nerd Font:h11,Iosevka,nonicons,codicons"
 vim.o.guioptions = "ad"
-vim.g.neovide_transparency = 0.8
-vim.g.neovide_hide_mouse_when_typing = true
-vim.g.neovide_underline_automatic_scaling = true
-vim.neovide_input_macos_alt_is_meta = true
+
+if vim.fn.exists("g:neovide") then
+    vim.g.neovide_transparency = 1.0
+    vim.g.neovide_hide_mouse_when_typing = true
+    vim.g.neovide_underline_automatic_scaling = true
+    vim.g.neovide_scroll_animation_length = 0.4
+    vim.g.neovide_input_macos_alt_is_meta = true
+end
 
 vim.o.mouse = "a"
 vim.o.wrap = false
