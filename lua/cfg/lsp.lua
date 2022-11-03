@@ -96,6 +96,7 @@ function on_attach(client, bufnr)
             border = "rounded",
         },
     }, bufnr)
+
     if client.server_capabilities.documentSymbolProvider then
         require("nvim-navic").attach(client, bufnr)
     end
@@ -115,9 +116,6 @@ function on_attach(client, bufnr)
     --     })
     -- end
 
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })

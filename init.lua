@@ -164,6 +164,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- loads all plugins
 require("plugins")
+require("functions")
 require("packer_compiled")
 
 -- load specific configs

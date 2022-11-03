@@ -129,71 +129,91 @@ return require("packer").startup {
         --     end
         -- }
 
-        -- use {
-        --     "rcarriga/nvim-notify",
-        --     config = function()
-        --         vim.notify = require("notify")
-        --     end,
-        -- }
-    
-        -- use {
-        --     "j-hui/fidget.nvim",
-        --     config = function()
-        --         require("fidget").setup {
-        --             text = {
-        --                 spinner = "dots",
-        --                 done = " ", -- character shown when all tasks are complete
-        --             },
-        --         }
-        --     end,
-        -- }
-        --
-        
-        -- use {
-        --     "kevinhwang91/nvim-hlslens",
-        --     config = function()
-        --         require('hlslens').setup({})
-        --         vim.keymap.set(
-        --             "",
-        --             "n",
-        --             "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
-        --             { desc = "next" }
-        --         )
-        --         vim.keymap.set(
-        --             "",
-        --             "N",
-        --             "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
-        --             { desc = "prev" }
-        --         )
-        --         vim.keymap.set("", "*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "star-search" })
-        --         vim.keymap.set("", "#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "hash-search" })
-        --         vim.keymap.set("", "g*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "g-star-search" })
-        --         vim.keymap.set("", "g#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "g-hash-search" })
-        --     end,
-        -- }
-
-
-        use({
-            "folke/noice.nvim",
-            event = "VimEnter",
+        use {
+            "rcarriga/nvim-notify",
             config = function()
-                require("noice").setup({
-                    messages = {
-                        view = "mini",
-                        view_warn = "notify",
-                        view_error = "notify",
-                    }
-                })
-                require("telescope").load_extension("noice")
+                vim.notify = require("notify")
             end,
-            requires = {
-                -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-                "MunifTanjim/nui.nvim",
-                "rcarriga/nvim-notify",
-                "hrsh7th/nvim-cmp",
-            },
-            after = { 'telescope.nvim' },
-        })
+        }
+    
+        use {
+            "j-hui/fidget.nvim",
+            config = function()
+                require("fidget").setup {
+                    text = {
+                        spinner = "dots",
+                        done = " ", -- character shown when all tasks are complete
+                    },
+                }
+            end,
+        }
+
+        
+        use {
+            "kevinhwang91/nvim-hlslens",
+            config = function()
+                require('hlslens').setup({})
+                vim.keymap.set(
+                    "",
+                    "n",
+                    "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
+                    { desc = "next" }
+                )
+                vim.keymap.set(
+                    "",
+                    "N",
+                    "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
+                    { desc = "prev" }
+                )
+                vim.keymap.set("", "*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "star-search" })
+                vim.keymap.set("", "#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "hash-search" })
+                vim.keymap.set("", "g*", "*<Cmd>lua require('hlslens').start()<CR>", { desc = "g-star-search" })
+                vim.keymap.set("", "g#", "#<Cmd>lua require('hlslens').start()<CR>", { desc = "g-hash-search" })
+            end,
+        }
+
+
+        -- use({
+        --     "folke/noice.nvim",
+        --     event = "VimEnter",
+        --     config = function()
+        --         require("noice").setup({
+        --             messages = {
+        --                 view = "mini",
+        --                 view_warn = "notify",
+        --                 view_error = "notify",
+        --             },
+        --             lsp = {
+        --                 -- override = {
+        --                 --     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        --                 --     ["vim.lsp.util.stylize_markdown"] = true,
+        --                 --     ["cmp.entry.get_documentation"] = true,
+        --                 -- },
+        --                 signature = {
+        --                     enabled = false,
+        --                 }
+        --             }
+        --         })
+        --         require("telescope").load_extension("noice")
+        --         vim.keymap.set("n", "<c-f>", function()
+        --             if not require("noice.lsp").scroll(4) then
+        --                 return "<c-f>"
+        --             end
+        --         end, { silent = true, expr = true })
+        --         vim.keymap.set("n", "<c-b>", function()
+        --             if not require("noice.lsp").scroll(-4) then
+        --                 return "<c-b>"
+        --             end
+        --         end, { silent = true, expr = true })
+        --     end,
+        --     requires = {
+        --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+        --         "MunifTanjim/nui.nvim",
+        --         "rcarriga/nvim-notify",
+        --         "hrsh7th/nvim-cmp",
+        --     },
+        --     after = { 'telescope.nvim' },
+        -- })
 
         use {
             "folke/which-key.nvim",
@@ -222,6 +242,18 @@ return require("packer").startup {
                 }
             end,
         }
+
+        use {
+            "nvim-zh/colorful-winsep.nvim",
+            disable = true,
+            config = function()
+                require('colorful-winsep').setup({
+                    no_exec_files = { "packer", "TelescopePrompt", "mason", "OverseerList", "Symbols", "neo-tree" },
+                })
+            end,
+        }
+
+
 
         use("sindrets/winshift.nvim") -- Used in a Hydra
         use {
@@ -430,21 +462,21 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "lewis6991/satellite.nvim",
-            event = "BufRead",
-            config = function()
-                require("satellite").setup {
-                    winblend = 80,
-                    handlers = {
-                        marks = {
-                            enable = true,
-                            show_builtins = true,
-                        },
-                    },
-                }
-            end,
-        }
+        -- use {
+        --     "lewis6991/satellite.nvim",
+        --     event = "BufRead",
+        --     config = function()
+        --         require("satellite").setup {
+        --             winblend = 80,
+        --             handlers = {
+        --                 marks = {
+        --                     enable = true,
+        --                     show_builtins = true,
+        --                 },
+        --             },
+        --         }
+        --     end,
+        -- }
 
         --- }}}
         -- Treesitter {{{
@@ -695,6 +727,7 @@ return require("packer").startup {
         -- }
 
         use {'simrat39/symbols-outline.nvim',
+            disable = true,
             config = function ()
                 require("symbols-outline").setup({
                     symbols = {
@@ -785,17 +818,17 @@ return require("packer").startup {
         --	   after = { "copilot.lua", "nvim-cmp" },
         -- }
 
-        use {
-            "tzachar/cmp-tabnine",
-            run = "./install.sh",
-            before = "nvim-cmp",
-            config = function()
-                local tabnine = require("cmp_tabnine")
-                tabnine.setup {
-                    show_prediction_strength = true,
-                }
-            end,
-        }
+        -- use {
+        --     "tzachar/cmp-tabnine",
+        --     run = "./install.sh",
+        --     before = "nvim-cmp",
+        --     config = function()
+        --         local tabnine = require("cmp_tabnine")
+        --         tabnine.setup {
+        --             show_prediction_strength = true,
+        --         }
+        --     end,
+        -- }
 
         use { "saadparwaiz1/cmp_luasnip" }
         use { "onsails/lspkind-nvim" }
