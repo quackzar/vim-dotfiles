@@ -26,7 +26,7 @@ return require("packer").startup {
         use("wbthomason/packer.nvim")
 
         use("lewis6991/impatient.nvim") -- speed up startup
-        use("nathom/filetype.nvim") -- faster filetype detection
+        -- use("nathom/filetype.nvim") -- faster filetype detection
 
         use("antoinemadec/FixCursorHold.nvim")
         use("anuvyklack/keymap-amend.nvim")
@@ -135,7 +135,7 @@ return require("packer").startup {
                 vim.notify = require("notify")
             end,
         }
-    
+
         use {
             "j-hui/fidget.nvim",
             config = function()
@@ -148,11 +148,11 @@ return require("packer").startup {
             end,
         }
 
-        
+
         use {
             "kevinhwang91/nvim-hlslens",
             config = function()
-                require('hlslens').setup({})
+                require('hlslens').setup()
                 vim.keymap.set(
                     "",
                     "n",
@@ -381,6 +381,8 @@ return require("packer").startup {
         use("rebelot/kanagawa.nvim")
         use("shaunsingh/moonlight.nvim")
 
+        use('raddari/last-color.nvim')
+
         -- }}}
         -- Version Control and Git {{{
         use("tpope/vim-fugitive")
@@ -576,6 +578,27 @@ return require("packer").startup {
         }
 
         use {
+            "cshuaimin/ssr.nvim",
+            module = "ssr",
+            -- Calling setup is optional.
+            config = function()
+                require("ssr").setup {
+                    min_width = 50,
+                    min_height = 5,
+                    keymaps = {
+                        close = "q",
+                        next_match = "n",
+                        prev_match = "N",
+                        replace_all = "<leader><cr>",
+                    },
+                }
+                -- TODO: Find approriate keymap
+                vim.keymap.set({ "n", "x" }, "<leader>rs", function() require("ssr").open() end)
+            end
+        }
+
+
+        use {
             "abecodes/tabout.nvim",
             event = "InsertEnter",
             config = function()
@@ -626,12 +649,13 @@ return require("packer").startup {
             end,
             requires = "nvim-treesitter/nvim-treesitter",
         }
-        use {
-            "ziontee113/syntax-tree-surfer",
-            config = function() -- TODO: redo keymaps
-                require("cfg.syntax-tree-surfer")
-            end,
-        }
+
+        -- use {
+        --     "ziontee113/syntax-tree-surfer",
+        --     config = function() -- TODO: redo keymaps
+        --         require("cfg.syntax-tree-surfer")
+        --     end,
+        -- }
 
         use {
             "mizlan/iswap.nvim",
@@ -708,7 +732,6 @@ return require("packer").startup {
 
         use("jose-elias-alvarez/null-ls.nvim")
 
-        use('raddari/last-color.nvim')
 
         use {
             "johmsalas/text-case.nvim",
@@ -718,13 +741,13 @@ return require("packer").startup {
             end,
         }
 
-        -- use {
-        --     "narutoxy/dim.lua",
-        --     requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-        --     config = function()
-        --         require("dim").setup {}
-        --     end,
-        -- }
+        use {
+            "narutoxy/dim.lua",
+            requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
+            config = function()
+                require("dim").setup {}
+            end,
+        }
 
         use {'simrat39/symbols-outline.nvim',
             disable = true,
@@ -914,7 +937,7 @@ return require("packer").startup {
         use("tpope/vim-eunuch") -- Basic (Delete, Move, Rename) unix commands
         -- use 'tpope/vim-unimpaired'
 
-        use("markonm/traces.vim") -- Consider relavance
+        -- use("markonm/traces.vim") -- Consider relavance
 
         use {
             "linty-org/readline.nvim",
@@ -1022,7 +1045,7 @@ return require("packer").startup {
 
         use("reedes/vim-litecorrect") -- autocorrection! Fixes stupid common mistakes
         use("kevinhwang91/nvim-bqf")
-        use("nvim-lua/popup.nvim")
+        -- use("nvim-lua/popup.nvim")
 
         use {
             "luukvbaal/stabilize.nvim",

@@ -124,7 +124,7 @@ cmp.setup {
             -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
             cmp.config.compare.exact,
             cmp.config.compare.score,
-            require("cmp_tabnine.compare"),
+            -- require("cmp_tabnine.compare"),
             cmp.config.compare.recently_used,
             cmp.config.compare.locality,
             cmp.config.compare.kind,

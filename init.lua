@@ -76,6 +76,9 @@ vim.o.thesaurus = vim.fn.stdpath("config") .. "/thesaurus/words.txt"
 
 vim.g.loaded_matchit = 1
 
+-- vim.g.do_filetype_lua = 1
+-- vim.g.did_load_filetypes = 0
+
 vim.opt.list = true
 vim.opt.listchars:append("tab:▷⋅")
 vim.opt.listchars:append("nbsp:␣")
@@ -176,6 +179,8 @@ require("windline.bubblegum")
 
 require("cfg.whichkey")
 
-vim.cmd.colorscheme("catppuccin")
+local theme = require('last-color').recall() or 'catppuccin'
+vim.cmd(('colorscheme %s'):format(theme))
+
 vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4

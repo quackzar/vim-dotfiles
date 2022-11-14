@@ -20,14 +20,14 @@ local hint_visual = [[
    _n_: Rename      _b_: Extract block   _e_: Extract function      _p_: Print var  ^
    _i_: Inline      _B_: ...to file      _f_: ...to file                            ^
    _v_: Extract                                                                     ^
-   ^ ^                                   _r_: Select refactor           _<Esc>_     ^
+   ^ ^              _s_: SSR             _r_: Select refactor           _<Esc>_     ^
 ]]
 local hint_normal = [[
    ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
    _n_: Rename      _b_: Extract block                              _p_: Print var  ^
    _i_: Inline      _B_: ...to file                                 _c_: Clear up   ^
    ^                                                                                ^
-   ^ ^                   _q_: Format     _r_: Select refactor           _<Esc>_     ^
+   ^ ^   _s_: SSR        _q_: Format     _r_: Select refactor           _<Esc>_     ^
 ]]
 
 -- Normal Mode Version
@@ -75,6 +75,10 @@ Hydra {
             cmd("lua require('refactoring').debug.cleanup({})"),
             { desc = "Debug print cleanup" },
         },
+        {
+            "s",
+            cmd("lua require('ssr').open()")
+        }
     },
 }
 
@@ -115,6 +119,10 @@ Hydra {
             "v",
             cmd("lua require('refactoring').debug.print_var({ normal = true })"),
             { desc = "Debug print" },
+        },
+        {
+            "s",
+            cmd("lua require('ssr').open()")
         },
         -- Visual Mode Only
         {
