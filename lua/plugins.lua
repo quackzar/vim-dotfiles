@@ -1077,7 +1077,37 @@ return require("packer").startup {
         use("willthbill/opener.nvim")
         use("romgrk/fzy-lua-native") -- for use with wilder
         use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-        use("nvim-telescope/telescope-z.nvim")
+        -- use("nvim-telescope/telescope-z.nvim")
+
+        use({
+            'gnikdroy/projections.nvim',
+            after = {'telescope.nvim'},
+            config = function()
+                require("projections").setup({
+                    patterns = { ".git", ".svn", ".hg", "Cargo.toml"},        -- Patterns to search for, these are NOT regexp
+                })
+                local Session = require("projections.session")
+                local Workspace = require("projections.workspace")
+                require('telescope').load_extension('projections')
+                vim.api.nvim_create_autocmd({ 'DirChangedPre', 'VimLeavePre' }, {
+                    callback = function() Session.store(vim.loop.cwd()) end,
+                    desc = "Store project session",
+                })
+                vim.api.nvim_create_user_command("AddWorkspace", function()
+                    Workspace.add(vim.loop.cwd())
+                end, {})
+                vim.api.nvim_create_user_command('Projects', function()
+                    local find_projects = require("telescope").extensions.projections.projections
+                    find_projects({
+                        action = function(selection)
+                            -- chdir is required since there might not be a session file
+                            vim.fn.chdir(selection.value)
+                            Session.restore(selection.value)
+                        end,
+                    })
+                end, {})
+            end
+        })
 
         use {
             "ziontee113/icon-picker.nvim",

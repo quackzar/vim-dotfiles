@@ -37,7 +37,7 @@ Hydra {
         { "m", cmd("MarksListBuf"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },
         { "r", cmd("Telescope registers") },
-        { "p", cmd("Telescope projects"), { desc = "Projects" } },
+        { "p", cmd("Projects"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
         { ";", cmd("Telescope command_history"), { desc = "Command-line history" } },
