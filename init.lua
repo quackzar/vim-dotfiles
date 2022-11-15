@@ -175,6 +175,8 @@ require("cfg.lsp")
 require("cfg.dap")
 require("cfg.tree")
 
+require('ts-grammars')
+
 require("windline.bubblegum")
 
 require("cfg.whichkey")
