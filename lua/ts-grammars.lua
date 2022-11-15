@@ -1,3 +1,6 @@
+-- # This file is dedicated to keep track of custom treesitter parsers.
+-- Thus they can easily be installed by the normal `TSInstall <parser>`
+
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.vhs = {
   install_info = {
