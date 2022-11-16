@@ -13,7 +13,8 @@ prequire("impatient")
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 -- GUI options
-vim.o.guifont = "JetBrainsMono Nerd Font:h11,Iosevka,nonicons,codicons"
+vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
+-- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
 vim.o.guioptions = "ad"
 
 if vim.fn.exists("g:neovide") then
@@ -75,9 +76,6 @@ vim.o.dictionary = "/usr/share/dict/words"
 vim.o.thesaurus = vim.fn.stdpath("config") .. "/thesaurus/words.txt"
 
 vim.g.loaded_matchit = 1
-
--- vim.g.do_filetype_lua = 1
--- vim.g.did_load_filetypes = 0
 
 vim.opt.list = true
 vim.opt.listchars:append("tab:▷⋅")
