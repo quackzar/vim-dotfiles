@@ -172,7 +172,6 @@ return require("packer").startup {
             end,
         }
 
-
         -- use({
         --     "folke/noice.nvim",
         --     event = "VimEnter",
@@ -531,7 +530,7 @@ return require("packer").startup {
             end,
         }
         use("RRethy/nvim-treesitter-textsubjects")
-        use("nvim-treesitter/nvim-treesitter-textobjects")
+        -- use("nvim-treesitter/nvim-treesitter-textobjects") -- Problem with .rs files
         use("nvim-treesitter/nvim-treesitter-refactor")
         use("nvim-treesitter/playground")
         use { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } }
@@ -650,6 +649,25 @@ return require("packer").startup {
             requires = "nvim-treesitter/nvim-treesitter",
         }
 
+        use({
+            "folke/paint.nvim",
+            config = function()
+                require("paint").setup({
+                    ---@type PaintHighlight[]
+                    highlights = {
+                        {
+                            -- filter can be a table of buffer options that should match,
+                            -- or a function called with buf as param that should return true.
+                            -- The example below will paint @something in comments with Constant
+                            filter = { filetype = "lua" },
+                            pattern = "%s*%-%-%-%s*(@%w+)",
+                            hl = "Constant",
+                        },
+                    },
+                })
+            end,
+        })
+
         -- use {
         --     "ziontee113/syntax-tree-surfer",
         --     config = function() -- TODO: redo keymaps
@@ -738,14 +756,6 @@ return require("packer").startup {
             event = "VimEnter",
             config = function()
                 require("textcase").setup {}
-            end,
-        }
-
-        use {
-            "narutoxy/dim.lua",
-            requires = { "nvim-treesitter/nvim-treesitter", "neovim/nvim-lspconfig" },
-            config = function()
-                require("dim").setup {}
             end,
         }
 
@@ -856,6 +866,7 @@ return require("packer").startup {
         use { "saadparwaiz1/cmp_luasnip" }
         use { "onsails/lspkind-nvim" }
         use {
+            -- disable = true,
             "hrsh7th/nvim-cmp", -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
             config = function()
                 require("cfg.cmp")

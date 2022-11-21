@@ -1,4 +1,3 @@
-local cmp = require("cmp")
 local lspkind = require("lspkind")
 
 lspkind.init {
@@ -40,7 +39,7 @@ local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-
+local cmp = require("cmp")
 cmp.setup {
     snippet = {
         -- REQUIRED - you must specify a snippet engine
@@ -107,7 +106,6 @@ cmp.setup {
     sources = cmp.config.sources {
         { name = "nvim_lsp", group_index = 2 },
         { name = "copilot", group_index = 2 },
-        { name = "omni", group_index = 2 },
         { name = "luasnip", group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
         -- { name = "cmp_tabnine", group_index = 1 },
@@ -138,9 +136,10 @@ cmp.setup {
     },
     window = {
         -- completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
         completion = {
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            -- winhighlight = "Normal:Pmenu",
             col_offset = -3,
             side_padding = 0,
         },
@@ -220,6 +219,7 @@ cmp.setup.cmdline("/", {
     },
 })
 
+
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
@@ -232,6 +232,7 @@ cmp.setup.cmdline(":", {
         { name = "cmdline" },
     }),
 })
+
 
 -- Setup lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -250,11 +251,12 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
         "additionalTextEdits",
     },
 }
+
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.(
 local highlighting = {
     -- PmenuSel                 = { bg = "#282C34", fg = "NONE" },
     -- Pmenu                    = { fg = "#C5CDD9", bg = "#22252A" },
-    CmpItemAbbrDeprecated = { fg = "#7E8294", bg = "NONE", strikethrough = true },
+    CmpItemAbbrDeprecated = { fg = "NONE", bg = "NONE", strikethrough = true },
     CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
     CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
     CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
@@ -302,3 +304,4 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         end
     end,
 })
+

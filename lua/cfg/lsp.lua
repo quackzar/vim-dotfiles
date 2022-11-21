@@ -200,7 +200,10 @@ mason_lsp.setup_handlers { -- check if this actually works
                 autoSetHints = true,
                 hover_with_actions = false,
                 diagnostics = {
-                    disabled = { "inactive-code" },
+                    disabled = {
+                        "inactive-code",
+                        "unused_variables"
+                    },
                 },
                 inlay_hints = {
                     show_parameter_hints = true,
