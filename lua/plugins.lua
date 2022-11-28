@@ -564,6 +564,25 @@ return require("packer").startup {
             end,
         }
 
+        use({
+            'Wansmer/treesj',
+            requires = { 'nvim-treesitter' },
+            config = function()
+                require('treesj').setup({
+                    use_default_keymaps = false,
+                    check_syntax_error = true,
+                })
+                vim.keymap.set({"n"}, "J", "<cmd>TSJJoin<cr>", {
+                    desc = "join nodes",
+                    silent = true,
+                })
+                vim.keymap.set({"n"}, "gJ", "<cmd>TSJSplit<cr>", {
+                    desc = "split nodes",
+                    silent = true,
+                })
+            end,
+        })
+
         use {
             "windwp/nvim-ts-autotag",
             event = "InsertEnter",
@@ -1014,14 +1033,14 @@ return require("packer").startup {
             end,
         }
         use("Konfekt/vim-sentence-chopper")
-        use("flwyd/vim-conjoin")
-        use {
-            "AckslD/nvim-trevJ.lua",
-            config = function()
-                require("trevj").setup()
-                vim.keymap.set("n", "gS", require("trevj").format_at_cursor, { desc = "Split line" })
-            end,
-        }
+        -- use("flwyd/vim-conjoin")
+        -- use {
+        --     "AckslD/nvim-trevJ.lua",
+        --     config = function()
+        --         require("trevj").setup()
+        --         vim.keymap.set("n", "gS", require("trevj").format_at_cursor, { desc = "Split line" })
+        --     end,
+        -- }
 
         use {
             "ThePrimeagen/refactoring.nvim",
