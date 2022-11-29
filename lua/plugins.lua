@@ -1,3 +1,4 @@
+local treesitter_context = require "catppuccin.groups.integrations.treesitter_context"
 -- Prelude {{{
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -335,6 +336,9 @@ return require("packer").startup {
             end,
         }
 
+        use 'eandrju/cellular-automaton.nvim'
+
+
         --- }}}
         -- Colorschemes {{{
         use {
@@ -359,7 +363,27 @@ return require("packer").startup {
             as = "catppuccin",
             config = function()
                 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
-                require("catppuccin").setup()
+                require("catppuccin").setup({
+                    integrations = {
+                        cmp = true,
+                        gitsigns = true,
+                        neotree = true,
+                        telescope = true,
+                        notify = true,
+                        neogit = true,
+                        neotest = true,
+                        overseer = true,
+                        treesitter = true,
+                        treesitter_context = true,
+                        which_key = true,
+                        leap = true,
+                        native_lsp = { enabled = true },
+                        navic = { enabled = true },
+                        dap = { enabled = true },
+                        indent_blankline = { enabled = true },
+
+                    }
+                })
             end
         }
         use("rafamadriz/neon")
@@ -1345,6 +1369,7 @@ return require("packer").startup {
         -- TeX
         use {
             "lervag/vimtex",
+            filetype = {'tex'},
             config = function()
                 vim.g.tex_flavor = "latex"
                 vim.g.vimtex_fold_enabled = 1
@@ -1354,8 +1379,9 @@ return require("packer").startup {
                 vim.g.vimtex_skim_sync = 1
                 vim.g.vimtex_view_method = "skim"
                 vim.g.vimtex_quickfix_mode = 0
-
-                vim.g.vimtex_quickfix_method = "pplatex"
+                -- if vim.fn.executable("pplatex") then
+                --     vim.g.vimtex_quickfix_method = "pplatex"
+                -- end
                 vim.g.vimtex_compiler_latexmk = {
                     options = {
                         "-pdf",

@@ -5,13 +5,13 @@ local function cmd(command)
 end
 
 local hint = [[
-                 _f_: files       _m_: marks
+                 _f_: files       _s_: lsp symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _g_: live grep
   🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _/_: search in file
   🭅█ ▁     █🭐
-  ██🬿      🭊██   _h_: vim help    _c_: change colors
+  ██🬿      🭊██   _h_: vim help    _c_: colorscheme
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _k_: keymap      _;_: commands history
- 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _r_: registers   _?_: search history
+ 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _m_: marks       _?_: search history
 
                  _<Enter>_: Telescope           _<Esc>_
 ]]
@@ -36,7 +36,7 @@ Hydra {
         { "h", cmd("Telescope help_tags"), { desc = "Vim help" } },
         { "m", cmd("MarksListBuf"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },
-        { "r", cmd("Telescope registers") },
+        { "s", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
         { "p", cmd("Projects"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
