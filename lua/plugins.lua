@@ -748,7 +748,7 @@ return require("packer").startup {
         use {
             "folke/trouble.nvim",
             config = function()
-                vim.keymap.set("n", "<leader>xx", "<cmd>Trouble<cr>", { desc = "open trouble" })
+                vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "toggle trouble" })
                 vim.keymap.set("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>")
                 vim.keymap.set("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>")
                 vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
@@ -1098,11 +1098,16 @@ return require("packer").startup {
         use("lcheylus/overlength.nvim")
 
         use("reedes/vim-litecorrect") -- autocorrection! Fixes stupid common mistakes
-        use("kevinhwang91/nvim-bqf")
+        use{ "kevinhwang91/nvim-bqf", config = function()
+            require('bqf').setup({
+                auto_enable = true,
+                auto_resize_height = true,
+            })
+        end}
         -- use("nvim-lua/popup.nvim")
 
         use {
-            "luukvbaal/stabilize.nvim",
+           "luukvbaal/stabilize.nvim",
             config = function()
                 require("stabilize").setup()
             end,

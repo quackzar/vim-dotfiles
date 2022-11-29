@@ -47,8 +47,10 @@ require("bufferline").setup {
             { filetype = "OverseerList", text = "Overseer", text_align = "right" },
         },
         custom_filter = function(buf_num, buf_numbers)
-            if vim.bo[buf_num].filetype ~= "NvimTree" then
-                return true
+            if vim.bo[buf_num].filetype == "NvimTree" or
+                vim.bo[buf_num].filetype == "qf"
+            then
+                return false
             end
         end,
         show_buffer_icons = true,
