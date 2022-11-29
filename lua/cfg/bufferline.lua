@@ -52,6 +52,7 @@ require("bufferline").setup {
             then
                 return false
             end
+            return true
         end,
         show_buffer_icons = true,
         show_buffer_close_icons = true,

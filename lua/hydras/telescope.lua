@@ -5,13 +5,14 @@ local function cmd(command)
 end
 
 local hint = [[
-                 _f_: files       _s_: lsp symbols
-   🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _g_: live grep
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _/_: search in file
-  🭅█ ▁     █🭐
-  ██🬿      🭊██   _h_: vim help    _c_: colorscheme
- 🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _k_: keymap      _;_: commands history
- 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _m_: marks       _?_: search history
+                 _f_: files       _s_: document symbols
+   🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols 
+  🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _g_: live grep      
+  🭅█ ▁     █🭐   _m_: marks       _/_: search in file 
+  ██🬿      🭊██   
+ 🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: colorscheme     
+ 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymap      _;_: commands history
+                 _o_: options     _?_: search history  
 
                  _<Enter>_: Telescope           _<Esc>_
 ]]
@@ -34,16 +35,18 @@ Hydra {
         { "b", cmd("Telescope buffers") },
         { "g", cmd("Telescope live_grep") },
         { "h", cmd("Telescope help_tags"), { desc = "Vim help" } },
-        { "m", cmd("MarksListBuf"), { desc = "Marks" } },
+        { "m", cmd("Telescope marks"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },
-        { "s", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
-        { "p", cmd("Projects"), { desc = "Projects" } },
+        { "s", cmd("Telescope lsp_document_symbols") }, -- consider document_symbols too
+        { "w", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
+        { "p", cmd("Telescope projections theme=dropdown"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
         { ";", cmd("Telescope command_history"), { desc = "Command-line history" } },
+        { "o", cmd("Telescope vim_options") },
         {
             "c",
-            cmd('lua require("telescope.builtin").colorscheme({enable_preview=true})'),
+            cmd('lua require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({enable_preview=true}))'),
             { desc = "Change colorscheme" },
         },
         { "<Enter>", cmd("Telescope"), { exit = true, desc = "List all pickers" } },

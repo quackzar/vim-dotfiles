@@ -596,12 +596,8 @@ return require("packer").startup {
                     use_default_keymaps = false,
                     check_syntax_error = true,
                 })
-                vim.keymap.set({"n"}, "J", "<cmd>TSJJoin<cr>", {
-                    desc = "join nodes",
-                    silent = true,
-                })
-                vim.keymap.set({"n"}, "gJ", "<cmd>TSJSplit<cr>", {
-                    desc = "split nodes",
+                vim.keymap.set({"n"}, "gJ", "<cmd>TSJToggle<cr>", {
+                    desc = "toggle join/split",
                     silent = true,
                 })
             end,
@@ -1057,7 +1053,7 @@ return require("packer").startup {
             end,
         }
         use("Konfekt/vim-sentence-chopper")
-        -- use("flwyd/vim-conjoin")
+        use("flwyd/vim-conjoin")
         -- use {
         --     "AckslD/nvim-trevJ.lua",
         --     config = function()
