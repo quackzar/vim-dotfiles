@@ -554,7 +554,7 @@ return require("packer").startup {
             end,
         }
         use("RRethy/nvim-treesitter-textsubjects")
-        -- use("nvim-treesitter/nvim-treesitter-textobjects") -- Problem with .rs files
+        use("nvim-treesitter/nvim-treesitter-textobjects") -- Problem with .rs files
         use("nvim-treesitter/nvim-treesitter-refactor")
         use("nvim-treesitter/playground")
         use { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } }
