@@ -20,7 +20,7 @@ require("telescope").setup {
             },
         },
     },
-    file_ignore_patterns = { "node_modules", ".git" },
+    file_ignore_patterns = { "node_modules", ".git", "bin", "target", "obj" },
     pickers = {
         -- Default configuration for builtin pickers goes here:
         -- picker_name = {
@@ -47,5 +47,3 @@ require("telescope").setup {
 
 require("telescope").load_extension("fzf")
 -- require("telescope").load_extension("z")
-
-

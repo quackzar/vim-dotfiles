@@ -74,10 +74,10 @@ return require("packer").startup {
         }
 
         use("famiu/bufdelete.nvim")
-        use {
-            "akinsho/bufferline.nvim",
+        use { "akinsho/bufferline.nvim",
             tag = "v2.*",
             requires = "kyazdani42/nvim-web-devicons",
+            after = "catppuccin",
             config = function()
                 require("cfg.bufferline")
             end,
@@ -362,8 +362,11 @@ return require("packer").startup {
             "catppuccin/nvim",
             as = "catppuccin",
             config = function()
-                vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
                 require("catppuccin").setup({
+                    flavour = "mocha",
+                    dim_inactive = {
+                        enabled = true,
+                    },
                     integrations = {
                         cmp = true,
                         gitsigns = true,
@@ -381,7 +384,6 @@ return require("packer").startup {
                         navic = { enabled = true },
                         dap = { enabled = true },
                         indent_blankline = { enabled = true },
-
                     }
                 })
             end
@@ -502,9 +504,15 @@ return require("packer").startup {
         --         }
         --     end,
         -- }
+        -- use { 'petertriho/nvim-scrollbar',
+        --     config = function()
+        --         require("scrollbar").setup()
+        --     end
+        -- }
 
         --- }}}
         -- Treesitter {{{
+
         use {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
@@ -512,6 +520,7 @@ return require("packer").startup {
                 require("cfg.treesitter")
             end,
         }
+
         use {
             "romgrk/nvim-treesitter-context", -- Repo moved to nvim-treesitter
             config = function()
@@ -553,10 +562,15 @@ return require("packer").startup {
                 }
             end,
         }
+
         use("RRethy/nvim-treesitter-textsubjects")
+
         use("nvim-treesitter/nvim-treesitter-textobjects") -- Problem with .rs files
+
         use("nvim-treesitter/nvim-treesitter-refactor")
+
         use("nvim-treesitter/playground")
+
         use { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } }
 
         use {
@@ -667,6 +681,7 @@ return require("packer").startup {
             wants = { "nvim-treesitter" }, -- or require if not used so far
             after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
         }
+
         use {
             "danymat/neogen", -- TODO: research
             config = function()
@@ -734,6 +749,7 @@ return require("packer").startup {
         use("weilbith/nvim-code-action-menu")
         use("kosayoda/nvim-lightbulb")
         use("nvim-lua/lsp-status.nvim")
+
         use {
             "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
             config = function()
@@ -959,9 +975,12 @@ return require("packer").startup {
                 "nvim-lua/plenary.nvim",
                 "nvim-treesitter/nvim-treesitter",
                 "antoinemadec/FixCursorHold.nvim",
+
+                -- Seperate test suites (should maybe be hot-loaded?)
                 "rouge8/neotest-rust",
                 "nvim-neotest/neotest-python",
                 "haydenmeade/neotest-jest",
+                "Issafalcon/neotest-dotnet",
             },
             config = function()
                 require("cfg.neotest")
@@ -1098,6 +1117,9 @@ return require("packer").startup {
             require('bqf').setup({
                 auto_enable = true,
                 auto_resize_height = true,
+                func_map = {
+                    fzffilter = '',
+                }
             })
         end}
         -- use("nvim-lua/popup.nvim")

@@ -37,7 +37,7 @@ require("bufferline").setup {
             {
                 filetype = "neo-tree",
                 text = function()
-                    return "File Explorer (" .. vim.fn.getcwd() .. ")"
+                    return "File Explorer"
                 end,
                 highlight = "Directory",
                 text_align = "left",
@@ -66,6 +66,8 @@ require("bufferline").setup {
         always_show_bufferline = false,
         sort_by = "id",
     },
+    -- Else the bufferline looks weird, however should probably only be loaded if catppuccin is the active colorscheme.
+    highlights = require("catppuccin.groups.integrations.bufferline").get(),
 }
 
 vim.keymap.set('n', ']b', '<cmd>BufferLineCycleNext<cr>', {desc="Next buffer"})

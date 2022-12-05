@@ -27,6 +27,7 @@ require("neotest").setup {
             jestCommand = "npm test --",
             jestConfigFile = "custom.jest.config.ts",
         },
+        require("neotest-dotnet"),
     },
 }
 
