@@ -960,7 +960,10 @@ return require("packer").startup {
             "stevearc/overseer.nvim",
             config = function()
                 require("overseer").setup {
-                    strategy = "toggleterm",
+                    strategy = {
+                        "toggleterm"
+
+                    },
                     task_list = {
                         direction = "right",
                     },
@@ -1008,8 +1011,10 @@ return require("packer").startup {
         -- }
         --
         use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-            require("toggleterm").setup()
-            vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", {silent=true})
+            require("toggleterm").setup({
+                shell = "fish"
+            })
+            vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", {silent=true, desc="Toggle Terminal"})
         end}
 
         -- }}}
@@ -1202,17 +1207,17 @@ return require("packer").startup {
         use {
             'stevearc/resession.nvim',
             config = function()
-                local resession = require('resession').setup()
+                local resession = require('resession')
                 resession.setup({
                     autosave = {
                         enabled = true,
                         interval = 60,
-                        notify = true,
+                        notify = false,
                     },
                 })
-                vim.keymap.set('n', '<leader>ss', resession.save)
-                vim.keymap.set('n', '<leader>sl', resession.load)
-                vim.keymap.set('n', '<leader>sd', resession.delete)
+                vim.keymap.set('n', '<leader>ss', resession.save, {desc="Save session"})
+                vim.keymap.set('n', '<leader>sl', resession.load, {desc="Load session"})
+                vim.keymap.set('n', '<leader>sd', resession.delete, {desc="Delete session"})
             end
         }
 
