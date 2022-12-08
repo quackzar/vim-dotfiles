@@ -98,7 +98,7 @@ return require("packer").startup {
 
         use("rktjmp/lush.nvim")
 
-        use("meznaric/conmenu")
+        use("meznaric/conmenu") -- TODO: DEAD
 
         use("kyazdani42/nvim-web-devicons")
 
@@ -960,6 +960,7 @@ return require("packer").startup {
             "stevearc/overseer.nvim",
             config = function()
                 require("overseer").setup {
+                    strategy = "toggleterm",
                     task_list = {
                         direction = "right",
                     },
@@ -1005,6 +1006,11 @@ return require("packer").startup {
         --	   require('cfg.perfanno')
         -- end
         -- }
+        --
+        use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+            require("toggleterm").setup()
+            vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", {silent=true})
+        end}
 
         -- }}}
 
@@ -1194,6 +1200,25 @@ return require("packer").startup {
         })
 
         use {
+            'stevearc/resession.nvim',
+            config = function()
+                local resession = require('resession').setup()
+                resession.setup({
+                    autosave = {
+                        enabled = true,
+                        interval = 60,
+                        notify = true,
+                    },
+                })
+                vim.keymap.set('n', '<leader>ss', resession.save)
+                vim.keymap.set('n', '<leader>sl', resession.load)
+                vim.keymap.set('n', '<leader>sd', resession.delete)
+            end
+        }
+
+        use {
+
+
             "ziontee113/icon-picker.nvim",
             config = function()
                 require("icon-picker")

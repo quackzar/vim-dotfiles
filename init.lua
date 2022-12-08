@@ -47,7 +47,7 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.smarttab = true
 vim.o.guicursor = table.concat({
-    [[n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50]],
+    [[n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50]],
     -- [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
     [[sm:block-blinkwait175-blinkoff150-blinkon175]],
 }, ",")
@@ -117,14 +117,16 @@ vim.keymap.set("v", "@", ":normal @")
 vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 vim.keymap.set('n', '<space>q', '<cmd>copen<cr>', {silent=true, desc="Open quickfix"})
+vim.keymap.set('n', ']q', '<cmd>cnext<cr>', {silent=true, desc="Next quickfix"})
+vim.keymap.set('n', '[q', '<cmd>cprev<cr>', {silent=true, desc="Previous quickfix"})
 
-vim.api.nvim_create_autocmd("TermOpen", {
-    group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
-    callback = function()
-        vim.wo.number = false
-        vim.cmd.startinsert()
-    end,
-})
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--     group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
+--     callback = function()
+--         vim.wo.number = false
+--         vim.cmd.startinsert()
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
@@ -142,7 +144,7 @@ augroup easy_close
     autocmd FileType qf setlocal wrap
 augroup END
 
-autocmd FileType qf nnoremap <buffer> <C-]> <CR>
+" autocmd FileType qf nnoremap <buffer> <C-]> <CR>
 augroup improved_autoread
   autocmd!
   autocmd FocusGained * silent! checktime
