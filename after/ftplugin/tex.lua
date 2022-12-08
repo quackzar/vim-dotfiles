@@ -30,7 +30,6 @@ require("cmp").setup.buffer {
         { name = "nvim_lsp", group_index = 1 },
         -- { name = "copilot", group_index = 2 },
         { name = "omni", group_index = 1 },
-        { name = "luasnip", group_index = 2 }, -- For luasnip users.
         -- { name = "cmp_tabnine", group_index = 2 },
         -- other sources
     },

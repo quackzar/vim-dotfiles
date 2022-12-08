@@ -161,6 +161,9 @@ capabilities.textDocument.foldingRange = {
 require("mason").setup()
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
+require("mason-null-ls").setup({
+    automatic_setup = true,
+})
 require("neodev").setup({})
 
 mason_lsp.setup {

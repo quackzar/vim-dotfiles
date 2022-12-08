@@ -309,6 +309,9 @@ return require("packer").startup {
                 local keymap = vim.keymap
                 keymap.amend = require("keymap-amend")
                 vim.wo.foldcolumn = "0"
+                local ftMap = {
+                    tex = 'treesitter'
+                }
                 require("ufo").setup {
                     { "lsp", "treesitter" },
                     preview = {
@@ -322,6 +325,9 @@ return require("packer").startup {
                             scrollD = "<C-d>",
                         },
                     },
+                    provider_selector = function(_, ft, _)
+                        return ftMap[ft]
+                    end,
                 }
                 vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
                 vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Minimize all folds" })
@@ -743,6 +749,7 @@ return require("packer").startup {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "jayp0521/mason-nvim-dap.nvim",
+            "jayp0521/mason-null-ls.nvim",
             "neovim/nvim-lspconfig",
         }
 
@@ -1397,7 +1404,7 @@ return require("packer").startup {
                 vim.g.tex_flavor = "latex"
                 vim.g.vimtex_fold_enabled = 1
                 vim.g.vimtex_format_enabled = 1
-                vim.g.tex_comment_nospell = 1
+                vim.g.vimtex_syntax_nospell_comments = 1
                 vim.g.vimtex_complete_bib = { simple = 1 }
                 vim.g.vimtex_skim_sync = 1
                 vim.g.vimtex_view_method = "skim"

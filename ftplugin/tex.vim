@@ -15,7 +15,8 @@ vmap <buffer> k gk
 nnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 
-nnoremap <buffer> K <Plug>(vimtex-doc-package)
+" reclaim keywordprg mapping
+nnoremap <buffer> K K
 
 " So the other one doesn't seem to work, so I did this instead
 " nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>

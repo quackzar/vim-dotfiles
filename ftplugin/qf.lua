@@ -4,3 +4,5 @@ vim.keymap.set('n', 'zf', function()
         require('telescope.themes').get_ivy()
     )
 end, {buffer = true, nowait = true})
+
+-- vim.keymap.set('n', '<C-w><C-o>', '<nop>', {buffer = true})

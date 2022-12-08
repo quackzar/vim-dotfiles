@@ -276,3 +276,10 @@ require("neo-tree").setup {
 
 vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
 vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file tree" })
+
+-- doesn't work
+-- vim.api.nvim_create_autocmd('FileType', {
+--     group = vim.api.nvim_create_augroup("neo-tree-settings", { clear = true}),
+--     pattern = 'neo-tree',
+--     command = 'setlocal cursorlineopt=line',
+-- })
