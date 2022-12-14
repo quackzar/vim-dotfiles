@@ -105,7 +105,7 @@ return require("packer").startup {
         use {
             "goolord/alpha-nvim",
             config = function()
-                require("alpha").setup(require("alpha.themes.dashboard").config)
+                require("alpha").setup(require("alpha.themes.theta").config)
             end,
         }
 
@@ -822,7 +822,7 @@ return require("packer").startup {
         }
 
         use {'simrat39/symbols-outline.nvim',
-            disable = true,
+            disable = false,
             config = function ()
                 require("symbols-outline").setup({
                     symbols = {
@@ -854,7 +854,22 @@ return require("packer").startup {
                         TypeParameter = {icon = " ", hl = "TSParameter"}
                     }
                 })
-                vim.keymap.set("n", "<leader>v", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Outline" })
+                vim.keymap.set("n", "<leader>V", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Outline" })
+            end
+        }
+
+        use {
+            'stevearc/aerial.nvim',
+            config = function()
+                require('aerial').setup({
+                    backends = { "treesitter", "lsp", "markdown", "man" },
+                    on_attach = function(bufnr)
+                        -- Jump forwards/backwards with '{' and '}'
+                        vim.keymap.set('n', '[[', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+                        vim.keymap.set('n', ']]', '<cmd>AerialNext<CR>', {buffer = bufnr})
+                    end
+                })
+                vim.keymap.set('n', '<leader>v', '<cmd>AerialToggle!<CR>', { desc = "Toggle Aerial" })
             end
         }
 
@@ -1215,7 +1230,7 @@ return require("packer").startup {
                         notify = false,
                     },
                 })
-                vim.keymap.set('n', '<leader>ss', resession.save, {desc="Save session"})
+                vim.keymap.set('n', '<leader>ss', resession.save_tab, {desc="Save session"})
                 vim.keymap.set('n', '<leader>sl', resession.load, {desc="Load session"})
                 vim.keymap.set('n', '<leader>sd', resession.delete, {desc="Delete session"})
             end
