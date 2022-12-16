@@ -387,7 +387,6 @@ return require("packer").startup {
                         which_key = true,
                         leap = true,
                         native_lsp = { enabled = true },
-                        navic = { enabled = true },
                         dap = { enabled = true },
                         indent_blankline = { enabled = true },
                     }
@@ -871,47 +870,6 @@ return require("packer").startup {
                 })
                 vim.keymap.set('n', '<leader>v', '<cmd>AerialToggle!<CR>', { desc = "Toggle Aerial" })
             end
-        }
-
-        use {
-            "SmiteshP/nvim-navic",
-            requires = "neovim/nvim-lspconfig",
-            config = function()
-                vim.g.navic_silence = true
-                require("nvim-navic").setup {
-                    depth_limit = 4,
-                    depth_limit_indicator = '',
-                    separator = " ",
-                    icons = {
-                        File          = " ",
-                        Module        = " ",
-                        Namespace     = " ",
-                        Package       = " ",
-                        Class         = " ",
-                        Method        = " ",
-                        Property      = " ",
-                        Field         = " ",
-                        Constructor   = " ",
-                        Enum          = " ",
-                        Interface     = " ",
-                        Function      = " ",
-                        Variable      = " ",
-                        Constant      = " ",
-                        String        = " ",
-                        Number        = " ",
-                        Boolean       = " ",
-                        Array         = " ",
-                        Object        = " ",
-                        Key           = " ",
-                        Null          = " ",
-                        EnumMember    = " ",
-                        Struct        = " ",
-                        Event         = " ",
-                        Operator      = " ",
-                        TypeParameter = " ",
-                    },
-                }
-            end,
         }
 
         -- use{

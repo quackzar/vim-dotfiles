@@ -92,7 +92,7 @@ basic.lsp_diagnos = {
     end,
 }
 
-basic.navic = {
+basic.hydra = {
     hl_colors = {
         magenta = { "magenta", "black" },
     },
@@ -100,10 +100,6 @@ basic.navic = {
         local hint = require('hydra.statusline').get_hint()
         if hint then
             return ' ' .. hint
-        end
-        local navic = require("nvim-navic")
-        if navic.is_available() then
-            return { { " 殺 " .. navic.get_location { highlight = false }, "magenta" } }
         end
         return ""
     end,
@@ -228,7 +224,7 @@ local default = {
         { sep.right_rounded, { "black_light", "black" } },
         { vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]) },
         basic.lsp_diagnos,
-        basic.navic,
+        basic.hydra,
         basic.divider,
         basic.git,
         { git_comps.git_branch { icon = "  " }, { "green", "black" }, 90 },
