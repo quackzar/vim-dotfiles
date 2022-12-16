@@ -1,6 +1,7 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 local renderer = require("neo-tree.ui.renderer")
 
+-- Fold mappings {{{
 -- Expand a node and load filesystem info if needed.
 local function open_dir(state, dir_node)
     local fs = require("neo-tree.sources.filesystem")
@@ -207,12 +208,18 @@ local function neotree_zR(state)
     redraw_after_depthlevel_change(state, false)
 end
 
+--- }}}
+
 require("neo-tree").setup {
     sources = {
         "filesystem",
         "buffers",
         "git_status",
-        "diagnostics",
+        -- "diagnostics",
+    },
+    source_selector = {
+        winbar = true,
+        truncation_character = "…",
     },
     close_if_last_window = true,
     filesystem = {
@@ -283,3 +290,5 @@ vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file 
 --     pattern = 'neo-tree',
 --     command = 'setlocal cursorlineopt=line',
 -- })
+
+-- vim foldmethod=manual

@@ -969,6 +969,20 @@ return require("packer").startup {
             event = "InsertEnter",
         }
 
+        use({
+            "jackMort/ChatGPT.nvim",
+            config = function()
+                require("chatgpt").setup({
+                    -- optional configuration
+                })
+            end,
+            requires = {
+                "MunifTanjim/nui.nvim",
+                "nvim-lua/plenary.nvim",
+                "nvim-telescope/telescope.nvim"
+            }
+        })
+
         -- }}}
         -- Running, Testing and Debugging {{{
         use {
@@ -1457,6 +1471,10 @@ return require("packer").startup {
                 -- if vim.fn.executable("pplatex") then
                 --     vim.g.vimtex_quickfix_method = "pplatex"
                 -- end
+                vim.g.vimtex_toc_config = {
+                    split_pos = "vert rightbelow",
+                    show_help = 0,
+                }
                 vim.g.vimtex_compiler_latexmk = {
                     options = {
                         "-pdf",

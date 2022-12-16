@@ -37,14 +37,16 @@ require("bufferline").setup {
             {
                 filetype = "neo-tree",
                 text = function()
-                    return "File Explorer"
+                    return "Neo Tree" -- TODO: show current source
                 end,
-                highlight = "Directory",
+                -- highlight = "Directory",
                 text_align = "left",
             },
             { filetype = "SidebarNvim", text = "Sidebar NVIM", text_align = "left" },
+            { filetype = "aerial", text = "Aerial", text_align = "right" },
             { filetype = "Outline", text = "Symbols", text_align = "right" },
             { filetype = "OverseerList", text = "Overseer", text_align = "right" },
+            { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "right" },
         },
         custom_filter = function(buf_num, buf_numbers)
             if vim.bo[buf_num].filetype == "NvimTree" or
