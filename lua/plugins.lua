@@ -31,6 +31,7 @@ return require("packer").startup {
 
         use("antoinemadec/FixCursorHold.nvim")
         use("anuvyklack/keymap-amend.nvim")
+        use("stevearc/stickybuf.nvim")
 
         use {
             "folke/persistence.nvim",
