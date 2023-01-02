@@ -53,6 +53,7 @@ return require("packer").startup {
         --         })
         --     end
         -- }
+
         use { "anuvyklack/windows.nvim",
             requires = {
                 "anuvyklack/middleclass",
@@ -1002,6 +1003,12 @@ return require("packer").startup {
                 shell = "fish"
             })
             vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", {silent=true, desc="Toggle Terminal"})
+            vim.keymap.set(
+                {"n", "i", "v", "t", "t"},
+                "<C-\\>",
+                "<cmd>ToggleTerm<cr>",
+                {silent=true, desc="Toggle Terminal"}
+            )
         end}
 
         -- }}}
