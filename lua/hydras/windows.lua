@@ -21,7 +21,7 @@ local buffer_hydra = Hydra {
         -- Execute an async functions synchronously to preserve the animation.
         { "H", cmd("BufferLineMovePrev") },
         { "L", cmd("BufferLineMoveNext"), { desc = "move" } },
-        { "c", cmd("BufferLinePickClose") , { desc = "close" } },
+        { "c", cmd("Bdelete") , { desc = "close" } },
 
         { "b", cmd("BufferLinePick"), { exit = true, desc = "pick" } },
         { "od", cmd("BufferLineSortByDirectory"), { desc = "by directory" } },

@@ -291,4 +291,4 @@ vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file 
 --     command = 'setlocal cursorlineopt=line',
 -- })
 
--- vim foldmethod=manual
+-- vim foldmethod=marker

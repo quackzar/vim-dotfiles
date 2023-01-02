@@ -172,6 +172,7 @@ require("functions")
 require("packer_compiled")
 
 -- load specific configs
+require("mason").setup()
 require("cfg.lsp")
 require("cfg.dap")
 require("cfg.tree")

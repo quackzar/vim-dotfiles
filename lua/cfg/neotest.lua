@@ -12,6 +12,7 @@ require("neotest").setup {
         final_child_prefix = "╰",
         child_indent = "│",
         final_child_indent = " ",
+        running_animated = {"←", "↖", "↑", "↗", "→", "↘", "↓", "↙"}
     },
     status = {
         virtual_text = true,

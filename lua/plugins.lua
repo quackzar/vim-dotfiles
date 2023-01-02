@@ -372,7 +372,7 @@ return require("packer").startup {
                 require("catppuccin").setup({
                     flavour = "mocha",
                     dim_inactive = {
-                        enabled = true,
+                        enabled = false,
                     },
                     integrations = {
                         cmp = true,
@@ -949,8 +949,7 @@ return require("packer").startup {
             config = function()
                 require("overseer").setup {
                     strategy = {
-                        "toggleterm"
-
+                        "toggleterm",
                     },
                     task_list = {
                         direction = "right",
@@ -1202,6 +1201,10 @@ return require("packer").startup {
                         interval = 60,
                         notify = false,
                     },
+                    tab_buf_filter = function(tabpage, bufnr)
+                        local dir = vim.fn.getcwd(-1, vim.api.nvim_tabpage_get_number(tabpage))
+                        return vim.startswith(vim.api.nvim_buf_get_name(bufnr), dir)
+                    end,
                 })
                 vim.keymap.set('n', '<leader>ss', resession.save_tab, {desc="Save session"})
                 vim.keymap.set('n', '<leader>sl', resession.load, {desc="Load session"})
@@ -1427,9 +1430,9 @@ return require("packer").startup {
                 vim.g.vimtex_skim_sync = 1
                 vim.g.vimtex_view_method = "skim"
                 vim.g.vimtex_quickfix_mode = 0
-                -- if vim.fn.executable("pplatex") then
-                --     vim.g.vimtex_quickfix_method = "pplatex"
-                -- end
+                if vim.fn.executable("pplatex") then
+                    vim.g.vimtex_quickfix_method = "pplatex"
+                end
                 vim.g.vimtex_toc_config = {
                     split_pos = "vert rightbelow",
                     show_help = 0,

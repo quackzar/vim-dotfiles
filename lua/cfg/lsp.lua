@@ -97,10 +97,6 @@ function on_attach(client, bufnr)
         },
     }, bufnr)
 
-    if client.server_capabilities.documentSymbolProvider then
-        require("nvim-navic").attach(client, bufnr)
-    end
-
     -- if client.server_capabilities.signatureHelpProvider then
     --     require("lsp-overloads").setup(client, {
     --         ui = {
@@ -158,7 +154,6 @@ capabilities.textDocument.foldingRange = {
     lineFoldingOnly = true,
 }
 
-require("mason").setup()
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
 require("mason-null-ls").setup({
