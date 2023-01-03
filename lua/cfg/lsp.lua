@@ -196,7 +196,6 @@ mason_lsp.setup_handlers { -- check if this actually works
                 }
             },
             tools = {
-                autoSetHints = true,
                 hover_with_actions = false,
                 diagnostics = {
                     disabled = {
@@ -205,7 +204,8 @@ mason_lsp.setup_handlers { -- check if this actually works
                     },
                 },
                 inlay_hints = {
-                    show_parameter_hints = true,
+                    auto = false,
+                    show_parameter_hints = false,
                     parameter_hints_prefix = "← ",
                     other_hints_prefix = "» ",
                 },
