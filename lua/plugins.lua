@@ -692,20 +692,23 @@ return require("packer").startup {
         use {
             "danymat/neogen", -- TODO: research
             config = function()
-                vim.keymap.set("n", "<Leader>nf", require("neogen").generate, { desc = "document function" })
-                vim.keymap.set("n", "<Leader>nc", function()
-                    require("neogen").generate { type = "class" }
-                end, { desc = "document class" })
-                vim.keymap.set("n", "<Leader>nF", function()
-                    require("neogen").generate { type = "file" }
-                end, { desc = "document file" })
-                vim.keymap.set("n", "<Leader>nt", function()
-                    require("neogen").generate { type = "type" }
-                end, { desc = "document type" })
                 require("neogen").setup {
                     enabled = true,
                     snippet_engine = "luasnip",
+                    languages = {
+                        cs = { template = { annotation_convention = "xmldoc"} },
+                    }
                 }
+
+                vim.keymap.set("n", "<Leader>nn", require("neogen").generate, { desc = "document thing" })
+                vim.keymap.set("n", "<Leader>nf", function()
+                    require("neogen").generate { type = "func"}
+                end, { desc = "document function" })
+                vim.keymap.set("n", "<Leader>nc", function() require("neogen").generate { type = "class" }
+                end, { desc = "document class" }) vim.keymap.set("n", "<Leader>nd", function()
+                    require("neogen").generate { type = "file" } end, { desc = "document file" })
+                vim.keymap.set("n", "<Leader>nt", function() require("neogen").generate { type = "type" }
+                end, { desc = "document type" })
             end,
             requires = "nvim-treesitter/nvim-treesitter",
         }
@@ -714,7 +717,6 @@ return require("packer").startup {
             "folke/paint.nvim",
             config = function()
                 require("paint").setup({
-                    ---@type PaintHighlight[]
                     highlights = {
                         {
                             -- filter can be a table of buffer options that should match,

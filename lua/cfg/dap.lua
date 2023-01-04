@@ -22,4 +22,8 @@ dap.adapters.netcoredb = {
 require("mason-nvim-dap").setup({
     automatic_setup = true,
 })
-require 'mason-nvim-dap'.setup_handlers()
+require 'mason-nvim-dap'.setup_handlers({
+    function(source)
+        require('mason-nvim-dap.automatic_setup')(source)
+    end,
+})

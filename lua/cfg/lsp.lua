@@ -117,15 +117,15 @@ function on_attach(client, bufnr)
     -- vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic" })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition,      { buffer = bufnr, desc = "Go to definition" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration,     { buffer = bufnr, desc = "Go to declaration" })
-    vim.keymap.set("n", "gI", vim.lsp.buf.implementation,  { buffer = bufnr, desc = "Go to implementation" })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration" })
+    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation" })
     vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Go to type definition" })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references,      { buffer = bufnr, desc = "References" })
-    vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls,  { buffer = bufnr, desc = "Outgoing calls" })
-    vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls,  { buffer = bufnr, desc = "Incoming calls" })
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "References" })
+    vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "Outgoing calls" })
+    vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "Incoming calls" })
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-    vim.keymap.set({"n", "v"}, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action" })
+    vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action" })
     -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Prev diagnostic" })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })
@@ -175,12 +175,15 @@ mason_lsp.setup_handlers { -- check if this actually works
     end,
     ["rust_analyzer"] = function()
         local rt = require("rust-tools")
+        local extension_path = "/Users/mikkel/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/"
+        local codelldb_path = extension_path .. 'adapter/codelldb'
+        local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib' -- TODO: switch on linux
         rt.setup {
             server = {
                 on_attach = function(client, bufnr)
                     on_attach(client, bufnr)
-                    vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-                    -- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+                    vim.keymap.set("n", "<localleader>a", rt.hover_actions.hover_actions, { buffer = bufnr })
+                    vim.keymap.set("n", "<RightMouse>", rt.hover_actions.hover_actions, { buffer = bufnr })
                 end,
                 capabilities = capabilities,
                 settings = {
@@ -195,13 +198,20 @@ mason_lsp.setup_handlers { -- check if this actually works
                     }
                 }
             },
+            dap = {
+                adapters = { require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path) },
+            },
             tools = {
+                executor = require("rust-tools/executors").toggleterm,
                 hover_with_actions = false,
                 diagnostics = {
                     disabled = {
                         "inactive-code",
                         "unused_variables"
                     },
+                },
+                hover_actions = {
+                    auto_focus = true
                 },
                 inlay_hints = {
                     auto = false,

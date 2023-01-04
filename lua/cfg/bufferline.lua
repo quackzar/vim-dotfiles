@@ -50,7 +50,8 @@ require("bufferline").setup {
         },
         custom_filter = function(buf_num, buf_numbers)
             if vim.bo[buf_num].filetype == "NvimTree" or
-                vim.bo[buf_num].filetype == "qf"
+                vim.bo[buf_num].filetype == "qf" or
+                vim.bo[buf_num].filetype == "dap-repl"
             then
                 return false
             end
