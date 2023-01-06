@@ -9,3 +9,11 @@ repos:
   rev: v0.14.2
   hooks:
     - id: stylua # or stylua-system / stylua-github
+- repo: local
+  hooks:
+    - id: trufflehog
+      name: TruffleHog
+      description: Detect secrets in your data.
+      entry: bash -c 'trufflehog-launcher git main HEAD'
+      language: system
+      stages: ["push"]

@@ -1013,6 +1013,15 @@ return require("packer").startup {
             )
         end}
 
+        use {"p00f/godbolt.nvim", config = function()
+            require("godbolt").setup({
+                quickfix = {
+                    enable = true, -- whether to populate the quickfix list in case of errors
+                    auto_open = true -- whether to open the quickfix list in case of errors
+                },
+            })
+        end}
+
         -- }}}
 
         -- Generic Editor Plugins {{{
