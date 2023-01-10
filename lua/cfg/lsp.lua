@@ -156,10 +156,16 @@ capabilities.textDocument.foldingRange = {
 
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
-require("mason-null-ls").setup({
+require("mason-null-ls").setup {
     automatic_setup = true,
-})
-require("neodev").setup({})
+}
+require("neodev").setup {
+    settings = {
+        Lua = {
+            workspace = { checkThirdParty = false },
+        },
+    },
+}
 
 mason_lsp.setup {
     ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
@@ -176,8 +182,8 @@ mason_lsp.setup_handlers { -- check if this actually works
     ["rust_analyzer"] = function()
         local rt = require("rust-tools")
         local extension_path = "/Users/mikkel/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/"
-        local codelldb_path = extension_path .. 'adapter/codelldb'
-        local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib' -- TODO: switch on linux
+        local codelldb_path = extension_path .. "adapter/codelldb"
+        local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib" -- TODO: switch on linux
         rt.setup {
             server = {
                 on_attach = function(client, bufnr)
@@ -187,19 +193,19 @@ mason_lsp.setup_handlers { -- check if this actually works
                 end,
                 capabilities = capabilities,
                 settings = {
-                    ['rust-analyzer'] = {
+                    ["rust-analyzer"] = {
                         cargo = {
                             features = "all",
                             buildScripts = { enable = true },
                         },
                         checkOnSave = {
-                            command = "clippy"
-                        }
-                    }
-                }
+                            command = "clippy",
+                        },
+                    },
+                },
             },
             dap = {
-                adapters = { require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path) },
+                adapters = { require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path) },
             },
             tools = {
                 executor = require("rust-tools/executors").toggleterm,
@@ -207,11 +213,11 @@ mason_lsp.setup_handlers { -- check if this actually works
                 diagnostics = {
                     disabled = {
                         "inactive-code",
-                        "unused_variables"
+                        "unused_variables",
                     },
                 },
                 hover_actions = {
-                    auto_focus = true
+                    auto_focus = true,
                 },
                 inlay_hints = {
                     auto = false,

@@ -1,4 +1,4 @@
-local treesitter_context = require "catppuccin.groups.integrations.treesitter_context"
+local treesitter_context = require("catppuccin.groups.integrations.treesitter_context")
 -- Prelude {{{
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -54,29 +54,37 @@ return require("packer").startup {
         --     end
         -- }
 
-        use { "anuvyklack/windows.nvim",
+        --TODO: requires: v0.9
+        -- use({
+        --     "luukvbaal/statuscol.nvim",
+        --     config = function() require("statuscol").setup() end
+        -- })
+
+        use {
+            "anuvyklack/windows.nvim",
             requires = {
                 "anuvyklack/middleclass",
-                "anuvyklack/animation.nvim"
+                "anuvyklack/animation.nvim",
             },
             config = function()
                 vim.o.winwidth = 10
                 vim.o.winminwidth = 10
                 vim.o.equalalways = false
-                require('windows').setup({
+                require("windows").setup {
                     autowidth = {
-                        enable = false
+                        enable = false,
                     },
                     ignore = {
                         buftype = { "quickfix" },
-                        filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "packer", "OverseerList" }
+                        filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "packer", "OverseerList" },
                     },
-                })
-            end
+                }
+            end,
         }
 
         use("famiu/bufdelete.nvim")
-        use { "akinsho/bufferline.nvim",
+        use {
+            "akinsho/bufferline.nvim",
             tag = "v2.*",
             requires = "kyazdani42/nvim-web-devicons",
             after = "catppuccin",
@@ -151,11 +159,10 @@ return require("packer").startup {
             end,
         }
 
-
         use {
             "kevinhwang91/nvim-hlslens",
             config = function()
-                require('hlslens').setup()
+                require("hlslens").setup()
                 vim.keymap.set(
                     "",
                     "n",
@@ -249,13 +256,11 @@ return require("packer").startup {
             "nvim-zh/colorful-winsep.nvim",
             disable = true,
             config = function()
-                require('colorful-winsep').setup({
+                require("colorful-winsep").setup {
                     no_exec_files = { "packer", "TelescopePrompt", "mason", "OverseerList", "Symbols", "neo-tree" },
-                })
+                }
             end,
         }
-
-
 
         use("sindrets/winshift.nvim") -- Used in a Hydra
         use {
@@ -312,7 +317,7 @@ return require("packer").startup {
                 keymap.amend = require("keymap-amend")
                 vim.wo.foldcolumn = "0"
                 local ftMap = {
-                    tex = 'treesitter'
+                    tex = "treesitter",
                 }
                 require("ufo").setup {
                     { "lsp", "treesitter" },
@@ -344,8 +349,7 @@ return require("packer").startup {
             end,
         }
 
-        use 'eandrju/cellular-automaton.nvim'
-
+        use("eandrju/cellular-automaton.nvim")
 
         --- }}}
         -- Colorschemes {{{
@@ -370,7 +374,7 @@ return require("packer").startup {
             "catppuccin/nvim",
             as = "catppuccin",
             config = function()
-                require("catppuccin").setup({
+                require("catppuccin").setup {
                     flavour = "mocha",
                     dim_inactive = {
                         enabled = false,
@@ -391,9 +395,9 @@ return require("packer").startup {
                         native_lsp = { enabled = true },
                         dap = { enabled = true },
                         indent_blankline = { enabled = true },
-                    }
-                })
-            end
+                    },
+                }
+            end,
         }
         use("rafamadriz/neon")
         use("mhartington/oceanic-next")
@@ -413,7 +417,7 @@ return require("packer").startup {
         use("rebelot/kanagawa.nvim")
         use("shaunsingh/moonlight.nvim")
 
-        use('raddari/last-color.nvim')
+        use("raddari/last-color.nvim")
 
         -- }}}
         -- Version Control and Git {{{
@@ -609,20 +613,34 @@ return require("packer").startup {
             end,
         }
 
-        use({
-            'Wansmer/treesj',
-            requires = { 'nvim-treesitter' },
+        use {
+            "Wansmer/treesj",
+            requires = { "nvim-treesitter" },
             config = function()
-                require('treesj').setup({
+                require("treesj").setup {
                     use_default_keymaps = false,
                     check_syntax_error = true,
-                })
-                vim.keymap.set({"n"}, "gJ", "<cmd>TSJToggle<cr>", {
+                }
+                vim.keymap.set({ "n" }, "gJ", "<cmd>TSJToggle<cr>", {
                     desc = "toggle join/split",
                     silent = true,
                 })
             end,
-        })
+        }
+
+        use {
+            "ckolkey/ts-node-action",
+            requires = { "nvim-treesitter" },
+            config = function() -- Optional
+                require("ts-node-action").setup {}
+                vim.keymap.set(
+                    { "n" },
+                    "<localleader>t",
+                    require("ts-node-action").node_action,
+                    { desc = "Trigger Node Action" }
+                )
+            end,
+        }
 
         use {
             "windwp/nvim-ts-autotag",
@@ -652,10 +670,11 @@ return require("packer").startup {
                     },
                 }
                 -- TODO: Find approriate keymap
-                vim.keymap.set({ "n", "x" }, "<leader>rs", function() require("ssr").open() end)
-            end
+                vim.keymap.set({ "n", "x" }, "<leader>rs", function()
+                    require("ssr").open()
+                end)
+            end,
         }
-
 
         use {
             "abecodes/tabout.nvim",
@@ -696,27 +715,31 @@ return require("packer").startup {
                     enabled = true,
                     snippet_engine = "luasnip",
                     languages = {
-                        cs = { template = { annotation_convention = "xmldoc"} },
-                    }
+                        cs = { template = { annotation_convention = "xmldoc" } },
+                    },
                 }
 
                 vim.keymap.set("n", "<Leader>nn", require("neogen").generate, { desc = "document thing" })
                 vim.keymap.set("n", "<Leader>nf", function()
-                    require("neogen").generate { type = "func"}
+                    require("neogen").generate { type = "func" }
                 end, { desc = "document function" })
-                vim.keymap.set("n", "<Leader>nc", function() require("neogen").generate { type = "class" }
-                end, { desc = "document class" }) vim.keymap.set("n", "<Leader>nd", function()
-                    require("neogen").generate { type = "file" } end, { desc = "document file" })
-                vim.keymap.set("n", "<Leader>nt", function() require("neogen").generate { type = "type" }
+                vim.keymap.set("n", "<Leader>nc", function()
+                    require("neogen").generate { type = "class" }
+                end, { desc = "document class" })
+                vim.keymap.set("n", "<Leader>nd", function()
+                    require("neogen").generate { type = "file" }
+                end, { desc = "document file" })
+                vim.keymap.set("n", "<Leader>nt", function()
+                    require("neogen").generate { type = "type" }
                 end, { desc = "document type" })
             end,
             requires = "nvim-treesitter/nvim-treesitter",
         }
 
-        use({
+        use {
             "folke/paint.nvim",
             config = function()
-                require("paint").setup({
+                require("paint").setup {
                     highlights = {
                         {
                             -- filter can be a table of buffer options that should match,
@@ -727,9 +750,9 @@ return require("packer").startup {
                             hl = "Constant",
                         },
                     },
-                })
+                }
             end,
-        })
+        }
 
         -- use {
         --     "ziontee113/syntax-tree-surfer",
@@ -815,7 +838,6 @@ return require("packer").startup {
 
         use("jose-elias-alvarez/null-ls.nvim")
 
-
         use {
             "johmsalas/text-case.nvim",
             event = "VimEnter",
@@ -824,56 +846,57 @@ return require("packer").startup {
             end,
         }
 
-        use {'simrat39/symbols-outline.nvim',
+        use {
+            "simrat39/symbols-outline.nvim",
             disable = false,
-            config = function ()
-                require("symbols-outline").setup({
+            config = function()
+                require("symbols-outline").setup {
                     symbols = {
-                        File          = {icon = " ", hl = "TSURI"},
-                        Module        = {icon = " ", hl = "TSNamespace"},
-                        Namespace     = {icon = " ", hl = "TSNamespace"},
-                        Package       = {icon = " ", hl = "TSNamespace"},
-                        Class         = {icon = " ", hl = "TSType"},
-                        Method        = {icon = " ", hl = "TSMethod"},
-                        Property      = {icon = " ", hl = "TSMethod"},
-                        Field         = {icon = " ", hl = "TSField"},
-                        Constructor   = {icon = " ", hl = "TSConstructor"},
-                        Enum          = {icon = " ", hl = "TSType"},
-                        Interface     = {icon = " ", hl = "TSType"},
-                        Function      = {icon = " ", hl = "TSFunction"},
-                        Variable      = {icon = " ", hl = "TSConstant"},
-                        Constant      = {icon = " ", hl = "TSConstant"},
-                        String        = {icon = " ", hl = "TSString"},
-                        Number        = {icon = " ", hl = "TSNumber"},
-                        Boolean       = {icon = " ", hl = "TSBoolean"},
-                        Array         = {icon = " ", hl = "TSConstant"},
-                        Object        = {icon = " ", hl = "TSType"},
-                        Key           = {icon = " ", hl = "TSType"},
-                        Null          = {icon = " ", hl = "TSType"},
-                        EnumMember    = {icon = " ", hl = "TSField"},
-                        Struct        = {icon = " ", hl = "TSType"},
-                        Event         = {icon = " ", hl = "TSType"},
-                        Operator      = {icon = " ", hl = "TSOperator"},
-                        TypeParameter = {icon = " ", hl = "TSParameter"}
-                    }
-                })
+                        File = { icon = " ", hl = "TSURI" },
+                        Module = { icon = " ", hl = "TSNamespace" },
+                        Namespace = { icon = " ", hl = "TSNamespace" },
+                        Package = { icon = " ", hl = "TSNamespace" },
+                        Class = { icon = " ", hl = "TSType" },
+                        Method = { icon = " ", hl = "TSMethod" },
+                        Property = { icon = " ", hl = "TSMethod" },
+                        Field = { icon = " ", hl = "TSField" },
+                        Constructor = { icon = " ", hl = "TSConstructor" },
+                        Enum = { icon = " ", hl = "TSType" },
+                        Interface = { icon = " ", hl = "TSType" },
+                        Function = { icon = " ", hl = "TSFunction" },
+                        Variable = { icon = " ", hl = "TSConstant" },
+                        Constant = { icon = " ", hl = "TSConstant" },
+                        String = { icon = " ", hl = "TSString" },
+                        Number = { icon = " ", hl = "TSNumber" },
+                        Boolean = { icon = " ", hl = "TSBoolean" },
+                        Array = { icon = " ", hl = "TSConstant" },
+                        Object = { icon = " ", hl = "TSType" },
+                        Key = { icon = " ", hl = "TSType" },
+                        Null = { icon = " ", hl = "TSType" },
+                        EnumMember = { icon = " ", hl = "TSField" },
+                        Struct = { icon = " ", hl = "TSType" },
+                        Event = { icon = " ", hl = "TSType" },
+                        Operator = { icon = " ", hl = "TSOperator" },
+                        TypeParameter = { icon = " ", hl = "TSParameter" },
+                    },
+                }
                 vim.keymap.set("n", "<leader>V", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Outline" })
-            end
+            end,
         }
 
         use {
-            'stevearc/aerial.nvim',
+            "stevearc/aerial.nvim",
             config = function()
-                require('aerial').setup({
+                require("aerial").setup {
                     backends = { "treesitter", "lsp", "markdown", "man" },
                     on_attach = function(bufnr)
                         -- Jump forwards/backwards with '{' and '}'
-                        vim.keymap.set('n', '[[', '<cmd>AerialPrev<CR>', {buffer = bufnr})
-                        vim.keymap.set('n', ']]', '<cmd>AerialNext<CR>', {buffer = bufnr})
-                    end
-                })
-                vim.keymap.set('n', '<leader>v', '<cmd>AerialToggle!<CR>', { desc = "Toggle Aerial" })
-            end
+                        vim.keymap.set("n", "[[", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+                        vim.keymap.set("n", "]]", "<cmd>AerialNext<CR>", { buffer = bufnr })
+                    end,
+                }
+                vim.keymap.set("n", "<leader>v", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
+            end,
         }
 
         -- use{
@@ -931,19 +954,19 @@ return require("packer").startup {
             event = "InsertEnter",
         }
 
-        use({
+        use {
             "jackMort/ChatGPT.nvim",
             config = function()
-                require("chatgpt").setup({
+                require("chatgpt").setup {
                     -- optional configuration
-                })
+                }
             end,
             requires = {
                 "MunifTanjim/nui.nvim",
                 "nvim-lua/plenary.nvim",
-                "nvim-telescope/telescope.nvim"
-            }
-        })
+                "nvim-telescope/telescope.nvim",
+            },
+        }
 
         -- }}}
         -- Running, Testing and Debugging {{{
@@ -1000,27 +1023,34 @@ return require("packer").startup {
         -- end
         -- }
         --
-        use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-            require("toggleterm").setup({
-                shell = "fish"
-            })
-            vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", {silent=true, desc="Toggle Terminal"})
-            vim.keymap.set(
-                {"n", "i", "v", "t", "t"},
-                "<C-\\>",
-                "<cmd>ToggleTerm<cr>",
-                {silent=true, desc="Toggle Terminal"}
-            )
-        end}
+        use {
+            "akinsho/toggleterm.nvim",
+            tag = "*",
+            config = function()
+                require("toggleterm").setup {
+                    shell = "fish",
+                }
+                vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", { silent = true, desc = "Toggle Terminal" })
+                vim.keymap.set(
+                    { "n", "i", "v", "t", "t" },
+                    "<C-\\>",
+                    "<cmd>ToggleTerm<cr>",
+                    { silent = true, desc = "Toggle Terminal" }
+                )
+            end,
+        }
 
-        use {"p00f/godbolt.nvim", config = function()
-            require("godbolt").setup({
-                quickfix = {
-                    enable = true, -- whether to populate the quickfix list in case of errors
-                    auto_open = true -- whether to open the quickfix list in case of errors
-                },
-            })
-        end}
+        use {
+            "p00f/godbolt.nvim",
+            config = function()
+                require("godbolt").setup {
+                    quickfix = {
+                        enable = true, -- whether to populate the quickfix list in case of errors
+                        auto_open = true, -- whether to open the quickfix list in case of errors
+                    },
+                }
+            end,
+        }
 
         -- }}}
 
@@ -1136,19 +1166,22 @@ return require("packer").startup {
         use("lcheylus/overlength.nvim")
 
         use("reedes/vim-litecorrect") -- autocorrection! Fixes stupid common mistakes
-        use{ "kevinhwang91/nvim-bqf", config = function()
-            require('bqf').setup({
-                auto_enable = true,
-                auto_resize_height = true,
-                func_map = {
-                    fzffilter = '',
+        use {
+            "kevinhwang91/nvim-bqf",
+            config = function()
+                require("bqf").setup {
+                    auto_enable = true,
+                    auto_resize_height = true,
+                    func_map = {
+                        fzffilter = "",
+                    },
                 }
-            })
-        end}
+            end,
+        }
         -- use("nvim-lua/popup.nvim")
 
         use {
-           "luukvbaal/stabilize.nvim",
+            "luukvbaal/stabilize.nvim",
             config = function()
                 require("stabilize").setup()
             end,
@@ -1210,10 +1243,10 @@ return require("packer").startup {
         -- })
 
         use {
-            'stevearc/resession.nvim',
+            "stevearc/resession.nvim",
             config = function()
-                local resession = require('resession')
-                resession.setup({
+                local resession = require("resession")
+                resession.setup {
                     autosave = {
                         enabled = true,
                         interval = 60,
@@ -1223,15 +1256,14 @@ return require("packer").startup {
                         local dir = vim.fn.getcwd(-1, vim.api.nvim_tabpage_get_number(tabpage))
                         return vim.startswith(vim.api.nvim_buf_get_name(bufnr), dir)
                     end,
-                })
-                vim.keymap.set('n', '<leader>ss', resession.save_tab, {desc="Save session"})
-                vim.keymap.set('n', '<leader>sl', resession.load, {desc="Load session"})
-                vim.keymap.set('n', '<leader>sd', resession.delete, {desc="Delete session"})
-            end
+                }
+                vim.keymap.set("n", "<leader>ss", resession.save_tab, { desc = "Save session" })
+                vim.keymap.set("n", "<leader>sl", resession.load, { desc = "Load session" })
+                vim.keymap.set("n", "<leader>sd", resession.delete, { desc = "Delete session" })
+            end,
         }
 
         use {
-
 
             "ziontee113/icon-picker.nvim",
             config = function()
@@ -1255,8 +1287,8 @@ return require("packer").startup {
             end,
         }
 
-        use 'chaoren/vim-wordmotion'
-        use 'anuvyklack/vim-smartword'
+        use("chaoren/vim-wordmotion")
+        use("anuvyklack/vim-smartword")
 
         use {
             "ggandor/leap.nvim",
@@ -1315,7 +1347,8 @@ return require("packer").startup {
         -- }}}
         -- Language Specific Plugins {{{
         use {
-            'krady21/compiler-explorer.nvim', requires = { 'nvim-lua/plenary.nvim' }
+            "krady21/compiler-explorer.nvim",
+            requires = { "nvim-lua/plenary.nvim" },
         }
         -- ==========  C  ==========
         use("justinmk/vim-syntax-extra")
@@ -1438,7 +1471,7 @@ return require("packer").startup {
         -- TeX
         use {
             "lervag/vimtex",
-            filetype = {'tex'},
+            filetype = { "tex" },
             config = function()
                 vim.g.tex_flavor = "latex"
                 vim.g.vimtex_fold_enabled = 1
