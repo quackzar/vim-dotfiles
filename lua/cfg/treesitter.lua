@@ -97,6 +97,9 @@ require("nvim-treesitter.configs").setup {
     matchup = {
         enable = true,
     },
+    autotag = {
+        enable = true,
+    },
     playground = { enable = true },
 }
 

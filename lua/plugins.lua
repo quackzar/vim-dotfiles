@@ -92,6 +92,7 @@ return require("packer").startup {
                 require("cfg.bufferline")
             end,
         }
+
         use {
             "tiagovla/scope.nvim", -- Makes tabs work like other editors
             config = function()
@@ -108,8 +109,6 @@ return require("packer").startup {
 
         use("rktjmp/lush.nvim")
 
-        use("meznaric/conmenu") -- TODO: DEAD
-
         use("kyazdani42/nvim-web-devicons")
 
         use {
@@ -119,26 +118,30 @@ return require("packer").startup {
             end,
         }
 
-        -- use { 'melkster/modicator.nvim',
-        --     after = 'catppuccin', -- Add your colorscheme plugin here
-        --     config = function()
-        --         local modicator = require('modicator')
-        --         modicator.setup({
-        --             highlights = {
-        --                 modes = {
-        --                     ['i'] = vim.g.terminal_color_2, -- green
-        --                     ['v'] = vim.g.terminal_color_3, -- yellow
-        --                     ['V'] = vim.g.terminal_color_3,
-        --                     ['�'] = vim.g.terminal_color_3,
-        --                     ['s'] = vim.g.terminal_color_6, -- cyan
-        --                     ['S'] = vim.g.terminal_color_6,
-        --                     ['R'] = vim.g.terminal_color_4, -- blue
-        --                     ['c'] = vim.g.terminal_color_5, -- magenta
-        --                 },
-        --             }
-        --         })
-        --     end
-        -- }
+        use {
+            "mawkler/modicator.nvim",
+            event = "VimEnter",
+            config = function()
+                local modicator = require("modicator")
+                modicator.setup {
+                    highlights = {
+                        modes = {
+                            ["n"] = vim.g.terminal_color_1, -- red
+                            ["i"] = vim.g.terminal_color_2, -- green
+                            ["ti"] = vim.g.terminal_color_2, -- green
+                            ["tn"] = vim.g.terminal_color_1, -- green
+                            ["v"] = vim.g.terminal_color_3, -- yellow
+                            ["V"] = vim.g.terminal_color_3, -- yellow
+                            ["�"] = vim.g.terminal_color_3, -- yellow
+                            ["s"] = vim.g.terminal_color_6, -- cyan
+                            ["S"] = vim.g.terminal_color_6, -- cyan
+                            ["R"] = vim.g.terminal_color_4, -- blue
+                            ["c"] = vim.g.terminal_color_5, -- magenta
+                        },
+                    },
+                }
+            end,
+        }
 
         use {
             "rcarriga/nvim-notify",
@@ -248,16 +251,6 @@ return require("packer").startup {
                     hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
                     operators = { gc = "Comments" },
                     ignore_missing = false, -- fun if one decides to register everything
-                }
-            end,
-        }
-
-        use {
-            "nvim-zh/colorful-winsep.nvim",
-            disable = true,
-            config = function()
-                require("colorful-winsep").setup {
-                    no_exec_files = { "packer", "TelescopePrompt", "mason", "OverseerList", "Symbols", "neo-tree" },
                 }
             end,
         }
@@ -379,6 +372,7 @@ return require("packer").startup {
                     dim_inactive = {
                         enabled = false,
                     },
+                    term_colors = false, -- ??? screws with windline
                     integrations = {
                         cmp = true,
                         gitsigns = true,
@@ -399,25 +393,21 @@ return require("packer").startup {
                 }
             end,
         }
-        use("rafamadriz/neon")
         use("mhartington/oceanic-next")
         use {
             "rose-pine/neovim",
             as = "rose-pine",
         }
-        use("tanvirtin/monokai.nvim")
-        use("nanotech/jellybeans.vim")
         use("ellisonleao/gruvbox.nvim")
         use("ful1e5/onedark.nvim")
         use("sainnhe/everforest")
         use("sainnhe/sonokai")
         use("savq/melange")
-        use("projekt0n/github-nvim-theme")
         use("EdenEast/nightfox.nvim")
         use("rebelot/kanagawa.nvim")
         use("shaunsingh/moonlight.nvim")
 
-        use("raddari/last-color.nvim")
+        use("raddari/last-color.nvim") -- use last colorscheme set, really nice for swapping round a lot
 
         -- }}}
         -- Version Control and Git {{{
@@ -533,50 +523,19 @@ return require("packer").startup {
         }
 
         use {
-            "romgrk/nvim-treesitter-context", -- Repo moved to nvim-treesitter
+            "nvim-treesitter/nvim-treesitter-context", -- Repo moved to nvim-treesitter
             config = function()
                 require("treesitter-context").setup {
                     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
                     throttle = true, -- Throttles plugin updates (may improve performance)
-                    max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
-                    patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-                        default = {
-                            "class",
-                            "function",
-                            "method",
-                            "for",
-                            "while",
-                            "if",
-                            "switch",
-                            "case",
-                        },
-                        lua = {
-                            "require",
-                        },
-                        python = {
-                            "def",
-                        },
-                        latex = {
-                            "\\begin",
-                            "\\end",
-                            "\\section",
-                            "\\subsection",
-                        },
-                        rust = {
-                            "mod",
-                            "trait",
-                            "struct",
-                            "match",
-                            "impl",
-                        },
-                    },
+                    max_lines = 8, -- How many lines the window should span. Values <= 0 mean no limit.
                 }
             end,
         }
 
         use("RRethy/nvim-treesitter-textsubjects")
 
-        use("nvim-treesitter/nvim-treesitter-textobjects") -- Problem with .rs files
+        use("nvim-treesitter/nvim-treesitter-textobjects")
 
         use("nvim-treesitter/nvim-treesitter-refactor")
 
@@ -642,17 +601,7 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "windwp/nvim-ts-autotag",
-            event = "InsertEnter",
-            config = function()
-                require("nvim-treesitter.configs").setup {
-                    autotag = {
-                        enable = true,
-                    },
-                }
-            end,
-        }
+        use { "windwp/nvim-ts-autotag" }
 
         use {
             "cshuaimin/ssr.nvim",
@@ -754,13 +703,6 @@ return require("packer").startup {
             end,
         }
 
-        -- use {
-        --     "ziontee113/syntax-tree-surfer",
-        --     config = function() -- TODO: redo keymaps
-        --         require("cfg.syntax-tree-surfer")
-        --     end,
-        -- }
-
         use {
             "mizlan/iswap.nvim",
             config = function()
@@ -781,7 +723,6 @@ return require("packer").startup {
 
         use("weilbith/nvim-code-action-menu")
         use("kosayoda/nvim-lightbulb")
-        use("nvim-lua/lsp-status.nvim")
 
         use {
             "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -805,29 +746,9 @@ return require("packer").startup {
                 }
             end,
         }
-        use {
-            "mrbjarksen/neo-tree-diagnostics.nvim",
-            requires = "nvim-neo-tree/neo-tree.nvim",
-            module = "neo-tree.sources.diagnostics",
-            config = function()
-                vim.keymap.set(
-                    "n",
-                    "<leader>xt",
-                    "<cmd>Neotree diagnostics toggle bottom<cr>",
-                    { desc = "neotree diagnostics" }
-                )
-            end,
-        }
 
         -- use { 'Issafalcon/lsp-overloads.nvim'}
         use("ray-x/lsp_signature.nvim")
-
-        use {
-            "andrewferrier/textobj-diagnostic.nvim",
-            config = function()
-                require("textobj-diagnostic").setup()
-            end,
-        }
 
         use {
             "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
@@ -837,52 +758,6 @@ return require("packer").startup {
         }
 
         use("jose-elias-alvarez/null-ls.nvim")
-
-        use {
-            "johmsalas/text-case.nvim",
-            event = "VimEnter",
-            config = function()
-                require("textcase").setup {}
-            end,
-        }
-
-        use {
-            "simrat39/symbols-outline.nvim",
-            disable = false,
-            config = function()
-                require("symbols-outline").setup {
-                    symbols = {
-                        File = { icon = " ", hl = "TSURI" },
-                        Module = { icon = " ", hl = "TSNamespace" },
-                        Namespace = { icon = " ", hl = "TSNamespace" },
-                        Package = { icon = " ", hl = "TSNamespace" },
-                        Class = { icon = " ", hl = "TSType" },
-                        Method = { icon = " ", hl = "TSMethod" },
-                        Property = { icon = " ", hl = "TSMethod" },
-                        Field = { icon = " ", hl = "TSField" },
-                        Constructor = { icon = " ", hl = "TSConstructor" },
-                        Enum = { icon = " ", hl = "TSType" },
-                        Interface = { icon = " ", hl = "TSType" },
-                        Function = { icon = " ", hl = "TSFunction" },
-                        Variable = { icon = " ", hl = "TSConstant" },
-                        Constant = { icon = " ", hl = "TSConstant" },
-                        String = { icon = " ", hl = "TSString" },
-                        Number = { icon = " ", hl = "TSNumber" },
-                        Boolean = { icon = " ", hl = "TSBoolean" },
-                        Array = { icon = " ", hl = "TSConstant" },
-                        Object = { icon = " ", hl = "TSType" },
-                        Key = { icon = " ", hl = "TSType" },
-                        Null = { icon = " ", hl = "TSType" },
-                        EnumMember = { icon = " ", hl = "TSField" },
-                        Struct = { icon = " ", hl = "TSType" },
-                        Event = { icon = " ", hl = "TSType" },
-                        Operator = { icon = " ", hl = "TSOperator" },
-                        TypeParameter = { icon = " ", hl = "TSParameter" },
-                    },
-                }
-                vim.keymap.set("n", "<leader>V", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Outline" })
-            end,
-        }
 
         use {
             "stevearc/aerial.nvim",
@@ -925,7 +800,6 @@ return require("packer").startup {
         --     end,
         -- }
 
-        use { "saadparwaiz1/cmp_luasnip" }
         use { "onsails/lspkind-nvim" }
         use {
             -- disable = true,
@@ -940,6 +814,7 @@ return require("packer").startup {
                 "hrsh7th/cmp-path",
                 "hrsh7th/cmp-omni",
                 "hrsh7th/cmp-cmdline",
+                "saadparwaiz1/cmp_luasnip",
             },
         }
 
@@ -1030,7 +905,6 @@ return require("packer").startup {
                 require("toggleterm").setup {
                     shell = "fish",
                 }
-                vim.keymap.set("n", "<leader>m", "<cmd>ToggleTerm<cr>", { silent = true, desc = "Toggle Terminal" })
                 vim.keymap.set(
                     { "n", "i", "v", "t", "t" },
                     "<C-\\>",
@@ -1059,8 +933,6 @@ return require("packer").startup {
         use("tpope/vim-eunuch") -- Basic (Delete, Move, Rename) unix commands
         -- use 'tpope/vim-unimpaired'
 
-        -- use("markonm/traces.vim") -- Consider relavance
-
         use {
             "linty-org/readline.nvim",
             config = function()
@@ -1071,12 +943,13 @@ return require("packer").startup {
                 vim.keymap.set("!", "<C-e>", readline.end_of_line)
                 vim.keymap.set("!", "<M-d>", readline.kill_word)
                 vim.keymap.set("!", "<C-w>", readline.backward_kill_word)
-                -- vim.keymap.set('!', '<C-k>', readline.kill_line)
+                vim.keymap.set("!", "<C-k>", readline.kill_line)
                 vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
             end,
         }
 
         use("aca/vidir.nvim")
+
         use {
             "numToStr/Comment.nvim",
             config = function()
@@ -1097,14 +970,14 @@ return require("packer").startup {
                 vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual, { desc = "Dial down relative" })
             end,
         }
+
         use {
             "kylechui/nvim-surround",
             config = function()
-                require("nvim-surround").setup {
-                    -- Configuration here, or leave empty to use defaults
-                }
+                require("nvim-surround").setup {}
             end,
         }
+
         use {
             "andymass/vim-matchup",
             event = "VimEnter",
@@ -1116,6 +989,7 @@ return require("packer").startup {
                 vim.g.matchup_matchparen_offscreen = { method = "popup" }
             end,
         }
+
         use {
             "junegunn/vim-easy-align",
             config = function()
@@ -1124,15 +998,9 @@ return require("packer").startup {
                 vim.keymap.set("v", "ga", "<Plug>(EasyAlign)", { silent = true })
             end,
         }
+
         use("Konfekt/vim-sentence-chopper")
         use("flwyd/vim-conjoin")
-        -- use {
-        --     "AckslD/nvim-trevJ.lua",
-        --     config = function()
-        --         require("trevj").setup()
-        --         vim.keymap.set("n", "gS", require("trevj").format_at_cursor, { desc = "Split line" })
-        --     end,
-        -- }
 
         use {
             "ThePrimeagen/refactoring.nvim",
@@ -1163,9 +1031,8 @@ return require("packer").startup {
             end,
         }
 
-        use("lcheylus/overlength.nvim")
-
         use("reedes/vim-litecorrect") -- autocorrection! Fixes stupid common mistakes
+
         use {
             "kevinhwang91/nvim-bqf",
             config = function()
@@ -1178,14 +1045,7 @@ return require("packer").startup {
                 }
             end,
         }
-        -- use("nvim-lua/popup.nvim")
 
-        use {
-            "luukvbaal/stabilize.nvim",
-            config = function()
-                require("stabilize").setup()
-            end,
-        }
         use {
             "folke/todo-comments.nvim",
             event = "BufRead",
@@ -1199,6 +1059,7 @@ return require("packer").startup {
 
         -- }}}
         -- Telescope {{{
+        --
         use {
             "nvim-telescope/telescope.nvim",
             requires = { { "nvim-lua/plenary.nvim" } },
@@ -1207,40 +1068,13 @@ return require("packer").startup {
                 require("cfg.telescope")
             end,
         }
+
         use("willthbill/opener.nvim")
+
         use("romgrk/fzy-lua-native") -- for use with wilder
+
         use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
         -- use("nvim-telescope/telescope-z.nvim")
-
-        -- use({
-        --     'gnikdroy/projections.nvim',
-        --     after = {'telescope.nvim'},
-        --     config = function()
-        --         require("projections").setup({
-        --             patterns = { ".git", ".svn", ".hg", "Cargo.toml"},        -- Patterns to search for, these are NOT regexp
-        --         })
-        --         local Session = require("projections.session")
-        --         local Workspace = require("projections.workspace")
-        --         require('telescope').load_extension('projections')
-        --         vim.api.nvim_create_autocmd({ 'DirChangedPre', 'VimLeavePre' }, {
-        --             callback = function() Session.store(vim.loop.cwd()) end,
-        --             desc = "Store project session",
-        --         })
-        --         vim.api.nvim_create_user_command("AddWorkspace", function()
-        --             Workspace.add(vim.loop.cwd())
-        --         end, {})
-        --         vim.api.nvim_create_user_command('Projects', function()
-        --             local find_projects = require("telescope").extensions.projections.projections
-        --             find_projects({
-        --                 action = function(selection)
-        --                     -- chdir is required since there might not be a session file
-        --                     vim.fn.chdir(selection.value)
-        --                     Session.restore(selection.value)
-        --                 end,
-        --             })
-        --         end, {})
-        --     end
-        -- })
 
         use {
             "stevearc/resession.nvim",
@@ -1270,6 +1104,7 @@ return require("packer").startup {
                 require("icon-picker")
             end,
         }
+
         use {
             "max397574/colortils.nvim",
             cmd = "Colortils",
@@ -1346,10 +1181,6 @@ return require("packer").startup {
         }
         -- }}}
         -- Language Specific Plugins {{{
-        use {
-            "krady21/compiler-explorer.nvim",
-            requires = { "nvim-lua/plenary.nvim" },
-        }
         -- ==========  C  ==========
         use("justinmk/vim-syntax-extra")
         use("shirk/vim-gas")
