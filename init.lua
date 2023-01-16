@@ -6,6 +6,7 @@ local function prequire(...)
     end
     return nil
 end
+
 vim.opt.shadafile = "NONE"
 
 prequire("impatient")
@@ -106,19 +107,19 @@ vim.o.laststatus = 3
 
 -- some pluginless keymaps
 vim.keymap.set({ "n", "v" }, "Q", "<nop>")
-vim.keymap.set("n", "<c-w>q", ":close<cr>", {silent=true})
+vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })
 vim.keymap.set({ "n", "v" }, "x", '"_x')
 vim.keymap.set({ "n", "v" }, "X", '"_X')
-vim.keymap.set({ "n", "v", "i" }, "<C-l>", ":noh<cr>", {silent = true})
-vim.keymap.set("i", "<C-l>", "<C-o>:noh<cr>", {silent = true})
+vim.keymap.set({ "n", "v", "i" }, "<C-l>", ":noh<cr>", { silent = true })
+vim.keymap.set("i", "<C-l>", "<C-o>:noh<cr>", { silent = true })
 vim.keymap.set("v", "@", ":normal @")
 -- vim.keymap.set('v', '>', '>gv', { noremap = true, silent = true })
 -- vim.keymap.set('v', '<', '<gv', { noremap = true, silent = true })
 vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
-vim.keymap.set('n', '<space>q', '<cmd>copen<cr>', {silent=true, desc="Open quickfix"})
-vim.keymap.set('n', ']q', '<cmd>cnext<cr>', {silent=true, desc="Next quickfix"})
-vim.keymap.set('n', '[q', '<cmd>cprev<cr>', {silent=true, desc="Previous quickfix"})
+vim.keymap.set("n", "<space>q", "<cmd>copen<cr>", { silent = true, desc = "Open quickfix" })
+vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "Next quickfix" })
+vim.keymap.set("n", "[q", "<cmd>cprev<cr>", { silent = true, desc = "Previous quickfix" })
 
 -- vim.api.nvim_create_autocmd("TermOpen", {
 --     group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
@@ -155,6 +156,25 @@ augroup end
 ]]
 )
 
+vim.api.nvim_create_autocmd("ModeChanged", {
+    callback = function()
+        local modes = {
+            ["n"] = vim.g.terminal_color_1, -- red
+            ["i"] = vim.g.terminal_color_2, -- green
+            ["ti"] = vim.g.terminal_color_2, -- green
+            ["tn"] = vim.g.terminal_color_1, -- green
+            ["v"] = vim.g.terminal_color_3, -- yellow
+            ["V"] = vim.g.terminal_color_3, -- yellow
+            ["�"] = vim.g.terminal_color_3, -- yellow
+            ["s"] = vim.g.terminal_color_6, -- cyan
+            ["S"] = vim.g.terminal_color_6, -- cyan
+            ["R"] = vim.g.terminal_color_4, -- blue
+            ["c"] = vim.g.terminal_color_5, -- magenta
+        }
+        vim.api.nvim_set_hl(0, "CursorLineNr", { foreground = modes[vim.api.nvim_get_mode().mode] or nil })
+    end,
+})
+
 -- setup for ripgrep as grepper
 if vim.fn.executable("rg") then
     vim.o.grepprg = "rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"
@@ -177,14 +197,14 @@ require("cfg.lsp")
 require("cfg.dap")
 require("cfg.tree")
 
-require('ts-grammars')
+require("ts-grammars")
 
 require("windline.bubblegum")
 
 require("cfg.whichkey")
 
-local theme = require('last-color').recall() or 'catppuccin'
-vim.cmd(('colorscheme %s'):format(theme))
+local theme = require("last-color").recall() or "catppuccin"
+vim.cmd(("colorscheme %s"):format(theme))
 
 vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4

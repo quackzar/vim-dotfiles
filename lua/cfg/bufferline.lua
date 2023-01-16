@@ -49,9 +49,10 @@ require("bufferline").setup {
             { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "right" },
         },
         custom_filter = function(buf_num, buf_numbers)
-            if vim.bo[buf_num].filetype == "NvimTree" or
-                vim.bo[buf_num].filetype == "qf" or
-                vim.bo[buf_num].filetype == "dap-repl"
+            if
+                vim.bo[buf_num].filetype == "NvimTree"
+                or vim.bo[buf_num].filetype == "qf"
+                or vim.bo[buf_num].filetype == "dap-repl"
             then
                 return false
             end
@@ -70,13 +71,12 @@ require("bufferline").setup {
         sort_by = "id",
     },
     -- Else the bufferline looks weird, however should probably only be loaded if catppuccin is the active colorscheme.
-    highlights = require("catppuccin.groups.integrations.bufferline").get(),
+    -- highlights = require("catppuccin.groups.integrations.bufferline").get(),
 }
 
-vim.keymap.set('n', ']b', '<cmd>BufferLineCycleNext<cr>', {desc="Next buffer"})
-vim.keymap.set('n', '[b', '<cmd>BufferLineCyclePrev<cr>', {desc="Prev buffer"})
+vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 -- vim.keymap.set('n', '<leader>be', '<cmd>BufferLineSortByExtension<cr>', {desc="Sort by extension"})
 -- vim.keymap.set('n', '<leader>bd', '<cmd>BufferLineSortByDirectory<cr>', {desc="Sort by directory"})
 -- vim.keymap.set('n', '<leader>bb', '<cmd>BufferLinePick<cr>', {desc="Pick..."})
 -- vim.keymap.set('n', '<leader>bc', '<cmd>BufferLinePickClose<cr>', {desc="Close..."})
-

@@ -119,31 +119,6 @@ return require("packer").startup {
         }
 
         use {
-            "mawkler/modicator.nvim",
-            event = "VimEnter",
-            config = function()
-                local modicator = require("modicator")
-                modicator.setup {
-                    highlights = {
-                        modes = {
-                            ["n"] = vim.g.terminal_color_1, -- red
-                            ["i"] = vim.g.terminal_color_2, -- green
-                            ["ti"] = vim.g.terminal_color_2, -- green
-                            ["tn"] = vim.g.terminal_color_1, -- green
-                            ["v"] = vim.g.terminal_color_3, -- yellow
-                            ["V"] = vim.g.terminal_color_3, -- yellow
-                            ["�"] = vim.g.terminal_color_3, -- yellow
-                            ["s"] = vim.g.terminal_color_6, -- cyan
-                            ["S"] = vim.g.terminal_color_6, -- cyan
-                            ["R"] = vim.g.terminal_color_4, -- blue
-                            ["c"] = vim.g.terminal_color_5, -- magenta
-                        },
-                    },
-                }
-            end,
-        }
-
-        use {
             "rcarriga/nvim-notify",
             config = function()
                 vim.notify = require("notify")
@@ -372,7 +347,7 @@ return require("packer").startup {
                     dim_inactive = {
                         enabled = false,
                     },
-                    term_colors = false, -- ??? screws with windline
+                    term_colors = true, -- ??? screws with windline
                     integrations = {
                         cmp = true,
                         gitsigns = true,
@@ -391,6 +366,8 @@ return require("packer").startup {
                         indent_blankline = { enabled = true },
                     },
                 }
+                -- vim.g.terminal_color_0 = nil
+                -- vim.g.terminal_color_8 = nil
             end,
         }
         use("mhartington/oceanic-next")
@@ -402,7 +379,7 @@ return require("packer").startup {
         use("ful1e5/onedark.nvim")
         use("sainnhe/everforest")
         use("sainnhe/sonokai")
-        use("savq/melange")
+        use("savq/melange-nvim")
         use("EdenEast/nightfox.nvim")
         use("rebelot/kanagawa.nvim")
         use("shaunsingh/moonlight.nvim")
@@ -1130,6 +1107,16 @@ return require("packer").startup {
             config = function()
                 vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
                 require("leap").set_default_keymaps()
+            end,
+        }
+
+        use {
+            "phaazon/hop.nvim", -- let's try hop too
+            branch = "v2", -- optional but strongly recommended
+            config = function()
+                -- you can configure Hop the way you like here; see :h hop-config
+                require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
+                vim.keymap.set({ "n", "v" }, "<cr>", "<cmd>HopChar2<cr>", { remap = true })
             end,
         }
 
