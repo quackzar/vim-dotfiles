@@ -8,6 +8,22 @@ vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
 -- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
 vim.o.guioptions = "ad"
 
+vim.g.mapleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    }
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins")
+
 if vim.fn.exists("g:neovide") then
     vim.g.neovide_transparency = 1.0
     vim.g.neovide_hide_mouse_when_typing = true
@@ -25,7 +41,6 @@ vim.o.showmode = false
 vim.o.breakindent = true
 
 vim.o.title = true
-vim.g.mapleader = " "
 
 vim.o.virtualedit = "block,onemore"
 vim.o.ignorecase = true
@@ -82,8 +97,6 @@ vim.opt.fillchars:append("foldsep: ")
 vim.opt.showbreak = "↪"
 
 vim.o.foldenable = true
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.o.foldminlines = 5
 vim.o.foldnestmax = 5
 vim.o.foldlevelstart = -1
@@ -91,9 +104,7 @@ vim.o.foldlevel = 99
 
 vim.o.scrolloff = 10
 
--- vim.o.globalstatus = true
 vim.o.laststatus = 3
--- vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
 
 -- some pluginless keymaps
 vim.keymap.set({ "n", "v" }, "Q", "<nop>")
@@ -111,40 +122,27 @@ vim.keymap.set("n", "<space>q", "<cmd>copen<cr>", { silent = true, desc = "Open 
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "Next quickfix" })
 vim.keymap.set("n", "[q", "<cmd>cprev<cr>", { silent = true, desc = "Previous quickfix" })
 
--- vim.api.nvim_create_autocmd("TermOpen", {
---     group = vim.api.nvim_create_augroup("term_settings", { clear = true }),
---     callback = function()
---         vim.wo.number = false
---         vim.cmd.startinsert()
---     end,
--- })
-
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
     callback = function()
         vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
     end,
 })
--- vim.cmd( -- TODO: use api
---     [[
 
--- augroup easy_close
---     autocmd!
---     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
---     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
---     autocmd FileType qf setlocal wrap
--- augroup END
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { ".qf", "help" },
+    group = vim.api.nvim_create_augroup("easy_close", { clear = true }),
+    callback = function()
+        vim.keymap.set("n", "q", "<cmd>q<cr>", { buffer = true })
+    end,
+})
 
--- " autocmd FileType qf nnoremap <buffer> <C-]> <CR>
--- augroup improved_autoread
---   autocmd!
---   autocmd FocusGained * silent! checktime
---   autocmd BufEnter    * silent! checktime
---   autocmd VimResume   * silent! checktime
---   autocmd TermLeave   * silent! checktime
--- augroup end
--- ]]
--- );
+vim.api.nvim_create_autocmd({ "FocusGained", "VimResume", "TermLeave" }, {
+    group = vim.api.nvim_create_augroup("improved_autoread", { clear = true }),
+    callback = function()
+        vim.cmd.checktime()
+    end,
+})
 
 vim.api.nvim_create_autocmd("ModeChanged", {
     callback = function()
@@ -178,19 +176,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- loads all plugins
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    }
-end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
 require("functions")
 
 -- load specific configs
@@ -198,11 +183,8 @@ require("mason").setup()
 require("cfg.lsp")
 require("cfg.dap")
 require("cfg.tree")
-
 require("ts-grammars")
-
 require("windline.bubblegum")
-
 require("cfg.whichkey")
 
 local theme = require("last-color").recall() or "catppuccin"
