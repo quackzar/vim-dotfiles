@@ -1,15 +1,5 @@
 ---@diagnostic disable: lowercase-global
-local function prequire(...)
-    local status, lib = pcall(require, ...)
-    if status then
-        return lib
-    end
-    return nil
-end
-
 vim.opt.shadafile = "NONE"
-
-prequire("impatient")
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
@@ -135,26 +125,26 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
     end,
 })
-vim.cmd( -- TODO: use api
-    [[
+-- vim.cmd( -- TODO: use api
+--     [[
 
-augroup easy_close
-    autocmd!
-    autocmd FileType help,qf nnoremap <buffer> q :q<cr>
-    autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
-    autocmd FileType qf setlocal wrap
-augroup END
+-- augroup easy_close
+--     autocmd!
+--     autocmd FileType help,qf nnoremap <buffer> q :q<cr>
+--     autocmd FileType qf nnoremap <buffer> <Esc> :q<cr>
+--     autocmd FileType qf setlocal wrap
+-- augroup END
 
-" autocmd FileType qf nnoremap <buffer> <C-]> <CR>
-augroup improved_autoread
-  autocmd!
-  autocmd FocusGained * silent! checktime
-  autocmd BufEnter    * silent! checktime
-  autocmd VimResume   * silent! checktime
-  autocmd TermLeave   * silent! checktime
-augroup end
-]]
-)
+-- " autocmd FileType qf nnoremap <buffer> <C-]> <CR>
+-- augroup improved_autoread
+--   autocmd!
+--   autocmd FocusGained * silent! checktime
+--   autocmd BufEnter    * silent! checktime
+--   autocmd VimResume   * silent! checktime
+--   autocmd TermLeave   * silent! checktime
+-- augroup end
+-- ]]
+-- );
 
 vim.api.nvim_create_autocmd("ModeChanged", {
     callback = function()
@@ -187,9 +177,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- loads all plugins
-require("plugins")
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    }
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins")
 require("functions")
-require("packer_compiled")
 
 -- load specific configs
 require("mason").setup()
