@@ -62,49 +62,7 @@ return {
         end,
     },
 
-    -- use{
-    --	   "zbirenbaum/copilot.lua",
-    --	   event = {"VimEnter"},
-    --	   config = function()
-    --		   vim.defer_fn(function()
-    --			   require("copilot").setup()
-    --		   end, 100)
-    --	   end,
-    -- }
-    -- {
-    --	   "zbirenbaum/copilot-cmp",
-    --	   after = { "copilot.lua", "nvim-cmp" },
-    -- },
-
-    -- {
-    --     "tzachar/cmp-tabnine",
-    --     build = "./install.sh",
-    --     before = "nvim-cmp",
-    --     config = function()
-    --         local tabnine = require("cmp_tabnine")
-    --         tabnine.setup {
-    --             show_prediction_strength = true,
-    --         }
-    --     end,
-    -- },
-
     { "onsails/lspkind-nvim" },
-    {
-        -- disable = true,
-        "hrsh7th/nvim-cmp", -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
-        config = function()
-            require("cfg.cmp")
-        end,
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-omni",
-            "hrsh7th/cmp-cmdline",
-            "saadparwaiz1/cmp_luasnip",
-        },
-    },
 
     {
         "L3MON4D3/LuaSnip",

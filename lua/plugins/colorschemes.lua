@@ -94,6 +94,6 @@ return {
 
     {
         "raddari/last-color.nvim",
-        priority = 1,
+        priority = 1001,
     },
 }
