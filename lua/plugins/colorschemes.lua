@@ -6,6 +6,7 @@ return {
             vim.g.tokyonight_style = "night"
         end,
     },
+
     {
         "tiagovla/tokyodark.nvim",
         priority = 1000,
@@ -13,12 +14,14 @@ return {
             vim.g.tokyodark_transparent_background = false
         end,
     },
+
     {
         "meliora-theme/neovim",
         name = "melioria",
         priority = 1000,
         dependencies = { "rktjmp/lush.nvim" },
     },
+
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -58,7 +61,7 @@ return {
         priority = 1000,
     },
 
-    { "rose-pine/neovim", name = "rose-pine" },
+    { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
 
     {
         "ellisonleao/gruvbox.nvim",

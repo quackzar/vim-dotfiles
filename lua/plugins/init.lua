@@ -9,22 +9,12 @@ return {
         "folke/persistence.nvim",
         event = "BufReadPre", -- this will only start session saving when an actual file was opened
         module = "persistence",
-        config = function()
-            require("persistence").setup()
-        end,
+        config = true,
     },
     -- }}}
     -- User Interface {{{
     "stevearc/dressing.nvim",
     "windwp/windline.nvim",
-
-    --  Sadly doesn't quite work with statusline
-    -- { 'levouh/tint.nvim', config = function()
-    --         require("tint").setup({
-    --             ignore = {"StatusLine*"}
-    --         })
-    --     end
-    -- },
 
     --TODO: requires: v0.9
     -- use({
@@ -66,16 +56,12 @@ return {
 
     {
         "tiagovla/scope.nvim", -- Makes tabs work like other editors
-        config = function()
-            require("scope").setup()
-        end,
+        config = true,
     },
 
     {
         "norcalli/nvim-colorizer.lua",
-        config = function()
-            require("colorizer").setup()
-        end,
+        config = true,
     },
 
     "rktjmp/lush.nvim",
@@ -85,7 +71,7 @@ return {
     {
         "goolord/alpha-nvim",
         config = function()
-            require("alpha").setup(require("alpha.themes.theta").config)
+            require("alpha").setup(require("alpha-themes.theta").config)
         end,
     },
 
@@ -162,9 +148,7 @@ return {
     "sindrets/winshift.nvim", -- Used in a Hydra
     {
         "mrjones2014/smart-splits.nvim", -- Used in a Hydra
-        config = function()
-            require("smart-splits").setup {}
-        end,
+        config = true,
     },
 
     {
@@ -177,32 +161,24 @@ return {
 
     {
         "folke/twilight.nvim",
-        config = function()
-            require("twilight").setup {}
-        end,
-    },
-    {
-        "folke/zen-mode.nvim",
-        config = function()
-            require("zen-mode").setup {}
-        end,
+        config = true,
     },
 
     {
-        "declancm/cinnamon.nvim", -- FIX: Disable when running neovide
-        -- cond = function()
-        --     return not vim.fn.exists("g:neovide")
-        -- end,
-        config = function()
-            require("cinnamon").setup {
-                extra_keymaps = true,
-                extended_keymaps = false,
-                scroll_limit = 100,
-                hide_cursor = false,
-                default_delay = 5,
-                max_length = 500,
-            }
-        end,
+        "folke/zen-mode.nvim",
+        config = true,
+    },
+
+    {
+        "declancm/cinnamon.nvim",
+        config = {
+            extra_keymaps = true,
+            extended_keymaps = false,
+            scroll_limit = 100,
+            hide_cursor = false,
+            default_delay = 5,
+            max_length = 500,
+        },
     },
 
     {
@@ -374,11 +350,9 @@ return {
 
     {
         "numToStr/Comment.nvim",
-        config = function()
-            require("Comment").setup {
-                ignore = "^$",
-            }
-        end,
+        config = {
+            ignore = "^$",
+        },
     },
 
     {
@@ -395,9 +369,7 @@ return {
 
     {
         "kylechui/nvim-surround",
-        config = function()
-            require("nvim-surround").setup {}
-        end,
+        config = true,
     },
 
     {
@@ -430,10 +402,7 @@ return {
             { "nvim-lua/plenary.nvim" },
             { "nvim-treesitter/nvim-treesitter" },
         },
-        config = function()
-            require("refactoring").setup {}
-            -- Used in a Hydra
-        end,
+        config = true,
     },
 
     {
@@ -457,24 +426,20 @@ return {
 
     {
         "kevinhwang91/nvim-bqf",
-        config = function()
-            require("bqf").setup {
-                auto_enable = true,
-                auto_resize_height = true,
-                func_map = {
-                    fzffilter = "",
-                },
-            }
-        end,
+        config = {
+            auto_enable = true,
+            auto_resize_height = true,
+            func_map = {
+                fzffilter = "",
+            },
+        },
     },
 
     {
         "folke/todo-comments.nvim",
         event = "BufRead",
         dependencies = "nvim-lua/plenary.nvim",
-        config = function()
-            require("todo-comments").setup {}
-        end,
+        config = true,
     },
 
     { "gpanders/editorconfig.nvim" },
@@ -483,9 +448,7 @@ return {
     -- Navigation {{{
     {
         "nacro90/numb.nvim",
-        config = function()
-            require("numb").setup()
-        end,
+        config = true,
     },
 
     "chaoren/vim-wordmotion",
@@ -521,23 +484,21 @@ return {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
                 "s1n7ax/nvim-window-picker",
                 version = "1.*",
-                config = function()
-                    require("window-picker").setup {
-                        autoselect_one = true,
-                        include_current = false,
-                        filter_rules = {
-                            -- filter using buffer options
-                            bo = {
-                                -- if the file type is one of following, the window will be ignored
-                                filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+                config = {
+                    autoselect_one = true,
+                    include_current = false,
+                    filter_rules = {
+                        -- filter using buffer options
+                        bo = {
+                            -- if the file type is one of following, the window will be ignored
+                            filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
 
-                                -- if the buffer type is one of following, the window will be ignored
-                                buftype = { "terminal" },
-                            },
+                            -- if the buffer type is one of following, the window will be ignored
+                            buftype = { "terminal" },
                         },
-                        other_win_hl_color = "#e35e4f",
-                    }
-                end,
+                    },
+                    other_win_hl_color = "#e35e4f",
+                },
             },
         },
         config = function()
@@ -565,9 +526,7 @@ return {
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
-        config = function()
-            require("autolist").setup {}
-        end,
+        config = true,
     },
     {
         "plasticboy/vim-markdown",
@@ -636,30 +595,28 @@ return {
     {
         "NTBBloodbath/rest.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = function()
-            require("rest-nvim").setup {
-                -- Open request results in a horizontal split
-                result_split_horizontal = false,
-                -- Skip SSL verification, useful for unknown certificates
-                skip_ssl_verification = false,
-                -- Highlight request on run
-                highlight = {
-                    enabled = true,
-                    timeout = 150,
-                },
-                result = {
-                    -- toggle showing URL, HTTP info, headers at top the of result window
-                    show_url = true,
-                    show_http_info = true,
-                    show_headers = true,
-                },
-                -- Jump to request line on run
-                jump_to_request = false,
-                env_file = ".env",
-                custom_dynamic_variables = {},
-                yank_dry_run = true,
-            }
-        end,
+        config = {
+            -- Open request results in a horizontal split
+            result_split_horizontal = false,
+            -- Skip SSL verification, useful for unknown certificates
+            skip_ssl_verification = false,
+            -- Highlight request on run
+            highlight = {
+                enabled = true,
+                timeout = 150,
+            },
+            result = {
+                -- toggle showing URL, HTTP info, headers at top the of result window
+                show_url = true,
+                show_http_info = true,
+                show_headers = true,
+            },
+            -- Jump to request line on run
+            jump_to_request = false,
+            env_file = ".env",
+            custom_dynamic_variables = {},
+            yank_dry_run = true,
+        },
     },
 
     -- === Coq ===

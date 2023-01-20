@@ -14,25 +14,23 @@ return {
 
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require("lsp_lines").setup()
-        end,
+        config = true,
     },
 
     {
         "folke/trouble.nvim",
-        config = function()
-            vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "toggle trouble" })
-            vim.keymap.set("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>")
-            vim.keymap.set("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>")
-            vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>")
-            vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>")
-            vim.keymap.set("n", "<leader>xc", "<cmd>TroubleClose<cr>")
-            vim.keymap.set("n", "gR", "<cmd>Trouble lsp_references<cr>")
-            require("trouble").setup {
-                use_diagnostic_signs = true,
-            }
-        end,
+        config = {
+            use_diagnostic_signs = true,
+        },
+        keys = {
+            { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle trouble" },
+            { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>" },
+            { "<leader>xd", "<cmd>Trouble document_diagnostics<cr>" },
+            { "<leader>xl", "<cmd>Trouble loclist<cr>" },
+            { "<leader>xq", "<cmd>Trouble quickfix<cr>" },
+            { "<leader>xc", "<cmd>TroubleClose<cr>" },
+            { "gR", "<cmd>Trouble lsp_references<cr>" },
+        },
     },
 
     -- { 'Issafalcon/lsp-overloads.nvim'},
@@ -49,17 +47,17 @@ return {
 
     {
         "stevearc/aerial.nvim",
-        config = function()
-            require("aerial").setup {
-                backends = { "treesitter", "lsp", "markdown", "man" },
-                on_attach = function(bufnr)
-                    -- Jump forwards/backwards with '{' and '}'
-                    vim.keymap.set("n", "[[", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-                    vim.keymap.set("n", "]]", "<cmd>AerialNext<CR>", { buffer = bufnr })
-                end,
-            }
-            vim.keymap.set("n", "<leader>v", "<cmd>AerialToggle!<CR>", { desc = "Toggle Aerial" })
-        end,
+        config = {
+            backends = { "treesitter", "lsp", "markdown", "man" },
+            on_attach = function(bufnr)
+                vim.keymap.set("n", "[[", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+                vim.keymap.set("n", "]]", "<cmd>AerialNext<CR>", { buffer = bufnr })
+            end,
+        },
+        keys = {
+            { "<leader>v", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
+            { "<leader>V", "<cmd>AerialOpen<CR>", desc = "Aerial Focus" },
+        },
     },
 
     { "onsails/lspkind-nvim" },
@@ -77,11 +75,7 @@ return {
 
     {
         "jackMort/ChatGPT.nvim",
-        config = function()
-            require("chatgpt").setup {
-                -- optional configuration
-            }
-        end,
+        config = true,
         dependencies = {
             "MunifTanjim/nui.nvim",
             "nvim-lua/plenary.nvim",
