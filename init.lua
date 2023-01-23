@@ -157,7 +157,11 @@ vim.api.nvim_create_autocmd("ModeChanged", {
             ["R"] = vim.g.terminal_color_4, -- blue
             ["c"] = vim.g.terminal_color_5, -- magenta
         }
-        vim.api.nvim_set_hl(0, "CursorLineNr", { foreground = modes[vim.api.nvim_get_mode().mode] or nil })
+        local colors = vim.api.nvim_get_hl_by_name("CursorLineNr", true)
+        vim.api.nvim_set_hl(0, "CursorLineNr", {
+            foreground = modes[vim.api.nvim_get_mode().mode] or nil,
+            background = colors.background,
+        })
     end,
 })
 

@@ -16,11 +16,16 @@ return {
     "stevearc/dressing.nvim",
     "windwp/windline.nvim",
 
-    --TODO: requires: v0.9
-    -- use({
-    --     "luukvbaal/statuscol.nvim",
-    --     config = function() require("statuscol").setup() end
-    -- })
+    {
+        "luukvbaal/statuscol.nvim",
+        enabled = function()
+            return vim.fn.has("nvim-0.9")
+        end, -- TODO: set up to be signs, numbers (folds?), git hunks.
+        config = {
+            order = "NsSF",
+            setopt = true,
+        },
+    },
 
     {
         "anuvyklack/windows.nvim",
@@ -169,16 +174,21 @@ return {
         config = true,
     },
 
+    -- {
+    --     "declancm/cinnamon.nvim",
+    --     config = {
+    --         extra_keymaps = true,
+    --         extended_keymaps = false,
+    --         scroll_limit = 100,
+    --         hide_cursor = false,
+    --         default_delay = 5,
+    --         max_length = 500,
+    --     },
+    -- },
+
     {
-        "declancm/cinnamon.nvim",
-        config = {
-            extra_keymaps = true,
-            extended_keymaps = false,
-            scroll_limit = 100,
-            hide_cursor = false,
-            default_delay = 5,
-            max_length = 500,
-        },
+        "karb94/neoscroll.nvim",
+        config = true,
     },
 
     {
@@ -470,6 +480,29 @@ return {
             require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
             vim.keymap.set({ "n", "v" }, "<cr>", "<cmd>HopChar2<cr>", { remap = true })
         end,
+    },
+
+    {
+        "LeonHeidelbach/trailblazer.nvim",
+        config = {
+            mappings = {
+                nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
+
+                    motions = {
+                        new_trail_mark = "<space>mm",
+                        track_back = "<space>mo",
+                        peek_move_next_down = "<space>mj",
+                        peek_move_previous_up = "<space>mk",
+                    },
+                    actions = {
+                        delete_all_trail_marks = "<space>mD",
+                        paste_at_last_trail_mark = "<space>mp",
+                        paste_at_all_trail_marks = "<space>mP",
+                        set_trail_mark_select_mode = "<space>ms",
+                    },
+                },
+            },
+        },
     },
 
     "farmergreg/vim-lastplace",

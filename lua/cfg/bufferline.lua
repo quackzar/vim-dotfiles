@@ -33,19 +33,17 @@ require("bufferline").setup {
         diagnostics_update_in_insert = false,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
-            { filetype = "NvimTree", text = "File Explorer", text_align = "left" },
             {
                 filetype = "neo-tree",
                 text = function()
-                    return "Neo Tree" -- TODO: show current source
+                    return "Neo Tree 侮" -- TODO: show current source
                 end,
                 -- highlight = "Directory",
                 text_align = "left",
             },
-            { filetype = "SidebarNvim", text = "Sidebar NVIM", text_align = "left" },
-            { filetype = "aerial", text = "Aerial", text_align = "right" },
-            { filetype = "Outline", text = "Symbols", text_align = "right" },
-            { filetype = "OverseerList", text = "Overseer", text_align = "right" },
+            { filetype = "aerial", text = "Aerial  ", text_align = "right" },
+            { filetype = "Outline", text = "Symbols  ", text_align = "right" },
+            { filetype = "OverseerList", text = "Overseer  ", text_align = "right" },
             { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "right" },
         },
         custom_filter = function(buf_num, buf_numbers)
