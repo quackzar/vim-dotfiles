@@ -4,6 +4,7 @@ return {
         config = function()
             require("cfg.cmp")
         end,
+        event = "InsertEnter",
         dependencies = {
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
@@ -12,6 +13,9 @@ return {
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-cmdline",
             "saadparwaiz1/cmp_luasnip",
+        },
+        keys = {
+            { ":", mode = { "n", "v" } }, -- also trigger on cmdline
         },
     },
 }

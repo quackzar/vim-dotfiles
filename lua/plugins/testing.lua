@@ -1,26 +1,25 @@
 return {
-    -- Running, Testing and Debugging {{{
     {
         "stevearc/overseer.nvim",
-        config = function()
-            require("overseer").setup {
-                strategy = {
-                    "toggleterm",
+        opts = {
+            strategy = {
+                "toggleterm",
+            },
+            task_list = {
+                direction = "right",
+            },
+            log = {
+                {
+                    type = "notify",
+                    level = vim.log.levels.INFO,
                 },
-                task_list = {
-                    direction = "right",
-                },
-                log = {
-                    {
-                        type = "notify",
-                        level = vim.log.levels.INFO,
-                    },
-                },
-            }
-            vim.keymap.set("n", "<leader>c", "<cmd>OverseerToggle<cr>", { desc = "Toggle Overseer" })
-            vim.keymap.set("n", "<leader>C", "<cmd>OverseerRun<cr>", { desc = "Run a task" })
-            vim.keymap.set("n", "<leader>A", "<cmd>OverseerQuickAction<cr>", { desc = "Overseer Action" })
-        end,
+            },
+        },
+        keys = {
+            { "<leader>c", "<cmd>OverseerToggle<cr>", desc = "Toggle Overseer" },
+            { "<leader>C", "<cmd>OverseerRun<cr>", desc = "Run a task" },
+            { "<leader>A", "<cmd>OverseerQuickAction<cr>", desc = "Overseer Action" },
+        },
     },
 
     { -- TODO: Setup mappings
@@ -36,6 +35,7 @@ return {
             "haydenmeade/neotest-jest",
             "Issafalcon/neotest-dotnet",
         },
+        lazy = true,
         config = function()
             require("cfg.neotest")
         end,
@@ -56,30 +56,26 @@ return {
     {
         "akinsho/toggleterm.nvim",
         version = "*",
-        config = function()
-            require("toggleterm").setup {
-                shell = "fish",
-            }
-            vim.keymap.set(
-                { "n", "i", "v", "t", "t" },
+        opts = {
+            shell = "fish",
+        },
+        keys = {
+            {
                 "<C-\\>",
                 "<cmd>ToggleTerm<cr>",
-                { silent = true, desc = "Toggle Terminal" }
-            )
-        end,
+                desc = "Toggle Terminal",
+                mode = { "n", "i", "v", "t", "t" },
+            },
+        },
     },
 
     {
         "p00f/godbolt.nvim",
-        config = function()
-            require("godbolt").setup {
-                quickfix = {
-                    enable = true, -- whether to populate the quickfix list in case of errors
-                    auto_open = true, -- whether to open the quickfix list in case of errors
-                },
-            }
-        end,
+        opts = {
+            quickfix = {
+                enable = true, -- whether to populate the quickfix list in case of errors
+                auto_open = true, -- whether to open the quickfix list in case of errors
+            },
+        },
     },
-
-    -- }}}
 }

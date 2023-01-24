@@ -21,7 +21,7 @@ return {
         enabled = function()
             return vim.fn.has("nvim-0.9")
         end, -- TODO: set up to be signs, numbers (folds?), git hunks.
-        config = {
+        opts = {
             order = "NsSF",
             setopt = true,
         },
@@ -50,14 +50,6 @@ return {
     },
 
     "famiu/bufdelete.nvim",
-    {
-        "akinsho/bufferline.nvim",
-        version = "v2.*",
-        dependencies = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("cfg.bufferline")
-        end,
-    },
 
     {
         "tiagovla/scope.nvim", -- Makes tabs work like other editors
@@ -124,30 +116,29 @@ return {
 
     {
         "folke/which-key.nvim",
-        config = function()
-            require("which-key").setup {
-                plugins = {
-                    marks = true, -- shows a list of your marks on ' and `
-                    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-                    spelling = {
-                        enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-                        suggestions = 20, -- how many suggestions should be shown in the list?
-                    },
-                    presets = {
-                        operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-                        motions = true, -- adds help for motions
-                        text_objects = true, -- help for text objects triggered after entering an operator
-                        windows = false, -- default bindings on <c-w>
-                        nav = true, -- misc bindings to work with windows
-                        z = true, -- bindings for folds, spelling and others prefixed with z
-                        g = true, -- bindings for prefixed with g
-                    },
+        opts = {
+            plugins = {
+                marks = true, -- shows a list of your marks on ' and `
+                registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+                spelling = {
+                    enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+                    suggestions = 20, -- how many suggestions should be shown in the list?
                 },
-                hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
-                operators = { gc = "Comments" },
-                ignore_missing = false, -- fun if one decides to register everything
-            }
-        end,
+                presets = {
+                    operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+                    motions = true, -- adds help for motions
+                    text_objects = true, -- help for text objects triggered after entering an operator
+                    windows = false, -- default bindings on <c-w>
+                    nav = true, -- misc bindings to work with windows
+                    z = true, -- bindings for folds, spelling and others prefixed with z
+                    g = true, -- bindings for prefixed with g
+                },
+            },
+            hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
+            operators = { gc = "Comments" },
+            ignore_missing = false, -- fun if one decides to register everything
+        },
+        event = "VeryLazy",
     },
 
     "sindrets/winshift.nvim", -- Used in a Hydra
@@ -336,125 +327,6 @@ return {
     -- },
 
     --- }}}
-    -- Generic Editor Plugins {{{
-    "tpope/vim-repeat",
-    "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
-    -- 'tpope/vim-unimpaired'
-
-    {
-        "linty-org/readline.nvim",
-        config = function()
-            local readline = require("readline")
-            vim.keymap.set("!", "<M-f>", readline.forward_word)
-            vim.keymap.set("!", "<M-b>", readline.backward_word)
-            vim.keymap.set("!", "<C-a>", readline.beginning_of_line)
-            vim.keymap.set("!", "<C-e>", readline.end_of_line)
-            vim.keymap.set("!", "<M-d>", readline.kill_word)
-            vim.keymap.set("!", "<C-w>", readline.backward_kill_word)
-            vim.keymap.set("!", "<C-k>", readline.kill_line)
-            vim.keymap.set("!", "<C-u>", readline.backward_kill_line)
-        end,
-    },
-
-    "aca/vidir.nvim",
-
-    {
-        "numToStr/Comment.nvim",
-        config = {
-            ignore = "^$",
-        },
-    },
-
-    {
-        "monaqa/dial.nvim",
-        config = function()
-            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal, { desc = "Dial up" })
-            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal, { desc = "Dial down" })
-            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual, { desc = "Dial up" })
-            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual, { desc = "Dial down" })
-            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual, { desc = "Dial up relative" })
-            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual, { desc = "Dial down relative" })
-        end,
-    },
-
-    {
-        "kylechui/nvim-surround",
-        config = true,
-    },
-
-    {
-        "andymass/vim-matchup",
-        event = "VimEnter",
-        config = function()
-            vim.g.matchup_surround_enabled = 0
-            vim.g.matchup_transmute_enabled = 1
-            vim.g.matchup_matchparen_deferred = 1
-            vim.g.matchup_override_vimtex = 1
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
-        end,
-    },
-
-    {
-        "junegunn/vim-easy-align",
-        config = function()
-            vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", { silent = true })
-            vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", { silent = true })
-            vim.keymap.set("v", "ga", "<Plug>(EasyAlign)", { silent = true })
-        end,
-    },
-
-    "Konfekt/vim-sentence-chopper",
-    "flwyd/vim-conjoin",
-
-    {
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-treesitter/nvim-treesitter" },
-        },
-        config = true,
-    },
-
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            vim.g.indent_blankline_char = "▏"
-            vim.g.indent_blankline_filetype_exclude = { "help", "packer", "undotree", "text", "dashboard", "man" }
-            vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
-            vim.g.indent_blankline_show_trailing_blankline_indent = true
-            vim.g.indent_blankline_show_first_indent_level = false
-            require("indent_blankline").setup {
-                -- for example, context is off by default, use this to turn it on
-                space_char_blankline = " ",
-                show_current_context = true,
-                show_current_context_start = true,
-            }
-        end,
-    },
-
-    "reedes/vim-litecorrect", -- autocorrection! Fixes stupid common mistakes
-
-    {
-        "kevinhwang91/nvim-bqf",
-        config = {
-            auto_enable = true,
-            auto_resize_height = true,
-            func_map = {
-                fzffilter = "",
-            },
-        },
-    },
-
-    {
-        "folke/todo-comments.nvim",
-        event = "BufRead",
-        dependencies = "nvim-lua/plenary.nvim",
-        config = true,
-    },
-
-    { "gpanders/editorconfig.nvim" },
-
-    -- }}}
     -- Navigation {{{
     {
         "nacro90/numb.nvim",
@@ -484,7 +356,7 @@ return {
 
     {
         "LeonHeidelbach/trailblazer.nvim",
-        config = {
+        opts = {
             mappings = {
                 nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
 
@@ -517,7 +389,7 @@ return {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
                 "s1n7ax/nvim-window-picker",
                 version = "1.*",
-                config = {
+                opts = {
                     autoselect_one = true,
                     include_current = false,
                     filter_rules = {
@@ -628,7 +500,7 @@ return {
     {
         "NTBBloodbath/rest.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
-        config = {
+        opts = {
             -- Open request results in a horizontal split
             result_split_horizontal = false,
             -- Skip SSL verification, useful for unknown certificates
@@ -668,7 +540,7 @@ return {
     -- TeX
     {
         "lervag/vimtex",
-        filetype = { "tex" },
+        ft = { "tex" },
         config = function()
             vim.g.tex_flavor = "latex"
             vim.g.vimtex_fold_enabled = 1
@@ -712,6 +584,8 @@ return {
     {
         "tami5/xbase",
         build = "make install",
+        event = "VimEnter",
+        config = true,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",

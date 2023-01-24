@@ -19,7 +19,7 @@ return {
 
     {
         "folke/trouble.nvim",
-        config = {
+        opts = {
             use_diagnostic_signs = true,
         },
         keys = {
@@ -47,7 +47,7 @@ return {
 
     {
         "stevearc/aerial.nvim",
-        config = {
+        opts = {
             backends = { "treesitter", "lsp", "markdown", "man" },
             layout = {
                 placement = "edge",
@@ -79,6 +79,7 @@ return {
     {
         "jackMort/ChatGPT.nvim",
         config = true,
+        cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions", "ChatGPTRun", "ChatGPTRunCustomCodeAction" },
         dependencies = {
             "MunifTanjim/nui.nvim",
             "nvim-lua/plenary.nvim",

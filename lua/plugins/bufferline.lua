@@ -1,4 +1,4 @@
-require("bufferline").setup {
+local opts = {
     options = {
         numbers = "ordinal",
         close_command = "Bdelete! %d",
@@ -72,9 +72,17 @@ require("bufferline").setup {
     -- highlights = require("catppuccin.groups.integrations.bufferline").get(),
 }
 
-vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
--- vim.keymap.set('n', '<leader>be', '<cmd>BufferLineSortByExtension<cr>', {desc="Sort by extension"})
--- vim.keymap.set('n', '<leader>bd', '<cmd>BufferLineSortByDirectory<cr>', {desc="Sort by directory"})
--- vim.keymap.set('n', '<leader>bb', '<cmd>BufferLinePick<cr>', {desc="Pick..."})
--- vim.keymap.set('n', '<leader>bc', '<cmd>BufferLinePickClose<cr>', {desc="Close..."})
+return {
+    {
+        "akinsho/bufferline.nvim",
+        version = "v3.*",
+        dependencies = "kyazdani42/nvim-web-devicons",
+        priority = 1002,
+        opts = opts,
+        event = "BufEnter",
+        keys = {
+            { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+            { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+        },
+    },
+}

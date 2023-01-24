@@ -1,5 +1,4 @@
 local Hydra = require("hydra")
-local neotest = require("neotest")
 
 local hint = [[
  _t_: test nearest    _a_: attach nearest    _o_: summary
@@ -25,42 +24,42 @@ local test_hydra = Hydra {
         {
             "t",
             function()
-                neotest.run.run()
+                require("neotest").run.run()
             end,
             { silent = true },
         },
         {
             "x",
             function()
-                neotest.run.stop()
+                require("neotest").run.stop()
             end,
             { silent = true },
         },
         {
             "f",
             function()
-                neotest.run.run(vim.fn.expand("%"))
+                require("neotest").run.run(vim.fn.expand("%"))
             end,
             { silent = true },
         },
         {
             "d",
             function()
-                neotest.run.run { strategy = "dap" }
+                require("neotest").run.run { strategy = "dap" }
             end,
             { silent = true },
         },
         {
             "a",
             function()
-                neotest.run.attach()
+                require("neotest").run.attach()
             end,
             { silent = true },
         },
         {
             "o",
             function()
-                neotest.summary.toggle()
+                require("neotest").summary.toggle()
             end,
             { silent = true },
         },

@@ -7,7 +7,6 @@ vim.o.termguicolors = true
 vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
 -- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
 vim.o.guioptions = "ad"
-
 vim.g.mapleader = " "
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
