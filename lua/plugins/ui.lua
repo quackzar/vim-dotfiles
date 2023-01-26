@@ -64,7 +64,6 @@ return {
                 dashboard.button("SPC f f", "  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
                 dashboard.button("e", "  New file", "<cmd>ene <bar> startinsert<CR>"),
-                dashboard.button("r", "  Recent files", ":Telescope oldfiles <CR>"),
                 dashboard.button("c", "  Configuration", "<cmd>cd ~/.config/nvim/ <CR><cmd>Neotree<cr>"),
                 dashboard.button("s", "勒 Restore Session", [[:lua require("persistence").load() <cr>]]),
                 dashboard.button("l", "鈴 Lazy", ":Lazy<CR>"),
@@ -226,7 +225,7 @@ return {
         dependencies = "kevinhwang91/promise-async",
         event = "VimEnter",
         opts = {
-            { "lsp", "treesitter" },
+            { "lsp", "treesitter", "indent" },
             preview = {
                 win_config = {
                     border = { "", "─", "", "", "", "─", "", "" },
@@ -241,10 +240,8 @@ return {
             provider_selector = function(_, ft, _)
                 if ft == "tex" or ft == "latex" then
                     return "treesitter"
-                elseif ft == "alpha" then
-                    return nil
                 else
-                    return { "lsp", "treesitter" }
+                    return nil
                 end
             end,
         },

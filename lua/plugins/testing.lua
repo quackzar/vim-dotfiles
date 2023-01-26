@@ -43,11 +43,6 @@ return {
 
     -- { "Olical/conjure", event = "VimEnter" },
 
-    "mfussenegger/nvim-dap",
-    { "theHamsta/nvim-dap-virtual-text", dependencies = { "mfussenegger/nvim-dap" } },
-    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
-    { "mfussenegger/nvim-dap-python", dependencies = { "mfussenegger/nvim-dap" } },
-
     -- {'t-troebst/perfanno.nvim', config = function()
     --	   require('cfg.perfanno')
     -- end
@@ -58,13 +53,20 @@ return {
         version = "*",
         opts = {
             shell = "fish",
+            start_in_insert = false,
         },
         keys = {
+            { -- This fixes a hydra that switches windows, since it gets consumed halfway
+                "<C-\\>",
+                "<cmd>ToggleTerm<cr><cmd>startinsert!<cr>",
+                desc = "Toggle Terminal",
+                mode = { "n", "i", "v" },
+            },
             {
                 "<C-\\>",
                 "<cmd>ToggleTerm<cr>",
                 desc = "Toggle Terminal",
-                mode = { "n", "i", "v", "t", "t" },
+                mode = { "t" },
             },
         },
     },

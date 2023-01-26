@@ -182,7 +182,6 @@ require("functions")
 -- load specific configs
 require("mason").setup()
 require("cfg.lsp")
-require("cfg.dap")
 require("cfg.tree")
 require("ts-grammars")
 require("windline.bubblegum")

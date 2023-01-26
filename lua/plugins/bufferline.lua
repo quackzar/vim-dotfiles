@@ -47,14 +47,16 @@ local opts = {
             { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "right" },
         },
         custom_filter = function(buf_num, buf_numbers)
-            if
-                vim.bo[buf_num].filetype == "NvimTree"
-                or vim.bo[buf_num].filetype == "qf"
-                or vim.bo[buf_num].filetype == "dap-repl"
-            then
-                return false
-            end
-            return true
+            return not (
+                    vim.bo[buf_num].filetype == "NvimTree"
+                    or vim.bo[buf_num].filetype == "qf"
+                    or vim.bo[buf_num].filetype == "dap-repl"
+                    or vim.bo[buf_num].filetype == "dapui_watches"
+                    or vim.bo[buf_num].filetype == "dapui_stacks"
+                    or vim.bo[buf_num].filetype == "dapui_scopes"
+                    or vim.bo[buf_num].filetype == "dapui_breakpoints"
+                    or vim.bo[buf_num].filetype == "dapui_hover"
+                )
         end,
         show_buffer_icons = true,
         show_buffer_close_icons = true,
