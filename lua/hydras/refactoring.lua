@@ -77,8 +77,8 @@ Hydra {
         },
         {
             "s",
-            cmd("lua require('ssr').open()")
-        }
+            cmd("lua require('ssr').open()"),
+        },
     },
 }
 
@@ -122,7 +122,7 @@ Hydra {
         },
         {
             "s",
-            cmd("lua require('ssr').open()")
+            cmd("lua require('ssr').open()"),
         },
         -- Visual Mode Only
         {

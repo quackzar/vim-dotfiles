@@ -44,10 +44,10 @@ return {
     -- { "Olical/conjure", event = "VimEnter" },
 
     -- {'t-troebst/perfanno.nvim', config = function()
-    --	   require('cfg.perfanno')
+    --    require('cfg.perfanno')
     -- end
     -- },
-    --
+
     {
         "akinsho/toggleterm.nvim",
         version = "*",

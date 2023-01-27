@@ -12,108 +12,6 @@ return {
         config = true,
     },
     -- }}}
-    -- Version Control and Git {{{
-    "tpope/vim-fugitive",
-    {
-        "lewis6991/gitsigns.nvim",
-        config = function()
-            require("cfg.gitsigns")
-        end,
-    },
-
-    { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
-
-    {
-        "akinsho/git-conflict.nvim",
-        version = "*",
-        config = function()
-            local conflict = require("git-conflict")
-            require("git-conflict").setup {
-                default_mappings = true, -- disable buffer local mapping created by this plugin
-                disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
-                highlights = { -- They must have background color, otherwise the default color will be used
-                    incoming = "DiffText",
-                    current = "DiffAdd",
-                },
-            }
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "GitConflictDetected",
-                callback = function()
-                    -- vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
-                    vim.keymap.set("n", "cww", function()
-                        conflict.engage.conflict_buster()
-                        conflict.create_buffer_local_mappings()
-                    end)
-                end,
-            })
-        end,
-    },
-    {
-        "TimUntersberger/neogit",
-        dependencies = "nvim-lua/plenary.nvim",
-        config = function()
-            require("neogit").setup {
-                kind = "split",
-                integrations = {
-                    diffview = true,
-                },
-            }
-            vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" })
-            vim.keymap.set("n", "<leader>gl", "<cmd>Neogit log<cr>", { desc = "Neogit log" })
-            vim.keymap.set("n", "<leader>gc", "<cmd>Neogit commit<cr>", { desc = "Neogit commit" })
-        end,
-    },
-    {
-        "f-person/git-blame.nvim",
-        init = function()
-            vim.g.gitblame_enabled = 0
-        end,
-    },
-
-    {
-        "ruifm/gitlinker.nvim",
-        config = function()
-            require("gitlinker").setup {
-                callbacks = {
-                    ["github.com"] = require("gitlinker.hosts").get_github_type_url,
-                    ["gitlab.com"] = require("gitlinker.hosts").get_gitlab_type_url,
-                    ["try.gitea.io"] = require("gitlinker.hosts").get_gitea_type_url,
-                    ["codeberg.org"] = require("gitlinker.hosts").get_gitea_type_url,
-                    ["bitbucket.org"] = require("gitlinker.hosts").get_bitbucket_type_url,
-                    ["try.gogs.io"] = require("gitlinker.hosts").get_gogs_type_url,
-                    ["git.sr.ht"] = require("gitlinker.hosts").get_srht_type_url,
-                    ["git.launchpad.net"] = require("gitlinker.hosts").get_launchpad_type_url,
-                    ["repo.or.cz"] = require("gitlinker.hosts").get_repoorcz_type_url,
-                    ["git.kernel.org"] = require("gitlinker.hosts").get_cgit_type_url,
-                    ["git.savannah.gnu.org"] = require("gitlinker.hosts").get_cgit_type_url,
-                    ["git.fish.princh.com"] = require("gitlinker.hosts").get_gitlab_type_url,
-                },
-            }
-        end,
-    },
-
-    -- {
-    --     "lewis6991/satellite.nvim",
-    --     event = "BufRead",
-    --     config = function()
-    --         require("satellite").setup {
-    --             winblend = 80,
-    --             handlers = {
-    --                 marks = {
-    --                     enable = true,
-    --                     show_builtins = true,
-    --                 },
-    --             },
-    --         }
-    --     end,
-    -- },
-    -- { 'petertriho/nvim-scrollbar',
-    --     config = function()
-    --         require("scrollbar").setup()
-    --     end
-    -- },
-
-    --- }}}
     -- Navigation {{{
     {
         "nacro90/numb.nvim",
@@ -139,29 +37,6 @@ return {
             require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
             vim.keymap.set({ "n", "v" }, "<cr>", "<cmd>HopChar2<cr>", { remap = true })
         end,
-    },
-
-    {
-        "LeonHeidelbach/trailblazer.nvim",
-        opts = {
-            mappings = {
-                nv = { -- Mode union: normal & visual mode. Can be extended by adding i, x, ...
-
-                    motions = {
-                        new_trail_mark = "<space>mm",
-                        track_back = "<space>mo",
-                        peek_move_next_down = "<space>mj",
-                        peek_move_previous_up = "<space>mk",
-                    },
-                    actions = {
-                        delete_all_trail_marks = "<space>mD",
-                        paste_at_last_trail_mark = "<space>mp",
-                        paste_at_all_trail_marks = "<space>mP",
-                        set_trail_mark_select_mode = "<space>ms",
-                    },
-                },
-            },
-        },
     },
 
     "farmergreg/vim-lastplace",
@@ -210,11 +85,18 @@ return {
     },
     -- }}}
     -- Language Specific Plugins {{{
+
+    {
+        "susensio/magic-bang.nvim",
+        config = true,
+    },
+
     -- ==========  C  ==========
     "justinmk/vim-syntax-extra",
     "shirk/vim-gas",
     "ARM9/arm-syntax-vim",
     -- {'p00f/clangd_extensions.nvim'},
+
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
@@ -265,17 +147,23 @@ return {
 
     -- ======== GRAPHVIZ ========
     { "liuchengxu/graphviz.vim", ft = "dot" },
+
     -- ======= OCAML ======
     { "ELLIOTTCABLE/vim-menhir", ft = { "ocaml", "reasonml" } },
+
     -- ====== LLVM ====
     { "rhysd/vim-llvm", ft = "llvm" },
     { "cespare/vim-toml", ft = "toml" },
+
     -- === LUA ===
     "folke/neodev.nvim",
+
     -- === kitty ===
     "fladson/vim-kitty",
+
     -- === GLSL ===
     "tikhomirov/vim-glsl",
+
     -- === rust ===
     { "simrat39/rust-tools.nvim" },
     {
@@ -283,6 +171,7 @@ return {
         dependencies = { { "nvim-lua/plenary.nvim" } },
         event = { "BufRead Cargo.toml" },
     },
+
     -- == rest client ===
     {
         "NTBBloodbath/rest.nvim",
@@ -321,6 +210,7 @@ return {
             vim.g.coctail_imap_prefix = "<C-c>"
         end,
     },
+
     -- === text ===
     { "barreiroleo/ltex-extra.nvim" },
 
@@ -366,12 +256,13 @@ return {
             }
         end,
     },
+
     -- Mac OS / Xcode
     "darfink/vim-plist",
     {
-        "tami5/xbase",
+        "tami5/xbase", -- Consider a way to load this when opening a project.
         build = "make install",
-        event = "VimEnter",
+        lazy = true,
         config = true,
         dependencies = {
             "nvim-lua/plenary.nvim",

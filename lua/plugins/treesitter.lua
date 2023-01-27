@@ -105,10 +105,6 @@ return {
                     replace_all = "<leader><cr>",
                 },
             }
-            -- TODO: Find approriate keymap
-            vim.keymap.set({ "n", "x" }, "<leader>rs", function()
-                require("ssr").open()
-            end)
         end,
     },
 
