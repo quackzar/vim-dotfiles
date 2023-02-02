@@ -245,15 +245,13 @@ return {
                 end
             end,
         },
-        config = function(_, opts)
+        init = function()
+            vim.o.foldcolumn = "0" -- TODO: set to one with statuscol option enabled.
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
             local keymap = vim.keymap
             keymap.amend = require("keymap-amend")
-            vim.wo.foldcolumn = "0"
-            require("ufo").setup(opts)
-            vim.keymap.set("n", "zR", require("ufo").openAllFolds, { desc = "Open all folds" })
-            vim.keymap.set("n", "zM", require("ufo").closeAllFolds, { desc = "Minimize all folds" })
-            vim.keymap.set("n", "zr", require("ufo").openAllFolds, { desc = "Open all folds under cursor" })
-            vim.keymap.set("n", "zm", require("ufo").closeFoldsWith, { desc = "Close all folds under cursor" }) -- closeAllFolds == closeFoldsWith(0)
             vim.keymap.amend("n", "l", function(fallback)
                 local winid = require("ufo").peekFoldedLinesUnderCursor()
                 if not winid then
@@ -261,6 +259,36 @@ return {
                 end
             end)
         end,
+        maps = {
+            {
+                "zR",
+                function()
+                    require("ufo").openAllFolds()
+                end,
+                desc = "Open all folds",
+            },
+            {
+                "zM",
+                function()
+                    require("ufo").closeAllFolds()
+                end,
+                desc = "Minimize all folds",
+            },
+            {
+                "zr",
+                function()
+                    require("ufo").openAllFolds()
+                end,
+                desc = "Open all folds under cursor",
+            },
+            {
+                "zm",
+                function()
+                    require("ufo").closeFoldsWith()
+                end,
+                desc = "Close all folds under cursor",
+            },
+        },
     },
 
     "eandrju/cellular-automaton.nvim",
