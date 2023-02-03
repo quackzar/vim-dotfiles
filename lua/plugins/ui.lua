@@ -8,8 +8,10 @@ return {
             return vim.fn.has("nvim-0.9")
         end, -- TODO: set up to be signs, numbers (folds?), git hunks.
         opts = {
-            order = "NsSF",
+            foldfunc = "builtin",
+            order = "FNsS",
             setopt = true,
+            seperator = false,
         },
     },
 
@@ -64,11 +66,15 @@ return {
                 dashboard.button("SPC f f", "  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
                 dashboard.button("e", "  New file", "<cmd>ene <bar> startinsert<CR>"),
-                dashboard.button("c", "  Configuration", "<cmd>cd ~/.config/nvim/ <CR><cmd>Neotree<cr>"),
+                dashboard.button(
+                    "c",
+                    "  Configuration",
+                    [[<cmd>cd ~/.config/nvim/ <CR><cmd>lua require('persistence').load()<cr>]]
+                ),
                 dashboard.button("s", "勒 Restore Session", [[:lua require("persistence").load() <cr>]]),
-                dashboard.button("l", "鈴 Lazy", ":Lazy<CR>"),
+                dashboard.button("l", "鈴 Lazy", "<cmd>Lazy<CR>"),
                 dashboard.button("m", "  Mason", "<cmd>Mason<CR>"),
-                dashboard.button("q", "  Quit", ":qa<CR>"),
+                dashboard.button("q", "  Quit", "<cmd>qa<CR>"),
             }
 
             theta.footer = {
@@ -246,10 +252,11 @@ return {
             end,
         },
         init = function()
-            vim.o.foldcolumn = "0" -- TODO: set to one with statuscol option enabled.
+            vim.o.foldcolumn = "1" -- TODO: set to one with statuscol option enabled.
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
+            vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
             local keymap = vim.keymap
             keymap.amend = require("keymap-amend")
             vim.keymap.amend("n", "l", function(fallback)

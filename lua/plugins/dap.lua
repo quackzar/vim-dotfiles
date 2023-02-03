@@ -28,6 +28,7 @@ return {
     {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = { "mfussenegger/nvim-dap" },
+        lazy = true,
         opts = {
             highlight_changed_variables = true,
             show_stop_reason = true, -- show stop reason when stopped for exceptions

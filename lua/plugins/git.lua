@@ -145,21 +145,20 @@ return {
         end,
     },
 
-    -- {
-    --     "lewis6991/satellite.nvim",
-    --     event = "BufRead",
-    --     config = function()
-    --         require("satellite").setup {
-    --             winblend = 80,
-    --             handlers = {
-    --                 marks = {
-    --                     enable = true,
-    --                     show_builtins = true,
-    --                 },
-    --             },
-    --         }
-    --     end,
-    -- },
+    {
+        "lewis6991/satellite.nvim",
+        event = "BufRead",
+        opts = {
+            current_only = true,
+            handlers = {
+                marks = {
+                    enable = true,
+                    show_builtins = true,
+                },
+            },
+        },
+    },
+
     -- { 'petertriho/nvim-scrollbar',
     --     config = function()
     --         require("scrollbar").setup()

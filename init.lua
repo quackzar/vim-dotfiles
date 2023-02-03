@@ -87,12 +87,6 @@ vim.opt.listchars:append("tab:▷⋅")
 vim.opt.listchars:append("nbsp:␣")
 vim.opt.listchars:append("trail:⋅")
 
-vim.opt.fillchars:append("eob: ")
-vim.opt.fillchars:append("fold: ")
-vim.opt.fillchars:append("foldopen:")
-vim.opt.fillchars:append("foldclose:")
-vim.opt.fillchars:append("foldsep: ")
-
 vim.opt.showbreak = "↪"
 
 vim.o.foldenable = true
