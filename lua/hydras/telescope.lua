@@ -39,7 +39,7 @@ Hydra {
         { "k", cmd("Telescope keymaps") },
         { "s", cmd("Telescope aerial") }, -- consider document_symbols too
         { "w", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
-        { "p", cmd("Telescope projections theme=dropdown"), { desc = "Projects" } },
+        { "p", cmd("Telescope project theme=dropdown"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
         { ";", cmd("Telescope command_history"), { desc = "Command-line history" } },

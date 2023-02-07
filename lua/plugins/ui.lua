@@ -51,8 +51,6 @@ return {
 
     "rktjmp/lush.nvim",
 
-    "kyazdani42/nvim-web-devicons",
-
     {
         "goolord/alpha-nvim",
         event = "VimEnter",
@@ -252,7 +250,7 @@ return {
             end,
         },
         init = function()
-            vim.o.foldcolumn = "1" -- TODO: set to one with statuscol option enabled.
+            vim.o.foldcolumn = "0" -- TODO: set to one with statuscol option enabled.
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true

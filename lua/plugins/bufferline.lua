@@ -78,7 +78,7 @@ return {
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         priority = 1002,
         opts = opts,
         event = "BufEnter",

@@ -12,6 +12,7 @@ return {
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-cmdline",
+            "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
         },
         keys = {

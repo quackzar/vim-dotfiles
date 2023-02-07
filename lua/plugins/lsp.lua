@@ -87,5 +87,19 @@ return {
         },
     },
 
+    {
+        "utilyre/barbecue.nvim",
+        enabled = false, -- currently winbar is buggy, see https://github.com/utilyre/barbecue.nvim/issues/61
+        name = "barbecue",
+        version = "*",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        opts = {
+            -- configurations go here
+        },
+    },
+
     -- }}}
 }

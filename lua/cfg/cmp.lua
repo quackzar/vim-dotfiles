@@ -34,7 +34,6 @@ lspkind.init {
     -- },
 }
 
-
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -52,6 +51,26 @@ cmp.setup {
         ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
         ["<C-x><C-o>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
+        ["<C-x><C-f>"] = cmp.mapping(
+            cmp.mapping.complete {
+                config = {
+                    sources = {
+                        { name = "path" },
+                    },
+                },
+            },
+            { "i", "c" }
+        ),
+        ["<C-x><C-s>"] = cmp.mapping(
+            cmp.mapping.complete {
+                config = {
+                    sources = {
+                        { name = "spell" },
+                    },
+                },
+            },
+            { "i", "c" }
+        ),
         ["<C-j>"] = cmp.mapping {
             i = function()
                 local entry = cmp.get_selected_entry()
@@ -68,34 +87,34 @@ cmp.setup {
             c = cmp.mapping.close(),
         },
         ["<CR>"] = cmp.mapping.confirm { select = true },
-        ['<C-n>'] = cmp.mapping({
+        ["<C-n>"] = cmp.mapping {
             c = function()
                 if cmp.visible() then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                 else
-                    vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
+                    vim.api.nvim_feedkeys(t("<Down>"), "n", true)
                 end
             end,
             i = function()
                 if cmp.visible() then
-                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                 end
-            end
-        }),
-        ['<C-p>'] = cmp.mapping({
+            end,
+        },
+        ["<C-p>"] = cmp.mapping {
             c = function()
                 if cmp.visible() then
-                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
                 else
-                    vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
+                    vim.api.nvim_feedkeys(t("<Up>"), "n", true)
                 end
             end,
             i = function()
                 if cmp.visible() then
-                    cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+                    cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
                 end
-            end
-        }),
+            end,
+        },
         ["<tab>"] = cmp.mapping {
             c = cmp.confirm { select = true },
         },
@@ -219,7 +238,6 @@ cmp.setup.cmdline("/", {
     },
 })
 
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
@@ -232,7 +250,6 @@ cmp.setup.cmdline(":", {
         { name = "cmdline" },
     }),
 })
-
 
 -- Setup lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -304,4 +321,3 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         end
     end,
 })
-
