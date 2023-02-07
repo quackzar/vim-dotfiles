@@ -68,22 +68,6 @@ function on_attach(client, bufnr)
             border = "rounded",
         },
     }, bufnr)
-
-    -- if client.server_capabilities.signatureHelpProvider then
-    --     require("lsp-overloads").setup(client, {
-    --         ui = {
-    --             -- The border to use for the signature popup window. Accepts same border values as |nvim_open_win()|.
-    --             border = "double",
-    --         },
-    --         keymaps = {
-    --             next_signature = "<C-x><C-l>",
-    --             previous_signature = "<C-k>",
-    --             next_parameter = "<C-l>",
-    --             previous_parameter = "<C-x><C-h>",
-    --         },
-    --     })
-    -- end
-
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
