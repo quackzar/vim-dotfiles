@@ -1,43 +1,8 @@
-local lspkind = require("lspkind")
-
-lspkind.init {
-    -- default symbol map
-    -- can be either 'default' (requires nerd-fonts font) or
-    -- 'codicons' for codicon preset (requires vscode-codicons font)
-    preset = "codicons",
-    -- symbol_map = {
-    --     Class         = "",
-    --     Color         = "",
-    --     Constant      = "",
-    --     Constructor   = "",
-    --     Enum          = "",
-    --     EnumMember    = " ",
-    --     Event         = " ",
-    --     Field         = " ",
-    --     File          = " ",
-    --     Folder        = " ",
-    --     Function      = " ",
-    --     Interface     = " ",
-    --     Keyword       = " ",
-    --     Method        = " ",
-    --     Module        = " ",
-    --     Operator      = " ",
-    --     Property      = " ",
-    --     Reference     = " ",
-    --     Snippet       = " ",
-    --     Struct        = " ",
-    --     Text          = " ",
-    --     TypeParameter = " ",
-    --     Unit          = " ",
-    --     Value         = " ",
-    --     Variable      = " ",
-    -- },
-}
-
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup {
     snippet = {

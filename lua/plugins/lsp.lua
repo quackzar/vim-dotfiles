@@ -63,7 +63,14 @@ return {
         },
     },
 
-    { "onsails/lspkind-nvim" },
+    {
+        "onsails/lspkind-nvim",
+        setup = function()
+            require("lspkind").init {
+                preset = "codicons",
+            }
+        end,
+    },
 
     {
         "L3MON4D3/LuaSnip",
