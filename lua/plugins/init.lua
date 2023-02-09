@@ -1,9 +1,9 @@
 return {
     -- Meta {{{
-    -- Packer can manage itself
     "antoinemadec/FixCursorHold.nvim",
     "anuvyklack/keymap-amend.nvim",
     "stevearc/stickybuf.nvim",
+    "farmergreg/vim-lastplace",
 
     {
         "folke/persistence.nvim",
@@ -39,7 +39,14 @@ return {
         end,
     },
 
-    "farmergreg/vim-lastplace",
+    -- {
+    --     'tzachar/local-highlight.nvim',
+    --     config = function()
+    --         require('local-highlight').setup({
+    --             file_types = {'python', 'cpp', 'c', 'rust', 'lua'}
+    --         })
+    --     end
+    -- },
 
     {
         "nvim-neo-tree/neo-tree.nvim",

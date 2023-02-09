@@ -235,54 +235,58 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.(
-local highlighting = {
-    -- PmenuSel                 = { bg = "#282C34", fg = "NONE" },
-    -- Pmenu                    = { fg = "#C5CDD9", bg = "#22252A" },
-    CmpItemAbbrDeprecated = { fg = "NONE", bg = "NONE", strikethrough = true },
-    CmpItemAbbrMatch = { fg = "#82AAFF", bg = "NONE", bold = true },
-    CmpItemAbbrMatchFuzzy = { fg = "#82AAFF", bg = "NONE", bold = true },
-    CmpItemMenu = { fg = "#C792EA", bg = "NONE", italic = true },
+-- local highlighting = {
+--     -- PmenuSel                 = { bg = "#282C34", fg = "NONE" },
+--     -- Pmenu                    = { fg = "NONE", bg = "#22252A" },
+--     CmpItemAbbrDeprecated = { fg = "NONE", bg = "NONE", strikethrough = true },
+--     CmpItemAbbrMatch = { fg = "NONE", bg = "NONE", bold = true },
+--     CmpItemAbbrMatchFuzzy = { fg = "NONE", bg = "NONE", bold = true },
+--     CmpItemMenu = { fg = "NONE", bg = "NONE", italic = true },
 
-    CmpItemKindField = { fg = "#EED8DA", bg = "#B5585F" },
-    CmpItemKindProperty = { fg = "#EED8DA", bg = "#B5585F" },
-    CmpItemKindEvent = { fg = "#EED8DA", bg = "#B5585F" },
+--     CmpItemKindField = { fg = "NONE", bg = vim.g.terminal_color1 },
+--     CmpItemKindProperty = { fg = "NONE", bg = vim.g.terminal_color1 },
+--     CmpItemKindEvent = { fg = "NONE", bg = vim.g.terminal_color1 },
 
-    CmpItemKindText = { fg = "#C3E88D", bg = "#9FBD73" },
-    CmpItemKindEnum = { fg = "#C3E88D", bg = "#9FBD73" },
-    CmpItemKindKeyword = { fg = "#C3E88D", bg = "#9FBD73" },
+--     CmpItemKindText = { fg = "NONE", bg = vim.g.terminal_color2 },
+--     CmpItemKindEnum = { fg = "NONE", bg = vim.g.terminal_color2 },
+--     CmpItemKindKeyword = { fg = "NONE", bg = vim.g.terminal_color2 },
 
-    CmpItemKindConstant = { fg = "#FFE082", bg = "#D4BB6C" },
-    CmpItemKindConstructor = { fg = "#FFE082", bg = "#D4BB6C" },
-    CmpItemKindReference = { fg = "#FFE082", bg = "#D4BB6C" },
+--     CmpItemKindConstant = { fg = "NONE", bg = vim.g.terminal_color3 },
+--     CmpItemKindConstructor = { fg = "NONE", bg = vim.g.terminal_color3 },
+--     CmpItemKindReference = { fg = "NONE", bg = vim.g.terminal_color3 },
 
-    CmpItemKindFunction = { fg = "#EADFF0", bg = "#A377BF" },
-    CmpItemKindStruct = { fg = "#EADFF0", bg = "#A377BF" },
-    CmpItemKindClass = { fg = "#EADFF0", bg = "#A377BF" },
-    CmpItemKindModule = { fg = "#EADFF0", bg = "#A377BF" },
-    CmpItemKindOperator = { fg = "#EADFF0", bg = "#A377BF" },
+--     CmpItemKindFunction = { fg = "NONE", bg = vim.g.terminal_color5 },
+--     CmpItemKindStruct = { fg = "NONE", bg = vim.g.terminal_color5 },
+--     CmpItemKindClass = { fg = "NONE", bg = vim.g.terminal_color5 },
+--     CmpItemKindModule = { fg = "NONE", bg = vim.g.terminal_color5 },
+--     CmpItemKindOperator = { fg = "NONE", bg = vim.g.terminal_color5 },
 
-    CmpItemKindVariable = { fg = "#C5CDD9", bg = "#7E8294" },
-    CmpItemKindFile = { fg = "#C5CDD9", bg = "#7E8294" },
+--     CmpItemKindVariable = { fg = "NONE", bg = "#7E8294" },
+--     CmpItemKindFile = { fg = "NONE", bg = "#7E8294" },
 
-    CmpItemKindUnit = { fg = "#F5EBD9", bg = "#D4A959" },
-    CmpItemKindSnippet = { fg = "#F5EBD9", bg = "#D4A959" },
-    CmpItemKindFolder = { fg = "#F5EBD9", bg = "#D4A959" },
+--     CmpItemKindUnit = { fg = "NONE", bg = vim.g.terminal_color2 },
+--     CmpItemKindSnippet = { fg = "NONE", bg = vim.g.terminal_color2 },
+--     CmpItemKindFolder = { fg = "NONE", bg = vim.g.terminal_color2 },
 
-    CmpItemKindMethod = { fg = "#DDE5F5", bg = "#6C8ED4" },
-    CmpItemKindValue = { fg = "#DDE5F5", bg = "#6C8ED4" },
-    CmpItemKindEnumMember = { fg = "#DDE5F5", bg = "#6C8ED4" },
+--     CmpItemKindMethod = { fg = "NONE", bg = vim.g.terminal_color4 },
+--     CmpItemKindValue = { fg = "NONE", bg = vim.g.terminal_color4 },
+--     CmpItemKindEnumMember = { fg = "NONE", bg = vim.g.terminal_color4 },
 
-    CmpItemKindInterface = { fg = "#D8EEEB", bg = "#58B5A8" },
-    CmpItemKindColor = { fg = "#D8EEEB", bg = "#58B5A8" },
-    CmpItemKindTypeParameter = { fg = "#D8EEEB", bg = "#58B5A8" },
-    CmpItemKindCopilot = { fg = "#D8EEEB", bg = "#6CC644" },
-}
+--     CmpItemKindInterface = { fg = "NONE", bg = vim.g.terminal_color6 },
+--     CmpItemKindColor = { fg = "NONE", bg = vim.g.terminal_color6 },
+--     CmpItemKindTypeParameter = { fg = "NONE", bg = vim.g.terminal_color6 },
+--     -- CmpItemKindCopilot = { fg = "NONE", bg = "#6CC644" },
+-- }
 
-vim.api.nvim_create_autocmd("ColorScheme", {
-    group = vim.api.nvim_create_augroup("set_cmp_colors", { clear = true }),
-    callback = function()
-        for key, hl in pairs(highlighting) do
-            vim.api.nvim_set_hl(0, key, hl)
-        end
-    end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--     group = vim.api.nvim_create_augroup("set_cmp_colors", { clear = true }),
+--     callback = function()
+--         for key, hl in pairs(highlighting) do
+--             local scheme = vim.api.nvim_get_hl_by_name(key, true)
+--             vim.api.nvim_set_hl(0, key, {
+--                 fg = scheme.background,
+--                 bg = scheme.foreground
+--             })
+--         end
+--     end,
+-- })

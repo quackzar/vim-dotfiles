@@ -1,10 +1,24 @@
 local Hydra = require("hydra")
 
 local function diagnostic()
-    if vim.diagnostic.config().virtual_lines then
+    local state = vim.diagnostic.config().virtual_lines
+    if type(state) == "table" then
+        return "[-]"
+    elseif state then
         return "[x]"
     else
         return "[ ]"
+    end
+end
+
+local function cycle_diagnostics()
+    local state = vim.diagnostic.config().virtual_lines
+    if type(state) == "table" then
+        vim.diagnostic.config { virtual_lines = true }
+    elseif state then
+        vim.diagnostic.config { virtual_lines = false }
+    else
+        vim.diagnostic.config { virtual_lines = { only_current_line = true } }
     end
 end
 
@@ -135,7 +149,7 @@ Hydra {
         {
             "l",
             function()
-                require("lsp_lines").toggle()
+                cycle_diagnostics()
             end,
             { desc = "virtual line diagnostics" },
         },
