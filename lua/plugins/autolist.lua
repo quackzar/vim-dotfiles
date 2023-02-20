@@ -1,5 +1,6 @@
 return {
     "gaoDean/autolist.nvim",
+    enabled = false, -- TODO: Somehow breaks
     ft = {
         "markdown",
         "text",

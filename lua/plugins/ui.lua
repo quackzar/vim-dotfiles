@@ -179,6 +179,9 @@ return {
             hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
             operators = { gc = "Comments" },
             ignore_missing = false, -- fun if one decides to register everything
+            disable = {
+                filetypes = { "neo-tree" },
+            },
         },
         event = "VeryLazy",
     },

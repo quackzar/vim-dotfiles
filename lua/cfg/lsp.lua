@@ -124,7 +124,7 @@ require("neodev").setup {
 }
 
 mason_lsp.setup {
-    ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
+    ensure_installed = { "lua_ls" }, -- ensure these servers are always installed
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 }
 

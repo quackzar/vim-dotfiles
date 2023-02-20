@@ -73,17 +73,6 @@ return {
     },
 
     {
-        "L3MON4D3/LuaSnip",
-        config = function()
-            require("cfg.luasnip")
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_snipmate").lazy_load()
-        end,
-        dependencies = { "rafamadriz/friendly-snippets" },
-        event = "InsertEnter",
-    },
-
-    {
         "jackMort/ChatGPT.nvim",
         config = true,
         cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions", "ChatGPTRun", "ChatGPTRunCustomCodeAction" },
