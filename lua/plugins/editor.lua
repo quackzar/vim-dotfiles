@@ -78,6 +78,7 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             vim.g.indent_blankline_char = "▏"
+            vim.g.indent_blankline_context_char = "▏"
             vim.g.indent_blankline_filetype_exclude = { "help", "packer", "undotree", "text", "dashboard", "man" }
             vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
             vim.g.indent_blankline_show_trailing_blankline_indent = true
@@ -90,6 +91,15 @@ return {
             }
         end,
     },
+
+    -- {
+    --     'huy-hng/anyline.nvim',
+    --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    --     config = {
+    --         ft_ignore = {"help", "alpha", "neo-tree", "OverseerList", "text", "aerial"}
+    --     },
+    --     event = 'VeryLazy',
+    -- },
 
     "reedes/vim-litecorrect", -- autocorrection! Fixes stupid common mistakes
 

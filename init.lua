@@ -110,8 +110,11 @@ vim.keymap.set("v", "@", ":normal @")
 vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<space>q", "<cmd>copen<cr>", { silent = true, desc = "Open quickfix" })
+
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "Next quickfix" })
-vim.keymap.set("n", "[q", "<cmd>cprev<cr>", { silent = true, desc = "Previous quickfix" })
+vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { silent = true, desc = "Previous quickfix" })
+vim.keymap.set("n", "]l", "<cmd>lnext<cr>", { silent = true, desc = "Next locationlist" })
+vim.keymap.set("n", "[l", "<cmd>lprevious<cr>", { silent = true, desc = "Previous locationlist" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),

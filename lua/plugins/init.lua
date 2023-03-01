@@ -21,13 +21,13 @@ return {
     "chaoren/vim-wordmotion",
     "anuvyklack/vim-smartword",
 
-    {
-        "ggandor/leap.nvim",
-        config = function()
-            vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
-            require("leap").set_default_keymaps()
-        end,
-    },
+    -- {
+    --     "ggandor/leap.nvim",
+    --     config = function()
+    --         vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
+    --         require("leap").set_default_keymaps()
+    --     end,
+    -- },
 
     {
         "phaazon/hop.nvim", -- let's try hop too
@@ -35,7 +35,7 @@ return {
         config = function()
             -- you can configure Hop the way you like here; see :h hop-config
             require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-            vim.keymap.set({ "n", "v" }, "<cr>", "<cmd>HopChar2<cr>", { remap = true })
+            vim.keymap.set({ "n", "v" }, "s", "<cmd>HopChar2<cr>", { remap = true })
         end,
     },
 

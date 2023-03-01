@@ -43,11 +43,6 @@ return {
 
     -- { "Olical/conjure", event = "VimEnter" },
 
-    -- {'t-troebst/perfanno.nvim', config = function()
-    --    require('cfg.perfanno')
-    -- end
-    -- },
-
     {
         "akinsho/toggleterm.nvim",
         version = "*",
@@ -79,5 +74,25 @@ return {
                 auto_open = true, -- whether to open the quickfix list in case of errors
             },
         },
+    },
+
+    {
+        "andythigpen/nvim-coverage",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = true,
+    },
+
+    {
+        "t-troebst/perfanno.nvim",
+        config = function()
+            local perfanno = require("perfanno")
+            local util = require("perfanno.util")
+            local bgcolor = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg", "gui")
+            perfanno.setup {
+                -- Creates a 10-step RGB color gradient beween bgcolor and "#CC3300"
+                line_highlights = util.make_bg_highlights("#000000", "#CC3300", 10),
+                vt_highlight = util.make_fg_highlight("#CC3300"),
+            }
+        end,
     },
 }

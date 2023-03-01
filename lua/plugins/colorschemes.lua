@@ -48,7 +48,7 @@ return {
                     leap = true,
                     native_lsp = { enabled = true },
                     dap = { enabled = true },
-                    indent_blankline = { enabled = true },
+                    -- indent_blankline = { enabled = false },
                 },
             }
             -- vim.g.terminal_color_0 = nil
@@ -59,6 +59,12 @@ return {
     {
         "mhartington/oceanic-next",
         priority = 1000,
+    },
+
+    {
+        "askfiy/visual_studio_code",
+        priority = 100,
+        opts = { mode = "dark" },
     },
 
     {

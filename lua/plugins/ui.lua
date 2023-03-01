@@ -3,6 +3,18 @@ return {
     "windwp/windline.nvim",
 
     {
+        "folke/noice.nvim",
+        enabled = false,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
+        -- We still lack bar based cursor for it to be nice.
+        -- We need to configure/disable some other plugins based on this
+        config = true,
+    },
+
+    {
         "luukvbaal/statuscol.nvim",
         enabled = function()
             return vim.fn.has("nvim-0.9")
