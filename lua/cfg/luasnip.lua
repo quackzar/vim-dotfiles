@@ -19,7 +19,6 @@ end, { desc = "Jump prev" })
 
 vim.keymap.set({ "i", "s", "n", "v" }, "<C-s><C-l>", function()
     require("luasnip").unlink_current()
-
 end, { desc = "Stop" })
 
 vim.keymap.set({ "v" }, "<C-s><C-f>", '"sc<cmd>lua require("luasnip.extras.otf").on_the_fly()<cr>')
@@ -77,4 +76,3 @@ luasnip.config.setup {
         },
     },
 }
-

@@ -194,6 +194,9 @@ return {
             disable = {
                 filetypes = { "neo-tree" },
             },
+            triggers_blacklist = {
+                n = { "<leader>g", "<leader>d", "<leader>f" },
+            },
         },
         event = "VeryLazy",
     },

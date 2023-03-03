@@ -34,6 +34,9 @@ return {
             show_stop_reason = true, -- show stop reason when stopped for exceptions
             virt_text_pos = "eol", -- position of virtual text, see :h nvim_buf_set_extmark()
         },
+        keys = {
+            "<leader>du",
+        },
     },
 
     {

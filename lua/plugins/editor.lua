@@ -66,6 +66,13 @@ return {
     "flwyd/vim-conjoin",
 
     {
+        "chrisgrieser/nvim-various-textobjs",
+        config = function()
+            require("various-textobjs").setup { useDefaultKeymaps = true }
+        end,
+    },
+
+    {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
