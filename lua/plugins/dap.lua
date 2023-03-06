@@ -45,8 +45,6 @@ return {
         config = true,
         keys = {
             "<leader>du",
-            "<cmd>lua require('dapui').toggle<cr>",
-            desc = "Toggle DAP UI",
         },
     },
 

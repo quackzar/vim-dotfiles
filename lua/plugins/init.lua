@@ -39,6 +39,16 @@ return {
         end,
     },
 
+    {
+        "cbochs/portal.nvim",
+        -- Ootional dependencies
+        dependencies = { "cbochs/grapple.nvim" },
+        config = function()
+            vim.keymap.set("n", "<C-S-o>", "<cmd>Portal jumplist backward<cr>", { desc = "Portal backward" })
+            vim.keymap.set("n", "<C-S-i>", "<cmd>Portal jumplist forward<cr>", { desc = "Portal forward" })
+        end,
+    },
+
     -- {
     --     'tzachar/local-highlight.nvim',
     --     config = function()
