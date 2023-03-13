@@ -67,7 +67,6 @@ return {
         "akinsho/git-conflict.nvim",
         version = "*",
         config = function()
-            local conflict = require("git-conflict")
             require("git-conflict").setup {
                 default_mappings = true, -- disable buffer local mapping created by this plugin
                 disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
@@ -76,16 +75,17 @@ return {
                     current = "DiffAdd",
                 },
             }
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "GitConflictDetected",
-                callback = function()
-                    -- vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
-                    vim.keymap.set("n", "cww", function()
-                        conflict.engage.conflict_buster()
-                        conflict.create_buffer_local_mappings()
-                    end)
-                end,
-            })
+            -- vim.api.nvim_create_autocmd("User", {
+            --     pattern = "GitConflictDetected",
+            --     callback = function()
+            --         local conflict = require("git-conflict")
+            --         -- vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
+            --         vim.keymap.set("n", "cww", function()
+            --             conflict.engage.conflict_buster()
+            --             conflict.create_buffer_local_mappings()
+            --         end)
+            --     end,
+            -- })
         end,
     },
     {

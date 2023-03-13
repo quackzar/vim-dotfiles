@@ -24,7 +24,7 @@ return {
 
     "nvim-treesitter/nvim-treesitter-textobjects",
 
-    "nvim-treesitter/nvim-treesitter-refactor",
+    -- "nvim-treesitter/nvim-treesitter-refactor",
 
     "nvim-treesitter/playground",
 
@@ -188,8 +188,10 @@ return {
     {
         "mizlan/iswap.nvim",
         config = function()
-            vim.keymap.set("n", "g,", "<cmd>ISwap<cr>", { desc = "Swap" })
+            vim.keymap.set("n", "g:", "<cmd>ISwap<cr>", { desc = "Swap" })
             vim.keymap.set("n", "g.", "<cmd>ISwapWith<cr>", { desc = "Swap with" })
+            vim.keymap.set("n", "g<", "<cmd>ISwapWithLeft<cr>", { desc = "Swap left" })
+            vim.keymap.set("n", "g>", "<cmd>ISwapWithRight<cr>", { desc = "Swap right" })
         end,
     },
 

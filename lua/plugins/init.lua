@@ -2,7 +2,12 @@ return {
     -- Meta {{{
     "antoinemadec/FixCursorHold.nvim",
     "anuvyklack/keymap-amend.nvim",
-    "stevearc/stickybuf.nvim",
+
+    {
+        "stevearc/stickybuf.nvim",
+        config = true,
+    },
+
     "farmergreg/vim-lastplace",
 
     {
@@ -79,7 +84,7 @@ return {
                             filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
 
                             -- if the buffer type is one of following, the window will be ignored
-                            buftype = { "terminal" },
+                            buftype = { "terminal", "nofile" },
                         },
                     },
                     other_win_hl_color = "#e35e4f",
@@ -133,9 +138,10 @@ return {
             -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
         end,
     },
+
     {
         "AckslD/nvim-FeMaco.lua",
-        config = 'require("femaco").setup()',
+        config = true,
     },
 
     {
