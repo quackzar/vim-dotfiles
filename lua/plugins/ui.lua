@@ -13,18 +13,41 @@ return {
         -- We need to configure/disable some other plugins based on this
         config = true,
     },
-
     {
         "luukvbaal/statuscol.nvim",
         enabled = function()
             return vim.fn.has("nvim-0.9")
         end, -- TODO: set up to be signs, numbers (folds?), git hunks.
-        opts = {
-            foldfunc = "builtin",
-            order = "FNsS",
-            setopt = true,
-            seperator = false,
-        },
+        config = function()
+            local builtin = require("statuscol.builtin")
+            require("statuscol").setup {
+                setopt = true,
+                seperator = true,
+                relculright = true,
+                segments = {
+                    -- {
+                    --     sign = { name = { "Diagnostic" }, maxwidth = 1, auto = true },
+                    --     click = "v:lua.ScSa"
+                    -- },
+                    {
+                        sign = { name = { ".*" }, maxwidth = 1, auto = true },
+                        click = "v:lua.ScSa",
+                    },
+                    {
+                        text = { builtin.lnumfunc, " " },
+                        click = "v:lua.ScLa",
+                    },
+                    {
+                        text = { builtin.foldfunc },
+                        click = "v:lua.ScFa",
+                    },
+                    {
+                        sign = { name = { "GitSign" }, maxwidth = 1, colwidth = 1, auto = true },
+                        click = "v:lua.ScSa",
+                    },
+                },
+            }
+        end,
     },
 
     {
@@ -268,7 +291,7 @@ return {
             end,
         },
         init = function()
-            vim.o.foldcolumn = "0" -- TODO: set to one with statuscol option enabled.
+            vim.o.foldcolumn = "1"
             vim.o.foldlevel = 99
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true

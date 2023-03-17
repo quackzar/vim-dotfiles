@@ -14,11 +14,20 @@ end
 local function cycle_diagnostics()
     local state = vim.diagnostic.config().virtual_lines
     if type(state) == "table" then
-        vim.diagnostic.config { virtual_lines = true }
+        vim.diagnostic.config {
+            virtual_lines = true,
+            signs = false,
+        }
     elseif state then
-        vim.diagnostic.config { virtual_lines = false }
+        vim.diagnostic.config {
+            virtual_lines = false,
+            signs = false,
+        }
     else
-        vim.diagnostic.config { virtual_lines = { only_current_line = true } }
+        vim.diagnostic.config {
+            virtual_lines = { only_current_line = true },
+            signs = true,
+        }
     end
 end
 
