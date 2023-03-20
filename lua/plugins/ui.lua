@@ -34,12 +34,12 @@ return {
                         click = "v:lua.ScSa",
                     },
                     {
-                        text = { builtin.lnumfunc, " " },
-                        click = "v:lua.ScLa",
+                        text = { builtin.foldfunc, " " },
+                        click = "v:lua.ScFa",
                     },
                     {
-                        text = { builtin.foldfunc },
-                        click = "v:lua.ScFa",
+                        text = { builtin.lnumfunc, " " },
+                        click = "v:lua.ScLa",
                     },
                     {
                         sign = { name = { "GitSign" }, maxwidth = 1, colwidth = 1, auto = true },

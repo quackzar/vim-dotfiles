@@ -21,7 +21,10 @@ if not vim.loop.fs_stat(lazypath) then
     }
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", {
+    concurrency = 50,
+    git = { timeout = 120 },
+})
 
 if vim.fn.exists("g:neovide") then
     vim.g.neovide_transparency = 1.0
