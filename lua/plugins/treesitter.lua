@@ -72,6 +72,7 @@ return {
                 silent = true,
             })
         end,
+        keys = { { "gJ", "<cmd>TSJToggle<cr>", desc = "toggle join/split" } },
     },
 
     {
@@ -86,6 +87,7 @@ return {
                 { desc = "Trigger Node Action" }
             )
         end,
+        keys = { "<localleader>t" },
     },
 
     { "windwp/nvim-ts-autotag" },
@@ -140,31 +142,52 @@ return {
     },
 
     {
-        "danymat/neogen", -- TODO: research
-        config = function()
-            require("neogen").setup {
-                enabled = true,
-                snippet_engine = "luasnip",
-                languages = {
-                    cs = { template = { annotation_convention = "xmldoc" } },
-                },
-            }
-
-            vim.keymap.set("n", "<Leader>nn", require("neogen").generate, { desc = "document thing" })
-            vim.keymap.set("n", "<Leader>nf", function()
-                require("neogen").generate { type = "func" }
-            end, { desc = "document function" })
-            vim.keymap.set("n", "<Leader>nc", function()
-                require("neogen").generate { type = "class" }
-            end, { desc = "document class" })
-            vim.keymap.set("n", "<Leader>nd", function()
-                require("neogen").generate { type = "file" }
-            end, { desc = "document file" })
-            vim.keymap.set("n", "<Leader>nt", function()
-                require("neogen").generate { type = "type" }
-            end, { desc = "document type" })
-        end,
+        "danymat/neogen",
+        opts = {
+            enabled = true,
+            snippet_engine = "luasnip",
+            languages = {
+                cs = { template = { annotation_convention = "xmldoc" } },
+            },
+        },
         dependencies = "nvim-treesitter/nvim-treesitter",
+        keys = {
+            {
+                "<leader>nn",
+                function()
+                    require("neogen").generate {}
+                end,
+                desc = "document thing",
+            },
+            {
+                "<leader>nf",
+                function()
+                    require("neogen").generate { type = "func" }
+                end,
+                desc = "document function",
+            },
+            {
+                "<leader>nc",
+                function()
+                    require("neogen").generate { type = "class" }
+                end,
+                desc = "document class",
+            },
+            {
+                "<leader>nd",
+                function()
+                    require("neogen").generate { type = "file" }
+                end,
+                desc = "document file",
+            },
+            {
+                "<leader>nn",
+                function()
+                    require("neogen").generate { type = "type" }
+                end,
+                desc = "document type",
+            },
+        },
     },
 
     {
@@ -187,12 +210,12 @@ return {
 
     {
         "mizlan/iswap.nvim",
-        config = function()
-            vim.keymap.set("n", "g:", "<cmd>ISwap<cr>", { desc = "Swap" })
-            vim.keymap.set("n", "g.", "<cmd>ISwapWith<cr>", { desc = "Swap with" })
-            vim.keymap.set("n", "g<", "<cmd>ISwapWithLeft<cr>", { desc = "Swap left" })
-            vim.keymap.set("n", "g>", "<cmd>ISwapWithRight<cr>", { desc = "Swap right" })
-        end,
+        keys = {
+            { "g:", "<cmd>ISwap<cr>", desc = "Swap" },
+            { "g.", "<cmd>ISwapWith<cr>", desc = "Swap with" },
+            { "g<", "<cmd>ISwapWithLeft<cr>", desc = "Swap left" },
+            { "g>", "<cmd>ISwapWithRight<cr>", desc = "Swap right" },
+        },
     },
 
     -- }}}

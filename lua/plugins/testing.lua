@@ -84,6 +84,7 @@ return {
 
     {
         "t-troebst/perfanno.nvim",
+        lazy = true,
         config = function()
             local perfanno = require("perfanno")
             local util = require("perfanno.util")

@@ -63,7 +63,7 @@ return {
     },
 
     "Konfekt/vim-sentence-chopper",
-    "flwyd/vim-conjoin",
+    -- "flwyd/vim-conjoin",
 
     {
         "chrisgrieser/nvim-various-textobjs",
@@ -81,6 +81,7 @@ return {
             { "nvim-treesitter/nvim-treesitter" },
         },
         config = true,
+        lazy = true,
     },
 
     {

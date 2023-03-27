@@ -62,12 +62,6 @@ return {
     },
 
     {
-        "askfiy/visual_studio_code",
-        priority = 100,
-        opts = { mode = "dark" },
-    },
-
-    {
         "rose-pine/neovim",
         name = "rose-pine",
         priority = 1000,

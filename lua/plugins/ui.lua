@@ -158,6 +158,7 @@ return {
 
     {
         "j-hui/fidget.nvim",
+        event = "BufEnter",
         config = function()
             require("fidget").setup {
                 text = {
@@ -170,6 +171,7 @@ return {
 
     {
         "kevinhwang91/nvim-hlslens",
+        event = "VimEnter",
         config = function()
             require("hlslens").setup()
             vim.keymap.set(
@@ -337,7 +339,10 @@ return {
         },
     },
 
-    { "eandrju/cellular-automaton.nvim" },
+    {
+        "eandrju/cellular-automaton.nvim",
+        lazy = true,
+    },
 
     { "Bekaboo/deadcolumn.nvim" },
 }

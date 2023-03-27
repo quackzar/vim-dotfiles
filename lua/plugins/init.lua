@@ -52,6 +52,7 @@ return {
             vim.keymap.set("n", "<C-S-o>", "<cmd>Portal jumplist backward<cr>", { desc = "Portal backward" })
             vim.keymap.set("n", "<C-S-i>", "<cmd>Portal jumplist forward<cr>", { desc = "Portal forward" })
         end,
+        keys = { { "<C-S-o>" }, { "<C-S-i>" } },
     },
 
     -- {
