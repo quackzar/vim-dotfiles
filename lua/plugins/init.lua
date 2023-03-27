@@ -97,6 +97,12 @@ return {
     },
 
     {
+        "chrishrb/gx.nvim",
+        event = { "BufEnter" },
+        config = true, -- default settings
+    },
+
+    {
         "gbprod/stay-in-place.nvim",
         config = function()
             require("stay-in-place").setup {

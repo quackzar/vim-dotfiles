@@ -337,5 +337,7 @@ return {
         },
     },
 
-    "eandrju/cellular-automaton.nvim",
+    { "eandrju/cellular-automaton.nvim" },
+
+    { "Bekaboo/deadcolumn.nvim" },
 }

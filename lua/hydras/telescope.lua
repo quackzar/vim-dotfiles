@@ -7,7 +7,7 @@ end
 local hint = [[
                  _f_: files       _s_: document symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _p_: projects    _g_: live grep
+  🭉🭁🭠🭘    🭣🭕🭌🬾   _n_: navigate    _g_: live grep
   🭅█ ▁     █🭐   _m_: marks       _/_: search in file
   ██🬿      🭊██
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: colorscheme
@@ -39,7 +39,8 @@ Hydra {
         { "k", cmd("Telescope keymaps") },
         { "s", cmd("Telescope aerial") }, -- consider document_symbols too
         { "w", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
-        { "p", cmd("Telescope project theme=dropdown"), { desc = "Projects" } },
+        { "n", cmd("Navbuddy"), { desc = "Navbuddy" } },
+        -- { "p", cmd("Telescope project theme=dropdown"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
         { ";", cmd("Telescope command_history"), { desc = "Command-line history" } },

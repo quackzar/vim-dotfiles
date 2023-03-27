@@ -48,7 +48,8 @@ return {
     {
         "stevearc/aerial.nvim",
         opts = {
-            backends = { "treesitter", "lsp", "markdown", "man" },
+            filter_kind = false, -- TODO: play around with this.
+            backends = { "lsp", "treesitter", "markdown", "man" },
             layout = {
                 placement = "edge",
             },
@@ -85,7 +86,6 @@ return {
 
     {
         "utilyre/barbecue.nvim",
-        -- enabled = false, -- currently winbar is buggy, see https://github.com/utilyre/barbecue.nvim/issues/61
         name = "barbecue",
         version = "*",
         dependencies = {
@@ -94,6 +94,20 @@ return {
         },
         opts = {
             -- configurations go here
+        },
+    },
+
+    {
+        "SmiteshP/nvim-navbuddy",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "SmiteshP/nvim-navic",
+            "MunifTanjim/nui.nvim",
+        },
+        opts = {
+            lsp = {
+                auto_attach = true,
+            },
         },
     },
 
