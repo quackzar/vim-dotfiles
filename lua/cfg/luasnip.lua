@@ -5,6 +5,7 @@ vim.keymap.set({ "i", "s" }, "<C-s><C-o>", function()
 end, { desc = "Select choice" })
 
 vim.keymap.set({ "i", "s" }, "<C-s><C-k>", "<Plug>luasnip-next-choice")
+
 vim.keymap.set({ "i", "s" }, "<C-s><C-j>", function()
     require("luasnip").expand()
 end, { desc = "Expand snippet" })
@@ -13,7 +14,15 @@ vim.keymap.set({ "i", "s", "n" }, "<C-s><C-n>", function()
     require("luasnip").jump(1)
 end, { desc = "Jump next" })
 
+vim.keymap.set({ "i", "s", "n" }, "<C-s>n", function()
+    require("luasnip").jump(1)
+end, { desc = "Jump next" })
+
 vim.keymap.set({ "i", "s", "n" }, "<C-s><C-p>", function()
+    require("luasnip").jump(-1)
+end, { desc = "Jump prev" })
+
+vim.keymap.set({ "i", "s", "n" }, "<C-s>p", function()
     require("luasnip").jump(-1)
 end, { desc = "Jump prev" })
 
@@ -27,17 +36,6 @@ vim.keymap.set({ "i" }, "<C-s><C-f>", '<cmd>lua require("luasnip.extras.otf").on
 local types = require("luasnip.util.types")
 
 vim.keymap.set("i", "<C-s>", "<nop>")
--- require("which-key").register({
---     name = "Snippets",
---     ["<C-o>"] = "Select choice",
---     ["<C-k>"] = "Next choice",
---     ["<C-j>"] = "Expand",
---     ["<C-n>"] = "Jump next",
---     ["<C-p>"] = "Jump previous",
---     ["<C-f>"] = "Fly snippet",
---     ["<C-l>"] = "Stop",
--- }, { mode = "i", prefix = "<C-s>" })
---
 
 luasnip.config.setup {
     enable_autosnippets = true,

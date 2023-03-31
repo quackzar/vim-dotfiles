@@ -63,6 +63,7 @@ vim.diagnostic.config {
 
 function on_attach(client, bufnr)
     require("lsp_signature").on_attach({
+        toggle_key = "<C-S-k>",
         bind = true, -- This is mandatory, otherwise border config won't get registered.
         handler_opts = {
             border = "rounded",
