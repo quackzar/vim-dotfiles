@@ -59,8 +59,8 @@ return {
             end,
         },
         keys = {
-            { "<leader>v", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
-            { "<leader>V", "<cmd>AerialOpen<CR>", desc = "Aerial Focus" },
+            { "<leader>v", "<cmd>AerialOpen<CR>", desc = "Aerial Focus" },
+            { "<leader>V", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
         },
     },
 
@@ -105,12 +105,12 @@ return {
             "SmiteshP/nvim-navic",
             "MunifTanjim/nui.nvim",
         },
+        event = "BufEnter",
         opts = {
             lsp = {
                 auto_attach = true,
             },
         },
-        cmd = "Navbuddy",
     },
 
     -- }}}

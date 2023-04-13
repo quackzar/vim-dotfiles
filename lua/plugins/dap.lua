@@ -3,24 +3,27 @@ return {
         "mfussenegger/nvim-dap",
         lazy = true,
         config = function()
-            vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "Keyword", linehl = "", numhl = "" })
-            vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "Keyword", linehl = "", numhl = "" })
+            vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" })
             vim.fn.sign_define(
                 "DapBreakpointCondition",
-                { text = " ", texthl = "Identifier", linehl = "", numhl = "" }
+                { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" }
             )
-            vim.fn.sign_define("DapLogPoint", { text = " ", texthl = "Keyword", linehl = "", numhl = "" })
-            vim.fn.sign_define("DapStopped", { text = " ", texthl = "Function", linehl = "", numhl = "" })
+            vim.fn.sign_define("DapLogPoint", { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" })
+            vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsAdd", linehl = "", numhl = "" })
+            vim.fn.sign_define(
+                "DapBreakpointRejected",
+                { text = " ", texthl = "GitSignsDelete", linehl = "", numhl = "" }
+            )
             local dap = require("dap")
             dap.adapters.netcoredb = {}
 
             require("mason-nvim-dap").setup {
                 automatic_setup = true,
-            }
-            require("mason-nvim-dap").setup_handlers {
-                function(source)
-                    require("mason-nvim-dap.automatic_setup")(source)
-                end,
+                handlers = {
+                    function(source)
+                        require("mason-nvim-dap").default_setup(source)
+                    end,
+                },
             }
         end,
     },
@@ -34,18 +37,13 @@ return {
             show_stop_reason = true, -- show stop reason when stopped for exceptions
             virt_text_pos = "eol", -- position of virtual text, see :h nvim_buf_set_extmark()
         },
-        keys = {
-            "<leader>du",
-        },
     },
 
     {
         "rcarriga/nvim-dap-ui",
         dependencies = { "mfussenegger/nvim-dap" },
         config = true,
-        keys = {
-            "<leader>du",
-        },
+        lazy = true, -- Triggered by Hydra
     },
 
     {

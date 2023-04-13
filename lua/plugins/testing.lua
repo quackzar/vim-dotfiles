@@ -2,9 +2,9 @@ return {
     {
         "stevearc/overseer.nvim",
         opts = {
-            strategy = {
-                "toggleterm",
-            },
+            -- strategy = {
+            --     "toggleterm",
+            -- },
             task_list = {
                 direction = "right",
             },

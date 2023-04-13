@@ -1,28 +1,81 @@
 local Hydra = require("hydra")
 
+-- local hint = [[
+--  _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
+--  _i_: step into   _x_: Quit             ^ ^                 ^ ^
+--  _o_: step out    _X_: Stop             _u_: Toggle UI
+--  _c_: to cursor   ^ ^                   _C_: Close UI
+--  ^
+--  ^ ^              _q_/_<esc>_: exit
+-- ]]
+
 local hint = [[
- _n_: step over   _s_: Continue/Start   _b_: Breakpoint     _K_: Eval
- _i_: step into   _x_: Quit             ^ ^                 ^ ^
- _o_: step out    _X_: Stop             _u_: Toggle UI
- _c_: to cursor   ^ ^                   _C_: Close UI
- ^
- ^ ^              _q_/_<esc>_: exit
+ _s_: continue/start
+ _p_: pause
+ _r_: restart
+ ^ ^
+ _n_: step over
+ _i_: step into
+ _o_: step out
+ _c_: to cursor
+ ^ ^
+ _b_: breakpoint
+ _a_: logpoint
+ _e_: exception
+ ^ ^
+ _>_: up stack
+ _<_: down stack
+ _._: focus frame
+ ^ ^
+ _u_: toggle UI
+ _x_: stop
+ _q_: stop and exit
+ _<esc>_: exit mode
 ]]
 
 local dap_hydra = Hydra {
+    name = "dap",
     hint = hint,
     config = {
         color = "pink",
         invoke_on_body = true,
         hint = {
-            position = "top",
+            position = "middle-right",
             border = "rounded",
         },
+        on_enter = function()
+            require("dapui").open()
+            require("nvim-dap-virtual-text").enable()
+        end,
     },
-    name = "dap",
     mode = { "n", "x" },
     body = "<leader>d",
     heads = {
+        -- Start and restart
+        {
+            "s",
+            function()
+                require("dap").continue()
+            end,
+            { silent = true },
+        },
+        {
+            "r",
+            function()
+                require("dap").restart()
+            end,
+            { silent = true },
+        },
+        {
+            "p",
+            function()
+                require("dap").pause()
+            end,
+            { silent = true },
+        },
+        -- { "R", function() require("dap").reverse_continue() end, { silent = true } },
+
+        -- Stepping
         {
             "n",
             function()
@@ -51,29 +104,8 @@ local dap_hydra = Hydra {
             end,
             { silent = true },
         },
-        {
-            "s",
-            function()
-                require("dap").continue()
-            end,
-            { silent = true },
-        },
-        {
-            "u",
-            function()
-                require("dapui").toggle()
-            end,
-            { desc = "Toggle DAP UI" },
-        },
-        { "x", ":lua require'dap'.disconnect({ terminateDebuggee = false })<CR>", { exit = true, silent = true } },
-        {
-            "X",
-            function()
-                require("dap").close()
-            end,
-            { silent = true },
-        },
-        { "C", ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
+
+        -- Breakpoints and Exceptions
         {
             "b",
             function()
@@ -81,9 +113,73 @@ local dap_hydra = Hydra {
             end,
             { silent = true },
         },
-        { "K", ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
-        { "q", nil, { exit = true, nowait = true } },
+        {
+            "a",
+            function()
+                require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+            end,
+        },
+        {
+            "e",
+            function()
+                require("dap").set_exception_breakpoints()
+            end,
+            { silent = true },
+        },
+
+        -- Movement
+        {
+            ">",
+            function()
+                require("dap").up()
+            end,
+            { silent = true },
+        },
+        {
+            "<",
+            function()
+                require("dap").down()
+            end,
+            { silent = true },
+        },
+        {
+            ".",
+            function()
+                require("dap").focus_frame()
+            end,
+            { silent = true },
+        },
+
+        -- Stopping, quitting and just exiting
+        {
+            "u",
+            function()
+                require("dapui").toggle()
+            end,
+            { desc = "Toggle DAP UI" },
+        },
+        {
+            "x",
+            function()
+                require("dap").terminate()
+            end,
+            { silent = true },
+        },
+        {
+            "q",
+            function()
+                require("dap").disconnect { terminateDebuggee = true }
+                require("nvim-dap-virtual-text").refresh()
+                require("dapui").close()
+            end,
+            { silent = true, exit = true },
+        },
         { "<esc>", nil, { exit = true, nowait = true } },
+
+        -- OLD and UNUSED
+        -- { "q", nil, { exit = true, nowait = true } },
+        -- { "K", ":lua require('dap.ui.widgets').hover()<CR>", { silent = true } },
+        -- { "C", ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
     },
 }
 
