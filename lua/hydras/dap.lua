@@ -23,8 +23,8 @@ local hint = [[
  _a_: logpoint
  _e_: exception
  ^ ^
- _>_: up stack
- _<_: down stack
+ _<_: up stack
+ _>_: down stack
  _._: focus frame
  ^ ^
  _u_: toggle UI
@@ -129,14 +129,14 @@ local dap_hydra = Hydra {
 
         -- Movement
         {
-            ">",
+            "<",
             function()
                 require("dap").up()
             end,
             { silent = true },
         },
         {
-            "<",
+            ">",
             function()
                 require("dap").down()
             end,

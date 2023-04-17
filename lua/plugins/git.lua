@@ -10,7 +10,7 @@ return {
                 change = { text = "▎" },
                 delete = { text = "◢" },
                 topdelete = { text = "◥" },
-                changedelete = { text = "◢" },
+                changedelete = { text = "▎" },
             },
             numhl = false,
             linehl = false,
@@ -19,6 +19,9 @@ return {
                 follow_files = true,
             },
             sign_priority = 6,
+            current_line_blame_opts = {
+                virt_text_pos = "right_align",
+            },
             update_debounce = 100,
             status_formatter = nil, -- Use default
             on_attach = function(bufnr)
