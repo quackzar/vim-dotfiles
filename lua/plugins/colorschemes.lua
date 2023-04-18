@@ -32,7 +32,8 @@ return {
                 dim_inactive = {
                     enabled = false,
                 },
-                term_colors = true, -- ??? screws with windline
+                transparent_background = false,
+                term_colors = false, -- ??? screws with windline
                 integrations = {
                     cmp = true,
                     gitsigns = true,

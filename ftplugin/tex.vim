@@ -5,6 +5,8 @@ setlocal keywordprg=texdoc
 setlocal omnifunc=vimtex#complete#omnifunc
 setlocal wrap
 setlocal spell
+setlocal tw=100 cc=100
+
 nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
 nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 nmap <buffer> j gj
@@ -21,7 +23,6 @@ nnoremap <buffer> K K
 " So the other one doesn't seem to work, so I did this instead
 " nnoremap <buffer> K :VimtexDocPackage<cr>y<esc>
 
-nnoremap <buffer> <F7> <Plug>(vimtex-cmd-create)
 
 " In case these are already taken, reclaim them!
 vmap <buffer> ac <plug>(vimtex-ac)

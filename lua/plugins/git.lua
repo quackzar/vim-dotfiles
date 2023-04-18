@@ -100,11 +100,13 @@ return {
                 diffview = true,
             },
         },
-        keys = {
-            { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
-            { "<leader>gl", "<cmd>Neogit log<cr>", desc = "Neogit log" },
-            { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
-        },
+        lazy = true,
+        cmd = "Neogit",
+        -- keys = {
+        --     { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
+        --     { "<leader>gl", "<cmd>Neogit log<cr>", desc = "Neogit log" },
+        --     { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
+        -- },
     },
 
     {

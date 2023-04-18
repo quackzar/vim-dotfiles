@@ -215,6 +215,7 @@ require("neo-tree").setup {
         "filesystem",
         "buffers",
         "git_status",
+        -- "document_symbols"
         -- "diagnostics",
     },
     source_selector = {
@@ -223,6 +224,7 @@ require("neo-tree").setup {
     },
     close_if_last_window = true,
     filesystem = {
+        follow_current_file = true,
         use_libuv_file_watcher = true,
         window = {
             mappings = {
@@ -278,6 +280,8 @@ require("neo-tree").setup {
     },
     buffers = {
         follow_current_file = true,
+        show_unloaded = true,
+        group_empty_dirs = true, -- when true, empty folders will be grouped together
     },
 }
 

@@ -5,8 +5,8 @@ local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo stage hunk   _D_: diff this     _p_: preview hunk   _B_: blame show full
  ^ ^              _S_: stage buffer      _R_: reset buffer  _Y_: yank link      _/_: show base file
- ^
- ^ ^              _<Enter>_: Neogit                         _q_: exit
+ ^ ^              _c_: commit            ^ ^                _L_: log
+ ^ ^              _g_/_<Enter>_: Neogit                     _q_: exit
 ]]
 
 Hydra {
@@ -83,7 +83,10 @@ Hydra {
             end,
         },
         { "/", gitsigns.show, { exit = true } }, -- show the base of the file
-        { "<Enter>", "<cmd>Neogit<CR>", { exit = true } },
+        { "L", "<cmd>Neogit log<cr>", { exit = true } },
+        { "c", "<cmd>Neogit commit<cr>", { exit = true } },
+        { "<Enter>", "<cmd>Neogit<cr>", { exit = true } },
+        { "g", "<cmd>Neogit<cr>", { exit = true } },
         { "q", nil, { exit = true, nowait = true } },
     },
 }

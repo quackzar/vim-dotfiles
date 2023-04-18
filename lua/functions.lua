@@ -1,3 +1,5 @@
+-- This file is dedicated to more 'custom' functionality that isn't derived from a plugin
+
 vim.lsp.protocol.CompletionItemKind = {
     "   (Text) ",
     "   (Method)",
