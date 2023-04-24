@@ -85,6 +85,31 @@ return {
     },
 
     {
+        "Bryley/neoai.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        cmd = {
+            "NeoAI",
+            "NeoAIOpen",
+            "NeoAIClose",
+            "NeoAIToggle",
+            "NeoAIContext",
+            "NeoAIContextOpen",
+            "NeoAIContextClose",
+            "NeoAIInject",
+            "NeoAIInjectCode",
+            "NeoAIInjectContext",
+            "NeoAIInjectContextCode",
+        },
+        keys = {
+            { "<leader>s", desc = "summarize text" },
+            { "<leader>S", desc = "generate git message" },
+        },
+        config = true,
+    },
+
+    {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",

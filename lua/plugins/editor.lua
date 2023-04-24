@@ -3,6 +3,8 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
 
+    { "johmsalas/text-case.nvim", setup = true },
+
     {
         "linty-org/readline.nvim",
         config = function()
@@ -85,6 +87,11 @@ return {
     },
 
     {
+        "AckslD/muren.nvim",
+        config = true,
+    },
+
+    {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             vim.g.indent_blankline_char = "▏"
@@ -131,6 +138,12 @@ return {
     },
 
     { "gpanders/editorconfig.nvim" },
+
+    {
+        "ecthelionvi/NeoComposer.nvim",
+        dependencies = { "kkharji/sqlite.lua" },
+        opts = { notify = false },
+    },
 
     -- }}}
 }

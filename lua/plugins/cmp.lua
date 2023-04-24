@@ -19,4 +19,13 @@ return {
             { ":", mode = { "n", "v" } }, -- also trigger on cmdline
         },
     },
+
+    {
+        "jcdickinson/codeium.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "hrsh7th/nvim-cmp",
+        },
+        config = true,
+    },
 }

@@ -16,6 +16,16 @@ return {
         module = "persistence",
         config = true,
     },
+
+    { -- autoclose unused buffers
+        "axkirillov/hbac.nvim",
+        config = true,
+        opts = {
+            autoclose = true,
+            threshold = 2,
+        },
+    },
+
     -- }}}
     -- Navigation {{{
     {
@@ -304,6 +314,13 @@ return {
                 { name = "nospell", argspell = 0 },
             }
         end,
+    },
+
+    -- Typst
+    {
+        "kaarmu/typst.vim",
+        ft = "typst",
+        lazy = false,
     },
 
     -- Mac OS / Xcode

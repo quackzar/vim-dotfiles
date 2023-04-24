@@ -97,9 +97,9 @@ basic.hydra = {
         magenta = { "magenta", "black" },
     },
     text = function(bufnr)
-        local hint = require('hydra.statusline').get_hint()
+        local hint = require("hydra.statusline").get_hint()
         if hint then
-            return ' ' .. hint
+            return " " .. hint
         end
         return ""
     end,
@@ -122,6 +122,7 @@ basic.file = {
         }
     end,
 }
+
 basic.right = {
     hl_colors = {
         sep_before = { "black_light", "white_light" },
@@ -135,6 +136,7 @@ basic.right = {
         }
     end,
 }
+
 basic.git = {
     width = 90,
     hl_colors = {
@@ -202,16 +204,30 @@ basic.noice = {
     text = function()
         local noice = require("noice").api.status
         if noice.command.has() then
-            return {noice.command.get(), 'green'}
+            return { noice.command.get(), "green" }
         elseif noice.message.has() then
-            return {noice.message.get(), 'red'}
+            return { noice.message.get(), "red" }
         elseif noice.search.has() then
-            return {noice.search.get(), 'blue'}
+            return { noice.search.get(), "blue" }
         elseif noice.mode.has() then
-            return {noice.mode.get(), 'red'}
+            return { noice.mode.get(), "red" }
         end
-        return ''
-    end
+        return ""
+    end,
+}
+
+basic.macros = {
+    hl_colors = {
+        default = { "white", "black_light" },
+        sep_before = { "black_light", "black" },
+        sep_after = { "black_light", "black" },
+    },
+    text = function()
+        return {
+            { require("NeoComposer.ui").status_recording(), "default" },
+            { " ", "default" },
+        }
+    end,
 }
 
 local default = {
@@ -229,6 +245,7 @@ local default = {
         basic.git,
         { git_comps.git_branch { icon = "  " }, { "green", "black" }, 90 },
         { " ", hl_list.Black },
+        basic.macros,
         basic.vi_mode,
         basic.right,
         { " ", hl_list.Black },
@@ -276,7 +293,6 @@ local explorer = {
     always_active = true,
     show_last_status = true,
 }
-
 
 windline.setup {
     colors_name = function(colors)

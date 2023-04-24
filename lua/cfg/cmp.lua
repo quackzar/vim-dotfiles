@@ -92,6 +92,7 @@ cmp.setup {
         { name = "copilot", group_index = 2 },
         { name = "luasnip", group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
+        { name = "codium" },
         -- { name = "cmp_tabnine", group_index = 1 },
     },
     sorting = {
@@ -148,6 +149,7 @@ cmp.setup {
                     luasnip = "SNIP",
                     omni = "OMNI",
                     cmp_tabnine = "TAB9",
+                    codeium = " ",
                 }
 
                 local menu = source_mapping[entry.source.name]
