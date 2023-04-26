@@ -96,7 +96,7 @@ basic.hydra = {
     hl_colors = {
         magenta = { "magenta", "black" },
     },
-    text = function(bufnr)
+    text = function(_)
         local hint = require("hydra.statusline").get_hint()
         if hint then
             return " " .. hint
@@ -223,10 +223,14 @@ basic.macros = {
         sep_after = { "black_light", "black" },
     },
     text = function()
-        return {
-            { require("NeoComposer.ui").status_recording(), "default" },
-            { " ", "default" },
-        }
+        local composer = require("NeoComposer.state")
+        -- composer.set_status_bg("")
+        if composer.get_playing() or composer.get_delay() or composer.get_recording() then
+            return {
+                { require("NeoComposer.ui").status_recording(), "default" },
+                { " ", "default" },
+            }
+        end
     end,
 }
 

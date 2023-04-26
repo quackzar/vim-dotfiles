@@ -175,13 +175,13 @@ return {
         config = function()
             require("hlslens").setup()
             vim.keymap.set(
-                { "n", "v" },
+                { "n", "x" },
                 "n",
                 "<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>",
                 { desc = "next" }
             )
             vim.keymap.set(
-                { "n", "v" },
+                { "n", "x" },
                 "N",
                 "<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>",
                 { desc = "prev" }
@@ -265,78 +265,6 @@ return {
     {
         "karb94/neoscroll.nvim",
         config = true,
-    },
-
-    {
-        "kevinhwang91/nvim-ufo",
-        dependencies = "kevinhwang91/promise-async",
-        event = "VimEnter",
-        opts = {
-            { "lsp", "treesitter", "indent" },
-            preview = {
-                win_config = {
-                    border = { "", "─", "", "", "", "─", "", "" },
-                    winhighlight = "Normal:Folded",
-                    winblend = 0,
-                },
-                mappings = {
-                    scrollU = "<C-u>",
-                    scrollD = "<C-d>",
-                },
-            },
-            provider_selector = function(_, ft, _)
-                if ft == "tex" or ft == "latex" then
-                    return "treesitter"
-                else
-                    return nil
-                end
-            end,
-        },
-        init = function()
-            vim.o.foldcolumn = "1"
-            vim.o.foldlevel = 99
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
-            vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-            local keymap = vim.keymap
-            keymap.amend = require("keymap-amend")
-            vim.keymap.amend("n", "l", function(fallback)
-                local winid = require("ufo").peekFoldedLinesUnderCursor()
-                if not winid then
-                    fallback()
-                end
-            end)
-        end,
-        maps = {
-            {
-                "zR",
-                function()
-                    require("ufo").openAllFolds()
-                end,
-                desc = "Open all folds",
-            },
-            {
-                "zM",
-                function()
-                    require("ufo").closeAllFolds()
-                end,
-                desc = "Minimize all folds",
-            },
-            {
-                "zr",
-                function()
-                    require("ufo").openAllFolds()
-                end,
-                desc = "Open all folds under cursor",
-            },
-            {
-                "zm",
-                function()
-                    require("ufo").closeFoldsWith()
-                end,
-                desc = "Close all folds under cursor",
-            },
-        },
     },
 
     {

@@ -30,7 +30,12 @@ cmp.setup {
             cmp.mapping.complete {
                 config = {
                     sources = {
-                        { name = "spell" },
+                        {
+                            name = "spell",
+                            option = {
+                                keep_all_entries = true,
+                            },
+                        },
                     },
                 },
             },

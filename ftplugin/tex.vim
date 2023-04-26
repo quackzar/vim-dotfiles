@@ -11,8 +11,8 @@ nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
 nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 nmap <buffer> j gj
 nmap <buffer> k gk
-vmap <buffer> j gj
-vmap <buffer> k gk
+xmap <buffer> j gj
+xmap <buffer> k gk
 
 nnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
 xnoremap <buffer> <localleader>wc :VimtexCountWords<cr>
@@ -25,7 +25,7 @@ nnoremap <buffer> K K
 
 
 " In case these are already taken, reclaim them!
-vmap <buffer> ac <plug>(vimtex-ac)
+omap <buffer> ac <plug>(vimtex-ac)
 xmap <buffer> ac <plug>(vimtex-ac)
-vmap <buffer> ic <plug>(vimtex-ic)
+omap <buffer> ic <plug>(vimtex-ic)
 xmap <buffer> ic <plug>(vimtex-ic)

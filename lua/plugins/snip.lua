@@ -47,16 +47,16 @@ s(
 
             -- SnippetGenie doesn't map any keys by default.
             -- Here're the suggested mappings:
-            vim.keymap.set({ "x", "v" }, "<c-s><c-q>", function()
+            vim.keymap.set({ "v" }, "<c-s><c-q>", function()
                 genie.create_new_snippet_or_add_placeholder()
                 vim.cmd("norm! �") -- exit Visual Mode, go back to Normal Mode
             end, { desc = "New snippet" })
 
-            vim.keymap.set({ "n", "x", "v" }, "<c-s><c-x>", function()
+            vim.keymap.set({ "n", "v" }, "<c-s><c-x>", function()
                 genie.finalize_snippet()
             end, { desc = "Finalize snippet" })
 
-            vim.keymap.set({ "n", "v", "x" }, "<c-s>", "<nop>", {})
+            vim.keymap.set({ "n", "x" }, "<c-s>", "<nop>", {})
         end,
     },
 }

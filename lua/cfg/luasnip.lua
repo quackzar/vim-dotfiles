@@ -26,7 +26,7 @@ vim.keymap.set({ "i", "s", "n" }, "<C-s>p", function()
     require("luasnip").jump(-1)
 end, { desc = "Jump prev" })
 
-vim.keymap.set({ "i", "s", "n", "v" }, "<C-s><C-l>", function()
+vim.keymap.set({ "i", "n", "v" }, "<C-s><C-l>", function()
     require("luasnip").unlink_current()
 end, { desc = "Stop" })
 

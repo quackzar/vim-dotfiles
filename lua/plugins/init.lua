@@ -22,7 +22,7 @@ return {
         config = true,
         opts = {
             autoclose = true,
-            threshold = 2,
+            threshold = 10,
         },
     },
 
@@ -50,7 +50,7 @@ return {
         config = function()
             -- you can configure Hop the way you like here; see :h hop-config
             require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-            vim.keymap.set({ "n", "v" }, "s", "<cmd>HopChar2<cr>", { remap = true })
+            vim.keymap.set({ "n", "x" }, "s", "<cmd>HopChar2<cr>", { remap = true })
         end,
     },
 
