@@ -29,6 +29,8 @@ return {
         },
     },
 
+    "LudoPinelli/comment-box.nvim", -- Maybe hydra? Also the venn diagram one
+
     {
         "monaqa/dial.nvim",
         keys = {

@@ -11,7 +11,7 @@ local Hydra = require("hydra")
 
 -- TODO: Fix overlapping mappings with dapui (e, r, o, <cr>, d, t)
 local hint = [[
- ---   DAP   ---
+ ^ ^    DAP 
  _s_: continue/start
  _p_: pause
  _r_: restart
@@ -34,7 +34,7 @@ local hint = [[
  _q_: stop and exit
  _<esc>_: exit mode
 
-  --- Watches ---
+ ^ ^  Watches 
  ^e^: edit
  ^r^: repl
  ^o^: open
@@ -175,15 +175,26 @@ local dap_hydra = Hydra {
             { silent = true },
         },
         {
+            "<esc>",
+            function()
+                -- if there is no active session, we can just close
+                if require("dap").session() == nil then
+                    require("nvim-dap-virtual-text").refresh()
+                    require("dapui").close()
+                end
+            end,
+            { silent = true, exit = true },
+        },
+        {
             "q",
             function()
+                -- quit everything
                 require("dap").disconnect { terminateDebuggee = true }
                 require("nvim-dap-virtual-text").refresh()
                 require("dapui").close()
             end,
-            { silent = true, exit = true },
+            { exit = true, nowait = true },
         },
-        { "<esc>", nil, { exit = true, nowait = true } },
 
         -- OLD and UNUSED
         -- { "q", nil, { exit = true, nowait = true } },

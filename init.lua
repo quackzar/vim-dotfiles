@@ -102,6 +102,8 @@ vim.o.scrolloff = 10
 
 vim.o.laststatus = 3
 
+vim.o.colorcolumn = "+0"
+
 -- some pluginless keymaps
 vim.keymap.set({ "n", "x" }, "Q", "<nop>")
 vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })

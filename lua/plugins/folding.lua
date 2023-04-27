@@ -20,13 +20,13 @@ return {
                     jumpBot = "]",
                 },
             },
-            provider_selector = function(_, ft, _)
-                if ft == "tex" or ft == "latex" then
-                    return "treesitter"
-                else
-                    return nil
-                end
-            end,
+            -- provider_selector = function(_, ft, _)
+            --     if ft == "tex" or ft == "latex" then
+            --         return "treesitter"
+            --     else
+            --         return nil
+            --     end
+            -- end,
             fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
                 local newVirtText = {}
                 local suffix = ("  %d "):format(endLnum - lnum)
