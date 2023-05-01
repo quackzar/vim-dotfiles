@@ -215,7 +215,7 @@ require("neo-tree").setup {
         "filesystem",
         "buffers",
         "git_status",
-        -- "document_symbols"
+        "document_symbols",
         -- "diagnostics",
     },
     source_selector = {
@@ -226,6 +226,7 @@ require("neo-tree").setup {
     filesystem = {
         follow_current_file = true,
         use_libuv_file_watcher = true,
+        group_empty_dirs = true,
         window = {
             mappings = {
                 ["o"] = "system_open",

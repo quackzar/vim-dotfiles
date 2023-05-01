@@ -2,9 +2,15 @@ vim.bo.omnifunc = "vimtex#complete#omnifunc"
 
 local lspkind = require("lspkind")
 
+-- TODO: find a method to set this for this buffer only
+-- vim.diagnostic.config {
+--     virtual_lines = false,
+--     signs = true,
+-- }
+
 require("cmp").setup.buffer {
     formatting = {
-        fields  = { "kind", "abbr", "menu" },
+        fields = { "kind", "abbr", "menu" },
         format = lspkind.cmp_format {
             mode = "symbol_text",
             max_width = 40,
@@ -24,7 +30,7 @@ require("cmp").setup.buffer {
                 })[entry.source.name]
                 return vim_item
             end,
-        }
+        },
     },
     sources = {
         { name = "nvim_lsp", group_index = 1 },
