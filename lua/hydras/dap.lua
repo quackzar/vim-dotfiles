@@ -30,8 +30,7 @@ local hint = [[
  _._: focus frame
  ^ ^
  _u_: toggle UI
- _x_: stop
- _q_: stop and exit
+ _q_: stop
  _<esc>_: exit mode
 
  ^ ^  Watches 
@@ -53,6 +52,8 @@ local dap_hydra = Hydra {
             border = "rounded",
         },
         on_enter = function()
+            vim.bo.modifiable = false
+            require("neo-tree.sources.manager").close_all()
             require("dapui").open()
             require("nvim-dap-virtual-text").enable()
         end,
@@ -168,7 +169,7 @@ local dap_hydra = Hydra {
             { desc = "Toggle DAP UI" },
         },
         {
-            "x",
+            "q",
             function()
                 require("dap").terminate()
             end,
@@ -185,16 +186,16 @@ local dap_hydra = Hydra {
             end,
             { silent = true, exit = true },
         },
-        {
-            "q",
-            function()
-                -- quit everything
-                require("dap").disconnect { terminateDebuggee = true }
-                require("nvim-dap-virtual-text").refresh()
-                require("dapui").close()
-            end,
-            { exit = true, nowait = true },
-        },
+        -- {
+        --     "q",
+        --     function()
+        --         -- quit everything
+        --         require("dap").disconnect { terminateDebuggee = true }
+        --         require("nvim-dap-virtual-text").refresh()
+        --         require("dapui").close()
+        --     end,
+        --     { exit = true, nowait = true },
+        -- },
 
         -- OLD and UNUSED
         -- { "q", nil, { exit = true, nowait = true } },

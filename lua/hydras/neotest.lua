@@ -16,6 +16,9 @@ local test_hydra = Hydra {
             position = "bottom",
             border = "rounded",
         },
+        on_enter = function()
+            vim.bo.modifiable = false
+        end,
     },
     name = "test",
     mode = { "n", "x" },

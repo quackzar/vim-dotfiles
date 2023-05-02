@@ -7,7 +7,7 @@ require("hydras.options")
 require("hydras.dap")
 require("hydras.neotest")
 require("hydras.refactoring")
-require("hydras.words")
+-- require("hydras.words")
 
 local highlighting = {
     HydraRed = { fg = "#FF5733" },
@@ -37,5 +37,3 @@ Hydra {
         { "L", "zL", { desc = "half screen ←/→" } },
     },
 }
-
-

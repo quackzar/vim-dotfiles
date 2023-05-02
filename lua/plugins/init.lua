@@ -33,8 +33,8 @@ return {
         config = true,
     },
 
-    "chaoren/vim-wordmotion",
-    "anuvyklack/vim-smartword",
+    -- "chaoren/vim-wordmotion",
+    -- "anuvyklack/vim-smartword",
 
     -- {
     --     "ggandor/leap.nvim",
