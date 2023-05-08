@@ -5,9 +5,6 @@ end
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup {
-    enabled = function()
-        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
-    end,
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
