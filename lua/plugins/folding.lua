@@ -70,7 +70,7 @@ return {
                 end
             end)
         end,
-        maps = {
+        keys = {
             {
                 "zR",
                 function()
