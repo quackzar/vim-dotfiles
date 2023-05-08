@@ -1,7 +1,7 @@
 return {
     {
         "L3MON4D3/LuaSnip",
-        config = function()
+        config = function() -- TODO: Hydra could help?
             require("cfg.luasnip")
             require("luasnip.loaders.from_vscode").lazy_load()
             require("luasnip.loaders.from_snipmate").lazy_load()
@@ -14,9 +14,9 @@ return {
     },
 
     {
-        "ziontee113/SnippetGenie",
+        "ziontee113/SnippetGenie", -- TODO: Probably do a hydra.
         lazy = true,
-        keys = { { "<c-s><c-q>", mode = { "v", "x" } } },
+        keys = { { "<c-s><c-q>", mode = { "n", "x" } } },
         config = function()
             local genie = require("SnippetGenie")
 
@@ -47,12 +47,12 @@ s(
 
             -- SnippetGenie doesn't map any keys by default.
             -- Here're the suggested mappings:
-            vim.keymap.set({ "v" }, "<c-s><c-q>", function()
+            vim.keymap.set({ "n", "x" }, "<c-s><c-q>", function()
                 genie.create_new_snippet_or_add_placeholder()
                 vim.cmd("norm! �") -- exit Visual Mode, go back to Normal Mode
             end, { desc = "New snippet" })
 
-            vim.keymap.set({ "n", "v" }, "<c-s><c-x>", function()
+            vim.keymap.set({ "n", "x" }, "<c-s><c-x>", function()
                 genie.finalize_snippet()
             end, { desc = "Finalize snippet" })
 

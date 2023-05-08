@@ -85,7 +85,7 @@ basic.lsp_diagnos = {
             return {
                 { lsp_comps.lsp_error { format = "  %s" }, "red" },
                 { lsp_comps.lsp_warning { format = "  %s" }, "yellow" },
-                { lsp_comps.lsp_hint { format = "  %s" }, "blue" },
+                { lsp_comps.lsp_hint { format = "  %s" }, "blue" },
             }
         end
         return ""
@@ -148,9 +148,9 @@ basic.git = {
         if git_comps.is_git(bufnr) then
             return {
                 { " ", "" },
-                { git_comps.diff_added { format = " %s" }, "green" },
-                { git_comps.diff_removed { format = "  %s" }, "red" },
-                { git_comps.diff_changed { format = " 柳%s" }, "blue" },
+                { git_comps.diff_added { format = " %s" }, "green" },
+                { git_comps.diff_removed { format = "  %s" }, "red" },
+                { git_comps.diff_changed { format = "  %s" }, "blue" },
             }
         end
         return ""
@@ -184,12 +184,12 @@ basic.logo = {
         if hydra.is_active() and hydra.get_name() then
             return {
                 { sep.left_rounded, hydra.get_color() .. "Before" },
-                { " ", hydra.get_color() },
+                { "󰫤 ", hydra.get_color() },
             }
         else
             return {
                 { sep.left_rounded, state.mode[2] .. "Before" },
-                { " ", state.mode[2] },
+                { "󰫤 ", state.mode[2] },
             }
         end
     end,
@@ -225,6 +225,7 @@ basic.macros = {
     text = function()
         local composer = require("NeoComposer.state")
         -- composer.set_status_bg("")
+        -- TODO: Fine-tune this
         if composer.get_playing() or composer.get_delay() or composer.get_recording() then
             return {
                 { require("NeoComposer.ui").status_recording(), "default" },
@@ -243,13 +244,13 @@ local default = {
         { vim_components.search_count(), { "red", "black_light" } },
         { sep.right_rounded, { "black_light", "black" } },
         { vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]) },
+        -- basic.macros,
         basic.lsp_diagnos,
         basic.hydra,
         basic.divider,
         basic.git,
-        { git_comps.git_branch { icon = "  " }, { "green", "black" }, 90 },
+        { git_comps.git_branch { icon = " 󰊢 " }, { "green", "black" }, 90 },
         { " ", hl_list.Black },
-        basic.macros,
         basic.vi_mode,
         basic.right,
         { " ", hl_list.Black },
@@ -289,10 +290,10 @@ local quickfix = {
 local explorer = {
     filetypes = { "fern", "NvimTree", "lir", "neo-tree" },
     active = {
-        { "  ", { "white", "black" } },
+        { " 󰉓 ", { "white", "black" } },
         { helper.separators.slant_right, { "black", "black_light" } },
         { b_components.divider, "" },
-        { b_components.file_name(""), { "white", "black_light" } },
+        { b_components.file_name(" "), { "white", "black_light" } },
     },
     always_active = true,
     show_last_status = true,

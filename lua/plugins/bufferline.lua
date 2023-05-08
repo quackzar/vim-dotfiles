@@ -11,7 +11,7 @@ local opts = {
         indicator = {
             icon = "▎",
         },
-        buffer_close_icon = "",
+        buffer_close_icon = "󰅖",
         modified_icon = "●",
         close_icon = "",
         left_trunc_marker = "",
@@ -36,7 +36,7 @@ local opts = {
             {
                 filetype = "neo-tree",
                 text = function()
-                    return "Neo Tree 侮" -- TODO: show current source
+                    return "Neo Tree 󱁕 " -- TODO: show current source
                 end,
                 -- highlight = "Directory",
                 text_align = "left",

@@ -5,6 +5,9 @@ end
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup {
+    enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+    end,
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
@@ -94,10 +97,10 @@ cmp.setup {
     },
     sources = cmp.config.sources {
         { name = "nvim_lsp", group_index = 2 },
-        { name = "copilot", group_index = 2 },
+        -- { name = "copilot", group_index = 2 },
         { name = "luasnip", group_index = 2 }, -- For luasnip users.
         { name = "crates", group_index = 2 },
-        { name = "codium" },
+        -- { name = "codium" },
         -- { name = "cmp_tabnine", group_index = 1 },
     },
     sorting = {
@@ -183,8 +186,9 @@ cmp.setup {
     },
 }
 
+-- Might want to tune this for different filetypes.
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { filetypes = { tex = false } })
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {

@@ -141,11 +141,11 @@ return {
 
     { "gpanders/editorconfig.nvim" },
 
-    {
-        "ecthelionvi/NeoComposer.nvim",
-        dependencies = { "kkharji/sqlite.lua" },
-        opts = { notify = false },
-    },
+    -- {
+    --     "ecthelionvi/NeoComposer.nvim",
+    --     dependencies = { "kkharji/sqlite.lua" },
+    --     opts = { notify = false },
+    -- },
 
     -- }}}
 }

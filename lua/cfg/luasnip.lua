@@ -49,26 +49,26 @@ luasnip.config.setup {
                 priority = 0,
             },
             visited = {
-                virt_text = { { " ", "Label" } },
+                virt_text = { { "󰆤 ", "Label" } },
                 hl_group = "DiffAdd",
             },
             passive = {
-                virt_text = { { " ", "Label" } },
+                virt_text = { { "󰆣 ", "Label" } },
                 hl_group = "DiffDelete",
             },
         },
         [types.insertNode] = {
             active = {
-                virt_text = { { " ", "Label" } },
+                virt_text = { { "󰆣 ", "Label" } },
                 hl_group = "DiffText",
                 priority = 0,
             },
             visited = {
-                virt_text = { { " ", "Label" } },
+                virt_text = { { "󰆤 ", "Label" } },
                 hl_group = "DiffAdd",
             },
             passive = {
-                virt_text = { { " ", "Label" } },
+                virt_text = { { "󰆣 ", "Label" } },
                 hl_group = "DiffDelete",
             },
         },

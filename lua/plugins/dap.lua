@@ -3,7 +3,7 @@ return {
         "mfussenegger/nvim-dap",
         lazy = true,
         config = function()
-            vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" })
+            vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" })
             vim.fn.sign_define(
                 "DapBreakpointCondition",
                 { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" }
@@ -47,8 +47,28 @@ return {
     },
 
     {
-        "mfussenegger/nvim-dap-python",
-        ft = { "python" },
-        dependencies = { "mfussenegger/nvim-dap" },
+        "LiadOz/nvim-dap-repl-highlights",
+        setup = true,
+        lazy = false,
     },
+
+    -- FIX: BROKEN
+    --
+    -- {
+    --     "rcarriga/cmp-dap",
+    --     dependencies = { "mfussenegger/nvim-dap",  "hrsh7th/nvim-cmp" },
+    --     setup = function ()
+    --         require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+    --             sources = {
+    --                 { name = "dap" },
+    --             },
+    --         })
+    --     end
+    -- },
+
+    -- {
+    --     "mfussenegger/nvim-dap-python",
+    --     ft = { "python" },
+    --     dependencies = { "mfussenegger/nvim-dap" },
+    -- },
 }

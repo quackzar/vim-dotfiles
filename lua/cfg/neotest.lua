@@ -1,7 +1,7 @@
 require("neotest").setup {
     icons = {
         passed = " ",
-        running = " ",
+        running = " ",
         failed = " ",
         skipped = " ",
         unknown = " ",

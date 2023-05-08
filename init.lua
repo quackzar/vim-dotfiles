@@ -95,7 +95,6 @@ vim.opt.showbreak = "↪"
 vim.o.foldenable = true
 vim.o.foldminlines = 5
 vim.o.foldnestmax = 5
-vim.o.foldlevelstart = -1
 vim.o.foldlevel = 99
 
 vim.o.scrolloff = 10

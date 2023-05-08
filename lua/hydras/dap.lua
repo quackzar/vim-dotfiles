@@ -52,10 +52,10 @@ local dap_hydra = Hydra {
             border = "rounded",
         },
         on_enter = function()
-            vim.bo.modifiable = false
             require("neo-tree.sources.manager").close_all()
             require("dapui").open()
             require("nvim-dap-virtual-text").enable()
+            vim.bo.modifiable = false
         end,
     },
     mode = { "n", "x" },

@@ -96,7 +96,7 @@ return {
             theta.buttons.val = {
                 { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
                 { type = "padding", val = 1 },
-                dashboard.button("SPC f f", "  Find file"),
+                dashboard.button("SPC f f", "󰮗  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
                 dashboard.button("e", "  New file", "<cmd>ene <bar> startinsert<CR>"),
                 dashboard.button(
@@ -104,8 +104,8 @@ return {
                     "  Configuration",
                     [[<cmd>cd ~/.config/nvim/ <CR><cmd>lua require('persistence').load()<cr>]]
                 ),
-                dashboard.button("s", "勒 Restore Session", [[:lua require("persistence").load() <cr>]]),
-                dashboard.button("l", "鈴 Lazy", "<cmd>Lazy<CR>"),
+                dashboard.button("s", "󰁯  Restore Session", [[:lua require("persistence").load() <cr>]]),
+                dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<CR>"),
                 dashboard.button("m", "  Mason", "<cmd>Mason<CR>"),
                 dashboard.button("q", "  Quit", "<cmd>qa<CR>"),
             }
