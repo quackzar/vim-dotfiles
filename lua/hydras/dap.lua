@@ -9,7 +9,6 @@ local Hydra = require("hydra")
 --  ^ ^              _q_/_<esc>_: exit
 -- ]]
 
--- TODO: Fix overlapping mappings with dapui (e, r, o, <cr>, d, t)
 local hint = [[
  ^ ^    DAP 
  _s_: continue/start

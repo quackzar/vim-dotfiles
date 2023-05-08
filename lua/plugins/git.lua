@@ -54,10 +54,6 @@ return {
                     return "<Ignore>"
                 end, { expr = true, desc = "prev hunk" })
 
-                -- Actions
-                -- map({ "n", "v" }, "<leader>hs", ":Gitsigns stage_hunk<CR>", { desc = "stage hunk" })
-                -- map({ "n", "v" }, "<leader>hr", ":Gitsigns reset_hunk<CR>", { desc = "reset hunk" })
-
                 -- Text object
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "inner hunk" })
             end,
@@ -78,17 +74,6 @@ return {
                     current = "DiffAdd",
                 },
             }
-            -- vim.api.nvim_create_autocmd("User", {
-            --     pattern = "GitConflictDetected",
-            --     callback = function()
-            --         local conflict = require("git-conflict")
-            --         -- vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
-            --         vim.keymap.set("n", "cww", function()
-            --             conflict.engage.conflict_buster()
-            --             conflict.create_buffer_local_mappings()
-            --         end)
-            --     end,
-            -- })
         end,
     },
     {
@@ -102,11 +87,6 @@ return {
         },
         lazy = true,
         cmd = "Neogit",
-        -- keys = {
-        --     { "<leader>gg", "<cmd>Neogit<cr>", desc = "Neogit" },
-        --     { "<leader>gl", "<cmd>Neogit log<cr>", desc = "Neogit log" },
-        --     { "<leader>gc", "<cmd>Neogit commit<cr>", desc = "Neogit commit" },
-        -- },
     },
 
     {
@@ -120,7 +100,7 @@ return {
         "ruifm/gitlinker.nvim",
         config = function()
             require("gitlinker").setup {
-                mappings = nil,
+                mappings = nil, -- this doesn't work
                 callbacks = {
                     ["github.com"] = require("gitlinker.hosts").get_github_type_url,
                     ["gitlab.com"] = require("gitlinker.hosts").get_gitlab_type_url,
@@ -133,9 +113,9 @@ return {
                     ["repo.or.cz"] = require("gitlinker.hosts").get_repoorcz_type_url,
                     ["git.kernel.org"] = require("gitlinker.hosts").get_cgit_type_url,
                     ["git.savannah.gnu.org"] = require("gitlinker.hosts").get_cgit_type_url,
-                    ["git.fish.princh.com"] = require("gitlinker.hosts").get_gitlab_type_url,
                 },
             }
+            vim.keymap.del("n", "<leader>gy", {}) -- so we just remove it here
         end,
     },
 
@@ -153,12 +133,6 @@ return {
             },
         },
     },
-
-    -- { 'petertriho/nvim-scrollbar',
-    --     config = function()
-    --         require("scrollbar").setup()
-    --     end
-    -- },
 
     --- }}}
 }

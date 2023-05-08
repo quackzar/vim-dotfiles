@@ -17,7 +17,7 @@ return {
         "luukvbaal/statuscol.nvim",
         enabled = function()
             return vim.fn.has("nvim-0.9")
-        end, -- TODO: set up to be signs, numbers (folds?), git hunks.
+        end,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {
