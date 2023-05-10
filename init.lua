@@ -42,7 +42,7 @@ vim.o.wildmenu = true
 vim.o.showmode = false
 vim.o.breakindent = true
 
-vim.o.title = true
+-- vim.o.title = true
 
 vim.o.virtualedit = "block,onemore"
 vim.o.ignorecase = true

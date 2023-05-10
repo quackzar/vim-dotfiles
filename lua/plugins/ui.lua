@@ -4,20 +4,52 @@ return {
 
     {
         "folke/noice.nvim",
-        enabled = false,
+        enabled = true,
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
         },
         -- We still lack bar based cursor for it to be nice.
         -- We need to configure/disable some other plugins based on this
+        opts = {
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
+            presets = {
+                command_palette = false, -- position the cmdline and popupmenu together
+            },
+            popupmenu = {
+                enabled = true,
+                backend = "nui",
+                relative = "editor",
+            },
+            routes = {
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "",
+                    },
+                    opts = { skip = true },
+                },
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "search_count",
+                    },
+                    opts = { skip = true },
+                },
+            },
+        },
         config = true,
     },
+
     {
         "luukvbaal/statuscol.nvim",
-        enabled = function()
-            return vim.fn.has("nvim-0.9")
-        end,
+        lazy = false,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {

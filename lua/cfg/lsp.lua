@@ -48,31 +48,33 @@ vim.o.completeopt = "menuone,noselect"
 
 vim.diagnostic.config {
     underline = true,
-    signs = false,
+    signs = true,
     virtual_text = false,
-    virtual_lines = true,
+    virtual_lines = { only_current_line = true },
     float = {
         show_header = true,
         source = "if_many",
         border = "rounded",
         focusable = false,
     },
-    update_in_insert = true, -- default to false
+    update_in_insert = false, -- default to false
     severity_sort = true, -- default to false
 }
 
 function on_attach(client, bufnr)
-    require("lsp_signature").on_attach({
-        toggle_key = "<C-S-k>",
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-            border = "rounded",
-        },
-    }, bufnr)
+    -- require("lsp_signature").on_attach({
+    --     toggle_key = "<C-S-k>",
+    --     bind = true, -- This is mandatory, otherwise border config won't get registered.
+    --     handler_opts = {
+    --         border = "rounded",
+    --     },
+    -- }, bufnr)
+
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic (lsp)" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration (lsp)" })

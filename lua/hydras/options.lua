@@ -21,7 +21,7 @@ local function cycle_diagnostics()
     elseif state then
         vim.diagnostic.config {
             virtual_lines = false,
-            signs = false,
+            signs = true,
         }
     else
         vim.diagnostic.config {

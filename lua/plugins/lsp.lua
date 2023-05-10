@@ -34,7 +34,7 @@ return {
     },
 
     -- { 'Issafalcon/lsp-overloads.nvim'},
-    "ray-x/lsp_signature.nvim",
+    -- "ray-x/lsp_signature.nvim",
 
     {
         "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
@@ -71,17 +71,6 @@ return {
                 preset = "codicons",
             }
         end,
-    },
-
-    {
-        "jackMort/ChatGPT.nvim",
-        config = true,
-        cmd = { "ChatGPT", "ChatGPTActAs", "ChatGPTEditWithInstructions", "ChatGPTRun", "ChatGPTRunCustomCodeAction" },
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
     },
 
     {

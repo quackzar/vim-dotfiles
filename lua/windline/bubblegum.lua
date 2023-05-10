@@ -218,17 +218,16 @@ basic.noice = {
 
 basic.macros = {
     hl_colors = {
-        default = { "white", "black_light" },
+        default = { "red", "black" },
         sep_before = { "black_light", "black" },
         sep_after = { "black_light", "black" },
     },
     text = function()
-        local composer = require("NeoComposer.state")
-        -- composer.set_status_bg("")
-        -- TODO: Fine-tune this
-        if composer.get_playing() or composer.get_delay() or composer.get_recording() then
+        local mode = require("noice").api.statusline.mode
+        if mode.has() then
             return {
-                { require("NeoComposer.ui").status_recording(), "default" },
+                { " ", "default" },
+                { mode.get(), "default" },
                 { " ", "default" },
             }
         end
@@ -243,6 +242,7 @@ local default = {
         basic.file,
         { vim_components.search_count(), { "red", "black_light" } },
         { sep.right_rounded, { "black_light", "black" } },
+        basic.macros,
         { vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]) },
         -- basic.macros,
         basic.lsp_diagnos,
