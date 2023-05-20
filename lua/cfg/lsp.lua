@@ -74,7 +74,7 @@ function on_attach(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+    -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic (lsp)" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration (lsp)" })
@@ -179,10 +179,12 @@ mason_lsp.setup_handlers { -- check if this actually works
                     auto_focus = true,
                 },
                 inlay_hints = {
-                    auto = false,
+                    auto = true,
                     show_parameter_hints = false,
+                    only_current_line = true,
+
                     parameter_hints_prefix = "← ",
-                    other_hints_prefix = "» ",
+                    other_hints_prefix = "󰁂 ",
                 },
             },
         }
