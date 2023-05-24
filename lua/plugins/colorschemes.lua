@@ -23,6 +23,11 @@ return {
     },
 
     {
+        "loctvl842/monokai-pro.nvim",
+        priority = 1000,
+    },
+
+    {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
@@ -100,8 +105,9 @@ return {
         priority = 1000,
     },
 
+    -- Remembers the last colorscheme set
     {
         "raddari/last-color.nvim",
-        priority = 1001,
+        priority = 9999,
     },
 }

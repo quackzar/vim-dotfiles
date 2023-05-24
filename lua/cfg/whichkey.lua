@@ -12,11 +12,10 @@ wk.register {
 }
 
 wk.register({
-    f = { "Telescope  " },
-    d = { "Debug  " },
-    g = { "Git  " },
-    o = { "Options  " },
-    s = { "+surf 󱝆 " },
+    f = { "+telescope  " },
+    d = { "+debug  " },
+    g = { "+git  " },
+    o = { "+options  " },
     b = { "+buffer 󰕸 " },
     x = { "+trouble  " },
     t = { "+test  " },

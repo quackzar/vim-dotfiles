@@ -138,7 +138,7 @@ return {
                 ),
                 dashboard.button("s", "󰁯  Restore Session", [[:lua require("persistence").load() <cr>]]),
                 dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<CR>"),
-                dashboard.button("m", "  Mason", "<cmd>Mason<CR>"),
+                dashboard.button("m", "  Mason", "<cmd>Mason<CR>"),
                 dashboard.button("q", "  Quit", "<cmd>qa<CR>"),
             }
 

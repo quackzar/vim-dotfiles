@@ -3,6 +3,7 @@
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = false,
     underline = true,
+    sign = false,
 })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -17,25 +18,34 @@ require("nvim-lightbulb").update_lightbulb {
     },
     float = {
         enabled = true,
+        -- text = "󰌶 ",
         text = " ",
     },
     virtual_text = {
         enabled = true,
+        -- text = "󰌶 ",
         text = " ",
         hl_mode = "blend",
     },
     status_text = {
         enabled = true,
+        -- text = "󰌶 ",
         text = " ",
         text_unavailable = "",
     },
 }
 
 local signs = {
+    -- nonicons:
     Error = " ",
     Warn = " ",
     Hint = " ",
     Info = " ",
+    -- nerdfont:
+    -- Error = " ",
+    -- Warn = " ",
+    -- Hint = " ",
+    -- Info = " ",
 }
 
 for type, icon in pairs(signs) do
