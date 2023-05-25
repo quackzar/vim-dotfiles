@@ -48,6 +48,7 @@ return {
 
     {
         "andymass/vim-matchup",
+        -- enabled = false, -- FIX: Seems to die on big files
         config = function()
             vim.g.matchup_surround_enabled = 1
             vim.g.matchup_transmute_enabled = 1
@@ -95,6 +96,7 @@ return {
 
     {
         "lukas-reineke/indent-blankline.nvim",
+        -- enabled = false, -- FIX: Might die on big files
         config = function()
             vim.g.indent_blankline_char = "▏"
             vim.g.indent_blankline_context_char = "▏"

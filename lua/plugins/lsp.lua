@@ -128,6 +128,31 @@ return {
     },
 
     {
+        "lvimuser/lsp-inlayhints.nvim",
+        branch = "anticonceal",
+        enabled = vim.fn.has("nvim-0.10"),
+        lazy = false,
+        opts = {
+            debug_mode = false,
+        },
+        init = function()
+            vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = "LspAttach_inlayhints",
+                callback = function(args)
+                    if not (args.data and args.data.client_id) then
+                        return
+                    end
+
+                    local bufnr = args.buf
+                    local client = vim.lsp.get_client_by_id(args.data.client_id)
+                    require("lsp-inlayhints").on_attach(client, bufnr)
+                end,
+            })
+        end,
+    },
+
+    {
         "barreiroleo/ltex_extra.nvim",
         ft = { "markdown", "tex" },
         dependencies = { "neovim/nvim-lspconfig" },

@@ -10,7 +10,12 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
 })
 
-vim.fn.sign_define("LightBulbSign", { text = " ", texthl = "DiagnosticSignHint", linehl = "", numhl = "" })
+vim.fn.sign_define("LightBulbSign", {
+    text = "󰌶 ",
+    texthl = "DiagnosticSignHint",
+    linehl = "",
+    numhl = "",
+})
 require("nvim-lightbulb").update_lightbulb {
     sign = {
         enabled = true,
@@ -18,34 +23,34 @@ require("nvim-lightbulb").update_lightbulb {
     },
     float = {
         enabled = true,
-        -- text = "󰌶 ",
-        text = " ",
+        text = "󰌶 ",
+        -- text = " ",
     },
     virtual_text = {
         enabled = true,
-        -- text = "󰌶 ",
-        text = " ",
+        text = "󰌶 ",
+        -- text = " ",
         hl_mode = "blend",
     },
     status_text = {
         enabled = true,
-        -- text = "󰌶 ",
-        text = " ",
+        text = "󰌶 ",
+        -- text = " ",
         text_unavailable = "",
     },
 }
 
 local signs = {
     -- nonicons:
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
+    -- Error = " ",
+    -- Warn = " ",
+    -- Hint = " ",
+    -- Info = " ",
     -- nerdfont:
-    -- Error = " ",
-    -- Warn = " ",
-    -- Hint = " ",
-    -- Info = " ",
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " ",
 }
 
 for type, icon in pairs(signs) do
@@ -189,8 +194,8 @@ mason_lsp.setup_handlers { -- check if this actually works
                     auto_focus = true,
                 },
                 inlay_hints = {
-                    auto = true,
-                    show_parameter_hints = false,
+                    auto = false,
+                    show_parameter_hints = true,
                     only_current_line = true,
 
                     parameter_hints_prefix = "← ",

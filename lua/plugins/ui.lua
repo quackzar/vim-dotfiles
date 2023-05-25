@@ -4,7 +4,6 @@ return {
 
     {
         "folke/noice.nvim",
-        enabled = true,
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
@@ -31,16 +30,24 @@ return {
                 {
                     filter = {
                         event = "msg_show",
-                        kind = "",
+                        kind = "search_count",
                     },
                     opts = { skip = true },
                 },
                 {
                     filter = {
                         event = "msg_show",
-                        kind = "search_count",
+                        kind = "",
+                        find = "written",
                     },
                     opts = { skip = true },
+                },
+                {
+                    view = "mini",
+                    filter = {
+                        event = "msg_show",
+                        kind = "",
+                    },
                 },
             },
         },
@@ -124,6 +131,22 @@ return {
         opts = function()
             local theta = require("alpha.themes.theta")
             local dashboard = require("alpha.themes.dashboard")
+            local version = vim.version()
+            local nvim_version_info = "v" .. version.major .. "." .. version.minor .. "." .. version.patch
+            if version.prerelease then
+                nvim_version_info = nvim_version_info .. " (nightly)"
+            end
+
+            theta.header = {
+                type = "text",
+                val = nvim_version_info,
+                opts = {
+                    position = "center",
+                    hl = "Type",
+                },
+            }
+            table.insert(theta.config.layout, 3, theta.header)
+            table.insert(theta.config.layout, 3, { type = "padding", val = 1 })
 
             theta.buttons.val = {
                 { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
@@ -304,5 +327,7 @@ return {
         lazy = true,
     },
 
-    { "Bekaboo/deadcolumn.nvim" },
+    {
+        "Bekaboo/deadcolumn.nvim",
+    },
 }
