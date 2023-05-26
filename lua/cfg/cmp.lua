@@ -20,7 +20,7 @@ cmp.setup {
             cmp.mapping.complete {
                 config = {
                     sources = {
-                        { name = "path" },
+                        { name = "async_path" },
                     },
                 },
             },
@@ -93,10 +93,18 @@ cmp.setup {
         },
     },
     sources = cmp.config.sources {
-        { name = "nvim_lsp", group_index = 2 },
+        { name = "nvim_lsp" },
+        -- { name = 'nvim_lsp_signature_help' }, -- This is acting weird
+
         -- { name = "copilot", group_index = 2 },
-        { name = "luasnip", group_index = 2 }, -- For luasnip users.
-        { name = "crates", group_index = 2 },
+        { name = "luasnip" }, -- For luasnip users.
+
+        -- #### Consider setting these in filetype only ###
+        { name = "crates" },
+        { name = "plugins" },
+        { name = "nvim_lua" },
+
+        -- OLD:
         -- { name = "codium" },
         -- { name = "cmp_tabnine", group_index = 1 },
     },
@@ -113,8 +121,8 @@ cmp.setup {
             cmp.config.compare.exact,
             cmp.config.compare.score,
             -- require("cmp_tabnine.compare"),
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
+            -- cmp.config.compare.recently_used,
+            -- cmp.config.compare.locality,
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
             cmp.config.compare.length,
@@ -148,8 +156,15 @@ cmp.setup {
                     vim_item.kind = strings[1] .. " "
                 end
                 local source_mapping = {
+                    -- could be blank
                     buffer = "BUF",
+                    async_path = "PATH",
+                    cmp_git = "GIT",
+                    cmpline = "CMD",
+                    -- lsp
                     nvim_lsp = "LSP",
+                    nvim_lsp_signature_help = "LSP+",
+                    -- weird things
                     copilot = "COP",
                     luasnip = "SNIP",
                     omni = "OMNI",
@@ -208,17 +223,18 @@ cmp.setup.cmdline("/", {
     },
     sources = {
         { name = "buffer" },
+        { name = "nvim_lsp_document_symbol" },
     },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
-    view = {
-        entries = { name = "custom", separator = " ⋅ " },
-    },
+    -- view = {
+    --     entries = { name = "custom", separator = " ⋅ " },
+    -- },
     sources = cmp.config.sources({
-        { name = "path" },
+        { name = "async_path" },
     }, {
         { name = "cmdline" },
     }),

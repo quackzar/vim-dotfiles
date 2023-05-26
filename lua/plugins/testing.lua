@@ -78,13 +78,17 @@ return {
 
     {
         "andythigpen/nvim-coverage",
+        -- See: https://github.com/mozilla/grcov#usage
+        -- TODO: Hydra
         dependencies = { "nvim-lua/plenary.nvim" },
         config = true,
     },
 
     {
         "t-troebst/perfanno.nvim",
-        lazy = true,
+        lazy = false,
+        -- TODO: Make it work on macOS (find something to output like perf does)
+        -- TODO: Hydra
         config = function()
             local perfanno = require("perfanno")
             local util = require("perfanno.util")
