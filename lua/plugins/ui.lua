@@ -20,10 +20,12 @@ return {
             },
             presets = {
                 command_palette = false, -- position the cmdline and popupmenu together
+                bottom_search = true,
+                long_message_to_split = true,
             },
             popupmenu = {
                 enabled = true,
-                backend = "nui",
+                backend = "cmp",
                 relative = "editor",
             },
             routes = {
@@ -39,6 +41,14 @@ return {
                         event = "msg_show",
                         kind = "",
                         find = "written",
+                    },
+                    opts = { skip = true },
+                },
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "",
+                        find = "lines",
                     },
                     opts = { skip = true },
                 },

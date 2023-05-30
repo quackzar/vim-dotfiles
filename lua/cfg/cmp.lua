@@ -2,6 +2,8 @@ local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+-- TODO: Move this entire thing into plugins/cmp.lua
+
 local lspkind = require("lspkind")
 local cmp = require("cmp")
 cmp.setup {
@@ -157,19 +159,19 @@ cmp.setup {
                 end
                 local source_mapping = {
                     -- could be blank
-                    buffer = "BUF",
-                    async_path = "PATH",
-                    cmp_git = "GIT",
-                    cmpline = "CMD",
+                    buffer = "[buf]",
+                    async_path = "[path]",
+                    cmp_git = "[git]",
+                    cmpline = "[cmd]",
                     -- lsp
-                    nvim_lsp = "LSP",
-                    nvim_lsp_signature_help = "LSP+",
+                    nvim_lsp = "[lsp]",
+                    nvim_lsp_signature_help = "[lsp+]",
                     -- weird things
-                    copilot = "COP",
-                    luasnip = "SNIP",
-                    omni = "OMNI",
-                    cmp_tabnine = "TAB9",
-                    codeium = " ",
+                    copilot = "[cop]",
+                    luasnip = "[snip]",
+                    omni = "[omni]",
+                    cmp_tabnine = "[tab9]",
+                    codeium = "[  ]",
                 }
 
                 local menu = source_mapping[entry.source.name]
@@ -225,6 +227,17 @@ cmp.setup.cmdline("/", {
         { name = "buffer" },
         { name = "nvim_lsp_document_symbol" },
     },
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            vim_item.kind = ""
+            vim_item.menu = ({
+                buffer = "[buf]",
+                nvim_lsp_document_symbol = "[sym]",
+            })[entry.source.name]
+            return vim_item
+        end,
+    },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
@@ -238,6 +251,17 @@ cmp.setup.cmdline(":", {
     }, {
         { name = "cmdline" },
     }),
+    formatting = {
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, vim_item)
+            vim_item.kind = ""
+            vim_item.menu = ({
+                async_path = "[path]",
+                cmdline = "[cmd]",
+            })[entry.source.name]
+            return vim_item
+        end,
+    },
 })
 
 -- Setup lspconfig.

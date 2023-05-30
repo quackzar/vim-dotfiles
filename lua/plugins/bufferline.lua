@@ -33,18 +33,11 @@ local opts = {
         diagnostics_update_in_insert = false,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
-            {
-                filetype = "neo-tree",
-                text = function()
-                    return "Neo Tree 󱁕 " -- TODO: show current source
-                end,
-                -- highlight = "Directory",
-                text_align = "left",
-            },
-            { filetype = "aerial", text = "Aerial  ", text_align = "right" },
-            { filetype = "Outline", text = "Symbols  ", text_align = "right" },
-            { filetype = "OverseerList", text = "Overseer  ", text_align = "right" },
-            { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "right" },
+            { filetype = "neo-tree", text = "Neo Tree 󱁕 ", text_align = "center" },
+            { filetype = "aerial", text = "Aerial  ", text_align = "center" },
+            { filetype = "Outline", text = "Symbols  ", text_align = "center" },
+            { filetype = "OverseerList", text = "Overseer  ", text_align = "center" },
+            { filetype = "Table of contents (VimTeX)", text = "Table of Contents", text_align = "center" },
         },
         custom_filter = function(buf_num, buf_numbers)
             return not (
@@ -58,6 +51,11 @@ local opts = {
                     or vim.bo[buf_num].filetype == "dapui_hover"
                 )
         end,
+        hover = {
+            enabled = true,
+            delay = 200,
+            reveal = { "close" },
+        },
         show_buffer_icons = true,
         show_buffer_close_icons = true,
         show_close_icon = true,

@@ -44,14 +44,24 @@ return {
     --     end,
     -- },
 
+    -- {
+    --     "phaazon/hop.nvim", -- let's try hop too
+    --     branch = "v2", -- optional but strongly recommended
+    --     config = function()
+    --         -- you can configure Hop the way you like here; see :h hop-config
+    --         require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
+    --         vim.keymap.set({ "n", "x" }, "s", "<cmd>HopChar2<cr>", { remap = true })
+    --     end,
+    -- },
+
     {
-        "phaazon/hop.nvim", -- let's try hop too
-        branch = "v2", -- optional but strongly recommended
-        config = function()
-            -- you can configure Hop the way you like here; see :h hop-config
-            require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-            vim.keymap.set({ "n", "x" }, "s", "<cmd>HopChar2<cr>", { remap = true })
-        end,
+        "echasnovski/mini.jump2d",
+        version = "*",
+        opts = {
+            mappings = { start_jumping = "s" },
+            allowed_windows = { non_current = false },
+            view = { dim = true },
+        },
     },
 
     {
@@ -257,17 +267,6 @@ return {
             custom_dynamic_variables = {},
             yank_dry_run = true,
         },
-    },
-
-    -- === Coq ===
-    {
-        "whonore/Coqtail",
-        ft = "coqt",
-        config = function()
-            vim.g.coqtail_auto_set_proof_diffs = "on"
-            vim.g.coqtail_map_prefix = ","
-            vim.g.coctail_imap_prefix = "<C-c>"
-        end,
     },
 
     -- === text ===

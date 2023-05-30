@@ -103,6 +103,7 @@ return {
         name = "barbecue",
         version = "*",
         event = "BufEnter",
+        enabled = vim.fn.has("nvim-0.10") == 0,
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -110,6 +111,11 @@ return {
         opts = {
             -- configurations go here
         },
+    },
+
+    {
+        "Bekaboo/dropbar.nvim",
+        enabled = vim.fn.has("nvim-0.10") == 1,
     },
 
     {
@@ -130,7 +136,7 @@ return {
     {
         "lvimuser/lsp-inlayhints.nvim",
         branch = "anticonceal",
-        enabled = vim.fn.has("nvim-0.10"),
+        enabled = vim.fn.has("nvim-0.10") == 1,
         lazy = false,
         opts = {
             debug_mode = false,
