@@ -33,7 +33,8 @@ local opts = {
         diagnostics_update_in_insert = false,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
-            { filetype = "neo-tree", text = "Neo Tree 󱁕 ", text_align = "center" },
+            { filetype = "neo-tree", text = "Explorer 󱁕 ", text_align = "center" },
+            { filetype = "DiffviewFiles", text = "Source Control  ", text_align = "center" },
             { filetype = "aerial", text = "Aerial  ", text_align = "center" },
             { filetype = "Outline", text = "Symbols  ", text_align = "center" },
             { filetype = "OverseerList", text = "Overseer  ", text_align = "center" },

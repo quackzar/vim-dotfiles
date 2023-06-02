@@ -60,7 +60,25 @@ return {
         },
     },
 
-    { "sindrets/diffview.nvim", dependencies = "nvim-lua/plenary.nvim" },
+    {
+        "sindrets/diffview.nvim",
+        dependencies = "nvim-lua/plenary.nvim",
+        opts = {
+            enhanced_diff_hl = true,
+            default_args = {
+                DiffviewOpen = { "--imply-local" },
+            },
+            keymaps = {
+                file_panel = {
+                    { "n", "c", "<cmd>Neogit commit<cr>", { desc = "Commit..." } },
+                    { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close" } },
+                },
+                file_history_panel = {
+                    { "n", "q", "<cmd>DiffviewClose<cr>", { desc = "Close" } },
+                },
+            },
+        },
+    },
 
     {
         "akinsho/git-conflict.nvim",
@@ -83,6 +101,12 @@ return {
             kind = "split",
             integrations = {
                 diffview = true,
+            },
+            signs = {
+                -- { CLOSED, OPENED }
+                section = { "", "" },
+                item = { "", "" },
+                hunk = { "", "" },
             },
         },
         lazy = true,
