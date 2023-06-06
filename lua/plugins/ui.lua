@@ -121,6 +121,46 @@ return {
         end,
     },
 
+    {
+        "folke/edgy.nvim",
+        event = "VeryLazy",
+        opts = {
+            fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
+            bottom = {
+                { ft = "toggleterm", size = { height = 0.4 } },
+                {
+                    ft = "lazyterm",
+                    title = "LazyTerm",
+                    size = { height = 0.4 },
+                    filter = function(buf)
+                        return not vim.b[buf].lazyterm_cmd
+                    end,
+                },
+                "Trouble",
+                { ft = "qf", title = "QuickFix" },
+                {
+                    ft = "help",
+                    size = { height = 20 },
+                    -- only show help buffers
+                    filter = function(buf)
+                        return vim.bo[buf].buftype == "help"
+                    end,
+                },
+                { ft = "NeogitStatus", size = { height = 0.4 } },
+            },
+            left = {
+                { ft = "neo-tree" },
+                -- {ft="DiffviewFiles"},
+            },
+            right = {
+                { ft = "OverseerList" },
+                { ft = "aerial" },
+                { ft = "Outline" },
+                { ft = "Table of contents (VimTeX)" },
+            },
+        },
+    },
+
     "famiu/bufdelete.nvim",
 
     {

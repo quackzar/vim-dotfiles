@@ -1,3 +1,4 @@
+-- TODO: Move to ./lua/plugins/
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 local renderer = require("neo-tree.ui.renderer")
 
@@ -284,6 +285,7 @@ require("neo-tree").setup {
         show_unloaded = true,
         group_empty_dirs = true, -- when true, empty folders will be grouped together
     },
+    open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
 }
 
 vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
