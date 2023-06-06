@@ -108,6 +108,11 @@ return {
                 item = { "", "" },
                 hunk = { "", "" },
             },
+            commit_popup = {
+                commit_confirmation = {
+                    enabled = false,
+                },
+            },
         },
         lazy = true,
         cmd = "Neogit",

@@ -7,6 +7,10 @@ require("nvim-treesitter.configs").setup {
         -- Setting this to true or a list of languages will run `:h syntax` and tree-sitter at the same time.
         additional_vim_regex_highlighting = false,
         disable = { "tex", "latex", "css", "toml" },
+        -- disable = function (_, bufnr)
+        --     local lines = vim.api.nvim_buf_line_count(bufnr)
+        --     return lines > 1000
+        -- end
     },
     -- refactor = { -- TODO: Reanble when fixed.
     --     highlight_definitions = {
@@ -23,10 +27,10 @@ require("nvim-treesitter.configs").setup {
     --     },
     -- },
     indent = {
-        enable = true,
+        enable = false,
     },
     textsubjects = {
-        enable = true,
+        enable = false,
         prev_selection = ",", -- (Optional) keymap to select the previous selection
         keymaps = {
             ["."] = "textsubjects-smart",
@@ -86,12 +90,12 @@ require("nvim-treesitter.configs").setup {
         },
     },
     matchup = {
-        enable = false, -- TODO: reeanble when fixed
+        enable = true, -- TODO: reeanble when fixed
     },
     autotag = {
         enable = true,
     },
-    playground = { enable = true },
+    playground = { enable = false },
 }
 
 -- vim: foldmethod=marker foldmarker={,}
