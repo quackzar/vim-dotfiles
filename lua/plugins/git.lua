@@ -96,6 +96,8 @@ return {
     },
     {
         "TimUntersberger/neogit",
+        url = "https://github.com/tobealive/neogit.git",
+        branch = "fix-noice-commit-confirm-message",
         dependencies = "nvim-lua/plenary.nvim",
         opts = {
             kind = "split",
@@ -109,9 +111,12 @@ return {
                 hunk = { "", "" },
             },
             commit_popup = {
+                kind = "split",
                 commit_confirmation = {
                     enabled = false,
+                    close_on_deny = false,
                 },
+                start_insert_on_commit = true,
             },
         },
         lazy = true,
