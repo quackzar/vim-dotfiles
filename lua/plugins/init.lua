@@ -36,13 +36,28 @@ return {
     -- "chaoren/vim-wordmotion",
     -- "anuvyklack/vim-smartword",
 
-    -- {
-    --     "ggandor/leap.nvim",
-    --     config = function()
-    --         vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
-    --         require("leap").set_default_keymaps()
-    --     end,
-    -- },
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
+            -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
+            -- vim.api.nvim_set_hl(0, 'LeapMatch', {
+            --     -- For light themes, set to 'black' or similar.
+            --     fg = 'white', bold = true, nocombine = true,
+            -- })
+            -- -- Of course, specify some nicer shades instead of the default "red" and "blue".
+            -- vim.api.nvim_set_hl(0, 'LeapLabelPrimary', {
+            --     fg = 'red', bold = true, nocombine = true,
+            -- })
+            -- vim.api.nvim_set_hl(0, 'LeapLabelSecondary', {
+            --     fg = 'blue', bold = true, nocombine = true,
+            -- })
+            -- Try it without this setting first, you might find you don't even miss it.
+            require("leap").opts.highlight_unlabeled_phase_one_targets = true
+
+            require("leap").set_default_keymaps()
+        end,
+    },
 
     -- {
     --     "phaazon/hop.nvim", -- let's try hop too
@@ -54,15 +69,15 @@ return {
     --     end,
     -- },
 
-    {
-        "echasnovski/mini.jump2d",
-        version = "*",
-        opts = {
-            mappings = { start_jumping = "s" },
-            allowed_windows = { non_current = false },
-            view = { dim = true },
-        },
-    },
+    -- {
+    --     "echasnovski/mini.jump2d",
+    --     version = "*",
+    --     opts = {
+    --         mappings = { start_jumping = "s" },
+    --         allowed_windows = { non_current = false },
+    --         view = { dim = true },
+    --     },
+    -- },
 
     {
         "cbochs/portal.nvim",
@@ -310,7 +325,7 @@ return {
                     "-synctex=1",
                     "-interaction=nonstopmode",
                 },
-                build_dir = "out",
+                out_dir = "out",
             }
 
             vim.g.vimtex_syntax_custom_cmds = {

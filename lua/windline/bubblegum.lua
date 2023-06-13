@@ -3,6 +3,7 @@ local helper = require("windline.helpers")
 local hydra = require("hydra.statusline")
 local sep = helper.separators
 local vim_components = require("windline.components.vim")
+local cache_utils = require("windline.cache_utils")
 
 local b_components = require("windline.components.basic")
 local state = _G.WindLine.state
@@ -90,6 +91,27 @@ basic.lsp_diagnos = {
         end
         return ""
     end,
+}
+
+basic.lsp = {
+    width = 20,
+    hl_colors = {
+        green = { "green", "black", "bold" },
+    },
+    text = cache_utils.cache_on_buffer({ "LspAttach", "LspDetach" }, "wl_lsp_connection", function(bufnr)
+        if not lsp_comps.check_lsp(bufnr) then
+            return ""
+        end
+        local names = {}
+        for _, server in pairs(vim.lsp.get_active_clients { 0 }) do
+            table.insert(names, server.name)
+        end
+        -- return {{'friend', 'default'}}
+        return { { "  [" .. table.concat(names, " ") .. "]", "green" } }
+    end),
+    -- text = function()
+    --     return {lsp_comps.lsp_name(), "green"}
+    -- end
 }
 
 basic.hydra = {
@@ -245,6 +267,7 @@ local default = {
         basic.macros,
         { vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]) },
         -- basic.macros,
+        basic.lsp,
         basic.lsp_diagnos,
         basic.hydra,
         basic.divider,

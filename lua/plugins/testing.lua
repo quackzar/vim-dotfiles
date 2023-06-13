@@ -7,6 +7,11 @@ return {
             -- },
             task_list = {
                 direction = "right",
+                default_detail = 2,
+                bindings = {
+                    ["a"] = "<cmd>OverseerRun<cr>",
+                    ["A"] = "<cmd>OverseerBuild<cr>",
+                },
             },
             log = {
                 {

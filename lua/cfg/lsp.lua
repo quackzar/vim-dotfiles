@@ -204,6 +204,15 @@ mason_lsp.setup_handlers { -- check if this actually works
             },
         }
     end,
+    ["typst_lsp"] = function()
+        lspconfig.typst_lsp.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                exportPdf = "onType",
+            },
+        }
+    end,
     -- ["ltex"] = function()
     --     lspconfig.ltex.setup {
     --         on_attach = on_attach,

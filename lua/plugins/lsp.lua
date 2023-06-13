@@ -47,6 +47,7 @@ return {
 
     {
         "stevearc/aerial.nvim",
+        enabled = false,
         opts = {
             filter_kind = false, -- TODO: play around with this.
             backends = { "lsp", "treesitter", "markdown", "man" },
@@ -103,7 +104,7 @@ return {
         name = "barbecue",
         version = "*",
         event = "BufEnter",
-        enabled = vim.fn.has("nvim-0.10") == 0,
+        enabled = true, --vim.fn.has("nvim-0.10") == 0,
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -115,7 +116,52 @@ return {
 
     {
         "Bekaboo/dropbar.nvim",
-        enabled = vim.fn.has("nvim-0.10") == 1,
+        -- BUG: Currently breaks exiting from Telescope, thus entering insert mode.
+        -- which is not ideal.
+        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
+        opts = {
+            update_events = {
+                win = {
+                    -- 'CursorMoved',
+                    -- 'CursorMovedI',
+                    -- 'WinEnter',
+                    -- 'WinResized',
+                    -- 'WinScrolled',
+                },
+                buf = {
+                    -- 'BufModifiedSet',
+                    -- 'FileChangedShellPost',
+                    -- 'TextChanged',
+                    -- 'TextChangedI',
+                },
+                global = {
+                    -- 'DirChanged',
+                    -- 'VimResized',
+                },
+            },
+            icons = {
+                kinds = {
+                    symbols = {
+                        -- Folders are too much noise
+                        Folder = "",
+                    },
+                },
+                ui = {
+                    menu = { separator = " " },
+                    bar = { separator = "  " },
+                },
+            },
+        },
+        lazy = false,
+        keys = {
+            {
+                "<leader>p",
+                function()
+                    require("dropbar.api").pick()
+                end,
+                desc = "Dropbar pick",
+            },
+        },
     },
 
     {

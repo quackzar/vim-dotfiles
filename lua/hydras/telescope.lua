@@ -37,7 +37,8 @@ Hydra {
         { "h", cmd("Telescope help_tags"), { desc = "Vim help" } },
         { "m", cmd("Telescope marks"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },
-        { "s", cmd("Telescope aerial theme=dropdown") }, -- consider document_symbols too
+        -- { "s", cmd("Telescope aerial theme=dropdown") }, -- consider document_symbols too
+        { "s", cmd("Telescope lsp_document_symbols theme=dropdown") }, -- consider document_symbols too
         { "w", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
         { "n", cmd("Navbuddy"), { desc = "Navbuddy" } },
         -- { "p", cmd("Telescope project theme=dropdown"), { desc = "Projects" } },

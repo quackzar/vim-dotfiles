@@ -220,7 +220,7 @@ require("neo-tree").setup {
         -- "diagnostics",
     },
     source_selector = {
-        winbar = true,
+        winbar = false,
         truncation_character = "…",
     },
     close_if_last_window = true,
@@ -286,10 +286,33 @@ require("neo-tree").setup {
         group_empty_dirs = true, -- when true, empty folders will be grouped together
     },
     open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
+    document_symbols = {
+        follow_cursor = false,
+        kinds = {
+            File = { icon = "󰈙", hl = "Tag" },
+            Namespace = { icon = "󰌗", hl = "Include" },
+            Package = { icon = "󰏖", hl = "Label" },
+            Class = { icon = "󰌗", hl = "Include" },
+            Property = { icon = "󰆧", hl = "@property" },
+            Enum = { icon = "󰒻", hl = "@number" },
+            Function = { icon = "󰊕", hl = "Function" },
+            String = { icon = "󰀬", hl = "String" },
+            Number = { icon = "󰎠", hl = "Number" },
+            Array = { icon = "󰅪", hl = "Type" },
+            Object = { icon = "󰅩", hl = "Type" },
+            Key = { icon = "󰌋", hl = "" },
+            Struct = { icon = "󰌗", hl = "Type" },
+            Operator = { icon = "󰆕", hl = "Operator" },
+            TypeParameter = { icon = "󰊄", hl = "Type" },
+            StaticMethod = { icon = "󰠄 ", hl = "Function" },
+        },
+    },
 }
 
 vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
 vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file tree" })
+vim.keymap.set("n", "<leader>v", "<cmd>Neotree toggle document_symbols position=right<cr>", { desc = "Toggle symbols" })
+vim.keymap.set("n", "<leader>V", "<cmd>Neotree focus document_symbols position=right<cr>", { desc = "Focus symbols" })
 
 -- doesn't work
 -- vim.api.nvim_create_autocmd('FileType', {

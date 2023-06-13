@@ -61,7 +61,6 @@ return {
                 },
             },
         },
-        config = true,
     },
 
     {
@@ -123,9 +122,13 @@ return {
 
     {
         "folke/edgy.nvim",
+        enabled = false,
         event = "VeryLazy",
         opts = {
             fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
+            animate = {
+                cps = 240,
+            },
             bottom = {
                 { ft = "toggleterm", size = { height = 0.4 } },
                 {
@@ -140,7 +143,7 @@ return {
                 { ft = "qf", title = "QuickFix" },
                 {
                     ft = "help",
-                    size = { height = 20 },
+                    size = { height = 30 },
                     -- only show help buffers
                     filter = function(buf)
                         return vim.bo[buf].buftype == "help"
@@ -149,16 +152,34 @@ return {
                 { ft = "NeogitStatus", size = { height = 0.4 } },
             },
             left = {
-                { ft = "neo-tree" },
+                {
+                    ft = "neo-tree",
+                    title = "Neo-Tree",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source ~= "document_symbols"
+                    end,
+                },
                 -- {ft="DiffviewFiles"},
             },
             right = {
-                { ft = "OverseerList" },
+                { ft = "OverseerList", title = "Overseer", size = { width = 10 } },
                 { ft = "aerial" },
+                {
+                    ft = "neo-tree",
+                    title = "Neo-Tree",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source == "document_symbols"
+                    end,
+                },
                 { ft = "Outline" },
-                { ft = "Table of contents (VimTeX)" },
+                { ft = "neotest-summary", title = "Neotest Summary" },
+                { ft = "Table of contents (VimTeX)", title = "Table of Contents" },
             },
         },
+        setup = function(_, opts)
+            opts.animation.spinner = require("noice.util.spinners").spinners.circleFull
+            require("edgy").setup(opts)
+        end,
     },
 
     "famiu/bufdelete.nvim",
@@ -264,6 +285,7 @@ return {
     {
         "j-hui/fidget.nvim",
         event = "BufEnter",
+        enabled = false, -- "Note; not currently used with noice"
         config = function()
             require("fidget").setup {
                 text = {

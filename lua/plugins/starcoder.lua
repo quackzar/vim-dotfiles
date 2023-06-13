@@ -1,6 +1,7 @@
 return {
     {
         "huggingface/hfcc.nvim",
+        enabled = false,
         opts = {
             -- cf Setup
             -- api_token = "", -- cf Install paragraph
