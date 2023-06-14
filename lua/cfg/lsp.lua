@@ -104,6 +104,7 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Prev diagnostic" })
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })
     -- vim.keymap.set("n", "<space>rf", vim.lsp.buf.formatting, { buffer = bufnr, desc = "Format buffer" })
+    vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr")
 
     vim.keymap.set(
         "n",
