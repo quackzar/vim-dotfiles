@@ -11,6 +11,8 @@ local state = _G.WindLine.state
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
 
+local noicy, noice = pcall(require, "noice")
+
 -- local lightbulb = require('lightbulb')
 
 local hl_list = {
@@ -224,15 +226,19 @@ basic.noice = {
         blue = { "blue", "black" },
     },
     text = function()
-        local noice = require("noice").api.status
-        if noice.command.has() then
-            return { noice.command.get(), "green" }
-        elseif noice.message.has() then
-            return { noice.message.get(), "red" }
-        elseif noice.search.has() then
-            return { noice.search.get(), "blue" }
-        elseif noice.mode.has() then
-            return { noice.mode.get(), "red" }
+        if not noicy then
+            return
+        end
+
+        local api_status = noice.api.status
+        if api_status.command.has() then
+            return { api_status.command.get(), "green" }
+        elseif api_status.message.has() then
+            return { api_status.message.get(), "red" }
+        elseif api_status.search.has() then
+            return { api_status.search.get(), "blue" }
+        elseif api_status.mode.has() then
+            return { api_status.mode.get(), "red" }
         end
         return ""
     end,
@@ -245,7 +251,11 @@ basic.macros = {
         sep_after = { "black_light", "black" },
     },
     text = function()
-        local mode = require("noice").api.statusline.mode
+        if not noicy then
+            return
+        end
+
+        local mode = noice.api.statusline.mode
         if mode.has() then
             return {
                 { " ", "default" },

@@ -68,6 +68,12 @@ return {
         end,
     },
 
+    -- {
+    --     "echasnovski/mini.align",
+    --     version = false,
+    --     setup = true,
+    -- },
+
     "Konfekt/vim-sentence-chopper",
     -- "flwyd/vim-conjoin",
 
