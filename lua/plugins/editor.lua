@@ -59,20 +59,24 @@ return {
         end,
     },
 
-    {
-        "junegunn/vim-easy-align",
-        config = function()
-            vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", { silent = true })
-            vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", { silent = true })
-            vim.keymap.set("v", "ga", "<Plug>(EasyAlign)", { silent = true })
-        end,
-    },
-
     -- {
-    --     "echasnovski/mini.align",
-    --     version = false,
-    --     setup = true,
+    --     "junegunn/vim-easy-align",
+    --     config = function()
+    --         vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", { silent = true })
+    --         vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", { silent = true })
+    --         vim.keymap.set("v", "ga", "<Plug>(EasyAlign)", { silent = true })
+    --     end,
     -- },
+
+    {
+        "echasnovski/mini.align",
+        opts = {
+            mappings = {
+                start = "ga",
+                start_with_preview = "gA",
+            },
+        },
+    },
 
     "Konfekt/vim-sentence-chopper",
     -- "flwyd/vim-conjoin",
