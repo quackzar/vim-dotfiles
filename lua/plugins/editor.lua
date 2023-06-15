@@ -34,15 +34,76 @@ return {
     {
         "monaqa/dial.nvim",
         keys = {
-            { "<C-a>", "<Plug>(dial-increment)", desc = "Dial up", mode = { "n", "v" } },
-            { "<C-x>", "<Plug>(dial-decrement)", desc = "Dial down", mode = { "n", "v" } },
-            { "g<C-a>", "g<Plug>(dial-increment)", desc = "Dial up relative", mode = "v" },
-            { "g<C-x>", "g<Plug>(dial-decrement)", desc = "Dial down relative", mode = "v" },
+            {
+                "<C-a>",
+                function()
+                    require("dial.map").inc_normal()
+                end,
+                desc = "Dial up",
+                mode = "n",
+            },
+            {
+                "<C-x>",
+                function()
+                    require("dial.map").dec_normal()
+                end,
+                desc = "Dial down",
+                mode = "n",
+            },
+            {
+                "g<C-a>",
+                function()
+                    require("dial.map").inc_gnormal()
+                end,
+                desc = "Dial up relative",
+                mode = "n",
+            },
+            {
+                "g<C-x>",
+                function()
+                    require("dial.map").dec_gnormal()
+                end,
+                desc = "Dial down relative",
+                mode = "n",
+            },
+            {
+                "<C-a>",
+                function()
+                    require("dial.map").inc_visual()
+                end,
+                desc = "Dial up",
+                mode = "v",
+            },
+            {
+                "<C-x>",
+                function()
+                    require("dial.map").dec_visual()
+                end,
+                desc = "Dial down",
+                mode = "v",
+            },
+            {
+                "g<C-a>",
+                function()
+                    require("dial.map").inc_gvisual()
+                end,
+                desc = "Dial up relative",
+                mode = "v",
+            },
+            {
+                "g<C-x>",
+                function()
+                    require("dial.map").dec_gvisual()
+                end,
+                desc = "Dial down relative",
+                mode = "v",
+            },
         },
     },
 
     {
         "kylechui/nvim-surround",
+        event = "VeryLazy",
         config = true,
     },
 
@@ -98,6 +159,15 @@ return {
         },
         config = true,
         lazy = true,
+    },
+
+    {
+        "tzachar/highlight-undo.nvim",
+        config = true,
+        keys = {
+            { "u" },
+            { "<C-r>" },
+        },
     },
 
     {
