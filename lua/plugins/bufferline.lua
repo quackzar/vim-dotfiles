@@ -29,7 +29,7 @@ local opts = {
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
         tab_size = 18,
-        diagnostics = "nvim_lsp",
+        diagnostics = false, --"nvim_lsp",
         diagnostics_update_in_insert = false,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {

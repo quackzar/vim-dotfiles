@@ -212,33 +212,33 @@ mason_lsp.setup_handlers { -- check if this actually works
             on_attach = on_attach,
             capabilities = capabilities,
             settings = {
-                exportPdf = "onType",
+                -- exportPdf = "onType",
             },
         }
     end,
-    -- ["ltex"] = function()
-    --     lspconfig.ltex.setup {
-    --         on_attach = on_attach,
-    --         capabilities = capabilities,
-    --         settings = {
-    --             ltex = {
-    --                 language = "en-US",
-    --                 additionalRules = {
-    --                     enablePickyRules = false,
-    --                 },
-    --                 disabledRules = {
-    --                     ["en-US"] = {
-    --                         "TYPOS",
-    --                         "MORFOLOGIK_RULE_EN",
-    --                         "MORFOLOGIK_RULE_EN_US",
-    --                         "EN_QUOTES",
-    --                         "PASSIVE_VOICE",
-    --                     },
-    --                 },
-    --             },
-    --         },
-    --     }
-    -- end,
+    ["ltex"] = function()
+        lspconfig.ltex.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                ltex = {
+                    language = "en-US",
+                    additionalRules = {
+                        enablePickyRules = false,
+                    },
+                    disabledRules = {
+                        ["en-US"] = {
+                            "TYPOS",
+                            "MORFOLOGIK_RULE_EN",
+                            "MORFOLOGIK_RULE_EN_US",
+                            "EN_QUOTES",
+                            "PASSIVE_VOICE",
+                        },
+                    },
+                },
+            },
+        }
+    end,
 }
 
 local null_ls = require("null-ls")

@@ -23,6 +23,12 @@ return {
                     function(source)
                         require("mason-nvim-dap").default_setup(source)
                     end,
+                    codelldb = function(config)
+                        config.configurations[1].args = function()
+                            return vim.fn.split(vim.fn.input("Args: "), " ")
+                        end
+                        require("mason-nvim-dap").default_setup(config) -- don't forget this!
+                    end,
                 },
             }
         end,
@@ -45,6 +51,8 @@ return {
         config = true,
         lazy = true, -- Triggered by Hydra
     },
+
+    { "nvim-telescope/telescope-dap.nvim" },
 
     {
         "LiadOz/nvim-dap-repl-highlights",
