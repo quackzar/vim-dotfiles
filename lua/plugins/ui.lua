@@ -133,7 +133,7 @@ return {
 
     {
         "folke/edgy.nvim",
-        enabled = false,
+        enabled = true,
         event = "VeryLazy",
         opts = {
             fix_win_height = vim.fn.has("nvim-0.10.0") == 0,

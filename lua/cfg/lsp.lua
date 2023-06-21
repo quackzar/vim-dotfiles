@@ -76,6 +76,27 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
+function set_inlay_hl()
+    local has_hl, hl = pcall(vim.api.nvim_get_hl_by_name, "LspInlayHint", true)
+    if has_hl and (hl["foreground"] or hl["background"]) then
+        return
+    end
+
+    hl = vim.api.nvim_get_hl_by_name("Comment", true)
+    local foreground = string.format("#%06x", hl["foreground"] or 0)
+    if #foreground < 3 then
+        foreground = ""
+    end
+
+    hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
+    local background = string.format("#%06x", hl["background"] or 0)
+    if #background < 3 then
+        background = ""
+    end
+
+    vim.api.nvim_set_hl(0, "LspInlayHint", { fg = foreground, bg = background })
+end
+
 function on_attach(client, bufnr)
     -- require("lsp_signature").on_attach({
     --     toggle_key = "<C-S-k>",
@@ -84,6 +105,23 @@ function on_attach(client, bufnr)
     --         border = "rounded",
     --     },
     -- }, bufnr)
+    vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
+
+    vim.api.nvim_create_autocmd("InsertEnter", {
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.inlay_hint(bufnr, true)
+        end,
+        group = "lsp_augroup",
+    })
+    vim.api.nvim_create_autocmd("InsertLeave", {
+        buffer = bufnr,
+        callback = function()
+            vim.lsp.buf.inlay_hint(bufnr, false)
+        end,
+        group = "lsp_augroup",
+    })
+    set_inlay_hl()
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -140,6 +178,9 @@ require("neodev").setup {
     settings = {
         Lua = {
             workspace = { checkThirdParty = false },
+            hint = {
+                enable = true,
+            },
         },
     },
 }
@@ -154,6 +195,7 @@ mason_lsp.setup_handlers { -- check if this actually works
         lspconfig[server_name].setup {
             on_attach = on_attach,
             capabilities = capabilities,
+            inlay_hints = { enabled = true },
         }
     end,
     ["rust_analyzer"] = function()

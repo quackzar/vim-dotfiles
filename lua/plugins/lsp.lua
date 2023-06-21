@@ -182,7 +182,7 @@ return {
     {
         "lvimuser/lsp-inlayhints.nvim",
         branch = "anticonceal",
-        enabled = vim.fn.has("nvim-0.10") == 1,
+        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
         lazy = false,
         opts = {
             debug_mode = false,
