@@ -38,6 +38,7 @@ return {
 
     {
         "ggandor/leap.nvim",
+        enabled = true,
         config = function()
             -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
@@ -80,6 +81,34 @@ return {
     -- },
 
     {
+        "folke/flash.nvim",
+        enabled = true,
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {},
+        keys = {
+            {
+                "<space>s",
+                -- "s",
+                mode = { "n", "x", "o" },
+                function()
+                    -- default options: exact mode, multi window, all directions, with a backdrop
+                    require("flash").jump()
+                end,
+            },
+            {
+                -- This is really cool but the keymap 'S' conflicts with surround in [ox] mode
+                "<space>S",
+                -- "S",
+                mode = { "n", "o", "x" },
+                function()
+                    require("flash").treesitter()
+                end,
+            },
+        },
+    },
+
+    {
         "cbochs/portal.nvim",
         -- Ootional dependencies
         dependencies = { "cbochs/grapple.nvim" },
@@ -88,6 +117,32 @@ return {
             vim.keymap.set("n", "<C-S-i>", "<cmd>Portal jumplist forward<cr>", { desc = "Portal forward" })
         end,
         keys = { { "<C-S-o>" }, { "<C-S-i>" } },
+    },
+
+    {
+        "rgroli/other.nvim",
+        main = "other-nvim",
+        opts = {
+            mappings = {
+                -- Default
+                "livewire",
+                "angular",
+                "laravel",
+                "rails",
+                "golang",
+                -- C(++)
+                { pattern = "(.*).c$", target = "%1.h", context = "header" },
+                { pattern = "(.*).h$", target = "%1.c", context = "source" },
+                { pattern = "(.*).cpp$", target = "%1.hpp", context = "header" },
+                { pattern = "(.*).hpp$", target = "%1.cpp", context = "source" },
+            },
+        },
+        keys = { -- TODO: Make relevant hydra?
+            { "<leader>ll", "<cmd>Other<cr>", { desc = "Other" } },
+            { "<leader>lp", "<cmd>OtherSplit<cr>", { desc = "Other split" } },
+            { "<leader>lv", "<cmd>OtherVSplit<cr>", { desc = "Other v-split" } },
+            { "<leader>lc", "<cmd>OtherClear<cr>", { desc = "Other clear" } },
+        },
     },
 
     -- {
