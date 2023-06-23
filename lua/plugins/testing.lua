@@ -91,7 +91,7 @@ return {
 
     {
         "t-troebst/perfanno.nvim",
-        lazy = false,
+        lazy = true,
         -- TODO: Make it work on macOS (find something to output like perf does)
         -- TODO: Hydra
         config = function()

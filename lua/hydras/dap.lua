@@ -11,7 +11,7 @@ local Hydra = require("hydra")
 
 local hint = [[
  ^ ^    DAP 
- _s_: continue/start
+ _s_: %{dap_start}
  _p_: pause
  _r_: restart
  ^ ^
@@ -40,6 +40,14 @@ local hint = [[
  ^t^: toggle
 ]]
 
+function dap_start()
+    if require("dap").session() ~= nil then
+        return "continue"
+    else
+        return "start"
+    end
+end
+
 local dap_hydra = Hydra {
     name = "dap",
     hint = hint,
@@ -49,6 +57,9 @@ local dap_hydra = Hydra {
         hint = {
             position = "middle-right",
             border = "rounded",
+            funcs = {
+                ["dap_start"] = dap_start,
+            },
         },
         on_enter = function()
             require("neo-tree.sources.manager").close_all()

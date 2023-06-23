@@ -1,5 +1,6 @@
 local Hydra = require("hydra")
 local gitsigns = require("gitsigns")
+
 -- try not to map p, y, w, b, i, a,
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
@@ -9,7 +10,7 @@ local hint = [[
  ^ ^              _g_/_<Enter>_: Neogit                     _q_: exit
 ]]
 
-Hydra {
+local git_hydra = Hydra {
     hint = hint,
     config = {
         color = "pink",
@@ -91,3 +92,55 @@ Hydra {
         { "q", nil, { exit = true, nowait = true } },
     },
 }
+
+local git_init_hydra = Hydra {
+    hint = [[
+                     Git has not been intilizalied in this directory                       ^
+                                                                                           ^
+                               Initlize git repo? _y_/_n_                                  ^
+                                                                                           ^
+    ]],
+    config = {
+        color = "amaranth",
+        invoke_on_body = true,
+        hint = {
+            position = "bottom",
+            border = "rounded",
+        },
+        on_exit = function()
+            local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
+            if err_code == 0 then
+                git_hydra:activate()
+            end
+        end,
+    },
+    mode = { "n", "x" },
+    body = "<leader>g",
+    heads = {
+        {
+            "y",
+            function()
+                local output = vim.fn.system("git init")
+                vim.notify(output)
+            end,
+            { exit = true },
+        },
+        {
+            "n",
+            function()
+                vim.notify("Git not intilizalied")
+            end,
+            { exit = true },
+        },
+    },
+}
+
+local function activate_git_hydra()
+    local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
+    if err_code == 0 then
+        git_hydra:activate()
+    else
+        git_init_hydra:activate()
+    end
+end
+vim.keymap.set({ "n", "x" }, "<leader>g", activate_git_hydra)

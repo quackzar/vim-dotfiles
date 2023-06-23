@@ -133,7 +133,7 @@ return {
 
     {
         "folke/edgy.nvim",
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         opts = {
             fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
@@ -160,7 +160,10 @@ return {
                         return vim.bo[buf].buftype == "help"
                     end,
                 },
+                -- TODO: Make these 'share' a window i.e., replace eachother
                 { ft = "NeogitStatus", size = { height = 0.4 } },
+                { ft = "NeogitPopup", size = { height = 0.4 } },
+                { ft = "NeogitCommitMessage", size = { height = 0.4 } },
             },
             left = {
                 {

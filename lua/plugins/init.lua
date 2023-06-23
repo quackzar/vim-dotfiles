@@ -38,7 +38,7 @@ return {
 
     {
         "ggandor/leap.nvim",
-        enabled = true,
+        enabled = false,
         config = function()
             -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
@@ -88,8 +88,8 @@ return {
         opts = {},
         keys = {
             {
-                "<space>s",
-                -- "s",
+                -- "<space>s",
+                "s",
                 mode = { "n", "x", "o" },
                 function()
                     -- default options: exact mode, multi window, all directions, with a backdrop
@@ -98,9 +98,9 @@ return {
             },
             {
                 -- This is really cool but the keymap 'S' conflicts with surround in [ox] mode
-                "<space>S",
-                -- "S",
-                mode = { "n", "o", "x" },
+                -- hopefully '.' isn't used for anything.
+                ".",
+                mode = { "o", "x" },
                 function()
                     require("flash").treesitter()
                 end,
