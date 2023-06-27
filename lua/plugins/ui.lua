@@ -1,5 +1,14 @@
 return {
-    "stevearc/dressing.nvim",
+    {
+        "stevearc/dressing.nvim",
+        opts = {
+            input = {
+                title_pos = "center",
+                relative = "editor",
+            },
+        },
+    },
+
     "windwp/windline.nvim",
 
     {

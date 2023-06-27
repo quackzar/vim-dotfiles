@@ -9,6 +9,14 @@ local Hydra = require("hydra")
 --  ^ ^              _q_/_<esc>_: exit
 -- ]]
 
+local function dap_start()
+    if require("dap").session() ~= nil then
+        return "continue"
+    else
+        return "start"
+    end
+end
+
 local hint = [[
  ^ ^    DAP 
  _s_: %{dap_start}
@@ -30,7 +38,9 @@ local hint = [[
  ^ ^
  _u_: toggle UI
  _q_: stop
- _<esc>_: exit mode
+
+     _<esc>_
+   exit mode
 
  ^ ^  Watches 
  ^e^: edit
@@ -39,14 +49,6 @@ local hint = [[
  ^d^: remove
  ^t^: toggle
 ]]
-
-function dap_start()
-    if require("dap").session() ~= nil then
-        return "continue"
-    else
-        return "start"
-    end
-end
 
 local dap_hydra = Hydra {
     name = "dap",
@@ -75,9 +77,44 @@ local dap_hydra = Hydra {
         {
             "s",
             function()
-                require("dap").continue()
+                if require("dap").session() ~= nil then
+                    require("dap").continue()
+                    return
+                end
+                vim.ui.input({
+                    prompt = "Debug: ",
+                    completion = "shellcmd", -- TODO: Better completion
+                    nargs = "*",
+                }, function(input)
+                    if input == nil then
+                        return
+                    end
+                    local args = vim.split(vim.fn.expand(input), " ")
+                    local file = table.remove(args, 1)
+                    local approval = vim.fn.confirm(
+                        "Will try to run:\n    " .. input .. "\n\n" .. "Do you approve? ",
+                        "&Yes\n&No",
+                        1
+                    )
+                    local filetype
+                    if vim.bo.filetype == "rust" or vim.bo.filetype == "cpp" or vim.bo.filetype == "c" then
+                        filetype = "codelldb"
+                    else
+                        filetype = vim.bo.filetype
+                    end
+
+                    if approval == 1 then
+                        require("dap").run {
+                            type = filetype, -- TODO: Detect which adapter to use
+                            request = "launch",
+                            name = "Launch file with custom arguments (adhoc)",
+                            program = file,
+                            args = args,
+                        }
+                    end
+                end)
             end,
-            { silent = true },
+            { silent = true, exit = false },
         },
         {
             "r",
@@ -214,8 +251,67 @@ local dap_hydra = Hydra {
     },
 }
 
-Hydra.spawn = function(head)
-    if head == "dap-hydra" then
-        dap_hydra:activate()
-    end
-end
+-- local init_hint = [[
+--  ^ ^    DAP 
+--  _s_: start
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+--                ^
+-- ]]
+
+-- local dap_init_hydra = Hydra {
+--     name = "dap",
+--     hint = init_hint,
+--     config =  {
+--         color = 'red',
+--         hint = {
+--             position = "middle-right",
+--             border = "rounded",
+--         },
+--         on_exit = function ()
+--             if require("dap").session() ~= nil then
+--                 dap_hydra:activate()
+--             end
+--         end
+--     },
+--     heads = {
+--         { 's', function()
+--             require('dap').continue()
+--         end, {exit = true}
+--         },
+
+--         {'<esc>', nil, {exit = true}}
+
+--     }
+-- }
+
+-- vim.keymap.set({'n', 'v'}, '<leader>d', function ()
+--     if require("dap").session() ~= nil then
+--         dap_hydra:activate()
+--     else
+--         dap_init_hydra:activate()
+--     end
+-- end)

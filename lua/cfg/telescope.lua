@@ -58,4 +58,6 @@ require("telescope").load_extension("fzf")
 -- require("telescope").load_extension("aerial")
 -- require("telescope").load_extension("macros")
 
+require("telescope").load_extension("i23")
+
 -- require("telescope").load_extension("z")

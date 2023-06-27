@@ -79,4 +79,6 @@ return {
     --     ft = { "python" },
     --     dependencies = { "mfussenegger/nvim-dap" },
     -- },
+    --
+    "HUAHUAI23/telescope-dapzzzz",
 }
