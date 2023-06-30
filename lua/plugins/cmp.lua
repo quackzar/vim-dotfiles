@@ -209,6 +209,7 @@ return {
                                 -- lsp
                                 nvim_lsp = "[lsp]",
                                 nvim_lsp_signature_help = "[lsp+]",
+                                nvim_lua = "[api]",
                                 -- weird things
                                 copilot = "[cop]",
                                 luasnip = "[snip]",
