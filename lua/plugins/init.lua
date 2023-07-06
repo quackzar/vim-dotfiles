@@ -85,10 +85,15 @@ return {
         enabled = true,
         event = "VeryLazy",
         ---@type Flash.Config
-        opts = {},
+        opts = {
+            modes = {
+                search = {
+                    enabled = false,
+                },
+            },
+        },
         keys = {
             {
-                -- "<space>s",
                 "s",
                 mode = { "n", "x", "o" },
                 function()

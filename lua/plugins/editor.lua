@@ -33,72 +33,17 @@ return {
 
     {
         "monaqa/dial.nvim",
-        keys = {
-            {
-                "<C-a>",
-                function()
-                    require("dial.map").inc_normal()
-                end,
-                desc = "Dial up",
-                mode = "n",
-            },
-            {
-                "<C-x>",
-                function()
-                    require("dial.map").dec_normal()
-                end,
-                desc = "Dial down",
-                mode = "n",
-            },
-            {
-                "g<C-a>",
-                function()
-                    require("dial.map").inc_gnormal()
-                end,
-                desc = "Dial up relative",
-                mode = "n",
-            },
-            {
-                "g<C-x>",
-                function()
-                    require("dial.map").dec_gnormal()
-                end,
-                desc = "Dial down relative",
-                mode = "n",
-            },
-            {
-                "<C-a>",
-                function()
-                    require("dial.map").inc_visual()
-                end,
-                desc = "Dial up",
-                mode = "v",
-            },
-            {
-                "<C-x>",
-                function()
-                    require("dial.map").dec_visual()
-                end,
-                desc = "Dial down",
-                mode = "v",
-            },
-            {
-                "g<C-a>",
-                function()
-                    require("dial.map").inc_gvisual()
-                end,
-                desc = "Dial up relative",
-                mode = "v",
-            },
-            {
-                "g<C-x>",
-                function()
-                    require("dial.map").dec_gvisual()
-                end,
-                desc = "Dial down relative",
-                mode = "v",
-            },
-        },
+        setup = function()
+            -- Using lazy to set them apparantly doesn't work
+            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true, desc = "Dial up" })
+            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true, desc = "Diap down" })
+            vim.keymap.set("n", "g<C-a>", require("dial.map").inc_gnormal(), { noremap = true }) -- TODO: add desc. to rest
+            vim.keymap.set("n", "g<C-x>", require("dial.map").dec_gnormal(), { noremap = true })
+            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
+            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
+            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
+            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
+        end,
     },
 
     {
@@ -109,7 +54,6 @@ return {
 
     {
         "andymass/vim-matchup",
-        -- enabled = false, -- FIX: Seems to die on big files
         config = function()
             vim.g.matchup_surround_enabled = 1
             vim.g.matchup_transmute_enabled = 1
@@ -140,10 +84,10 @@ return {
     },
 
     "Konfekt/vim-sentence-chopper",
-    -- "flwyd/vim-conjoin",
 
     {
         "chrisgrieser/nvim-various-textobjs",
+        -- maybe consider https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
         config = function()
             require("various-textobjs").setup { useDefaultKeymaps = true }
             vim.keymap.del("x", "r")

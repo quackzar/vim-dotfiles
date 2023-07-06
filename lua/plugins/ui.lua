@@ -228,6 +228,8 @@ return {
             local version = vim.version()
             local nvim_version_info = "v" .. version.major .. "." .. version.minor .. "." .. version.patch
             if version.prerelease then
+                -- there might be other kinds of prereleases, but currently it just writes 'dev'
+                -- and nightly just sounds cooler.
                 nvim_version_info = nvim_version_info .. " (nightly)"
             end
 
@@ -291,7 +293,7 @@ return {
                 callback = function()
                     local stats = require("lazy").stats()
                     local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-                    theta.footer.val = "⚡ Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+                    theta.footer.val = " Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms"
                     pcall(vim.cmd.AlphaRedraw)
                 end,
             })
