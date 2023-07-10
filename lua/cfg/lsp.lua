@@ -177,6 +177,7 @@ require("mason-null-ls").setup {
     automatic_setup = true,
 }
 require("neodev").setup {
+    library = { plugins = { "neotest" }, types = true },
     settings = {
         Lua = {
             workspace = { checkThirdParty = false },

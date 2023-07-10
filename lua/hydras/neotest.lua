@@ -1,5 +1,8 @@
 local Hydra = require("hydra")
 
+-- TODO: Overhaul this in the same manner as the DAP hydra
+-- i.e., auto overview when active, nicer menu, menu placement?
+
 local hint = [[
  _t_: test nearest    _a_: attach nearest    _o_: summary
  _f_: test file       _x_: stop nearest      _d_: debug nearest

@@ -230,7 +230,19 @@ return {
             if version.prerelease then
                 -- there might be other kinds of prereleases, but currently it just writes 'dev'
                 -- and nightly just sounds cooler.
-                nvim_version_info = nvim_version_info .. " (nightly)"
+                --
+                -- Since we are nightly, we might want the modification date.
+                -- We could also use the git-hash, but that is harder to reason about.
+                -- We also might actually find the executable which we run, instead of just assuming it's the one in PATH.
+                -- But given this will require looking up the current process and such,
+                -- and the usual invocated exe is the one in PATH, it seems niche.
+                local timestamp =
+                    vim.fn.system("which nvim | xargs ls -l | awk '{print $6, $7, \"-\", $8}' | tr -d '\n'")
+                if vim.v.shell_error == 0 then
+                    nvim_version_info = nvim_version_info .. " (nightly | " .. timestamp .. ")"
+                else
+                    nvim_version_info = nvim_version_info .. " (nightly)"
+                end
             end
 
             theta.header = {

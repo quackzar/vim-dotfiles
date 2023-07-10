@@ -1,4 +1,6 @@
 return {
+    -- TODO: Clean-up this section i.e., remove unused plugins
+    --
     -- Generic Editor Plugins {{{
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
@@ -132,6 +134,17 @@ return {
                 space_char_blankline = " ",
                 show_current_context = true,
                 show_current_context_start = false,
+            }
+        end,
+    },
+
+    {
+        "tomiis4/Hypersonic.nvim",
+        event = "CmdlineEnter",
+        cmd = "Hypersonic",
+        config = function()
+            require("hypersonic").setup {
+                -- config
             }
         end,
     },

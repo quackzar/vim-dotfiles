@@ -43,6 +43,13 @@ return {
         end,
     },
 
+    {
+        -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
+        -- however by itself I think it is pretty neat.
+        "dgagn/diagflow.nvim",
+        opts = {},
+    },
+
     "jose-elias-alvarez/null-ls.nvim",
 
     {
@@ -75,36 +82,11 @@ return {
     },
 
     {
-        "Bryley/neoai.nvim",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        },
-        cmd = {
-            "NeoAI",
-            "NeoAIOpen",
-            "NeoAIClose",
-            "NeoAIToggle",
-            "NeoAIContext",
-            "NeoAIContextOpen",
-            "NeoAIContextClose",
-            "NeoAIInject",
-            "NeoAIInjectCode",
-            "NeoAIInjectContext",
-            "NeoAIInjectContextCode",
-        },
-        keys = {
-            { "<leader>s", desc = "summarize text" },
-            { "<leader>S", desc = "generate git message" },
-        },
-        config = true,
-    },
-
-    {
         "utilyre/barbecue.nvim",
         name = "barbecue",
         version = "*",
         event = "BufEnter",
-        enabled = true, --vim.fn.has("nvim-0.10") == 0,
+        enabled = false, --vim.fn.has("nvim-0.10") == 0,
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -118,7 +100,7 @@ return {
         "Bekaboo/dropbar.nvim",
         -- BUG: Currently breaks exiting from Telescope, thus entering insert mode.
         -- which is not ideal.
-        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
+        enabled = true, -- vim.fn.has("nvim-0.10") == 1,
         opts = {
             update_events = {
                 win = {
@@ -152,6 +134,17 @@ return {
                 },
             },
         },
+        config = function(_, opts)
+            require("dropbar").setup(opts)
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                group = vim.api.nvim_create_augroup("set_hydra_colors", { clear = true }),
+                callback = function()
+                    local hl = vim.api.nvim_get_hl_by_name("Comment", true)
+                    local foreground = string.format("#%06x", hl["foreground"] or 0)
+                    vim.api.nvim_set_hl(0, "DropBarKindFolder", { foreground = foreground })
+                end,
+            })
+        end,
         lazy = false,
         keys = {
             {
@@ -233,6 +226,32 @@ return {
                 },
             },
         },
+    },
+
+    -- AI stuff
+    {
+        "Bryley/neoai.nvim",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        },
+        cmd = {
+            "NeoAI",
+            "NeoAIOpen",
+            "NeoAIClose",
+            "NeoAIToggle",
+            "NeoAIContext",
+            "NeoAIContextOpen",
+            "NeoAIContextClose",
+            "NeoAIInject",
+            "NeoAIInjectCode",
+            "NeoAIInjectContext",
+            "NeoAIInjectContextCode",
+        },
+        keys = {
+            { "<leader>s", desc = "summarize text" },
+            { "<leader>S", desc = "generate git message" },
+        },
+        config = true,
     },
 
     -- }}}

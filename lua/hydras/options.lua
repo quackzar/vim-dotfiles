@@ -147,6 +147,7 @@ Hydra {
         {
             "c",
             function()
+                -- TODO: change this to cursorline opt
                 if vim.o.cursorline == true then
                     vim.o.cursorline = false
                 else
