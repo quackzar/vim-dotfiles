@@ -46,8 +46,16 @@ return {
     {
         -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
         -- however by itself I think it is pretty neat.
+        -- Might want to disable lsp_lines in cases where it is annoying?
+        -- Or might just add an option so this is on if it is off,
+        -- since it just displays the same thing.
+        -- BUT, lsp_lines does mess with virtual lines, and that can be jarring,
+        -- so maybe something between insert mode and normal mode?
         "dgagn/diagflow.nvim",
-        opts = {},
+        opts = {
+            enable = false,
+            scope = "line",
+        },
     },
 
     "jose-elias-alvarez/null-ls.nvim",

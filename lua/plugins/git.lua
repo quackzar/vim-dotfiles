@@ -1,6 +1,5 @@
 return {
     -- Version Control and Git {{{
-    "tpope/vim-fugitive",
     {
         "lewis6991/gitsigns.nvim",
         lazy = false,
@@ -95,9 +94,7 @@ return {
         end,
     },
     {
-        "TimUntersberger/neogit",
-        url = "https://github.com/tobealive/neogit.git",
-        branch = "fix-noice-commit-confirm-message",
+        "NeogitOrg/neogit",
         dependencies = "nvim-lua/plenary.nvim",
         opts = {
             kind = "split",
