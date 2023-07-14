@@ -26,6 +26,7 @@ return {
 
     {
         "numToStr/Comment.nvim",
+        event = "VeryLazy",
         opts = {
             ignore = "^$",
         },
@@ -46,6 +47,7 @@ return {
             vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
             vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
         end,
+        keys = { "<C-a>", { "<C-x>", mode = "n" } },
     },
 
     {
@@ -56,6 +58,7 @@ return {
 
     {
         "andymass/vim-matchup",
+        event = "BufReadPre",
         config = function()
             vim.g.matchup_surround_enabled = 1
             vim.g.matchup_transmute_enabled = 1
@@ -117,11 +120,6 @@ return {
     },
 
     {
-        "AckslD/muren.nvim",
-        config = true,
-    },
-
-    {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
             vim.g.indent_blankline_char = "▏"
@@ -134,17 +132,6 @@ return {
                 space_char_blankline = " ",
                 show_current_context = true,
                 show_current_context_start = false,
-            }
-        end,
-    },
-
-    {
-        "tomiis4/Hypersonic.nvim",
-        event = "CmdlineEnter",
-        cmd = "Hypersonic",
-        config = function()
-            require("hypersonic").setup {
-                -- config
             }
         end,
     },

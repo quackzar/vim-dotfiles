@@ -33,16 +33,6 @@ return {
         },
     },
 
-    -- { 'Issafalcon/lsp-overloads.nvim'},
-    -- "ray-x/lsp_signature.nvim",
-
-    {
-        "WhoIsSethDaniel/toggle-lsp-diagnostics.nvim",
-        config = function()
-            require("toggle_lsp_diagnostics").init()
-        end,
-    },
-
     {
         -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
         -- however by itself I think it is pretty neat.
@@ -52,6 +42,7 @@ return {
         -- BUT, lsp_lines does mess with virtual lines, and that can be jarring,
         -- so maybe something between insert mode and normal mode?
         "dgagn/diagflow.nvim",
+        event = "BufEnter",
         opts = {
             enable = false,
             scope = "line",
@@ -59,26 +50,6 @@ return {
     },
 
     "jose-elias-alvarez/null-ls.nvim",
-
-    {
-        "stevearc/aerial.nvim",
-        enabled = false,
-        opts = {
-            filter_kind = false, -- TODO: play around with this.
-            backends = { "lsp", "treesitter", "markdown", "man" },
-            layout = {
-                placement = "edge",
-            },
-            on_attach = function(bufnr)
-                vim.keymap.set("n", "[[", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-                vim.keymap.set("n", "]]", "<cmd>AerialNext<CR>", { buffer = bufnr })
-            end,
-        },
-        keys = {
-            { "<leader>v", "<cmd>AerialOpen<CR>", desc = "Aerial Focus" },
-            { "<leader>V", "<cmd>AerialToggle!<CR>", desc = "Toggle Aerial" },
-        },
-    },
 
     {
         "onsails/lspkind-nvim",
@@ -94,7 +65,7 @@ return {
         name = "barbecue",
         version = "*",
         event = "BufEnter",
-        enabled = false, --vim.fn.has("nvim-0.10") == 0,
+        enabled = true, --vim.fn.has("nvim-0.10") == 0,
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -108,7 +79,7 @@ return {
         "Bekaboo/dropbar.nvim",
         -- BUG: Currently breaks exiting from Telescope, thus entering insert mode.
         -- which is not ideal.
-        enabled = true, -- vim.fn.has("nvim-0.10") == 1,
+        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
         opts = {
             update_events = {
                 win = {
@@ -178,31 +149,6 @@ return {
                 auto_attach = true,
             },
         },
-    },
-
-    {
-        "lvimuser/lsp-inlayhints.nvim",
-        branch = "anticonceal",
-        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
-        lazy = false,
-        opts = {
-            debug_mode = false,
-        },
-        init = function()
-            vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = "LspAttach_inlayhints",
-                callback = function(args)
-                    if not (args.data and args.data.client_id) then
-                        return
-                    end
-
-                    local bufnr = args.buf
-                    local client = vim.lsp.get_client_by_id(args.data.client_id)
-                    require("lsp-inlayhints").on_attach(client, bufnr)
-                end,
-            })
-        end,
     },
 
     {

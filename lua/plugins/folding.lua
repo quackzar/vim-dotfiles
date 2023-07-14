@@ -2,7 +2,7 @@ return {
     {
         "kevinhwang91/nvim-ufo",
         dependencies = "kevinhwang91/promise-async",
-        event = "VimEnter",
+        event = "VeryLazy",
         opts = {
             { "lsp", "treesitter", "indent" },
             open_fold_hl_timeout = 150,

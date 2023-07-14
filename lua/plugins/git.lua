@@ -2,7 +2,7 @@ return {
     -- Version Control and Git {{{
     {
         "lewis6991/gitsigns.nvim",
-        lazy = false,
+        event = "VeryLazy",
         opts = {
             signs = {
                 add = { text = "▎" },
@@ -61,6 +61,7 @@ return {
 
     {
         "sindrets/diffview.nvim",
+        event = "VeryLazy",
         dependencies = "nvim-lua/plenary.nvim",
         opts = {
             enhanced_diff_hl = true,
@@ -82,6 +83,7 @@ return {
     {
         "akinsho/git-conflict.nvim",
         version = "*",
+        event = "VeryLazy",
         config = function()
             require("git-conflict").setup {
                 default_mappings = true, -- disable buffer local mapping created by this plugin
@@ -95,7 +97,9 @@ return {
     },
     {
         "NeogitOrg/neogit",
+        -- BUG: Currently breaks with Noice when committing
         dependencies = "nvim-lua/plenary.nvim",
+        event = "VeryLazy",
         opts = {
             kind = "split",
             integrations = {
@@ -122,6 +126,7 @@ return {
 
     {
         "f-person/git-blame.nvim",
+        event = "VeryLazy",
         init = function()
             vim.g.gitblame_enabled = 0
         end,
@@ -129,6 +134,7 @@ return {
 
     {
         "ruifm/gitlinker.nvim",
+        lazy = true,
         config = function()
             require("gitlinker").setup {
                 mappings = nil, -- this doesn't work

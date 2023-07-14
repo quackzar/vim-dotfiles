@@ -10,8 +10,6 @@ return {
         end,
     },
 
-    "willthbill/opener.nvim",
-
     "romgrk/fzy-lua-native", -- for use with wilder
 
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

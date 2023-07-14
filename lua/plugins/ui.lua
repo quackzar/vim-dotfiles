@@ -214,6 +214,7 @@ return {
 
     {
         "norcalli/nvim-colorizer.lua",
+        evnet = "BufEnter",
         config = true,
     },
 
@@ -335,9 +336,9 @@ return {
 
     {
         "kevinhwang91/nvim-hlslens",
-        event = "VimEnter",
-        config = function()
-            require("hlslens").setup()
+        lazy = true,
+        config = true,
+        init = function()
             vim.keymap.set(
                 { "n", "x" },
                 "n",
@@ -390,7 +391,11 @@ return {
         event = "VeryLazy",
     },
 
-    "sindrets/winshift.nvim", -- Used in a Hydra
+    {
+        "sindrets/winshift.nvim",
+        cmd = "WinShift",
+    }, -- Used in a Hydra
+
     {
         "mrjones2014/smart-splits.nvim", -- Used in a Hydra
         config = true,
@@ -399,6 +404,8 @@ return {
     {
         "anuvyklack/hydra.nvim",
         dependencies = "anuvyklack/keymap-layer.nvim", -- needed only for pink hydras
+        lazy = true,
+        -- Maybe clean this up a bit, and trigger regitration on keys?
         config = function()
             require("cfg.hydra")
         end,
@@ -406,12 +413,24 @@ return {
 
     {
         "folke/twilight.nvim",
+        lazy = true,
+        cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
         config = true,
     },
 
     {
         "folke/zen-mode.nvim",
-        config = true,
+        cmd = "ZenMode",
+        lazy = true,
+        config = {
+            plugins = {
+                wezterm = {
+                    enabled = false,
+                    -- can be either an absolute font size or the number of incremental steps
+                    font = "+4", -- (10% increase per step)
+                },
+            },
+        },
     },
 
     -- {
@@ -428,6 +447,7 @@ return {
 
     {
         "karb94/neoscroll.nvim",
+        event = "VeryLazy",
         config = true,
     },
 
@@ -438,5 +458,6 @@ return {
 
     {
         "Bekaboo/deadcolumn.nvim",
+        event = "BufEnter",
     },
 }

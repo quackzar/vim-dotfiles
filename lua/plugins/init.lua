@@ -20,6 +20,7 @@ return {
     { -- autoclose unused buffers
         "axkirillov/hbac.nvim",
         config = true,
+        event = "VeryLazy",
         opts = {
             autoclose = true,
             threshold = 10,
@@ -30,11 +31,9 @@ return {
     -- Navigation {{{
     {
         "nacro90/numb.nvim",
+        event = "VeryLazy",
         config = true,
     },
-
-    -- "chaoren/vim-wordmotion",
-    -- "anuvyklack/vim-smartword",
 
     {
         "ggandor/leap.nvim",
@@ -59,26 +58,6 @@ return {
             require("leap").set_default_keymaps()
         end,
     },
-
-    -- {
-    --     "phaazon/hop.nvim", -- let's try hop too
-    --     branch = "v2", -- optional but strongly recommended
-    --     config = function()
-    --         -- you can configure Hop the way you like here; see :h hop-config
-    --         require("hop").setup { keys = "etovxqpdygfblzhckisuran" }
-    --         vim.keymap.set({ "n", "x" }, "s", "<cmd>HopChar2<cr>", { remap = true })
-    --     end,
-    -- },
-
-    -- {
-    --     "echasnovski/mini.jump2d",
-    --     version = "*",
-    --     opts = {
-    --         mappings = { start_jumping = "s" },
-    --         allowed_windows = { non_current = false },
-    --         view = { dim = true },
-    --     },
-    -- },
 
     {
         "folke/flash.nvim",
@@ -117,6 +96,7 @@ return {
         "cbochs/portal.nvim",
         -- Ootional dependencies
         dependencies = { "cbochs/grapple.nvim" },
+        lazy = true,
         config = function()
             vim.keymap.set("n", "<C-S-o>", "<cmd>Portal jumplist backward<cr>", { desc = "Portal backward" })
             vim.keymap.set("n", "<C-S-i>", "<cmd>Portal jumplist forward<cr>", { desc = "Portal forward" })
@@ -148,6 +128,7 @@ return {
             { "<leader>lv", "<cmd>OtherVSplit<cr>", { desc = "Other v-split" } },
             { "<leader>lc", "<cmd>OtherClear<cr>", { desc = "Other clear" } },
         },
+        cmd = { "Other", "OtherSplit", "OtherVSplit", "OtherClear" },
     },
 
     -- {
@@ -190,6 +171,24 @@ return {
         config = function()
             require("cfg.neotree")
         end,
+        lazy = true,
+        cmd = "Neotree",
+        init = function()
+            vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
+            vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file tree" })
+            vim.keymap.set(
+                "n",
+                "<leader>v",
+                "<cmd>Neotree toggle document_symbols position=right<cr>",
+                { desc = "Toggle symbols" }
+            )
+            vim.keymap.set(
+                "n",
+                "<leader>V",
+                "<cmd>Neotree focus document_symbols position=right<cr>",
+                { desc = "Focus symbols" }
+            )
+        end,
     },
 
     {
@@ -225,6 +224,14 @@ return {
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
+        ft = {
+            "markdown",
+            "text",
+            "tex",
+            "plaintex",
+            "norg",
+            "typst",
+        },
         config = true,
     },
     {
@@ -255,6 +262,7 @@ return {
     {
         "AckslD/nvim-FeMaco.lua",
         config = true,
+        filetype = "markdown",
     },
 
     {

@@ -102,11 +102,6 @@ require("neo-tree").setup {
     },
 }
 
-vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
-vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file tree" })
-vim.keymap.set("n", "<leader>v", "<cmd>Neotree toggle document_symbols position=right<cr>", { desc = "Toggle symbols" })
-vim.keymap.set("n", "<leader>V", "<cmd>Neotree focus document_symbols position=right<cr>", { desc = "Focus symbols" })
-
 -- doesn't work
 -- vim.api.nvim_create_autocmd('FileType', {
 --     group = vim.api.nvim_create_augroup("neo-tree-settings", { clear = true}),

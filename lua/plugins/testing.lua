@@ -73,6 +73,8 @@ return {
 
     {
         "p00f/godbolt.nvim",
+        lazy = true,
+        cmd = { "Godbolt", "GodboltCompiler" },
         opts = {
             quickfix = {
                 enable = true, -- whether to populate the quickfix list in case of errors
