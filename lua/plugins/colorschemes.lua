@@ -54,7 +54,7 @@ return {
                     leap = true,
                     native_lsp = { enabled = true },
                     dap = { enabled = true },
-                    -- indent_blankline = { enabled = false },
+                    indent_blankline = { enabled = false },
                 },
             }
             -- vim.g.terminal_color_0 = nil

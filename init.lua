@@ -24,6 +24,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
     concurrency = 50,
     git = { timeout = 120 },
+    install = { colorscheme = { "kanagawa" } },
 })
 
 if vim.fn.exists("g:neovide") then

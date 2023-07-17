@@ -97,10 +97,10 @@ return {
     },
     {
         "NeogitOrg/neogit",
-        -- BUG: Currently breaks with Noice when committing
         dependencies = "nvim-lua/plenary.nvim",
         event = "VeryLazy",
         opts = {
+            disable_commit_confirmation = true,
             kind = "split",
             integrations = {
                 diffview = true,
@@ -110,14 +110,6 @@ return {
                 section = { "", "" },
                 item = { "", "" },
                 hunk = { "", "" },
-            },
-            commit_popup = {
-                kind = "split",
-                commit_confirmation = {
-                    enabled = false,
-                    close_on_deny = false,
-                },
-                start_insert_on_commit = true,
             },
         },
         lazy = true,
