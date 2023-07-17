@@ -94,6 +94,14 @@ return {
                 },
             }
         end,
+        init = function()
+            vim.api.nvim_create_augroup("neogit-additions", {})
+            vim.api.nvim_create_autocmd("FileType", { -- BUG: dropbar breaks with not finding a 'NeogitCommitMessage' TS parser
+                group = "neogit-additions",
+                pattern = "NeogitCommitMessage",
+                command = "silent! set filetype=gitcommit",
+            })
+        end,
     },
     {
         "NeogitOrg/neogit",
@@ -164,7 +172,7 @@ return {
 
     {
         "lewis6991/satellite.nvim",
-        enabled = false,
+        enabled = true,
         event = "BufRead",
         opts = {
             current_only = true,

@@ -87,7 +87,6 @@ function set_inlay_hl()
     if #foreground < 3 then
         foreground = ""
     end
-
     hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
     local background = string.format("#%06x", hl["background"] or 0)
     if #background < 3 then
@@ -131,6 +130,8 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
     -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic (lsp)" })
+    vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+    vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration (lsp)" })
     vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation (lsp)" })
@@ -145,24 +146,7 @@ function on_attach(client, bufnr)
     vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
     -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
     --
-    -- vim.keymap.set("n", "<space>rf", vim.lsp.buf.formatting, { buffer = bufnr, desc = "Format buffer" })
     -- vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")
-
-    vim.keymap.set(
-        "n",
-        "<space>wa",
-        vim.lsp.buf.add_workspace_folder,
-        { buffer = bufnr, desc = "Add workspace folder" }
-    )
-    vim.keymap.set(
-        "n",
-        "<space>wr",
-        vim.lsp.buf.remove_workspace_folder,
-        { buffer = bufnr, desc = "Remove workspace folder" }
-    )
-    vim.keymap.set("n", "<space>wl", function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders))
-    end, { buffer = bufnr, desc = "list workspace folders" })
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()

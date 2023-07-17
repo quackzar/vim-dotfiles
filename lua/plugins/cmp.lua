@@ -43,9 +43,6 @@ return {
                     end,
                 },
                 mapping = {
-                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
                     ["<C-x><C-o>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
                     ["<C-x><C-f>"] = cmp.mapping(
                         cmp.mapping.complete {
@@ -72,6 +69,13 @@ return {
                         },
                         { "i", "c" }
                     ),
+                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
+                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                    ["<C-e>"] = cmp.mapping {
+                        i = cmp.mapping.abort(),
+                        c = cmp.mapping.close(),
+                    },
                     ["<C-j>"] = cmp.mapping {
                         i = function()
                             local entry = cmp.get_selected_entry()
@@ -83,11 +87,11 @@ return {
                         end,
                         c = cmp.mapping.confirm { select = true },
                     },
-                    ["<C-e>"] = cmp.mapping {
-                        i = cmp.mapping.abort(),
-                        c = cmp.mapping.close(),
-                    },
                     ["<CR>"] = cmp.mapping.confirm { select = false },
+                    ["<S-CR>"] = cmp.mapping.confirm {
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = false,
+                    }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                     ["<C-n>"] = cmp.mapping {
                         c = function()
                             if cmp.visible() then
@@ -125,7 +129,6 @@ return {
                 },
                 sources = cmp.config.sources {
                     { name = "nvim_lsp" },
-                    -- { name = 'nvim_lsp_signature_help' }, -- This is acting weird
 
                     -- { name = "copilot", group_index = 2 },
                     { name = "luasnip" }, -- For luasnip users.
@@ -241,7 +244,7 @@ return {
                 },
                 experimental = {
                     ghost_text = {
-                        hl_group = "LspCodeLens",
+                        hl_group = "CmpGhostText",
                     }, -- incompatible with copilot
                 },
             }

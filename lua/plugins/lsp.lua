@@ -65,7 +65,7 @@ return {
         name = "barbecue",
         version = "*",
         event = "BufEnter",
-        enabled = true, --vim.fn.has("nvim-0.10") == 0,
+        enabled = false, --vim.fn.has("nvim-0.10") == 0,
         dependencies = {
             "SmiteshP/nvim-navic",
             "nvim-tree/nvim-web-devicons", -- optional dependency
@@ -79,7 +79,7 @@ return {
         "Bekaboo/dropbar.nvim",
         -- BUG: Currently breaks exiting from Telescope, thus entering insert mode.
         -- which is not ideal.
-        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
+        enabled = true, -- vim.fn.has("nvim-0.10") == 1,
         opts = {
             update_events = {
                 win = {
@@ -118,8 +118,9 @@ return {
             vim.api.nvim_create_autocmd("ColorScheme", {
                 group = vim.api.nvim_create_augroup("set_hydra_colors", { clear = true }),
                 callback = function()
-                    local hl = vim.api.nvim_get_hl_by_name("Comment", true)
+                    local hl = vim.api.nvim_get_hl_by_name("Conceal", true)
                     local foreground = string.format("#%06x", hl["foreground"] or 0)
+                    vim.api.nvim_set_hl(0, "DropBarIconUISeparator", { foreground = foreground })
                     vim.api.nvim_set_hl(0, "DropBarKindFolder", { foreground = foreground })
                 end,
             })
