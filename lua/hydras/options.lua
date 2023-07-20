@@ -31,6 +31,18 @@ local function cycle_diagnostics()
     end
 end
 
+local function cursorlineopt()
+    if not vim.o.cursorline then
+        return "[?]"
+    end
+    if vim.o.cursorlineopt == "both" or vim.o.cursorlineopt == "line" then
+        return "[x]"
+    else
+        -- "num"
+        return "[ ]"
+    end
+end
+
 local hint = [[
   ^ ^        Options
   ^
@@ -38,7 +50,7 @@ local hint = [[
   _i_ %{list} invisible characters
   _s_ %{spell} spell
   _w_ %{wrap} wrap
-  _c_ %{cul} cursor line
+  _c_ %{culopt} cursor line
   _n_ %{nu} number
   _r_ %{rnu} relative number
   _l_ %{diag} diagnostics
@@ -57,6 +69,7 @@ Hydra {
             position = "middle",
             funcs = {
                 ["diag"] = diagnostic,
+                ["culopt"] = cursorlineopt,
             },
         },
     },
@@ -148,10 +161,10 @@ Hydra {
             "c",
             function()
                 -- TODO: change this to cursorline opt
-                if vim.o.cursorline == true then
-                    vim.o.cursorline = false
+                if vim.o.cursorlineopt == "number" then
+                    vim.o.cursorlineopt = "both"
                 else
-                    vim.o.cursorline = true
+                    vim.o.cursorlineopt = "number"
                 end
             end,
             { desc = "cursor line" },

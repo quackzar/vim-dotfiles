@@ -51,7 +51,7 @@ local hint = [[
 ]]
 
 local dap_hydra = Hydra {
-    name = "dap",
+    name = "debug",
     hint = hint,
     config = {
         color = "pink",

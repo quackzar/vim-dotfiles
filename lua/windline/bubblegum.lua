@@ -10,6 +10,7 @@ local state = _G.WindLine.state
 
 local lsp_comps = require("windline.components.lsp")
 local git_comps = require("windline.components.git")
+local git_rev = require("windline.components.git_rev")
 
 local noicy, noice = pcall(require, "noice")
 
@@ -111,9 +112,6 @@ basic.lsp = {
         -- return {{'friend', 'default'}}
         return { { "  [" .. table.concat(names, " ") .. "]", "green" } }
     end),
-    -- text = function()
-    --     return {lsp_comps.lsp_name(), "green"}
-    -- end
 }
 
 basic.hydra = {
@@ -164,9 +162,9 @@ basic.right = {
 basic.git = {
     width = 90,
     hl_colors = {
-        green = { "green", "black" },
+        green = { "green_light", "black" },
         red = { "red", "black" },
-        blue = { "blue", "black" },
+        blue = { "blue_light", "black" },
     },
     text = function(bufnr)
         if git_comps.is_git(bufnr) then
@@ -282,6 +280,8 @@ local default = {
         basic.hydra,
         basic.divider,
         basic.git,
+        -- TODO: This doesn't work?
+        { git_rev.git_rev { format = "⇡%s⇣%s", interval = 10000 }, { "yellow", "black" }, 90 },
         { git_comps.git_branch { icon = " 󰊢 " }, { "green", "black" }, 90 },
         { " ", hl_list.Black },
         basic.vi_mode,
@@ -332,6 +332,8 @@ local explorer = {
     show_last_status = true,
 }
 
+-- Special statusline for alpha.nvim? Don't bother, it's just disabled anyway.
+
 windline.setup {
     colors_name = function(colors)
         -- ADD MORE COLOR HERE ----
@@ -348,5 +350,7 @@ windline.setup {
         "fern",
         "lir",
         "OverseerList",
+        "NeogitStatus",
+        "edgy",
     },
 }

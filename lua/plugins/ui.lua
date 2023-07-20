@@ -310,6 +310,23 @@ return {
                     pcall(vim.cmd.AlphaRedraw)
                 end,
             })
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "AlphaReady",
+                callback = function(info)
+                    vim.o.showtabline = 0
+                    vim.o.laststatus = 0
+                    vim.api.nvim_create_autocmd("BufUnload", {
+                        buffer = info.buf,
+                        callback = function()
+                            vim.o.showtabline = 2
+                            vim.o.laststatus = 3
+                            return true
+                        end,
+                    })
+                    return true
+                end,
+            })
         end,
     },
 
