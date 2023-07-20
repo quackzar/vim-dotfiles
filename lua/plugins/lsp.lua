@@ -13,6 +13,25 @@ return {
     "kosayoda/nvim-lightbulb",
 
     {
+        "dnlhc/glance.nvim",
+        config = true,
+        lazy = true,
+        cmd = "Glance",
+        init = function()
+            -- TODO: This vs Telescope vs Quickfix + bqf
+            vim.api.nvim_create_autocmd("LspAttach", {
+                callback = function()
+                    -- Consider using the regular mappings
+                    vim.keymap.set("n", "gD", "<CMD>Glance definitions<CR>")
+                    vim.keymap.set("n", "gR", "<CMD>Glance references<CR>")
+                    vim.keymap.set("n", "gY", "<CMD>Glance type_definitions<CR>")
+                    vim.keymap.set("n", "gM", "<CMD>Glance implementations<CR>")
+                end,
+            })
+        end,
+    },
+
+    {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = true,
     },

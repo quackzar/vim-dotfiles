@@ -4,16 +4,29 @@ local function cmd(command)
     return table.concat { "<Cmd>", command, "<CR>" }
 end
 
+-- local hint = [[
+--                     _f_iles       document _s_ymbols
+--    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼       _b_uffers     _w_orkspace symbols
+--   🭉🭁🭠🭘    🭣🭕🭌🬾      _n_avigate    live _g_rep
+--   🭅█ ▁     █🭐      _m_arks       _c_olorscheme
+--   ██🬿      🭊██
+--  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀     vim _h_elp    _/_: search in file
+--  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙     _k_eymap      _;_: commands history
+--                     _o_ptions     _?_: search history
+--      _r_esume
+--                  _<Enter>_: Telescope           _<Esc>_
+-- ]]
+
 local hint = [[
                  _f_: files       _s_: document symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _n_: navigate    _g_: live grep
+  🭉🭁🭠🭘    🭣🭕🭌🬾   ^ ^              _g_: live grep
   🭅█ ▁     █🭐   _m_: marks       _/_: search in file
   ██🬿      🭊██
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: colorscheme
  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymap      _;_: commands history
                  _o_: options     _?_: search history
-
+     _r_esume
                  _<Enter>_: Telescope           _<Esc>_
 ]]
 
@@ -31,6 +44,7 @@ Hydra {
     mode = "n",
     body = "<leader>f",
     heads = {
+        { "r", cmd("Telescope resume") },
         { "f", cmd("Telescope find_files") },
         { "b", cmd("Telescope buffers") },
         { "g", cmd("Telescope live_grep") },

@@ -20,6 +20,10 @@ require("telescope").setup {
             },
         },
     },
+    prompt_prefix = "   ",
+
+    color_devicons = true,
+    set_env = { ["COLORTERM"] = "truecolor" },
     file_ignore_patterns = { "node_modules", ".git", "bin", "target", "obj" },
     pickers = {
         -- Default configuration for builtin pickers goes here:
@@ -34,6 +38,33 @@ require("telescope").setup {
         },
         lsp_workspace_symbols = {
             theme = "dropdown",
+        },
+        live_grep = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
+        },
+        lsp_implementations = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
+        },
+        lsp_references = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
         },
     },
     extensions = {
