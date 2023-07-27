@@ -106,6 +106,9 @@ vim.o.laststatus = 3
 
 vim.o.colorcolumn = "+0"
 
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+
 -- some pluginless keymaps
 vim.keymap.set({ "n", "x" }, "Q", "<nop>")
 vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })
