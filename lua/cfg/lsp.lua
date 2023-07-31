@@ -252,6 +252,7 @@ mason_lsp.setup_handlers { -- check if this actually works
             settings = {
                 ltex = {
                     language = "en-US",
+                    checkFrequency = "save",
                     additionalRules = {
                         enablePickyRules = false,
                     },

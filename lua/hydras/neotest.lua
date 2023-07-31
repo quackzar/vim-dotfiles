@@ -4,16 +4,16 @@ local Hydra = require("hydra")
 -- i.e., auto overview when active, nicer menu, menu placement?
 
 local hint = [[
+ ^ ^                  ^ ^   TESTING 󰙨
  _t_: test nearest    _a_: attach nearest    _o_: summary
  _f_: test file       _x_: stop nearest      _d_: debug nearest
- _b_: test file bg
- ^ ^                  _q_: exit
+ ^ ^                  _<esc>_: exit
 ]]
 
 local test_hydra = Hydra {
     hint = hint,
     config = {
-        color = "blue",
+        color = "pink",
         invoke_on_body = true,
         hint = {
             position = "bottom",
@@ -21,6 +21,10 @@ local test_hydra = Hydra {
         },
         on_enter = function()
             vim.bo.modifiable = false
+            require("neotest").summary.open()
+        end,
+        on_exit = function()
+            require("neotest").summary.close()
         end,
     },
     name = "test",
@@ -49,18 +53,11 @@ local test_hydra = Hydra {
             { silent = true },
         },
         {
-            "b",
-            function()
-                require("neotest").run.run { vim.fn.expand("%"), strategy = "integrated" }
-            end,
-            { silent = true },
-        },
-        {
             "d",
             function()
                 require("neotest").run.run { strategy = "dap" }
             end,
-            { silent = true },
+            { silent = true, exit = true },
         },
         {
             "a",
@@ -76,7 +73,7 @@ local test_hydra = Hydra {
             end,
             { silent = true },
         },
-        { "q", nil, { exit = true, nowait = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
     },
 }
 

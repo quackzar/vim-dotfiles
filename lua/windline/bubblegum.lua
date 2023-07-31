@@ -106,7 +106,7 @@ basic.lsp = {
             return ""
         end
         local names = {}
-        for _, server in pairs(vim.lsp.get_active_clients { 0 }) do
+        for _, server in pairs(vim.lsp.get_active_clients { bufnr }) do
             table.insert(names, server.name)
         end
         -- return {{'friend', 'default'}}
