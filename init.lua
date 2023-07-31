@@ -6,26 +6,9 @@ vim.o.termguicolors = true
 -- GUI options
 vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
 -- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
-vim.o.guioptions = "ad"
+-- vim.o.guioptions = "ad" -- BUG: Breaks nvim from source
 vim.g.mapleader = " "
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    }
-end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins", {
-    concurrency = 50,
-    git = { timeout = 120 },
-    install = { colorscheme = { "kanagawa" } },
-})
 
 if vim.fn.exists("g:neovide") then
     vim.g.neovide_transparency = 1.0
@@ -182,6 +165,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     command = [[call mkdir(expand('<afile>:p:h'), 'p')]],
 })
 
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system {
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    }
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins", {
+    concurrency = 50,
+    git = { timeout = 120 },
+    install = { colorscheme = { "kanagawa" } },
+})
 -- loads all plugins
 
 require("functions")
@@ -195,6 +195,4 @@ require("cfg.whichkey")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))
-
-vim.opt.shadafile = ""
 -- vim: foldmethod=marker sw=4

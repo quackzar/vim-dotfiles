@@ -72,6 +72,8 @@ return {
                     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete {}, { "i", "c" }),
                     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
                     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                    ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+                    ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
                     ["<C-e>"] = cmp.mapping {
                         i = cmp.mapping.abort(),
                         c = cmp.mapping.close(),
@@ -150,10 +152,13 @@ return {
                         -- require("copilot_cmp.comparators").score,
 
                         -- Below is the default comparitor list and order for nvim-cmp
-                        cmp.config.compare.offset,
+                        -- cmp.config.compare.offset,
                         -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
                         cmp.config.compare.exact,
                         cmp.config.compare.score,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.order,
+                        cmp.config.compare.locality,
 
                         -- copied from cmp-under, but I don't think I need the plugin for this.
                         -- I might add some more of my own.
@@ -169,11 +174,8 @@ return {
                             end
                         end,
                         cmp.config.compare.recently_used,
-                        -- cmp.config.compare.locality,
-                        cmp.config.compare.kind,
                         cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
+                        -- cmp.config.compare.length,
                     },
                 },
                 view = {

@@ -332,8 +332,20 @@ return {
 
     {
         "rcarriga/nvim-notify",
-        config = function()
+        opts = {
+            render = "compact",
+            timeout = 2500,
+        },
+        config = function(opts)
+            require("notify").setup(opts)
             vim.notify = require("notify")
+        end,
+        init = function()
+            vim.keymap.set({'n', 'i', 'x'}, '<C-l>', function()
+                require('notify').dismiss()
+                vim.cmd('noh')
+            end, {desc='Dismiss'})
+
         end,
     },
 

@@ -90,7 +90,8 @@ require("nvim-treesitter.configs").setup {
         },
     },
     matchup = {
-        enable = true, -- TODO: reeanble when fixed
+        enable = true,
+        include_match_words = true,
     },
     autotag = {
         enable = true,
