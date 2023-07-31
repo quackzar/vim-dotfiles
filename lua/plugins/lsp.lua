@@ -96,8 +96,6 @@ return {
 
     {
         "Bekaboo/dropbar.nvim",
-        -- BUG: Currently breaks exiting from Telescope, thus entering insert mode.
-        -- which is not ideal.
         enabled = true, -- vim.fn.has("nvim-0.10") == 1,
         opts = {
             update_events = {
