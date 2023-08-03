@@ -15,6 +15,8 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     -- "nvim-telescope/telescope-z.nvim",
 
+    { "Marskey/telescope-sg" },
+
     {
 
         "ziontee113/icon-picker.nvim",

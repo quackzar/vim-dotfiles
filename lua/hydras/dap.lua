@@ -8,6 +8,33 @@ local Hydra = require("hydra")
 --  ^
 --  ^ ^              _q_/_<esc>_: exit
 -- ]]
+--
+
+local function launch_codelldb()
+    vim.ui.input({
+        prompt = "Debug: ",
+        completion = "shellcmd", -- TODO: Better completion
+        nargs = "*",
+    }, function(input)
+        if input == nil then
+            return
+        end
+        -- TODO: Use a picker for selecting the executable
+        local args = vim.split(vim.fn.expand(input), " ")
+        local file = table.remove(args, 1)
+        local approval =
+            vim.fn.confirm("Will try to run:\n    " .. input .. "\n\n" .. "Do you approve? ", "&Yes\n&No", 1)
+        if approval == 1 then
+            require("dap").run {
+                type = "codelldb", -- TODO: Detect which adapter to use
+                request = "launch",
+                name = "Launch file with custom arguments (adhoc)",
+                program = file,
+                args = args,
+            }
+        end
+    end)
+end
 
 local function dap_start()
     if require("dap").session() ~= nil then
@@ -81,38 +108,19 @@ local dap_hydra = Hydra {
                     require("dap").continue()
                     return
                 end
-                vim.ui.input({
-                    prompt = "Debug: ",
-                    completion = "shellcmd", -- TODO: Better completion
-                    nargs = "*",
-                }, function(input)
-                    if input == nil then
-                        return
-                    end
-                    local args = vim.split(vim.fn.expand(input), " ")
-                    local file = table.remove(args, 1)
-                    local approval = vim.fn.confirm(
-                        "Will try to run:\n    " .. input .. "\n\n" .. "Do you approve? ",
-                        "&Yes\n&No",
-                        1
-                    )
-                    local filetype
-                    if vim.bo.filetype == "rust" or vim.bo.filetype == "cpp" or vim.bo.filetype == "c" then
-                        filetype = "codelldb"
-                    else
-                        filetype = vim.bo.filetype
-                    end
 
-                    if approval == 1 then
-                        require("dap").run {
-                            type = filetype, -- TODO: Detect which adapter to use
-                            request = "launch",
-                            name = "Launch file with custom arguments (adhoc)",
-                            program = file,
-                            args = args,
-                        }
-                    end
-                end)
+                local map = { -- Define special launchers
+                    rust = launch_codelldb,
+                    c = launch_codelldb,
+                    cpp = launch_codelldb,
+                }
+
+                local fn = map[vim.bo.filetype]
+                if fn ~= nil then
+                    fn()
+                else -- otherwise just default to dap.continue
+                    require("dap").continue()
+                end
             end,
             { silent = true, exit = false },
         },

@@ -78,7 +78,7 @@ require("neo-tree").setup {
     },
     open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "edgy" },
     document_symbols = {
-        follow_cursor = false,
+        follow_cursor = true,
         kinds = {
             File = { icon = "󰈙", hl = "Tag" },
             Namespace = { icon = "󰌗", hl = "Include" },

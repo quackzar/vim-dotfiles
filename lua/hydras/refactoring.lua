@@ -17,17 +17,17 @@ end
 --
 local hint_visual = [[
    ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
-   _n_: Rename      _b_: Extract block   _e_: Extract function      _p_: Print var  ^
-   _i_: Inline      _B_: ...to file      _f_: ...to file                            ^
-   _v_: Extract                                                                     ^
-   ^ ^              _s_: SSR             _r_: Select refactor           _<Esc>_     ^
+   _n_: rename      _b_: extract block   _e_: extract function      _p_: print var  ^
+   _i_: inline      _B_: ...to file      _f_: ...to file                            ^
+   _v_: extract                                                                     ^
+   ^ ^              _s_: ssr             _r_: select refactor           _<esc>_     ^
 ]]
 local hint_normal = [[
    ^ VARIABLES ^                  ^ EXPRESSIONS ^                  ^ DEBUG PRINT    ^
-   _n_: Rename      _b_: Extract block                              _p_: Print var  ^
-   _i_: Inline      _B_: ...to file                                 _c_: Clear up   ^
+   _n_: rename      _b_: extract block                              _p_: orint var  ^
+   _i_: inline      _B_: ...to file                                 _c_: clear up   ^
    ^                                                                                ^
-   ^ ^   _s_: SSR        _q_: Format     _r_: Select refactor           _<Esc>_     ^
+   ^ ^   _s_: ssr        _q_: format     _r_: select refactor           _<esc>_     ^
 ]]
 
 -- Normal Mode Version
@@ -45,7 +45,7 @@ Hydra {
     mode = { "n" },
     body = "<leader>r",
     heads = {
-        { "<Esc>", nil, { exit = true, nowait = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
         { "r", require("refactoring").select_refactor, { desc = "Select refactor" } },
         { "n", vim.lsp.buf.rename, { desc = "Rename" } },
         { "q", vim.lsp.buf.formatting, { desc = "Format buffer" } },
@@ -97,7 +97,7 @@ Hydra {
     mode = { "v" },
     body = "<leader>r",
     heads = {
-        { "<Esc>", nil, { exit = true, nowait = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
         { "r", require("refactoring").select_refactor, { desc = "Select refactor" } },
         { "n", vim.lsp.buf.rename, { desc = "Rename" } },
         {

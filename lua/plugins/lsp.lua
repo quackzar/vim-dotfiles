@@ -133,7 +133,7 @@ return {
         config = function(_, opts)
             require("dropbar").setup(opts)
             vim.api.nvim_create_autocmd("ColorScheme", {
-                group = vim.api.nvim_create_augroup("set_hydra_colors", { clear = true }),
+                group = vim.api.nvim_create_augroup("set_dropbar_colors", { clear = true }),
                 callback = function()
                     local hl = vim.api.nvim_get_hl_by_name("Conceal", true)
                     local foreground = string.format("#%06x", hl["foreground"] or 0)
@@ -150,21 +150,6 @@ return {
                     require("dropbar.api").pick()
                 end,
                 desc = "Dropbar pick",
-            },
-        },
-    },
-
-    {
-        "SmiteshP/nvim-navbuddy",
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "SmiteshP/nvim-navic",
-            "MunifTanjim/nui.nvim",
-        },
-        event = "BufEnter",
-        opts = {
-            lsp = {
-                auto_attach = true,
             },
         },
     },

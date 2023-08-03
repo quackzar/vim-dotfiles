@@ -106,11 +106,11 @@ basic.lsp = {
             return ""
         end
         local names = {}
-        for _, server in pairs(vim.lsp.get_active_clients { bufnr }) do
+        for _, server in pairs(vim.lsp.get_active_clients { bufnr = bufnr }) do
             table.insert(names, server.name)
         end
         -- return {{'friend', 'default'}}
-        return { { "  [" .. table.concat(names, " ") .. "]", "green" } }
+        return { { "  [" .. table.concat(names, "|") .. "]", "green" } }
     end),
 }
 

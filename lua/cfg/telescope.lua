@@ -1,6 +1,10 @@
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("i23")
+require("telescope").load_extension("ast_grep")
+
 require("telescope").setup {
     defaults = {
         -- Default configuration for telescope goes here:
@@ -82,13 +86,16 @@ require("telescope").setup {
             override_generic_sorter = false,
             override_file_sorter = false,
         },
+        ast_grep = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
+        },
     },
 }
-
-require("telescope").load_extension("fzf")
--- require("telescope").load_extension("aerial")
--- require("telescope").load_extension("macros")
-
-require("telescope").load_extension("i23")
 
 -- require("telescope").load_extension("z")

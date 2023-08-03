@@ -14,9 +14,6 @@ return {
                 "DapBreakpointRejected",
                 { text = " ", texthl = "GitSignsDelete", linehl = "", numhl = "" }
             )
-            local dap = require("dap")
-            dap.adapters.netcoredb = {}
-
             require("mason-nvim-dap").setup {
                 automatic_setup = true,
                 handlers = {

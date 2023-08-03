@@ -84,7 +84,7 @@ return {
             require("ts-node-action").setup {}
             vim.keymap.set(
                 { "n" },
-                "<localleader>t",
+                "<leader>l",
                 require("ts-node-action").node_action,
                 { desc = "Trigger Node Action" }
             )
@@ -145,6 +145,8 @@ return {
 
     {
         "danymat/neogen",
+        lazy = true,
+        cmd = "Neogen",
         opts = {
             enabled = true,
             snippet_engine = "luasnip",
@@ -153,43 +155,43 @@ return {
             },
         },
         dependencies = "nvim-treesitter/nvim-treesitter",
-        keys = {
-            {
-                "<leader>nn",
-                function()
-                    require("neogen").generate {}
-                end,
-                desc = "document thing",
-            },
-            {
-                "<leader>nf",
-                function()
-                    require("neogen").generate { type = "func" }
-                end,
-                desc = "document function",
-            },
-            {
-                "<leader>nc",
-                function()
-                    require("neogen").generate { type = "class" }
-                end,
-                desc = "document class",
-            },
-            {
-                "<leader>nd",
-                function()
-                    require("neogen").generate { type = "file" }
-                end,
-                desc = "document file",
-            },
-            {
-                "<leader>nn",
-                function()
-                    require("neogen").generate { type = "type" }
-                end,
-                desc = "document type",
-            },
-        },
+        -- keys = {
+        --     {
+        --         "<leader>nn",
+        --         function()
+        --             require("neogen").generate {}
+        --         end,
+        --         desc = "document thing",
+        --     },
+        --     {
+        --         "<leader>nf",
+        --         function()
+        --             require("neogen").generate { type = "func" }
+        --         end,
+        --         desc = "document function",
+        --     },
+        --     {
+        --         "<leader>nc",
+        --         function()
+        --             require("neogen").generate { type = "class" }
+        --         end,
+        --         desc = "document class",
+        --     },
+        --     {
+        --         "<leader>nd",
+        --         function()
+        --             require("neogen").generate { type = "file" }
+        --         end,
+        --         desc = "document file",
+        --     },
+        --     {
+        --         "<leader>nn",
+        --         function()
+        --             require("neogen").generate { type = "type" }
+        --         end,
+        --         desc = "document type",
+        --     },
+        -- },
     },
 
     {
