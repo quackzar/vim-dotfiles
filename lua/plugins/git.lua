@@ -5,11 +5,11 @@ return {
         event = "VeryLazy",
         opts = {
             signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
+                add = { text = "🮇" },
+                change = { text = "🮇" },
                 delete = { text = "◢" },
                 topdelete = { text = "◥" },
-                changedelete = { text = "▎" },
+                changedelete = { text = "🮇" },
             },
             numhl = false,
             linehl = false,

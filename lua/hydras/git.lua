@@ -72,6 +72,8 @@ local git_hydra = Hydra {
         { "S", gitsigns.stage_buffer },
         { "r", gitsigns.reset_hunk },
         { "D", "<cmd>DiffviewOpen -- % <cr>", { exit = true } },
+        { "L", "<cmd>DiffviewFileHistory<cr>", { exit = true } },
+        { "H", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
         { "R", gitsigns.reset_buffer },
         { "Y", '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>' },
         { "p", gitsigns.preview_hunk },
@@ -84,8 +86,6 @@ local git_hydra = Hydra {
             end,
         },
         { "/", gitsigns.show, { exit = true } }, -- show the base of the file
-        { "L", "<cmd>DiffviewFileHistory<cr>", { exit = true } },
-        { "H", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
         { "c", "<cmd>Neogit commit<cr>", { exit = true } },
         { "<Enter>", "<cmd>Neogit<cr>", { exit = true } },
         { "g", "<cmd>Neogit<cr>", { exit = true } },
@@ -136,6 +136,7 @@ local git_init_hydra = Hydra {
 }
 
 local function activate_git_hydra()
+    -- check whether we are in a git repo
     local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
     if err_code == 0 then
         git_hydra:activate()
