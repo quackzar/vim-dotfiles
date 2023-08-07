@@ -17,7 +17,7 @@ parser_config.vhs = {
 parser_config.typst = {
     install_info = {
         url = "https://github.com/SeniorMars/tree-sitter-typst.git", -- local path or git repo
-        files = { "src/parser.c" },
+        files = { "src/parser.c", "src/scanner.c" },
         -- optional entries:
         branch = "main", -- default branch in case of git repo if different from master
         generate_requires_npm = false, -- if stand-alone parser without npm dependencies

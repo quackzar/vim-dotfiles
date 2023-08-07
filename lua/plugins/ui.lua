@@ -334,6 +334,7 @@ return {
         "rcarriga/nvim-notify",
         opts = {
             render = "compact",
+            background_colour = "#000000",
             timeout = 2500,
         },
         config = function(opts)
@@ -341,11 +342,10 @@ return {
             vim.notify = require("notify")
         end,
         init = function()
-            vim.keymap.set({'n', 'i', 'x'}, '<C-l>', function()
-                require('notify').dismiss()
-                vim.cmd('noh')
-            end, {desc='Dismiss'})
-
+            vim.keymap.set({ "n", "i", "x" }, "<C-l>", function()
+                require("notify").dismiss()
+                vim.cmd("noh")
+            end, { desc = "Dismiss" })
         end,
     },
 
@@ -419,6 +419,8 @@ return {
         },
         event = "VeryLazy",
     },
+
+    -- { 'jokajak/keyseer.nvim', version = "*", cmd = "KeySeer", config = true },
 
     {
         "sindrets/winshift.nvim",
