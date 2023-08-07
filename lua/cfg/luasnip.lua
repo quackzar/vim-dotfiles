@@ -44,32 +44,41 @@ luasnip.config.setup {
     ext_opts = {
         [types.choiceNode] = {
             active = {
-                virt_text = { { "", "Label" } },
+                virt_text = { { "", "Conceal" } },
                 hl_group = "DiffText",
+                virt_text_pos = "inline",
                 priority = 0,
             },
             visited = {
-                virt_text = { { "󰆤 ", "Label" } },
+                virt_text = { { "󰆤 ", "Conceal" } },
+                virt_text_pos = "inline",
                 hl_group = "DiffAdd",
             },
-            passive = {
-                virt_text = { { "󰆣 ", "Label" } },
+            unvisited = {
+                virt_text = { { "󰆣 ", "Conceal" } },
+                virt_text_pos = "inline",
                 hl_group = "DiffDelete",
             },
         },
         [types.insertNode] = {
             active = {
-                virt_text = { { "󰆣 ", "Label" } },
+                virt_text = { { "", "Conceal" } },
                 hl_group = "DiffText",
                 priority = 0,
             },
             visited = {
-                virt_text = { { "󰆤 ", "Label" } },
+                virt_text = { { "󰆤 ", "Conceal" } },
                 hl_group = "DiffAdd",
+                virt_text_pos = "inline",
             },
-            passive = {
-                virt_text = { { "󰆣 ", "Label" } },
+            -- passive = {
+            --     virt_text = { { "󰆣 ", "Label" } },
+            --     hl_group = "DiffDelete",
+            -- },
+            unvisited = {
+                virt_text = { { "󰆣 ", "Conceal" } },
                 hl_group = "DiffDelete",
+                virt_text_pos = "inline",
             },
         },
     },

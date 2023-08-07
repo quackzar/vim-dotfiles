@@ -159,7 +159,7 @@ basic.right = {
     end,
 }
 
-basic.git = {
+basic.git_diff = {
     width = 90,
     hl_colors = {
         green = { "green_light", "black" },
@@ -173,6 +173,24 @@ basic.git = {
                 { git_comps.diff_added { format = " %s" }, "green" },
                 { git_comps.diff_removed { format = "  %s" }, "red" },
                 { git_comps.diff_changed { format = "  %s" }, "blue" },
+            }
+        end
+        return ""
+    end,
+}
+
+local pr_status_active, pr_status = pcall(require, "pr_status")
+basic.git_pr_status = {
+    widht = 10,
+    hl_colors = {
+        green = { "green", "black" },
+        red = { "red", "black" },
+        blue = { "blue", "black" },
+    },
+    text = function(bufnr)
+        if git_comps.is_git(bufnr) and pr_status_active then
+            return {
+                { " " .. pr_status.get_last_result_string(), "blue" },
             }
         end
         return ""
@@ -279,7 +297,8 @@ local default = {
         basic.lsp_diagnos,
         basic.hydra,
         basic.divider,
-        basic.git,
+        basic.git_diff,
+        basic.git_pr_status,
         -- TODO: This doesn't work?
         { git_rev.git_rev { format = "⇡%s⇣%s", interval = 10000 }, { "yellow", "black" }, 90 },
         { git_comps.git_branch { icon = " 󰊢 " }, { "green", "black" }, 90 },

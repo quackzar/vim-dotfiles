@@ -9,7 +9,6 @@ vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
 -- vim.o.guioptions = "ad" -- BUG: Breaks nvim from source
 vim.g.mapleader = " "
 
-
 if vim.fn.exists("g:neovide") then
     vim.g.neovide_transparency = 1.0
     vim.g.neovide_hide_mouse_when_typing = true
@@ -41,8 +40,8 @@ vim.o.tabstop = 4
 vim.o.expandtab = true
 vim.o.smarttab = true
 vim.o.guicursor = table.concat({
-    [[n-v:block,i-ci-c-ve:ver25,r-cr:hor20,o:hor50]],
-    -- [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
+    [[n-v:block,i-ci-c-ve:ver20,r-cr:hor20,o:hor50]],
+    [[a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor]],
     [[sm:block-blinkwait175-blinkoff150-blinkon175]],
 }, ",")
 

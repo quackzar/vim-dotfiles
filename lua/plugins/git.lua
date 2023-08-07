@@ -173,6 +173,11 @@ return {
     },
 
     {
+        "Velrok/pr_status.nvim",
+        config = { auto_start = true },
+    },
+
+    {
         "lewis6991/satellite.nvim",
         enabled = true,
         event = "BufRead",
