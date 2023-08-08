@@ -92,7 +92,7 @@ local dap_hydra = Hydra {
         },
         on_enter = function()
             require("neo-tree.sources.manager").close_all()
-            require("dapui").open()
+            -- require("dapui").open()
             require("nvim-dap-virtual-text").enable()
             vim.bo.modifiable = false
         end,

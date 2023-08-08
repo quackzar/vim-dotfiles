@@ -119,23 +119,6 @@ return {
         },
     },
 
-    -- {
-    --     "lukas-reineke/indent-blankline.nvim",
-    --     config = function()
-    --         vim.g.indent_blankline_char = "▏"
-    --         vim.g.indent_blankline_context_char = "▏"
-    --         vim.g.indent_blankline_filetype_exclude = { "help", "packer", "undotree", "text", "dashboard", "man" }
-    --         vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
-    --         vim.g.indent_blankline_show_trailing_blankline_indent = true
-    --         vim.g.indent_blankline_show_first_indent_level = false
-    --         require("indent_blankline").setup {
-    --             space_char_blankline = " ",
-    --             show_current_context = true,
-    --             show_current_context_start = false,
-    --         }
-    --     end,
-    -- },
-
     {
         "shellRaining/hlchunk.nvim",
         event = { "UIEnter" },
@@ -151,8 +134,8 @@ return {
             chunk = {
                 chars = {
                     horizontal_line = "─",
-                    vertical_line = "│",
                     left_top = "╭",
+                    vertical_line = "│",
                     left_bottom = "╰",
                     right_arrow = "─",
                 },
@@ -160,7 +143,8 @@ return {
             indent = {
                 enable = true,
                 chars = {
-                    "▏",
+                    " ",
+                    -- "▏",
                     "│",
                     "│",
                     "│",

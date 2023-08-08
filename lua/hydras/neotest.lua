@@ -4,10 +4,10 @@ local Hydra = require("hydra")
 -- i.e., auto overview when active, nicer menu, menu placement?
 
 local hint = [[
- ^ ^                  ^ ^   TESTING 󰙨
+ ^ ^                  ^ ^    TESTING 󰙨
  _t_: test nearest    _a_: attach nearest    _o_: summary
  _f_: test file       _x_: stop nearest      _d_: debug nearest
- ^ ^                  _<esc>_: exit
+ ^ ^                  _<esc>_: exit          _<cr>_: goto summary
 ]]
 
 local test_hydra = Hydra {
@@ -24,7 +24,7 @@ local test_hydra = Hydra {
             require("neotest").summary.open()
         end,
         on_exit = function()
-            require("neotest").summary.close()
+            -- require("neotest").summary.close()
         end,
     },
     name = "test",
@@ -36,7 +36,7 @@ local test_hydra = Hydra {
             function()
                 require("neotest").run.run()
             end,
-            { silent = true },
+            { silent = true, exit = true },
         },
         {
             "x",
@@ -50,7 +50,7 @@ local test_hydra = Hydra {
             function()
                 require("neotest").run.run(vim.fn.expand("%"))
             end,
-            { silent = true },
+            { silent = true, exit = true },
         },
         {
             "d",
@@ -64,7 +64,7 @@ local test_hydra = Hydra {
             function()
                 require("neotest").run.attach()
             end,
-            { silent = true },
+            { silent = true, exit = true },
         },
         {
             "o",
@@ -72,6 +72,17 @@ local test_hydra = Hydra {
                 require("neotest").summary.toggle()
             end,
             { silent = true },
+        },
+        {
+            "<cr>",
+            function()
+                require("neotest").summary.open()
+                local win = vim.fn.bufwinid("Neotest Summary")
+                if win > -1 then
+                    vim.api.nvim_set_current_win(win)
+                end
+            end,
+            { silent = true, exit = true },
         },
         { "<esc>", nil, { exit = true, nowait = true } },
     },

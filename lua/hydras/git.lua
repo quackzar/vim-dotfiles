@@ -67,7 +67,7 @@ local git_hydra = Hydra {
             end,
             { expr = true },
         },
-        { "s", ":Gitsigns stage_hunk<CR>", { silent = true } },
+        { "s", gitsigns.stage_hunk },
         { "u", gitsigns.undo_stage_hunk },
         { "S", gitsigns.stage_buffer },
         { "r", gitsigns.reset_hunk },
@@ -93,6 +93,7 @@ local git_hydra = Hydra {
     },
 }
 
+-- This hydra triggers if we are not in a git repo, since nothing will work.
 local git_init_hydra = Hydra {
     hint = [[
                      Git has not been intilizalied in this directory                       ^

@@ -240,7 +240,7 @@ return {
                 local timestamp =
                     vim.fn.system("which nvim | xargs ls -l | awk '{print $6, $7, \"-\", $8}' | tr -d '\n'")
                 if vim.v.shell_error == 0 then
-                    nvim_version_info = nvim_version_info .. " (nightly | " .. timestamp .. ")"
+                    nvim_version_info = nvim_version_info .. " (nightly | built " .. timestamp .. ")"
                 else
                     nvim_version_info = nvim_version_info .. " (nightly)"
                 end
@@ -420,7 +420,7 @@ return {
         event = "VeryLazy",
     },
 
-    -- { 'jokajak/keyseer.nvim', version = "*", cmd = "KeySeer", config = true },
+    { "jokajak/keyseer.nvim", version = "*", cmd = "KeySeer", config = true },
 
     {
         "sindrets/winshift.nvim",

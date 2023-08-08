@@ -1,4 +1,128 @@
 return {
+
+    { -- TODO: Setup mappings
+        "rcarriga/neotest",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+
+            -- Seperate test suites (should maybe be hot-loaded?)
+            "rouge8/neotest-rust",
+            "nvim-neotest/neotest-python",
+            "haydenmeade/neotest-jest",
+            "Issafalcon/neotest-dotnet",
+        },
+        lazy = true,
+        config = function()
+            ---@diagnostic disable-next-line: missing-fields
+            require("neotest").setup {
+                icons = {
+                    passed = " ",
+                    running = " ",
+                    failed = " ",
+                    skipped = " ",
+                    unknown = " ",
+                    non_collapsible = "─",
+                    collapsed = "",
+                    expanded = "",
+                    child_prefix = "├",
+                    child_indent = "│",
+                    final_child_prefix = "└",
+                    final_child_indent = " ",
+                    running_animated = {
+                        "⠋",
+                        "⠙",
+                        "⠚",
+                        "⠒",
+                        "⠂",
+                        "⠂",
+                        "⠒",
+                        "⠲",
+                        "⠴",
+                        "⠦",
+                        "⠖",
+                        "⠒",
+                        "⠐",
+                        "⠐",
+                        "⠒",
+                        "⠓",
+                        "⠋",
+                    },
+                },
+                status = {
+                    enabled = true,
+                    virtual_text = true,
+                    signs = false,
+                },
+                consumers = {
+                    overseer = require("neotest.consumers.overseer"),
+                },
+                adapters = {
+                    require("neotest-rust"),
+                    require("neotest-python") {
+                        dap = { justMyCode = false },
+                    },
+                    require("neotest-jest") {
+                        jestCommand = "npm test --",
+                        jestConfigFile = "custom.jest.config.ts",
+                    },
+                    require("neotest-dotnet"),
+                },
+            }
+
+            local highlighting = {
+                NeotestPassed = { link = "GitSignsAdd" },
+                NeotestRunning = { link = "GitSignsChange" },
+                NeotestFailed = { link = "GitSignsDelete" },
+                NeotestSkipped = { link = "DiagnosticWarn" },
+                NeotestUnknown = { link = "DiagnosticInfo" },
+            }
+
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                group = vim.api.nvim_create_augroup("set_neotest_colors", { clear = true }),
+                callback = function()
+                    for key, link in pairs(highlighting) do
+                        vim.api.nvim_set_hl(0, key, link)
+                    end
+                end,
+            })
+            for key, link in pairs(highlighting) do
+                vim.api.nvim_set_hl(0, key, link)
+            end
+        end,
+        keys = {
+            {
+                "]t",
+                function()
+                    require("neotest").jump.next()
+                end,
+                { desc = "next test" },
+            },
+            {
+                "[t",
+                function()
+                    require("neotest").jump.prev()
+                end,
+                { desc = "prev test" },
+            },
+            {
+                "]T",
+                function()
+                    require("neotest").jump.next { status = "failed" }
+                end,
+                { desc = "next failed test" },
+            },
+            {
+                "[T",
+                function()
+                    require("neotest").jump.prev { status = "failed" }
+                end,
+                { desc = "prev failed test" },
+            },
+        },
+    },
+
     {
         "stevearc/overseer.nvim",
         opts = {
@@ -25,25 +149,6 @@ return {
             { "<leader>C", "<cmd>OverseerRun<cr>", desc = "Run a task" },
             { "<leader>A", "<cmd>OverseerQuickAction<cr>", desc = "Overseer Action" },
         },
-    },
-
-    { -- TODO: Setup mappings
-        "rcarriga/neotest",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "antoinemadec/FixCursorHold.nvim",
-
-            -- Seperate test suites (should maybe be hot-loaded?)
-            "rouge8/neotest-rust",
-            "nvim-neotest/neotest-python",
-            "haydenmeade/neotest-jest",
-            "Issafalcon/neotest-dotnet",
-        },
-        lazy = true,
-        config = function()
-            require("cfg.neotest")
-        end,
     },
 
     -- { "Olical/conjure", event = "VimEnter" },

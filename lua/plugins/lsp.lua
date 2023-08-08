@@ -80,47 +80,14 @@ return {
     },
 
     {
-        "utilyre/barbecue.nvim",
-        name = "barbecue",
-        version = "*",
-        event = "BufEnter",
-        enabled = false, --vim.fn.has("nvim-0.10") == 0,
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
-        },
-        opts = {
-            -- configurations go here
-        },
-    },
-
-    {
         "Bekaboo/dropbar.nvim",
+        lazy = false, -- lazy-loading is done by the plugin itself
         enabled = true, -- vim.fn.has("nvim-0.10") == 1,
         opts = {
-            update_events = {
-                win = {
-                    -- 'CursorMoved',
-                    -- 'CursorMovedI',
-                    -- 'WinEnter',
-                    -- 'WinResized',
-                    -- 'WinScrolled',
-                },
-                buf = {
-                    -- 'BufModifiedSet',
-                    -- 'FileChangedShellPost',
-                    -- 'TextChanged',
-                    -- 'TextChangedI',
-                },
-                global = {
-                    -- 'DirChanged',
-                    -- 'VimResized',
-                },
-            },
             icons = {
                 kinds = {
                     symbols = {
-                        -- Folders are too much noise
+                        -- Folder icons are implicit
                         Folder = "",
                     },
                 },
@@ -132,17 +99,18 @@ return {
         },
         config = function(_, opts)
             require("dropbar").setup(opts)
+
+            -- setup so it looks like `https://github.com/utilyre/barbecue.nvim`
             vim.api.nvim_create_autocmd("ColorScheme", {
                 group = vim.api.nvim_create_augroup("set_dropbar_colors", { clear = true }),
                 callback = function()
-                    local hl = vim.api.nvim_get_hl_by_name("Conceal", true)
-                    local foreground = string.format("#%06x", hl["foreground"] or 0)
+                    local hl = vim.api.nvim_get_hl(0, { name = "Conceal", link = false })
+                    local foreground = string.format("#%06x", hl["fg"] or 0)
                     vim.api.nvim_set_hl(0, "DropBarIconUISeparator", { foreground = foreground })
                     vim.api.nvim_set_hl(0, "DropBarKindFolder", { foreground = foreground })
                 end,
             })
         end,
-        lazy = false,
         keys = {
             {
                 "<leader>p",
@@ -150,6 +118,13 @@ return {
                     require("dropbar.api").pick()
                 end,
                 desc = "Dropbar pick",
+            },
+            {
+                "<leader>P",
+                function()
+                    require("dropbar.api").select_next_context()
+                end,
+                desc = "Dropbar pick neighbour",
             },
         },
     },
