@@ -9,6 +9,7 @@ require("telescope").setup {
     defaults = {
         -- Default configuration for telescope goes here:
         -- config_key = value,
+        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
@@ -22,6 +23,16 @@ require("telescope").setup {
             n = {
                 ["<c-t>"] = trouble.open_with_trouble,
             },
+        },
+        vimgrep_arguments = {
+            "rg",
+            "-L",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
         },
     },
     prompt_prefix = "   ",

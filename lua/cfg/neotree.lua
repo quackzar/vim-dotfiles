@@ -15,7 +15,7 @@ require("neo-tree").setup {
     },
     close_if_last_window = true,
     filesystem = {
-        follow_current_file = true,
+        follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
         group_empty_dirs = true,
         window = {
@@ -72,7 +72,7 @@ require("neo-tree").setup {
         },
     },
     buffers = {
-        follow_current_file = true,
+        follow_current_file = { enabled = true },
         show_unloaded = true,
         group_empty_dirs = true, -- when true, empty folders will be grouped together
     },

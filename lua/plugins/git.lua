@@ -175,7 +175,7 @@ return {
 
     {
         "Velrok/pr_status.nvim",
-        config = { auto_start = false },
+        config = { auto_start = true },
         lazy = true,
     },
 
