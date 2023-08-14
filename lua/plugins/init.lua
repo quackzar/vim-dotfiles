@@ -30,6 +30,13 @@ return {
     -- }}}
     -- Navigation {{{
     {
+        "sustech-data/wildfire.nvim",
+        event = "VeryLazy",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = true,
+    },
+
+    {
         "nacro90/numb.nvim",
         event = "VeryLazy",
         config = true,
@@ -65,6 +72,9 @@ return {
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
+            highlight = {
+                backdrop = false,
+            },
             modes = {
                 search = {
                     enabled = false,
