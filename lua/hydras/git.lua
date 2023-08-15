@@ -4,7 +4,7 @@ local gitsigns = require("gitsigns")
 -- try not to map p, y, w, b, i, a,
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame show full
+ _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
  ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _/_: show base file
  ^ ^              _c_: commit            _H_: history       _L_: log
  ^ ^              _g_/_<Enter>_: Neogit                     _q_: exit
@@ -25,6 +25,7 @@ local git_hydra = Hydra {
             vim.cmd("silent! %foldopen!")
             gitsigns.toggle_linehl(true)
             gitsigns.toggle_word_diff(true)
+            gitsigns.toggle_current_line_blame(true)
         end,
         on_exit = function()
             -- gitsigns.toggle_signs(false)
@@ -35,6 +36,7 @@ local git_hydra = Hydra {
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
+            gitsigns.toggle_current_line_blame(false)
             vim.cmd("echo") -- clear the echo area
         end,
     },
@@ -82,7 +84,8 @@ local git_hydra = Hydra {
         {
             "B",
             function()
-                gitsigns.blame_line { full = true }
+                vim.cmd("ToggleBlame virtual")
+                vim.cmd("Gitsigns toggle_current_line_blame")
             end,
         },
         { "/", gitsigns.show, { exit = true } }, -- show the base of the file

@@ -128,11 +128,12 @@ return {
     },
 
     {
-        "f-person/git-blame.nvim",
-        event = "VeryLazy",
-        init = function()
-            vim.g.gitblame_enabled = 0
-        end,
+        "FabijanZulj/blame.nvim",
+        lazy = true,
+        config = {
+            date_format = "%Y-%m-%d",
+        },
+        cmd = "ToggleBlame",
     },
 
     {
