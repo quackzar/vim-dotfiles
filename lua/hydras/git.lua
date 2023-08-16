@@ -5,7 +5,7 @@ local gitsigns = require("gitsigns")
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
- ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _/_: show base file
+ ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _o_: open remote
  ^ ^              _c_: commit            _H_: history       _L_: log
  ^ ^              _g_/_<Enter>_: Neogit                     _q_: exit
 ]]
@@ -21,7 +21,7 @@ local git_hydra = Hydra {
         },
         on_enter = function()
             -- gitsigns.toggle_signs(true)
-            vim.cmd("mkview")
+            vim.cmd("mkview!")
             vim.cmd("silent! %foldopen!")
             gitsigns.toggle_linehl(true)
             gitsigns.toggle_word_diff(true)
@@ -30,13 +30,13 @@ local git_hydra = Hydra {
         on_exit = function()
             -- gitsigns.toggle_signs(false)
             local cursor_pos = vim.api.nvim_win_get_cursor(0)
-            vim.cmd("loadview")
-            vim.api.nvim_win_set_cursor(0, cursor_pos)
-            vim.cmd("normal zv")
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
             gitsigns.toggle_current_line_blame(false)
+            vim.cmd("loadview")
+            vim.api.nvim_win_set_cursor(0, cursor_pos)
+            vim.cmd("normal zv")
             vim.cmd("echo") -- clear the echo area
         end,
     },
@@ -88,7 +88,8 @@ local git_hydra = Hydra {
                 vim.cmd("Gitsigns toggle_current_line_blame")
             end,
         },
-        { "/", gitsigns.show, { exit = true } }, -- show the base of the file
+        -- TODO: This one vvv does not work that well
+        { "o", "<cmd>!git open<cr>", { exit = true } }, -- show the base of the file
         { "c", "<cmd>Neogit commit<cr>", { exit = true } },
         { "<Enter>", "<cmd>Neogit<cr>", { exit = true } },
         { "g", "<cmd>Neogit<cr>", { exit = true } },

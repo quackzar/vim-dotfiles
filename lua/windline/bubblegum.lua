@@ -181,7 +181,7 @@ basic.git_diff = {
 
 local pr_status_active, pr_status = pcall(require, "pr_status")
 basic.git_pr_status = {
-    widht = 10,
+    width = 10,
     hl_colors = {
         green = { "green", "black" },
         red = { "red", "black" },
@@ -189,9 +189,10 @@ basic.git_pr_status = {
     },
     text = function(bufnr)
         if git_comps.is_git(bufnr) and pr_status_active then
-            return {
-                { " " .. pr_status.get_last_result_string(), "blue" },
-            }
+            local result = pr_status.get_last_result()
+            if result and result.summary then
+                return { { " " .. pr_status.get_last_result_string(), "blue" } }
+            end
         end
         return ""
     end,
