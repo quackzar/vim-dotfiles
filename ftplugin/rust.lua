@@ -11,6 +11,7 @@ local unsafe_ray = false
 function toggle_unsafe_ray()
     unsafe_ray = not unsafe_ray
     if unsafe_ray then
+        vim.notify("Unsafe-o-Vision: Activated")
         vim.cmd([[
         hi link @lsp.mod.unsafe.rust @exception
         ]])
@@ -19,6 +20,7 @@ function toggle_unsafe_ray()
             hl_group = "DiffDelete",
         })
     else
+        vim.notify("Unsafe-o-Vision: Deactivated")
         vim.cmd([[
         hi link @lsp.mod.unsafe.rust @lsp.mod.unsafe.rust
         ]])
