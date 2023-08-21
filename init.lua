@@ -102,6 +102,7 @@ vim.keymap.set("v", "@", ":normal @")
 vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
 vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<space>q", "<cmd>copen<cr>", { silent = true, desc = "Open quickfix" })
+vim.keymap.set({ "n", "v" }, "<localleader>K", "<cmd>Inspect<cr>")
 
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "Next quickfix" })
 vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { silent = true, desc = "Previous quickfix" })

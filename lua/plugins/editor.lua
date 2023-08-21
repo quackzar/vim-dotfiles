@@ -1,6 +1,4 @@
 return {
-    -- TODO: Clean-up this section i.e., remove unused plugins
-    --
     -- Generic Editor Plugins {{{
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
@@ -68,15 +66,6 @@ return {
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,
     },
-
-    -- {
-    --     "junegunn/vim-easy-align",
-    --     config = function()
-    --         vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", { silent = true })
-    --         vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", { silent = true })
-    --         vim.keymap.set("v", "ga", "<Plug>(EasyAlign)", { silent = true })
-    --     end,
-    -- },
 
     {
         "echasnovski/mini.align",
@@ -160,6 +149,41 @@ return {
                 enable = false,
             },
         },
+    },
+
+    {
+        "HampusHauffman/block.nvim",
+        config = function()
+            require("block").setup {}
+        end,
+    },
+
+    {
+        "atusy/tsnode-marker.nvim",
+        lazy = true,
+        init = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("tsnode-marker-markdown", {}),
+                pattern = "markdown",
+                callback = function(ctx)
+                    require("tsnode-marker").set_automark(ctx.buf, {
+                        target = { "code_fence_content" }, -- list of target node types
+                        hl_group = "CursorLine", -- highlight group
+                    })
+                end,
+            })
+            -- Cool idea. Might need some tweaking.
+            -- vim.api.nvim_create_autocmd("FileType", {
+            --     group = vim.api.nvim_create_augroup("tsnode-marker-rust", {}),
+            --     pattern = "rust",
+            --     callback = function(ctx)
+            --         require("tsnode-marker").set_automark(ctx.buf, {
+            --             target = { "unsafe_block" }, -- list of target node types
+            --             hl_group = "DiffDelete", -- highlight group
+            --         })
+            --     end,
+            -- })
+        end,
     },
 
     -- {

@@ -7,7 +7,6 @@ require("neo-tree").setup {
         "buffers",
         -- "git_status", -- NOTE: Sort of redundant?
         "document_symbols",
-        -- "diagnostics",
     },
     source_selector = {
         winbar = false,

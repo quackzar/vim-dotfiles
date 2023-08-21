@@ -176,7 +176,16 @@ return {
 
     {
         "Velrok/pr_status.nvim",
-        config = { auto_start = false },
+        config = {
+            auto_start = false,
+            icons = {
+                gh_icon = " ",
+                unknown = "?",
+                running = " ",
+                failed = " ",
+                passed = " ",
+            },
+        },
         init = function()
             -- This simply checks if there are any workflows to show.
             -- If not, then it doesn't a question mark or double zeroes.
