@@ -186,18 +186,8 @@ return {
         init = function()
             vim.keymap.set("n", "<leader>z", "<cmd>Neotree toggle<cr>", { desc = "Toggle file tree" })
             vim.keymap.set("n", "<leader>Z", "<cmd>Neotree focus<cr>", { desc = "Focus file tree" })
-            vim.keymap.set(
-                "n",
-                "<leader>v",
-                "<cmd>Neotree toggle document_symbols position=right<cr>",
-                { desc = "Toggle symbols" }
-            )
-            vim.keymap.set(
-                "n",
-                "<leader>V",
-                "<cmd>Neotree focus document_symbols position=right<cr>",
-                { desc = "Focus symbols" }
-            )
+            vim.keymap.set("n", "<leader>v", "<cmd>Neotree toggle document_symbols<cr>", { desc = "Toggle symbols" })
+            vim.keymap.set("n", "<leader>V", "<cmd>Neotree focus document_symbols<cr>", { desc = "Focus symbols" })
         end,
     },
 

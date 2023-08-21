@@ -5,7 +5,7 @@ require("neo-tree").setup {
     sources = {
         "filesystem",
         "buffers",
-        "git_status",
+        -- "git_status", -- NOTE: Sort of redundant?
         "document_symbols",
         -- "diagnostics",
     },
