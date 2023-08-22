@@ -92,6 +92,7 @@ return {
                 setopt = true,
                 seperator = true,
                 relculright = true,
+                clickmod = "c", -- modifier used for certain actions in the builtin clickhandlers:
                 segments = {
                     -- {
                     --     sign = { name = { "Diagnostic" }, maxwidth = 1, auto = true },

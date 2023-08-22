@@ -54,6 +54,7 @@ local hint = [[
   _n_ %{nu} number
   _r_ %{rnu} relative number
   _l_ %{diag} diagnostics
+  _b_ [?] block
   ^
        ^^^^                _<Esc>_
 ]]
@@ -175,6 +176,13 @@ Hydra {
                 cycle_diagnostics()
             end,
             { desc = "virtual line diagnostics" },
+        },
+        {
+            "b",
+            function() -- TODO: Find a way to check if it's active
+                require("block").toggle()
+            end,
+            { desc = "block highlighting" },
         },
         { "<Esc>", nil, { exit = true } },
     },

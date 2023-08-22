@@ -41,10 +41,8 @@ require("nvim-treesitter.configs").setup {
     textobjects = {
         select = {
             enable = true,
-
             -- Automatically jump forward to textobj, similar to targets.vim
             lookahead = true,
-
             keymaps = {
                 -- You can use the capture groups defined in textobjects.scm
                 ["af"] = "@function.outer",
@@ -58,26 +56,33 @@ require("nvim-treesitter.configs").setup {
                 ["aa"] = "@parameter.outer",
                 ["aC"] = "@call.outer",
                 ["iC"] = "@call.inner",
+                ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            },
+            selection_modes = {
+                ["@parameter.outer"] = "v", -- charwise
+                ["@function.outer"] = "V", -- linewise
+                ["@class.outer"] = "<c-v>", -- blockwise
             },
         },
         move = {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-                ["]m"] = "@function.outer",
+                ["]f"] = "@function.outer",
+                ["]o"] = "@loop.*",
                 -- ["]]"] = "@class.outer",
+                ["]]"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
             },
             goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer",
+                ["]F"] = "@function.outer",
             },
             goto_previous_start = {
-                ["[m"] = "@function.outer",
+                ["[f"] = "@function.outer",
+                ["[["] = { query = "@scope", query_group = "locals", desc = "Prev scope" },
                 -- ["[["] = "@class.outer",
             },
             goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer",
+                ["[F"] = "@function.outer",
             },
         },
         lsp_interop = {

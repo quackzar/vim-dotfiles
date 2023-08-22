@@ -1,44 +1,14 @@
 ---@diagnostic disable: lowercase-global
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    underline = true,
-    sign = false,
-})
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--     virtual_text = false,
+--     underline = true,
+--     sign = false,
+-- })
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
 })
-
-vim.fn.sign_define("LightBulbSign", {
-    text = "󰌶 ",
-    texthl = "DiagnosticSignHint",
-    linehl = "",
-    numhl = "",
-})
-require("nvim-lightbulb").update_lightbulb {
-    sign = {
-        enabled = true,
-        priority = 1,
-    },
-    float = {
-        enabled = true,
-        text = "󰌶 ",
-        -- text = " ",
-    },
-    virtual_text = {
-        enabled = true,
-        text = "󰌶 ",
-        -- text = " ",
-        hl_mode = "blend",
-    },
-    status_text = {
-        enabled = true,
-        text = "󰌶 ",
-        -- text = " ",
-        text_unavailable = "",
-    },
-}
 
 local signs = {
     -- nonicons:
@@ -65,7 +35,7 @@ vim.diagnostic.config {
     underline = true,
     signs = true,
     virtual_text = false,
-    virtual_lines = { only_current_line = true },
+    virtual_lines = { only_current_line = true, highlight_whole_line = false },
     float = {
         show_header = true,
         source = "if_many",
@@ -110,19 +80,20 @@ function on_attach(client, bufnr)
         vim.api.nvim_create_autocmd("InsertEnter", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, true)
+                vim.lsp.inlay_hint(bufnr, false)
             end,
             group = "lsp_augroup",
         })
         vim.api.nvim_create_autocmd("InsertLeave", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, false)
+                vim.lsp.inlay_hint(bufnr, true)
             end,
             group = "lsp_augroup",
         })
         set_inlay_hl()
     end
+    vim.lsp.inlay_hint(bufnr, true)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -143,7 +114,9 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostic" })
 
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-    vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
+    -- vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
+    vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions)
+
     -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
     --
     -- vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")

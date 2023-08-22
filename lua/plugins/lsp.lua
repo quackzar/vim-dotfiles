@@ -10,7 +10,36 @@ return {
     },
 
     "weilbith/nvim-code-action-menu",
-    "kosayoda/nvim-lightbulb",
+
+    {
+        "aznhe21/actions-preview.nvim",
+        opts = {
+            diff = {
+                algorithm = "patience",
+                ignore_whitespace = true,
+            },
+        },
+    },
+
+    {
+        "kosayoda/nvim-lightbulb",
+        opts = {
+            autocmd = { enabled = true },
+            priority = 10,
+            action_kinds = { "quickfix" },
+            sign = {
+                -- TODO: Does not work :(
+                enabled = true,
+                text = "",
+                hl = "DiagnosticOk",
+            },
+            virtual_text = {
+                enabled = true,
+                text = "  ",
+                hl = "DiagnosticOk",
+            },
+        },
+    },
 
     {
         "dnlhc/glance.nvim",
