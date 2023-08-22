@@ -3,3 +3,9 @@ vim.bo.spelllang = "en"
 vim.wo.spell = true
 vim.bo.textwidth = 100
 vim.wo.colorcolumn = "100"
+
+require("cmp").setup.buffer {
+    sources = {
+        { name = "nvim_lsp", group_index = 1 },
+    },
+}

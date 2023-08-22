@@ -26,6 +26,8 @@ return {
         opts = {
             autocmd = { enabled = true },
             priority = 10,
+            -- NOTE: Could be nice if we had two types
+            -- One noisy for quickfix and a more discrete version for everything else
             action_kinds = { "quickfix" },
             sign = {
                 -- TODO: Does not work :(

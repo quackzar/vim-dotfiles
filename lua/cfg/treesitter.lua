@@ -6,11 +6,13 @@ require("nvim-treesitter.configs").setup {
         },
         -- Setting this to true or a list of languages will run `:h syntax` and tree-sitter at the same time.
         additional_vim_regex_highlighting = false,
-        disable = { "tex", "latex", "css", "toml" },
-        -- disable = function (_, bufnr)
-        --     local lines = vim.api.nvim_buf_line_count(bufnr)
-        --     return lines > 1000
-        -- end
+        disable = function(_, bufnr)
+            local max_filesize = 100 * 1024 -- 100 KB
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+            if ok and stats and stats.size > max_filesize then
+                return true
+            end
+        end,
     },
     -- refactor = { -- TODO: Reanble when fixed.
     --     highlight_definitions = {
