@@ -19,7 +19,7 @@ syn match skhdFnKey "f\d\d"
 
 syn match skhdMode "^\s*\a\+\s*\|^::\s*\a\+\s"
 syn match skhdKey "\s\w\s\|0x\x\x"
-syn match skhdOperator "+\|-\|~\|->\|*\|@"
+" syn match skhdOperator "+\|-\|~\|->\|*\|@"
 syn match skhdDelim "<\|\:\:\|\:\|\\\|;"
 syn match skhdString "\".*\""
 

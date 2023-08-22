@@ -39,6 +39,7 @@ return {
                 enabled = true,
                 text = "  ",
                 hl = "DiagnosticOk",
+                pos = "eol",
             },
         },
     },
