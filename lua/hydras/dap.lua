@@ -44,15 +44,25 @@ local function dap_start()
     end
 end
 
+-- disconnect = "",
+-- pause = "",
+-- play = "",
+-- run_last = "",
+-- step_back = "",
+-- step_into = "",
+-- step_out = "",
+-- step_over = "",
+-- terminate = ""
+
 local hint = [[
  ^ ^    DAP 
- _s_: %{dap_start}
+ _s_: %{start} 
  _p_: pause
- _r_: restart
+ _r_: restart 
  ^ ^
- _n_: step over
- _i_: step into
- _o_: step out
+ _n_: step over 
+ _i_: step into 
+ _o_: step out  
  _c_: to cursor
  ^ ^
  _b_: breakpoint
@@ -87,7 +97,7 @@ local dap_hydra = Hydra {
             position = "middle-right",
             border = "rounded",
             funcs = {
-                ["dap_start"] = dap_start,
+                ["start"] = dap_start,
             },
         },
         on_enter = function()
@@ -110,9 +120,12 @@ local dap_hydra = Hydra {
                 end
 
                 local map = { -- Define special launchers
-                    rust = launch_codelldb,
                     c = launch_codelldb,
                     cpp = launch_codelldb,
+                    rust = function()
+                        -- vim.cmd("RustDebuggables")
+                        vim.cmd("RustLastDebug")
+                    end,
                 }
 
                 local fn = map[vim.bo.filetype]
@@ -127,7 +140,11 @@ local dap_hydra = Hydra {
         {
             "r",
             function()
-                require("dap").restart()
+                if require("dap").session() ~= nil then
+                    require("dap").restart()
+                else
+                    require("dap").run_last()
+                end
             end,
             { silent = true },
         },

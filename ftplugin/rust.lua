@@ -5,12 +5,11 @@ vim.keymap.set("n", "<C-K>", require("rust-tools").hover_actions.hover_actions)
 
 vim.keymap.set("v", "<C-K>", require("rust-tools").hover_range.hover_range)
 
--- NOTE: Fun thing, maybe a toggle?
-
 local unsafe_ray = false
 function toggle_unsafe_ray()
     unsafe_ray = not unsafe_ray
     if unsafe_ray then
+        -- TODO: Better highlighting? DiffDelete + exception?
         vim.notify("Unsafe-o-Vision: Activated")
         vim.cmd([[
         hi link @lsp.mod.unsafe.rust @exception

@@ -225,7 +225,18 @@ mason_lsp.setup_handlers { -- check if this actually works
         lspconfig.ltex.setup {
             on_attach = on_attach,
             capabilities = capabilities,
-            filetypes = { "latex", "tex", "markdown", "text", "typst" },
+            filetypes = {
+                "bib",
+                "gitcommit",
+                "markdown",
+                "org",
+                "plaintex",
+                "rst",
+                "rnoweb",
+                "tex",
+                "pandoc",
+                "typst",
+            },
             settings = {
                 ltex = {
                     language = "en-US",

@@ -303,7 +303,9 @@ return {
     {
         "saecki/crates.nvim",
         dependencies = { { "nvim-lua/plenary.nvim" } },
+        setup = true,
         event = { "BufRead Cargo.toml" },
+        ft = "rust",
     },
 
     -- == rest client ===

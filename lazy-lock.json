@@ -9,6 +9,7 @@
   "animation.nvim": { "branch": "main", "commit": "fb77091ab72ec9971aee0562e7081182527aaa6a" },
   "arm-syntax-vim": { "branch": "master", "commit": "e0abb52d4658d336dad9ff0733660d28c8fb474c" },
   "autolist.nvim": { "branch": "main", "commit": "5f70a5f99e96c8fe3069de042abd2a8ed2deb855" },
+  "bionic.nvim": { "branch": "main", "commit": "3523383b6db41046a3d813ac65dd57e78e61babb" },
   "blame.nvim": { "branch": "main", "commit": "bdc3dcf3409a01989b81900ca68ff324a87f28e4" },
   "block.nvim": { "branch": "main", "commit": "a7739f9703adf9e77b42a331d4998bd5c8cbf1e9" },
   "bufdelete.nvim": { "branch": "master", "commit": "07d1f8ba79dec59d42b975a4df1c732b2e4e37b4" },

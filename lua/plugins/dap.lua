@@ -28,6 +28,7 @@ return {
                     end,
                 },
             }
+            require("nvim-dap-repl-highlights").setup()
         end,
     },
 
