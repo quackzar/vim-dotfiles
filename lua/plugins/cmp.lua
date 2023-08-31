@@ -14,9 +14,9 @@ return {
                 opts = {
                     priority = {
                         "Snippet",
-                        "Function",
+                        "Function", -- In rust atleast, we want function without self usally
                         "Constructor",
-                        "Method",
+                        "Method", -- The other ones won't appear anyway when dealing with objects.
                         "Field",
                         "Variable",
                         "Class",
@@ -187,14 +187,14 @@ return {
                         -- Below is the default comparitor list and order for nvim-cmp
                         -- cmp.config.compare.offset,
                         -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-                        require("cmp-lspkind-priority").compare, --cmp.config.compare.kind,
                         cmp.config.compare.exact,
+                        require("cmp-lspkind-priority").compare, --cmp.config.compare.kind,
                         cmp.config.compare.score,
                         cmp.config.compare.order,
                         cmp.config.compare.locality,
 
                         -- copied from cmp-under, but I don't think I need the plugin for this.
-                        -- I might add some more of my own.
+                        -- This sorts comparasions which begin with underlines under ones that don't
                         function(entry1, entry2)
                             local _, entry1_under = entry1.completion_item.label:find("^_+")
                             local _, entry2_under = entry2.completion_item.label:find("^_+")
@@ -207,8 +207,8 @@ return {
                             end
                         end,
                         cmp.config.compare.recently_used,
+                        cmp.config.compare.length,
                         cmp.config.compare.sort_text,
-                        -- cmp.config.compare.length,
                     },
                 },
                 view = {
