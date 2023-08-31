@@ -43,6 +43,16 @@ local function cursorlineopt()
     end
 end
 
+local inlay_hint = false
+
+local function typehintopt()
+    if inlay_hint then
+        return "[x]"
+    else
+        return "[ ]"
+    end
+end
+
 local hint = [[
   ^ ^        Options
   ^
@@ -55,6 +65,7 @@ local hint = [[
   _r_ %{rnu} relative number
   _l_ %{diag} diagnostics
   _b_ [?] block
+  _t_ %{hint} type hints
   ^
        ^^^^                _<Esc>_
 ]]
@@ -71,6 +82,7 @@ Hydra {
             funcs = {
                 ["diag"] = diagnostic,
                 ["culopt"] = cursorlineopt,
+                ["hint"] = typehintopt,
             },
         },
     },
@@ -183,6 +195,14 @@ Hydra {
                 require("block").toggle()
             end,
             { desc = "block highlighting" },
+        },
+        {
+            "t",
+            function() -- TODO: Find a way to check if it's active
+                inlay_hint = not inlay_hint
+                vim.lsp.inlay_hint(0, inlay_hint)
+            end,
+            { desc = "type hints" },
         },
         { "<Esc>", nil, { exit = true } },
     },

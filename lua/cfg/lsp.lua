@@ -75,6 +75,7 @@ function on_attach(client, bufnr)
     --     },
     -- }, bufnr)
     --
+    -- TODO: Consider this in contrast to manual toggle
     if client.server_capabilities.inlayHintProvider then
         vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
         vim.api.nvim_create_autocmd("InsertEnter", {

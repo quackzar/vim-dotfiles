@@ -9,3 +9,6 @@ require("cmp").setup.buffer {
         { name = "nvim_lsp", group_index = 1 },
     },
 }
+
+vim.keymap.set("n", "<localleader>lt", "<cmd>LspStart ltex<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lT", "<cmd>LspStop ltex<cr>", { buffer = true })

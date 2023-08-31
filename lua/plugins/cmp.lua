@@ -9,6 +9,39 @@ return {
             "hrsh7th/cmp-nvim-lsp-document-symbol",
             "hrsh7th/cmp-nvim-lsp",
 
+            {
+                "ofirgall/cmp-lspkind-priority",
+                opts = {
+                    priority = {
+                        "Snippet",
+                        "Function",
+                        "Constructor",
+                        "Method",
+                        "Field",
+                        "Variable",
+                        "Class",
+                        "Interface",
+                        "Module",
+                        "Property",
+                        "Unit",
+                        "Value",
+                        "Enum",
+                        "Keyword",
+                        "Color",
+                        "File",
+                        "Reference",
+                        "Folder",
+                        "EnumMember",
+                        "Constant",
+                        "Struct",
+                        "Event",
+                        "Operator",
+                        "TypeParameter",
+                        "Text",
+                    },
+                },
+            },
+
             "hrsh7th/cmp-buffer",
 
             "FelipeLema/cmp-async-path",
@@ -154,9 +187,9 @@ return {
                         -- Below is the default comparitor list and order for nvim-cmp
                         -- cmp.config.compare.offset,
                         -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+                        require("cmp-lspkind-priority").compare, --cmp.config.compare.kind,
                         cmp.config.compare.exact,
                         cmp.config.compare.score,
-                        cmp.config.compare.kind,
                         cmp.config.compare.order,
                         cmp.config.compare.locality,
 
