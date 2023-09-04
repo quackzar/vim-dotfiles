@@ -3,7 +3,7 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
 
-    { "johmsalas/text-case.nvim", setup = true },
+    { "johmsalas/text-case.nvim", config = true },
 
     {
         "linty-org/readline.nvim",
@@ -34,7 +34,7 @@ return {
 
     {
         "monaqa/dial.nvim",
-        setup = function()
+        config = function()
             -- Using lazy to set them apparantly doesn't work
             vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true, desc = "Dial up" })
             vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true, desc = "Diap down" })
@@ -111,7 +111,7 @@ return {
     {
         "shellRaining/hlchunk.nvim",
         event = { "UIEnter" },
-        config = {
+        opts = {
             exclude_filtypes = {
                 "help",
                 "packer",

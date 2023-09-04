@@ -104,7 +104,7 @@ return {
 
     {
         "onsails/lspkind-nvim",
-        setup = function()
+        config = function()
             require("lspkind").init {
                 preset = "codicons",
             }

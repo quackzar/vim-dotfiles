@@ -54,7 +54,7 @@ return {
 
     {
         "LiadOz/nvim-dap-repl-highlights",
-        setup = true,
+        config = true,
         lazy = false,
     },
 

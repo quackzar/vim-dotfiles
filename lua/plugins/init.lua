@@ -251,7 +251,7 @@ return {
     {
         "AckslD/nvim-FeMaco.lua",
         config = true,
-        filetype = "markdown",
+        ft = "markdown",
     },
 
     -- ======== ASCIIDOC =======
@@ -303,7 +303,6 @@ return {
     {
         "saecki/crates.nvim",
         dependencies = { { "nvim-lua/plenary.nvim" } },
-        setup = true,
         event = { "BufRead Cargo.toml" },
         ft = "rust",
     },

@@ -215,7 +215,7 @@ return {
 
     {
         "norcalli/nvim-colorizer.lua",
-        evnet = "BufEnter",
+        event = "BufEnter",
         config = true,
     },
 
@@ -454,7 +454,7 @@ return {
         "folke/zen-mode.nvim",
         cmd = "ZenMode",
         lazy = true,
-        config = {
+        opts = {
             plugins = {
                 wezterm = {
                     enabled = false,

@@ -130,7 +130,7 @@ return {
     {
         "FabijanZulj/blame.nvim",
         lazy = true,
-        config = {
+        opts = {
             date_format = "%Y-%m-%d",
         },
         cmd = "ToggleBlame",
@@ -176,7 +176,7 @@ return {
 
     {
         "Velrok/pr_status.nvim",
-        config = {
+        opts = {
             auto_start = false,
             icons = {
                 gh_icon = " ",
