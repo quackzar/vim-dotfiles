@@ -97,6 +97,7 @@ return {
         opts = {
             enable = false,
             scope = "line",
+            padding_right = 3,
         },
     },
 

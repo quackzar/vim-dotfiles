@@ -7,8 +7,8 @@ setlocal wrap
 setlocal spell
 setlocal tw=100 cc=100
 
-nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
-nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
+" nmap <silent><buffer> <leader>v <plug>(vimtex-toc-toggle)
+" nmap <silent><buffer> <M-tab> <plug>(vimtex-toc-open)
 nmap <buffer> j gj
 nmap <buffer> k gk
 xmap <buffer> j gj
