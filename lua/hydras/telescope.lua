@@ -20,7 +20,7 @@ end
 local hint = [[
                  _f_: files       _s_: document symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _a_: ast-grep    _g_: live grep
+  🭉🭁🭠🭘    🭣🭕🭌🬾   _t_: ast-grep    _g_: live grep (_a_rgs)
   🭅█ ▁     █🭐   _m_: marks       _/_: search in file
   ██🬿      🭊██
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: colorscheme
@@ -29,6 +29,9 @@ local hint = [[
      _r_esume
                  _<Enter>_: Telescope           _<Esc>_
 ]]
+
+-- TODO: alternative telescope mode (under cursor?)
+-- Also needs a binding for tagstack?
 
 Hydra {
     name = "Telescope",
@@ -48,14 +51,13 @@ Hydra {
         { "f", cmd("Telescope find_files") },
         { "b", cmd("Telescope buffers") },
         { "g", cmd("Telescope live_grep") },
-        { "a", cmd("Telescope ast_grep") },
+        { "a", cmd("Telescope live_grep_args") },
+        { "t", cmd("Telescope ast_grep") },
         { "h", cmd("Telescope help_tags"), { desc = "Vim help" } },
         { "m", cmd("Telescope marks"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },
-        -- { "s", cmd("Telescope aerial theme=dropdown") }, -- consider document_symbols too
         { "s", cmd("Telescope lsp_document_symbols theme=dropdown") }, -- consider document_symbols too
         { "w", cmd("Telescope lsp_workspace_symbols") }, -- consider document_symbols too
-        -- { "p", cmd("Telescope project theme=dropdown"), { desc = "Projects" } },
         { "/", cmd("Telescope current_buffer_fuzzy_find"), { desc = "Search in file" } },
         { "?", cmd("Telescope search_history"), { desc = "Search history" } },
         { ";", cmd("Telescope command_history"), { desc = "Command-line history" } },

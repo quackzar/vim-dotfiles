@@ -154,6 +154,8 @@ mason_lsp.setup {
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 }
 
+lspconfig.sourcekit.setup {}
+
 mason_lsp.setup_handlers { -- check if this actually works
     function(server_name)
         lspconfig[server_name].setup {

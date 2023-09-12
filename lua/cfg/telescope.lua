@@ -1,9 +1,11 @@
 local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
+local lga_actions = require("telescope-live-grep-args.actions")
 
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("i23")
 require("telescope").load_extension("ast_grep")
+require("telescope").load_extension("live_grep_args")
 
 require("telescope").setup {
     defaults = {
@@ -54,6 +56,17 @@ require("telescope").setup {
         lsp_workspace_symbols = {
             theme = "dropdown",
         },
+        tagstack = {
+            theme = "ivy",
+            layout_strategy = "vertical",
+            layout_config = {
+                height = 0.9, --vim.o.lines, -- maximally available lines
+                width = 0.9, --vim.o.columns, -- maximally available columns
+                -- prompt_position = "top",
+                preview_height = 0.8, -- 60% of available lines
+                preview_cutoff = 1,
+            },
+        },
         live_grep = {
             layout_strategy = "vertical",
             layout_config = {
@@ -98,6 +111,23 @@ require("telescope").setup {
             override_file_sorter = false,
         },
         ast_grep = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
+        },
+        live_grep_args = {
+            auto_quoting = true, -- enable/disable auto-quoting
+            -- define mappings, e.g.
+            mappings = { -- extend mappings
+                i = {
+                    ["<C-k>"] = lga_actions.quote_prompt(),
+                    ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+                },
+            },
             layout_strategy = "vertical",
             layout_config = {
                 width = 0.9,
