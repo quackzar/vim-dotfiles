@@ -2,15 +2,21 @@ local actions = require("telescope.actions")
 local trouble = require("trouble.providers.telescope")
 local lga_actions = require("telescope-live-grep-args.actions")
 
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("i23")
-require("telescope").load_extension("ast_grep")
-require("telescope").load_extension("live_grep_args")
+local action_layout = require("telescope.actions.layout")
+
+-- require("telescope").load_extension("fzf")
+-- require("telescope").load_extension("i23")
+-- require("telescope").load_extension("ast_grep")
+-- require("telescope").load_extension("live_grep_args")
 
 require("telescope").setup {
     defaults = {
-        -- Default configuration for telescope goes here:
-        -- config_key = value,
+        prompt_prefix = "   ",
+        selection_caret = " ",
+        multi_icon = "󰓎 ",
+        color_devicons = true,
+        set_env = { ["COLORTERM"] = "truecolor" },
+        file_ignore_patterns = { "node_modules", ".git", "bin", "target", "obj" },
         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         mappings = {
             i = {
@@ -21,9 +27,13 @@ require("telescope").setup {
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
                 ["<C-h>"] = "which_key",
+                ["<C-a>"] = actions.cycle_previewers_next,
+                ["<C-s>"] = actions.cycle_previewers_prev,
+                ["<M-p>"] = action_layout.toggle_preview,
             },
             n = {
                 ["<c-t>"] = trouble.open_with_trouble,
+                ["<M-p>"] = action_layout.toggle_preview,
             },
         },
         vimgrep_arguments = {
@@ -35,13 +45,9 @@ require("telescope").setup {
             "--line-number",
             "--column",
             "--smart-case",
+            "--trim", -- add this value
         },
     },
-    prompt_prefix = "   ",
-
-    color_devicons = true,
-    set_env = { ["COLORTERM"] = "truecolor" },
-    file_ignore_patterns = { "node_modules", ".git", "bin", "target", "obj" },
     pickers = {
         -- Default configuration for builtin pickers goes here:
         -- picker_name = {
@@ -50,6 +56,13 @@ require("telescope").setup {
         -- }
         -- Now the picker_config_key will be applied every time you call this
         -- builtin picker
+        buffers = {
+            mappings = {
+                i = {
+                    ["<c-d>"] = actions.delete_buffer + actions.move_to_top,
+                },
+            },
+        },
         lsp_document_symbols = {
             theme = "dropdown",
         },
@@ -57,6 +70,26 @@ require("telescope").setup {
             theme = "dropdown",
         },
         tagstack = {
+            layout_strategy = "vertical",
+            layout_config = {
+                height = 0.9, --vim.o.lines, -- maximally available lines
+                width = 0.9, --vim.o.columns, -- maximally available columns
+                -- prompt_position = "top",
+                preview_height = 0.8, -- 60% of available lines
+                preview_cutoff = 1,
+            },
+        },
+        jumplist = {
+            layout_strategy = "vertical",
+            layout_config = {
+                height = 0.9, --vim.o.lines, -- maximally available lines
+                width = 0.9, --vim.o.columns, -- maximally available columns
+                -- prompt_position = "top",
+                preview_height = 0.8, -- 60% of available lines
+                preview_cutoff = 1,
+            },
+        },
+        marks = {
             theme = "ivy",
             layout_strategy = "vertical",
             layout_config = {

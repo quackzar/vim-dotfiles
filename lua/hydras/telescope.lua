@@ -4,19 +4,6 @@ local function cmd(command)
     return table.concat { "<Cmd>", command, "<CR>" }
 end
 
--- local hint = [[
---                     _f_iles       document _s_ymbols
---    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼       _b_uffers     _w_orkspace symbols
---   🭉🭁🭠🭘    🭣🭕🭌🬾      _n_avigate    live _g_rep
---   🭅█ ▁     █🭐      _m_arks       _c_olorscheme
---   ██🬿      🭊██
---  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀     vim _h_elp    _/_: search in file
---  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙     _k_eymap      _;_: commands history
---                     _o_ptions     _?_: search history
---      _r_esume
---                  _<Enter>_: Telescope           _<Esc>_
--- ]]
-
 local hint = [[
                  _f_: files       _s_: document symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols
@@ -27,11 +14,10 @@ local hint = [[
  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymap      _;_: commands history
                  _o_: options     _?_: search history
      _r_esume
-                 _<Enter>_: Telescope           _<Esc>_
+                 _<space>_: alternative        _<Esc>_
 ]]
 
--- TODO: alternative telescope mode (under cursor?)
--- Also needs a binding for tagstack?
+-- TODO: Needs a visual version
 
 Hydra {
     name = "Telescope",
@@ -69,7 +55,13 @@ Hydra {
             ),
             { desc = "Change colorscheme" },
         },
-        { "<Enter>", cmd("Telescope"), { exit = true, desc = "List all pickers" } },
+        -- { "<Enter>", cmd("Telescope"), { exit = true, desc = "List all pickers" } },
+        {
+            "<space>",
+            function()
+                require("hydras.telescope_alt"):activate()
+            end,
+        },
         { "<Esc>", nil, { exit = true, nowait = true } },
     },
 }

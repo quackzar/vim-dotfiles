@@ -113,6 +113,7 @@ return {
         event = { "UIEnter" },
         opts = {
             exclude_filtypes = {
+                "typst",
                 "help",
                 "packer",
                 "undotree",
