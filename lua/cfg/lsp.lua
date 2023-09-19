@@ -238,7 +238,7 @@ mason_lsp.setup_handlers { -- check if this actually works
                 "rnoweb",
                 "tex",
                 "pandoc",
-                "typst",
+                -- "typst",
             },
             settings = {
                 ltex = {

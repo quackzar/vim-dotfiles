@@ -55,7 +55,7 @@ return {
                 end, { expr = true, desc = "prev hunk" })
 
                 -- Text object
-                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "inner hunk" })
+                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "inner hunk", silent = true })
             end,
         },
     },

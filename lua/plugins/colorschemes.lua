@@ -98,6 +98,10 @@ return {
     },
     {
         "rebelot/kanagawa.nvim",
+        opts = {
+            compile = true,
+        },
+        build = ":KanagawaCompile",
         priority = 1000,
     },
     {

@@ -5,7 +5,6 @@ return {
         dependencies = {
             "neovim/nvim-lspconfig",
 
-            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-nvim-lsp-document-symbol",
             "hrsh7th/cmp-nvim-lsp",
 
@@ -246,7 +245,7 @@ return {
                                 cmpline = "[cmd]",
                                 -- lsp
                                 nvim_lsp = "[lsp]",
-                                nvim_lsp_signature_help = "[lsp+]",
+                                -- nvim_lsp_signature_help = "[lsp+]",
                                 nvim_lua = "[api]",
                                 -- weird things
                                 copilot = "[cop]",
