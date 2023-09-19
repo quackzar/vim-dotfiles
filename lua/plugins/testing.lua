@@ -176,8 +176,6 @@ return {
         },
     },
 
-    -- { "Olical/conjure", event = "VimEnter" },
-
     {
         "akinsho/toggleterm.nvim",
         version = "*",
@@ -234,6 +232,11 @@ return {
         -- TODO: Hydra
         dependencies = { "nvim-lua/plenary.nvim" },
         config = true,
+        cmd = {
+            "Coverage",
+            "CoverageLoad",
+            "CoverageLoadLcov",
+        },
     },
 
     {

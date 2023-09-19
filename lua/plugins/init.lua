@@ -44,7 +44,7 @@ return {
 
     {
         "ggandor/leap.nvim",
-        enabled = false,
+        enabled = true,
         config = function()
             -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
@@ -68,7 +68,7 @@ return {
 
     {
         "folke/flash.nvim",
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
@@ -103,6 +103,8 @@ return {
     },
 
     {
+        -- NOTE: Unused?
+        -- But really cool though
         "cbochs/portal.nvim",
         -- Ootional dependencies
         dependencies = { "cbochs/grapple.nvim" },
@@ -115,6 +117,7 @@ return {
     },
 
     {
+        -- NOTE: Unused?
         "rgroli/other.nvim",
         main = "other-nvim",
         opts = {
@@ -309,7 +312,9 @@ return {
 
     -- == rest client ===
     {
+        -- NOTE: Unused?
         "NTBBloodbath/rest.nvim",
+        lazy = true,
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {
             -- Open request results in a horizontal split

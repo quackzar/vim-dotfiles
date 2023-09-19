@@ -26,8 +26,6 @@ return {
 
     -- "nvim-treesitter/nvim-treesitter-refactor",
 
-    "nvim-treesitter/playground",
-
     { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } },
 
     {
@@ -95,24 +93,6 @@ return {
     { "windwp/nvim-ts-autotag" },
 
     {
-        "cshuaimin/ssr.nvim",
-        module = "ssr",
-        -- Calling setup is optional.
-        config = function()
-            require("ssr").setup {
-                min_width = 50,
-                min_height = 5,
-                keymaps = {
-                    close = "q",
-                    next_match = "n",
-                    prev_match = "N",
-                    replace_all = "<leader><cr>",
-                },
-            }
-        end,
-    },
-
-    {
         "abecodes/tabout.nvim",
         event = "InsertEnter",
         config = function()
@@ -155,43 +135,6 @@ return {
             },
         },
         dependencies = "nvim-treesitter/nvim-treesitter",
-        -- keys = {
-        --     {
-        --         "<leader>nn",
-        --         function()
-        --             require("neogen").generate {}
-        --         end,
-        --         desc = "document thing",
-        --     },
-        --     {
-        --         "<leader>nf",
-        --         function()
-        --             require("neogen").generate { type = "func" }
-        --         end,
-        --         desc = "document function",
-        --     },
-        --     {
-        --         "<leader>nc",
-        --         function()
-        --             require("neogen").generate { type = "class" }
-        --         end,
-        --         desc = "document class",
-        --     },
-        --     {
-        --         "<leader>nd",
-        --         function()
-        --             require("neogen").generate { type = "file" }
-        --         end,
-        --         desc = "document file",
-        --     },
-        --     {
-        --         "<leader>nn",
-        --         function()
-        --             require("neogen").generate { type = "type" }
-        --         end,
-        --         desc = "document type",
-        --     },
-        -- },
     },
 
     {

@@ -90,6 +90,7 @@ return {
     },
 
     {
+        -- NOTE: Unused?
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
@@ -173,17 +174,6 @@ return {
                     })
                 end,
             })
-            -- Cool idea. Might need some tweaking.
-            -- vim.api.nvim_create_autocmd("FileType", {
-            --     group = vim.api.nvim_create_augroup("tsnode-marker-rust", {}),
-            --     pattern = "rust",
-            --     callback = function(ctx)
-            --         require("tsnode-marker").set_automark(ctx.buf, {
-            --             target = { "unsafe_block" }, -- list of target node types
-            --             hl_group = "DiffDelete", -- highlight group
-            --         })
-            --     end,
-            -- })
         end,
     },
 
@@ -215,14 +205,6 @@ return {
         dependencies = "nvim-lua/plenary.nvim",
         config = true,
     },
-
-    { "gpanders/editorconfig.nvim" },
-
-    -- {
-    --     "ecthelionvi/NeoComposer.nvim",
-    --     dependencies = { "kkharji/sqlite.lua" },
-    --     opts = { notify = false },
-    -- },
 
     -- }}}
 }

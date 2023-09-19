@@ -16,7 +16,7 @@ require("telescope").setup {
         multi_icon = "󰓎 ",
         color_devicons = true,
         set_env = { ["COLORTERM"] = "truecolor" },
-        file_ignore_patterns = { "node_modules", ".git", "bin", "target", "obj" },
+        file_ignore_patterns = { "node_modules", ".git/", "bin", "target", "obj" },
         generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
         mappings = {
             i = {
@@ -133,15 +133,11 @@ require("telescope").setup {
             theme = "dropdown",
         },
         fzf = {
-            fuzzy = true, -- false will only do exact matching
+            fuzzy = false, -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true, -- override the file sorter
             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             -- the default case_mode is "smart_case"
-        },
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = false,
         },
         ast_grep = {
             layout_strategy = "vertical",

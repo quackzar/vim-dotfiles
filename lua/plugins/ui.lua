@@ -389,6 +389,7 @@ return {
     },
 
     {
+        -- NOTE: Semi-unused? Consider mini version -or- something for improved spell
         "folke/which-key.nvim",
         opts = {
             plugins = {
