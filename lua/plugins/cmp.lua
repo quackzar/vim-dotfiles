@@ -110,6 +110,17 @@ return {
                         i = cmp.mapping.abort(),
                         c = cmp.mapping.close(),
                     },
+                    ["<C-y>"] = cmp.mapping {
+                        i = function()
+                            local entry = cmp.get_selected_entry()
+                            if not entry then
+                                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                            else
+                                cmp.confirm()
+                            end
+                        end,
+                        c = cmp.mapping.confirm { select = true },
+                    },
                     ["<C-j>"] = cmp.mapping {
                         i = function()
                             local entry = cmp.get_selected_entry()

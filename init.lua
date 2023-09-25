@@ -25,6 +25,7 @@ vim.o.wildmenu = true
 vim.o.showmode = false
 vim.o.breakindent = true
 vim.o.formatoptions = "jcroqlnt" -- tcqj
+vim.o.jumpoptions = "stack,view"
 vim.o.autowrite = true
 
 -- vim.o.title = true

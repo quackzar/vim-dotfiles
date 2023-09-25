@@ -44,7 +44,7 @@ return {
 
     {
         "ggandor/leap.nvim",
-        enabled = true,
+        enabled = false,
         config = function()
             -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
             -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
@@ -68,12 +68,12 @@ return {
 
     {
         "folke/flash.nvim",
-        enabled = false,
+        enabled = true,
         event = "VeryLazy",
         ---@type Flash.Config
         opts = {
             highlight = {
-                backdrop = false,
+                backdrop = true,
             },
             modes = {
                 search = {
@@ -87,7 +87,19 @@ return {
                 mode = { "n", "x", "o" },
                 function()
                     -- default options: exact mode, multi window, all directions, with a backdrop
-                    require("flash").jump()
+                    require("flash").jump {
+                        search = { forward = true, wrap = false, multi_window = false },
+                    }
+                end,
+            },
+            {
+                "S",
+                mode = { "n", "x", "o" },
+                function()
+                    -- default options: exact mode, multi window, all directions, with a backdrop
+                    require("flash").jump {
+                        search = { forward = false, wrap = false, multi_window = false },
+                    }
                 end,
             },
             {

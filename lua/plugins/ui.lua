@@ -143,15 +143,21 @@ return {
 
     {
         "folke/edgy.nvim",
-        enabled = false,
+        enabled = true,
         event = "VeryLazy",
         opts = {
-            fix_win_height = vim.fn.has("nvim-0.10.0") == 0,
             animate = {
                 cps = 240,
             },
             bottom = {
-                { ft = "toggleterm", size = { height = 0.4 } },
+                {
+                    ft = "toggleterm",
+                    size = { height = 0.4 },
+                    -- exclude floating windows
+                    filter = function(buf, win)
+                        return vim.api.nvim_win_get_config(win).relative == ""
+                    end,
+                },
                 {
                     ft = "lazyterm",
                     title = "LazyTerm",
@@ -179,9 +185,9 @@ return {
                 {
                     ft = "neo-tree",
                     title = "Neo-Tree",
-                    filter = function(buf)
-                        return vim.b[buf].neo_tree_source ~= "document_symbols"
-                    end,
+                    -- filter = function(buf)
+                    --     return vim.b[buf].neo_tree_source ~= "document_symbols"
+                    -- end,
                 },
                 -- {ft="DiffviewFiles"},
             },
@@ -191,9 +197,9 @@ return {
                 {
                     ft = "neo-tree",
                     title = "Neo-Tree",
-                    filter = function(buf)
-                        return vim.b[buf].neo_tree_source == "document_symbols"
-                    end,
+                    -- filter = function(buf)
+                    --     return vim.b[buf].neo_tree_source == "document_symbols"
+                    -- end,
                 },
                 { ft = "Outline" },
                 { ft = "neotest-summary", title = "Neotest Summary" },
@@ -336,7 +342,7 @@ return {
         opts = {
             render = "compact",
             background_colour = "#000000",
-            timeout = 2500,
+            timeout = 2000,
         },
         config = function(opts)
             require("notify").setup(opts)
