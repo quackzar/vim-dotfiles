@@ -25,7 +25,7 @@ local hint_alt = [[
  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙
 
      _r_esume
-                 _<enter>_: telescope         _<Esc>_
+                 _<enter>_: telescope         _<esc>_
 ]]
 
 return Hydra {
@@ -59,6 +59,6 @@ return Hydra {
         { "t", cmd("Telescope tagstack") },
         { "j", cmd("Telescope jumplist") },
         { "<enter>", cmd("Telescope") },
-        { "<Esc>", nil, { exit = true, nowait = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
     },
 }

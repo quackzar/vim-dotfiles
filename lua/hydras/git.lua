@@ -7,7 +7,7 @@ local hint = [[
  _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
  ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _o_: open remote
  ^ ^              _c_: commit            _H_: history       _L_: log
- ^ ^              _g_/_<Enter>_: Neogit                     _q_: exit
+ ^ ^              _g_/_<enter>_: Neogit                     _<esc>_: exit
 ]]
 
 local git_hydra = Hydra {
@@ -30,16 +30,17 @@ local git_hydra = Hydra {
         on_exit = function()
             -- gitsigns.toggle_signs(false)
             local cursor_pos = vim.api.nvim_win_get_cursor(0)
+            gitsigns.toggle_current_line_blame(false)
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
-            gitsigns.toggle_current_line_blame(false)
             vim.cmd("loadview")
             vim.api.nvim_win_set_cursor(0, cursor_pos)
             vim.cmd("normal zv")
             vim.cmd("echo") -- clear the echo area
         end,
     },
+    name = "git",
     mode = { "n", "x" },
     body = "<leader>g",
     heads = {
@@ -91,9 +92,9 @@ local git_hydra = Hydra {
         -- TODO: This one vvv does not work that well
         { "o", "<cmd>!git open<cr>", { exit = true } }, -- show the base of the file
         { "c", "<cmd>Neogit commit<cr>", { exit = true } },
-        { "<Enter>", "<cmd>Neogit<cr>", { exit = true } },
-        { "g", "<cmd>Neogit<cr>", { exit = true } },
-        { "q", nil, { exit = true, nowait = true } },
+        { "<enter>", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
+        { "g", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
     },
 }
 
@@ -141,7 +142,8 @@ local git_init_hydra = Hydra {
 }
 
 local function activate_git_hydra()
-    -- check whether we are in a git repo
+    -- check whether we are in a git repo, otherwise it's going to be awkward.
+    -- If there is a more elegant way of checking it, let me know.
     local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
     if err_code == 0 then
         git_hydra:activate()

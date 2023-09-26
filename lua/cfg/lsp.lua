@@ -186,6 +186,9 @@ mason_lsp.setup_handlers { -- check if this actually works
                         checkOnSave = {
                             command = "clippy",
                         },
+                        completion = {
+                            fullFunctionSignatures = { enable = true },
+                        },
                     },
                 },
             },

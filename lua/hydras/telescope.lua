@@ -14,7 +14,7 @@ local hint = [[
  🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙  _k_: keymap      _;_: commands history
                  _o_: options     _?_: search history
      _r_esume
-                 _<space>_: alternative        _<Esc>_
+                 _<space>_: alternative        _<esc>_
 ]]
 
 -- TODO: Needs a visual version
@@ -61,7 +61,8 @@ Hydra {
             function()
                 require("hydras.telescope_alt"):activate()
             end,
+            { exit_before = true },
         },
-        { "<Esc>", nil, { exit = true, nowait = true } },
+        { "<esc>", nil, { exit = true, nowait = true } },
     },
 }
