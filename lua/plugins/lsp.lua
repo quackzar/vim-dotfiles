@@ -106,8 +106,27 @@ return {
         event = "LspAttach",
         opts = {
             vt_position = "end_of_line",
+            hl = { link = "LspInlayHint" },
         },
         config = true,
+    },
+
+    {
+        "chrisgrieser/nvim-rulebook",
+        keys = {
+            {
+                "<leader>i",
+                function()
+                    require("rulebook").ignoreRule()
+                end,
+            },
+            {
+                "<leader>l",
+                function()
+                    require("rulebook").lookupRule()
+                end,
+            },
+        },
     },
 
     "jose-elias-alvarez/null-ls.nvim",

@@ -1,4 +1,7 @@
 return {
+    -- Should probably start hoarding less colorschemes, but a system to lazyload while still be
+    -- available in the 'colorscheme' command or in Telescope would be nice.
+    -- Although, loadtimes of colorschemes should be pretty low.
     {
         "folke/tokyonight.nvim",
         priority = 1000,
@@ -71,6 +74,17 @@ return {
         "rose-pine/neovim",
         name = "rose-pine",
         priority = 1000,
+    },
+
+    {
+        "ribru17/bamboo.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("bamboo").setup {
+                -- optional configuration here
+            }
+        end,
     },
 
     {

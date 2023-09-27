@@ -395,29 +395,29 @@ return {
     },
 
     {
-        -- NOTE: Semi-unused? Consider mini version -or- something for improved spell
         "folke/which-key.nvim",
+        -- Only use for marks and spelling
         opts = {
             plugins = {
                 marks = true, -- shows a list of your marks on ' and `
-                registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+                registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
                 spelling = {
                     enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
                     suggestions = 20, -- how many suggestions should be shown in the list?
                 },
                 presets = {
-                    operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-                    motions = true, -- adds help for motions
-                    text_objects = true, -- help for text objects triggered after entering an operator
+                    operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+                    motions = false, -- adds help for motions
+                    text_objects = false, -- help for text objects triggered after entering an operator
                     windows = false, -- default bindings on <c-w>
-                    nav = true, -- misc bindings to work with windows
-                    z = true, -- bindings for folds, spelling and others prefixed with z
-                    g = true, -- bindings for prefixed with g
+                    nav = false, -- misc bindings to work with windows
+                    z = false, -- bindings for folds, spelling and others prefixed with z
+                    g = false, -- bindings for prefixed with g
                 },
             },
             hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
             operators = { gc = "Comments" },
-            ignore_missing = false, -- fun if one decides to register everything
+            ignore_missing = true, -- fun if one decides to register everything
             disable = {
                 filetypes = { "neo-tree" },
             },
@@ -428,7 +428,56 @@ return {
         event = "VeryLazy",
     },
 
-    { "jokajak/keyseer.nvim", version = "*", cmd = "KeySeer", config = true },
+    {
+        "echasnovski/mini.clue",
+        version = false,
+        config = function()
+            local miniclue = require("mini.clue")
+            miniclue.setup {
+                triggers = {
+                    -- Leader triggers
+                    { mode = "n", keys = "<Leader>" },
+                    { mode = "x", keys = "<Leader>" },
+
+                    -- Built-in completion
+                    { mode = "i", keys = "<C-x>" },
+
+                    -- `g` key
+                    { mode = "n", keys = "g" },
+                    { mode = "x", keys = "g" },
+
+                    -- Marks
+                    { mode = "n", keys = "'" },
+                    { mode = "n", keys = "`" },
+                    { mode = "x", keys = "'" },
+                    { mode = "x", keys = "`" },
+
+                    -- Registers
+                    { mode = "n", keys = '"' },
+                    { mode = "x", keys = '"' },
+                    { mode = "i", keys = "<C-r>" },
+                    { mode = "c", keys = "<C-r>" },
+
+                    -- Window commands
+                    { mode = "n", keys = "<C-w>" },
+
+                    -- `z` key
+                    { mode = "n", keys = "z" },
+                    { mode = "x", keys = "z" },
+                },
+
+                clues = {
+                    -- Enhance this by adding descriptions for <Leader> mapping groups
+                    miniclue.gen_clues.builtin_completion(),
+                    miniclue.gen_clues.g(),
+                    miniclue.gen_clues.marks(),
+                    miniclue.gen_clues.registers(),
+                    miniclue.gen_clues.windows(),
+                    miniclue.gen_clues.z(),
+                },
+            }
+        end,
+    },
 
     {
         "sindrets/winshift.nvim",

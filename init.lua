@@ -192,7 +192,6 @@ require("mason").setup()
 require("cfg.lsp")
 require("ts-grammars")
 require("windline.bubblegum")
-require("cfg.whichkey")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))
