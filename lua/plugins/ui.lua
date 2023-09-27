@@ -464,6 +464,12 @@ return {
                     -- `z` key
                     { mode = "n", keys = "z" },
                     { mode = "x", keys = "z" },
+
+                    -- `[ and ]` key
+                    { mode = "n", keys = "]" },
+                    { mode = "x", keys = "]" },
+                    { mode = "n", keys = "[" },
+                    { mode = "x", keys = "[" },
                 },
 
                 clues = {

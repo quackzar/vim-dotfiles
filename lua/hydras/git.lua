@@ -26,6 +26,7 @@ local git_hydra = Hydra {
             gitsigns.toggle_linehl(true)
             gitsigns.toggle_word_diff(true)
             gitsigns.toggle_current_line_blame(true)
+            vim.cmd("UfoDetach")
         end,
         on_exit = function()
             -- gitsigns.toggle_signs(false)
@@ -37,6 +38,7 @@ local git_hydra = Hydra {
             vim.cmd("loadview")
             vim.api.nvim_win_set_cursor(0, cursor_pos)
             vim.cmd("normal zv")
+            vim.cmd("UfoAttach")
             vim.cmd("echo") -- clear the echo area
         end,
     },

@@ -53,17 +53,17 @@ require("nvim-treesitter.configs").setup {
             lookahead = true,
             keymaps = {
                 -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-                ["ag"] = "@comment.outer",
-                ["il"] = "@loop.inner",
-                ["al"] = "@loop.outer",
-                ["ia"] = "@parameter.inner",
-                ["aa"] = "@parameter.outer",
-                ["aC"] = "@call.outer",
-                ["iC"] = "@call.inner",
+                ["af"] = { query = "@function.outer", desc = "outer function" },
+                ["if"] = { query = "@function.inner", desc = "inner function" },
+                ["ac"] = { query = "@class.outer", desc = "outer class" },
+                ["ic"] = { query = "@class.inner", desc = "inner class" },
+                ["ag"] = { query = "@comment.outer", desc = "outer comment" },
+                ["il"] = { query = "@loop.inner", desc = "inner loop" },
+                ["al"] = { query = "@loop.outer", desc = "outer loop" },
+                ["ia"] = { query = "@parameter.inner", desc = "inner parameter" },
+                ["aa"] = { query = "@parameter.outer", desc = "outer parameter" },
+                ["aC"] = { query = "@call.outer", desc = "outer call" },
+                ["iC"] = { query = "@call.inner", desc = "inner call" },
                 ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
             },
             selection_modes = {
@@ -76,8 +76,8 @@ require("nvim-treesitter.configs").setup {
             enable = true,
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-                ["]f"] = "@function.outer",
-                ["]o"] = "@loop.*",
+                ["]f"] = { query = "@function.outer", desc = "next function" },
+                ["]o"] = { query = "@loop.*", desc = "next loop" },
                 -- ["]]"] = "@class.outer",
                 ["]]"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
             },
@@ -85,12 +85,13 @@ require("nvim-treesitter.configs").setup {
                 ["]F"] = "@function.outer",
             },
             goto_previous_start = {
-                ["[f"] = "@function.outer",
+                ["[f"] = { query = "@function.outer", desc = "prev function" },
+                ["[o"] = { query = "@loop.*", desc = "prev loop" },
                 ["[["] = { query = "@scope", query_group = "locals", desc = "Prev scope" },
                 -- ["[["] = "@class.outer",
             },
             goto_previous_end = {
-                ["[F"] = "@function.outer",
+                ["[F"] = { query = "@function.outer", desc = "prev outside-function" },
             },
         },
         lsp_interop = {
