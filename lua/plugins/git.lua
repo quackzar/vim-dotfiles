@@ -132,6 +132,7 @@ return {
         lazy = true,
         opts = {
             date_format = "%Y-%m-%d",
+            merge_consecutive = false,
         },
         cmd = "ToggleBlame",
     },

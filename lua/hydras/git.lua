@@ -20,18 +20,16 @@ local git_hydra = Hydra {
             border = "rounded",
         },
         on_enter = function()
-            -- gitsigns.toggle_signs(true)
+            gitsigns.toggle_signs(true)
             vim.cmd("mkview!")
             vim.cmd("silent! %foldopen!")
             gitsigns.toggle_linehl(true)
             gitsigns.toggle_word_diff(true)
-            gitsigns.toggle_current_line_blame(true)
             vim.cmd("UfoDetach")
         end,
         on_exit = function()
-            -- gitsigns.toggle_signs(false)
+            gitsigns.toggle_signs(false)
             local cursor_pos = vim.api.nvim_win_get_cursor(0)
-            gitsigns.toggle_current_line_blame(false)
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
@@ -88,7 +86,6 @@ local git_hydra = Hydra {
             "B",
             function()
                 vim.cmd("ToggleBlame virtual")
-                vim.cmd("Gitsigns toggle_current_line_blame")
             end,
         },
         -- TODO: This one vvv does not work that well
