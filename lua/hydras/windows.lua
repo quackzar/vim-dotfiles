@@ -40,7 +40,7 @@ local function choose_buffer()
     end
 end
 
-vim.keymap.set("n", "<space>b", choose_buffer)
+vim.keymap.set("n", "<space>b", choose_buffer, { desc = "choose buffer" })
 local window_hint = [[
  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split
  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^---------------

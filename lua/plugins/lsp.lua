@@ -155,16 +155,18 @@ return {
         "chrisgrieser/nvim-rulebook",
         keys = {
             {
-                "<leader>i",
+                "<leader>I",
                 function()
                     require("rulebook").ignoreRule()
                 end,
+                desc = "ignore rule",
             },
             {
-                "<leader>l",
+                "<leader>L",
                 function()
                     require("rulebook").lookupRule()
                 end,
+                desc = "lookup rule",
             },
         },
     },

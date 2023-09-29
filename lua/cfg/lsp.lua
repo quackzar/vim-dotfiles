@@ -119,7 +119,10 @@ function on_attach(client, bufnr)
 
     -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
     -- vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
-    vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions)
+    vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions, {
+        buffer = bufnr,
+        desc = "Code action",
+    })
 
     -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
     --

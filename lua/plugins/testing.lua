@@ -97,28 +97,28 @@ return {
                 function()
                     require("neotest").jump.next()
                 end,
-                { desc = "next test" },
+                desc = "next test",
             },
             {
                 "[t",
                 function()
                     require("neotest").jump.prev()
                 end,
-                { desc = "prev test" },
+                desc = "prev test",
             },
             {
                 "]T",
                 function()
                     require("neotest").jump.next { status = "failed" }
                 end,
-                { desc = "next failed test" },
+                desc = "next failed test",
             },
             {
                 "[T",
                 function()
                     require("neotest").jump.prev { status = "failed" }
                 end,
-                { desc = "prev failed test" },
+                desc = "prev failed test",
             },
         },
     },
