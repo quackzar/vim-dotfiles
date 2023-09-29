@@ -46,6 +46,13 @@ require("nvim-treesitter.configs").setup {
             ["i;"] = "textsubjects-container-inner",
         },
     },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            node_incremental = "v", -- genius mapping
+            node_decremental = "<M-v>",
+        },
+    },
     textobjects = {
         select = {
             enable = true,

@@ -129,7 +129,11 @@ local git_init_hydra = Hydra {
             "y",
             function()
                 local output = vim.fn.system("git init")
-                vim.notify(output)
+                if output == nil then
+                    vim.notify("Could not Initlize repo", vim.log.levels.WARN)
+                else
+                    vim.notify(output)
+                end
             end,
             { exit = true },
         },
@@ -153,4 +157,4 @@ local function activate_git_hydra()
         git_init_hydra:activate()
     end
 end
-vim.keymap.set({ "n", "x" }, "<leader>g", activate_git_hydra)
+vim.keymap.set({ "n", "x" }, "<leader>g", activate_git_hydra, { desc = "[Hydra] git" })

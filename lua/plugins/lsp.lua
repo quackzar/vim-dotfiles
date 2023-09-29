@@ -23,6 +23,7 @@ return {
 
     {
         "kosayoda/nvim-lightbulb",
+        enabled = false,
         opts = {
             autocmd = { enabled = true },
             priority = 10,
@@ -40,6 +41,45 @@ return {
                 text = "  ",
                 hl = "DiagnosticOk",
                 pos = "eol",
+            },
+        },
+    },
+
+    {
+        "luckasRanarison/clear-action.nvim",
+        opts = {
+            signs = {
+                icons = {
+                    quickfix = "  ",
+                    refactor = "  ",
+                    source = "  ",
+                    combined = "  ", -- used when combine is set to true
+                },
+            },
+            mappings = {
+                quickfix = { "<leader>A", "apply quickfix" },
+                quickfix_next = { "]a", "apply next quickfix" },
+                quickfix_prev = { "[a", "apply prev quickfix" }, -- tries to fix the previous diagnostic
+                -- Consider this as a Hydra or prefixed with a 'refactor' mapping.
+                refactor = { "<leader>R", "apply refactor" },
+                refactor_inline = { "<leader>y", "refactor inline" },
+                refactor_extract = { "<leader>e", "refactor extract" },
+                refactor_rewrite = { "<leader>w", "refactor rewrite" },
+                actions = {
+                    -- example:
+                    -- ["rust_analyzer"] = {
+                    --   ["Inline"] = "<leader>ai"
+                    --   ["Add braces"] = { "<leader>ab", "Add braces" }
+                    -- }
+                },
+            },
+            quickfix_filters = { -- example:
+                -- ["rust_analyzer"] = {
+                --   ["E0433"] = "Import",
+                -- },
+                -- ["lua_ls"] = {
+                --   ["unused-local"] = "Disable diagnostics on this line",
+                -- },
             },
         },
     },

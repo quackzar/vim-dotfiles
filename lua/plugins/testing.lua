@@ -172,7 +172,7 @@ return {
         keys = {
             { "<leader>c", "<cmd>OverseerToggle<cr>", desc = "Toggle Overseer" },
             { "<leader>C", "<cmd>OverseerRun<cr>", desc = "Run a task" },
-            { "<leader>A", "<cmd>OverseerQuickAction<cr>", desc = "Overseer Action" },
+            -- { "<leader>A", "<cmd>OverseerQuickAction<cr>", desc = "Overseer Action" },
         },
     },
 

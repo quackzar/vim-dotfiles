@@ -292,7 +292,6 @@ local default = {
         { vim_components.search_count(), { "red", "black_light" } },
         { sep.right_rounded, { "black_light", "black" } },
         basic.macros,
-        { vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]) },
         -- basic.macros,
         basic.lsp,
         basic.lsp_diagnos,
