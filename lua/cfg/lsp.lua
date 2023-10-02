@@ -97,12 +97,10 @@ function on_attach(client, bufnr)
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    -- vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
-    -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic (lsp)" })
     vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
-    vim.keymap.set("i", "<c-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration (lsp)" })
     vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Go to implementation (lsp)" })
@@ -117,16 +115,15 @@ function on_attach(client, bufnr)
         vim.diagnostic.goto_next { float = false }
     end, { buffer = bufnr, desc = "Next diagnostic" })
 
-    -- vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+
     -- vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
-    vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions, {
-        buffer = bufnr,
-        desc = "Code action",
-    })
+    -- vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions, {
+    --     buffer = bufnr,
+    --     desc = "Code action",
+    -- })
 
     -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
-    --
-    -- vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -137,9 +134,6 @@ capabilities.textDocument.foldingRange = {
 
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
-require("mason-null-ls").setup {
-    automatic_setup = true,
-}
 require("neodev").setup {
     library = { plugins = { "neotest" }, types = true },
     settings = {
@@ -261,33 +255,4 @@ mason_lsp.setup_handlers { -- check if this actually works
             },
         }
     end,
-}
-
-local null_ls = require("null-ls")
-null_ls.setup {
-    sources = {
-        -- Python
-        null_ls.builtins.formatting.black,
-        -- null_ls.builtins.formatting.autopep8,
-        null_ls.builtins.formatting.isort,
-        -- null_ls.builtins.diagnostics.flake8,
-        -- null_ls.builtins.diagnostics.pylint,
-        -- null_ls.builtins.diagnostics.mypy,
-
-        -- Shell
-        null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.shellharden,
-        null_ls.builtins.diagnostics.shellcheck,
-        null_ls.builtins.code_actions.shellcheck,
-
-        -- Git
-        -- null_ls.builtins.code_actions.gitsigns,
-
-        -- Rust
-        null_ls.builtins.formatting.rustfmt,
-
-        -- TeX
-        -- null_ls.builtins.diagnostics.chktex,
-        null_ls.builtins.formatting.latexindent,
-    },
 }

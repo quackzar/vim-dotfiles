@@ -5,44 +5,12 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "jayp0521/mason-nvim-dap.nvim",
-        "jayp0521/mason-null-ls.nvim",
         "neovim/nvim-lspconfig",
     },
 
-    "weilbith/nvim-code-action-menu",
-
     {
-        "aznhe21/actions-preview.nvim",
-        opts = {
-            diff = {
-                algorithm = "patience",
-                ignore_whitespace = true,
-            },
-        },
-    },
-
-    {
-        "kosayoda/nvim-lightbulb",
-        enabled = false,
-        opts = {
-            autocmd = { enabled = true },
-            priority = 10,
-            -- NOTE: Could be nice if we had two types
-            -- One noisy for quickfix and a more discrete version for everything else
-            action_kinds = { "quickfix" },
-            sign = {
-                -- TODO: Does not work :(
-                enabled = true,
-                text = "",
-                hl = "DiagnosticOk",
-            },
-            virtual_text = {
-                enabled = true,
-                text = "  ",
-                hl = "DiagnosticOk",
-                pos = "eol",
-            },
-        },
+        "hinell/lsp-timeout.nvim",
+        dependencies = { "neovim/nvim-lspconfig" },
     },
 
     {
@@ -57,20 +25,22 @@ return {
                 },
             },
             mappings = {
-                quickfix = { "<leader>A", "apply quickfix" },
+                code_action = { "<leader>a", "apply code action" },
+                quickfix = { "<leader>q", "apply quickfix" },
                 quickfix_next = { "]a", "apply next quickfix" },
                 quickfix_prev = { "[a", "apply prev quickfix" }, -- tries to fix the previous diagnostic
                 -- Consider this as a Hydra or prefixed with a 'refactor' mapping.
-                refactor = { "<leader>R", "apply refactor" },
-                refactor_inline = { "<leader>y", "refactor inline" },
-                refactor_extract = { "<leader>e", "refactor extract" },
-                refactor_rewrite = { "<leader>w", "refactor rewrite" },
+                refactor = { "<leader>rr", "apply refactor" },
+                refactor_inline = { "<leader>ri", "refactor inline" },
+                refactor_extract = { "<leader>re", "refactor extract" },
+                refactor_rewrite = { "<leader>rw", "refactor rewrite" },
                 actions = {
                     -- example:
-                    -- ["rust_analyzer"] = {
-                    --   ["Inline"] = "<leader>ai"
-                    --   ["Add braces"] = { "<leader>ab", "Add braces" }
-                    -- }
+                    ["rust_analyzer"] = {
+                        -- ["Inline"] = "<leader>ai"
+                        ["Add braces"] = { "<leader>rb", "Add braces" },
+                        ["Insert explicit type"] = { "<leader>rt", "Explicit type" },
+                    },
                 },
             },
             quickfix_filters = { -- example:
@@ -171,7 +141,36 @@ return {
         },
     },
 
-    "jose-elias-alvarez/null-ls.nvim",
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            formatters_by_ft = {
+                -- lua is better handled by the lsp
+                python = { "isort", "black" },
+                javascript = { { "prettierd", "prettier" } },
+                rust = { "rustfmt" },
+                bash = { "shellcheck" },
+            },
+        },
+        init = function()
+            -- this will fallback to the lsp if there is no specific formatter
+            vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+        end,
+    },
+
+    {
+        "mfussenegger/nvim-lint",
+        name = "lint",
+        lazy = true,
+        event = "BufWritePost",
+        init = function()
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                callback = function()
+                    require("lint").try_lint()
+                end,
+            })
+        end,
+    },
 
     {
         "onsails/lspkind-nvim",

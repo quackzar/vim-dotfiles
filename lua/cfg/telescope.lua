@@ -4,11 +4,6 @@ local lga_actions = require("telescope-live-grep-args.actions")
 
 local action_layout = require("telescope.actions.layout")
 
--- require("telescope").load_extension("fzf")
--- require("telescope").load_extension("i23")
--- require("telescope").load_extension("ast_grep")
--- require("telescope").load_extension("live_grep_args")
-
 require("telescope").setup {
     defaults = {
         prompt_prefix = "   ",
@@ -167,5 +162,7 @@ require("telescope").setup {
         },
     },
 }
+
+require("telescope").load_extension("fzf")
 
 -- require("telescope").load_extension("z")

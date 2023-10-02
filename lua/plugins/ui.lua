@@ -220,7 +220,21 @@ return {
     },
 
     {
-        "norcalli/nvim-colorizer.lua",
+        "NvChad/nvim-colorizer.lua",
+        opts = {
+            user_default_options = {
+                names = false,
+                RGB = false,
+                mode = "virtualtext", -- Set the display mode.
+            },
+            filetypes = {
+                "*", -- Highlight all files, but customize some others.
+                cmp_docs = { always_update = true },
+                -- Ignore these always
+                "!lazy",
+                "!neo-tree",
+            },
+        },
         event = "BufEnter",
         config = true,
     },

@@ -6,7 +6,7 @@ require("hydras.telescope")
 require("hydras.options")
 require("hydras.dap")
 require("hydras.neotest")
-require("hydras.refactoring")
+-- require("hydras.refactoring")
 require("hydras.neogen")
 -- require("hydras.words")
 
