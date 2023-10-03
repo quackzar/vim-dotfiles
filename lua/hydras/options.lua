@@ -43,10 +43,11 @@ local function cursorlineopt()
     end
 end
 
-local inlay_hint = false
-
 local function typehintopt()
-    if inlay_hint then
+    if not vim.g.inlay_hints_supported then
+        return "[!]"
+    end
+    if vim.g.inlay_hints then
         return "[x]"
     else
         return "[ ]"
@@ -65,7 +66,7 @@ local hint = [[
   _r_ %{rnu} relative number
   _l_ %{diag} diagnostics
   _b_ [?] block
-  _t_ %{hint} type hints
+  _t_ %{hint} inlay hints
   ^
        ^^^^                _<Esc>_
 ]]
@@ -199,8 +200,15 @@ Hydra {
         {
             "t",
             function() -- TODO: Find a way to check if it's active
-                inlay_hint = not inlay_hint
-                vim.lsp.inlay_hint(0, inlay_hint)
+                if not vim.g.inlay_hints_supported then
+                    return
+                end
+                if vim.g.inlay_hints == true then
+                    vim.g.inlay_hints = false
+                else
+                    vim.g.inlay_hints = true
+                end
+                vim.lsp.inlay_hint(0, vim.g.inlay_hints)
             end,
             { desc = "type hints" },
         },

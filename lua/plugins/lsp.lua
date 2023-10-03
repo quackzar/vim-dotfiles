@@ -1,3 +1,5 @@
+local SymbolKind = vim.lsp.protocol.SymbolKind
+
 return {
 
     -- LSP + Snippets {{{
@@ -8,10 +10,10 @@ return {
         "neovim/nvim-lspconfig",
     },
 
-    {
-        "hinell/lsp-timeout.nvim",
-        dependencies = { "neovim/nvim-lspconfig" },
-    },
+    -- {
+    --     "hinell/lsp-timeout.nvim",
+    --     dependencies = { "neovim/nvim-lspconfig" },
+    -- },
 
     {
         "luckasRanarison/clear-action.nvim",
@@ -115,8 +117,16 @@ return {
         "Wansmer/symbol-usage.nvim",
         event = "LspAttach",
         opts = {
+            kinds = {
+                SymbolKind.Function,
+                SymbolKind.Method,
+                SymbolKind.Interface,
+            },
             vt_position = "end_of_line",
-            hl = { link = "LspInlayHint" },
+            hl = { link = "NonText" },
+            references = { enabled = true, include_declaration = false },
+            -- implementation = { enabled = true },
+            -- definition = { enabled = true },
         },
         config = true,
     },

@@ -77,22 +77,24 @@ function on_attach(client, bufnr)
     --
     -- TODO: Consider this in contrast to manual toggle
     if client.server_capabilities.inlayHintProvider then
+        vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
+        vim.g.inlay_hints_supported = true
         vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
         vim.api.nvim_create_autocmd("InsertEnter", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, false)
+                vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
             end,
             group = "lsp_augroup",
         })
         vim.api.nvim_create_autocmd("InsertLeave", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, true)
+                vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
             end,
             group = "lsp_augroup",
         })
-        set_inlay_hl()
+        --set_inlay_hl()
     end
 
     -- Mappings.
@@ -176,10 +178,22 @@ mason_lsp.setup_handlers { -- check if this actually works
                 capabilities = capabilities,
                 settings = {
                     ["rust-analyzer"] = {
+                        assist = {
+                            importEnforceGranularity = true,
+                            importPrefix = "crate",
+                        },
+                        inlayHints = { locationLinks = false },
+                        diagnostics = {
+                            enable = true,
+                            experimental = {
+                                enable = true,
+                            },
+                        },
                         cargo = {
                             features = "all",
                             buildScripts = { enable = true },
                         },
+                        check = { command = "clippy" },
                         checkOnSave = {
                             command = "clippy",
                         },
