@@ -173,6 +173,11 @@ return {
         name = "lint",
         lazy = true,
         event = "BufWritePost",
+        config = function()
+            require("lint").linters_by_ft = {
+                bash = "shellcheck",
+            }
+        end,
         init = function()
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
                 callback = function()

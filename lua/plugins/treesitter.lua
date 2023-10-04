@@ -22,6 +22,14 @@ return {
         end,
     },
 
+    {
+        "KaitlynEthylia/TreePin",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        init = function()
+            require("treepin").setup()
+        end,
+    },
+
     "RRethy/nvim-treesitter-textsubjects",
 
     "nvim-treesitter/nvim-treesitter-textobjects",

@@ -1,6 +1,5 @@
 return {
     -- Meta {{{
-    "antoinemadec/FixCursorHold.nvim",
     "anuvyklack/keymap-amend.nvim",
 
     {
@@ -195,6 +194,20 @@ return {
         },
         config = function()
             require("cfg.neotree")
+            local group = vim.api.nvim_create_augroup("refresh-neotree", { clear = true })
+            vim.api.nvim_create_autocmd({ "FocusGained", "VimResume", "TermLeave" }, {
+                group = group,
+                callback = function()
+                    require("neo-tree.sources.manager").refresh()
+                end,
+            })
+            vim.api.nvim_create_autocmd({ "User" }, {
+                pattern = "NeogitStatusRefreshed",
+                group = group,
+                callback = function()
+                    require("neo-tree.sources.manager").refresh()
+                end,
+            })
         end,
         lazy = true,
         cmd = "Neotree",
