@@ -42,30 +42,6 @@ return {
     },
 
     {
-        "ggandor/leap.nvim",
-        enabled = false,
-        config = function()
-            -- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg = "#707070" })
-            -- vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' }) -- or some grey
-            -- vim.api.nvim_set_hl(0, 'LeapMatch', {
-            --     -- For light themes, set to 'black' or similar.
-            --     fg = 'white', bold = true, nocombine = true,
-            -- })
-            -- -- Of course, specify some nicer shades instead of the default "red" and "blue".
-            -- vim.api.nvim_set_hl(0, 'LeapLabelPrimary', {
-            --     fg = 'red', bold = true, nocombine = true,
-            -- })
-            -- vim.api.nvim_set_hl(0, 'LeapLabelSecondary', {
-            --     fg = 'blue', bold = true, nocombine = true,
-            -- })
-            -- Try it without this setting first, you might find you don't even miss it.
-            require("leap").opts.highlight_unlabeled_phase_one_targets = true
-
-            require("leap").set_default_keymaps()
-        end,
-    },
-
-    {
         "folke/flash.nvim",
         enabled = true,
         event = "VeryLazy",
@@ -114,17 +90,14 @@ return {
     },
 
     {
-        -- NOTE: Unused?
         -- But really cool though
         "cbochs/portal.nvim",
-        -- Ootional dependencies
-        dependencies = { "cbochs/grapple.nvim" },
         lazy = true,
-        config = function()
-            vim.keymap.set("n", "<C-S-o>", "<cmd>Portal jumplist backward<cr>", { desc = "Portal backward" })
-            vim.keymap.set("n", "<C-S-i>", "<cmd>Portal jumplist forward<cr>", { desc = "Portal forward" })
-        end,
-        keys = { { "<C-S-o>" }, { "<C-S-i>" } },
+        config = true,
+        keys = {
+            { "<C-S-o>", "<cmd>Portal jumplist backward<cr>", desc = "Portal backward" },
+            { "<C-S-i>", "<cmd>Portal jumplist forward<cr>", desc = "Portal forward" },
+        },
     },
 
     {
@@ -195,12 +168,16 @@ return {
         config = function()
             require("cfg.neotree")
             local group = vim.api.nvim_create_augroup("refresh-neotree", { clear = true })
+            -- This ensures neo-tree is updated after <C-z> or other things that could change things.
+            -- This is mostly an issue with git commands that stage or unstage things, as file changes are detected.
             vim.api.nvim_create_autocmd({ "FocusGained", "VimResume", "TermLeave" }, {
                 group = group,
                 callback = function()
                     require("neo-tree.sources.manager").refresh()
                 end,
             })
+            -- This ensures that neo-tree is updated whenever neo-git does 'something'.
+            -- Usually this means staging/unstaging files will be reflected immediately.
             vim.api.nvim_create_autocmd({ "User" }, {
                 pattern = "NeogitStatusRefreshed",
                 group = group,

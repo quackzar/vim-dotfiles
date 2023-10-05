@@ -16,7 +16,7 @@ end
 --                 _<space>_: alternative        _<Esc>_
 
 local hint_alt = [[
-     inifinte possibilities
+     infinite possibilities
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼
   🭉🭁🭠🭘    🭣🭕🭌🬾      _c_: grep under cursor
   🭅█      █🭐      _g_: live grep args (under cursor)

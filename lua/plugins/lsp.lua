@@ -87,12 +87,25 @@ return {
         },
         keys = {
             { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle trouble" },
-            { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>" },
-            { "<leader>xd", "<cmd>Trouble document_diagnostics<cr>" },
-            { "<leader>xl", "<cmd>Trouble loclist<cr>" },
-            { "<leader>xq", "<cmd>Trouble quickfix<cr>" },
-            { "<leader>xc", "<cmd>TroubleClose<cr>" },
-            { "gR", "<cmd>Trouble lsp_references<cr>" },
+            { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "workspace diagnostics" },
+            { "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", desc = "document diagnostics" },
+            { "<leader>xl", "<cmd>Trouble loclist<cr>", desc = "location list" },
+            { "<leader>xq", "<cmd>Trouble quickfix<cr>", desc = "quickfix" },
+            { "<leader>xc", "<cmd>TroubleClose<cr>", desc = "close" },
+            {
+                "]x",
+                function()
+                    require("trouble").next { skip_groups = true, jump = true }
+                end,
+                desc = "next trouble",
+            },
+            {
+                "[x",
+                function()
+                    require("trouble").previous { skip_groups = true, jump = true }
+                end,
+                desc = "prev trouble",
+            },
         },
     },
 
@@ -113,23 +126,23 @@ return {
         },
     },
 
-    {
-        "Wansmer/symbol-usage.nvim",
-        event = "LspAttach",
-        opts = {
-            kinds = {
-                SymbolKind.Function,
-                SymbolKind.Method,
-                SymbolKind.Interface,
-            },
-            vt_position = "end_of_line",
-            hl = { link = "NonText" },
-            references = { enabled = true, include_declaration = false },
-            -- implementation = { enabled = true },
-            -- definition = { enabled = true },
-        },
-        config = true,
-    },
+    -- {
+    --     "Wansmer/symbol-usage.nvim",
+    --     event = "LspAttach",
+    --     opts = {
+    --         kinds = {
+    --             SymbolKind.Function,
+    --             SymbolKind.Method,
+    --             SymbolKind.Interface,
+    --         },
+    --         vt_position = "end_of_line",
+    --         hl = { link = "NonText" },
+    --         references = { enabled = true, include_declaration = false },
+    --         -- implementation = { enabled = true },
+    --         -- definition = { enabled = true },
+    --     },
+    --     config = true,
+    -- },
 
     {
         "chrisgrieser/nvim-rulebook",

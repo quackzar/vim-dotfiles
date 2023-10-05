@@ -33,7 +33,7 @@ vim.o.completeopt = "menuone,noselect"
 
 vim.diagnostic.config {
     underline = true,
-    signs = true,
+    signs = false,
     virtual_text = false,
     virtual_lines = { only_current_line = true, highlight_whole_line = false },
     float = {
@@ -101,7 +101,7 @@ function on_attach(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover" })
     vim.keymap.set("n", "<space>K", vim.diagnostic.open_float, { buffer = bufnr, desc = "Hover diagnostic (lsp)" })
-    vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
+    vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature help" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Go to declaration (lsp)" })
