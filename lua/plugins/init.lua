@@ -69,7 +69,9 @@ return {
             },
             {
                 "S",
-                mode = { "n", "x", "o" },
+                mode = {
+                    "n", --[[ "x", "o" ]]
+                },
                 function()
                     -- default options: exact mode, multi window, all directions, with a backdrop
                     require("flash").jump {

@@ -56,6 +56,8 @@ local test_hydra = Hydra {
             "d",
             function()
                 require("neotest").run.run { strategy = "dap" }
+                require("neotest").summary.close()
+                require("hydras.dap"):activate()
             end,
             { silent = true, exit = true },
         },

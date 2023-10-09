@@ -275,6 +275,7 @@ local dap_hydra = Hydra {
         -- { "C", ":lua require('dapui').close()<cr>:DapVirtualTextForceRefresh<CR>", { silent = true } },
     },
 }
+return dap_hydra
 
 -- local init_hint = [[
 --  ^ ^    DAP 

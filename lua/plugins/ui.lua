@@ -99,7 +99,7 @@ return {
                     --     click = "v:lua.ScSa"
                     -- },
                     {
-                        sign = { name = { ".*" }, maxwidth = 1, auto = true },
+                        sign = { name = ".*", maxwidth = 1, auto = true },
                         click = "v:lua.ScSa",
                     },
                     {
@@ -110,8 +110,8 @@ return {
                         text = { builtin.lnumfunc, " " },
                         click = "v:lua.ScLa",
                     },
-                    {
-                        sign = { name = { "GitSign" }, maxwidth = 1, colwidth = 1, auto = true },
+                    { -- BUG: Since gitsigns now by default uses extmark it doesn't work.
+                        sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = true },
                         click = "v:lua.ScSa",
                     },
                 },
