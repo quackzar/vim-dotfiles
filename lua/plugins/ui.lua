@@ -352,6 +352,12 @@ return {
     },
 
     {
+        "folke/drop.nvim",
+        event = "VimEnter",
+        config = true,
+    },
+
+    {
         "rcarriga/nvim-notify",
         opts = {
             render = "compact",

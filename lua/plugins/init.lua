@@ -395,6 +395,13 @@ return {
         ft = "typst",
         lazy = false,
     },
+    {
+        "MrPicklePinosaur/typst-conceal.vim",
+        init = function()
+            vim.g.typst_conceal_math = true
+            vim.g.typst_conceal_emoji = true
+        end,
+    },
 
     -- Mac OS / Xcode
     "darfink/vim-plist",

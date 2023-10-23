@@ -1,7 +1,6 @@
 vim.bo.makeprg = "cargo build"
 vim.bo.textwidth = 100
 vim.bo.spelloptions = "camel"
-vim.bo.spell = true
 
 vim.keymap.set("n", "<C-K>", require("rust-tools").hover_actions.hover_actions)
 
