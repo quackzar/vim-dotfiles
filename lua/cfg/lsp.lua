@@ -112,10 +112,10 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "Incoming calls (lsp)" })
     vim.keymap.set("n", "[d", function()
         vim.diagnostic.goto_prev { float = false }
-    end, { buffer = bufnr, desc = "Prev diagnostic" })
+    end, { buffer = bufnr, desc = "prev diagnostic" })
     vim.keymap.set("n", "]d", function()
         vim.diagnostic.goto_next { float = false }
-    end, { buffer = bufnr, desc = "Next diagnostic" })
+    end, { buffer = bufnr, desc = "next diagnostic" })
 
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
 

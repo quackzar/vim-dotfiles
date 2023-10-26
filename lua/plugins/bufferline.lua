@@ -108,8 +108,8 @@ return {
         end,
         event = "BufEnter",
         keys = {
-            { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-            { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+            { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "next buffer" },
+            { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "prev buffer" },
         },
     },
 }

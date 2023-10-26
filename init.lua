@@ -106,10 +106,19 @@ vim.keymap.set("t", "<esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<localleader>q", "<cmd>copen<cr>", { silent = true, desc = "Open quickfix" })
 vim.keymap.set({ "n", "v" }, "<localleader>K", "<cmd>Inspect<cr>")
 
-vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "Next quickfix" })
-vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { silent = true, desc = "Prev quickfix" })
-vim.keymap.set("n", "]l", "<cmd>lnext<cr>", { silent = true, desc = "Next locationlist" })
-vim.keymap.set("n", "[l", "<cmd>lprevious<cr>", { silent = true, desc = "Prev locationlist" })
+vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "next quickfix" })
+vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { silent = true, desc = "prev quickfix" })
+vim.keymap.set("n", "]l", "<cmd>lnext<cr>", { silent = true, desc = "next locationlist" })
+vim.keymap.set("n", "[l", "<cmd>lprevious<cr>", { silent = true, desc = "prev locationlist" })
+
+vim.keymap.set("n", "<localleader>pp", function()
+    vim.notify("Started profilling")
+    require("plenary.profile").start("profile.log", { flame = true })
+end, { desc = "plenary profile" })
+vim.keymap.set("n", "<localleader>pq", function()
+    require("plenary.profile").stop()
+    vim.notify("Stopped profilling")
+end, { desc = "plenary stop profile" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),

@@ -355,6 +355,7 @@ return {
         "folke/drop.nvim",
         event = "VimEnter",
         config = true,
+        opts = { screensaver = false },
     },
 
     {
@@ -392,6 +393,7 @@ return {
 
     {
         "kevinhwang91/nvim-hlslens",
+        enabled = false,
         lazy = true,
         config = true,
         init = function()

@@ -127,6 +127,8 @@ return {
         end,
     },
 
+    { "fredeeb/tardis.nvim", config = true },
+
     {
         "FabijanZulj/blame.nvim",
         lazy = true,
