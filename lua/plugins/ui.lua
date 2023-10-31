@@ -120,6 +120,16 @@ return {
     },
 
     {
+        "miversen33/sunglasses.nvim",
+        config = true,
+        event = "UIEnter",
+        opts = {
+            filter_type = "SHADE",
+            filter_percent = 0.05,
+        },
+    },
+
+    {
         "anuvyklack/windows.nvim",
         dependencies = {
             "anuvyklack/middleclass",
@@ -492,6 +502,9 @@ return {
                     { mode = "x", keys = "]" },
                     { mode = "n", keys = "[" },
                     { mode = "x", keys = "[" },
+                    -- '<localleader>'
+                    { mode = "n", keys = "<localleader>" },
+                    { mode = "x", keys = "<localleader>" },
                 },
 
                 clues = {

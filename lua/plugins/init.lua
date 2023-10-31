@@ -256,6 +256,13 @@ return {
     },
 
     {
+        -- Does the same thing as tsnode-marker
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true, -- or `opts = {}`
+    },
+
+    {
         "AckslD/nvim-FeMaco.lua",
         config = true,
         ft = "markdown",

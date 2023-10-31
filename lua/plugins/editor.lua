@@ -147,6 +147,8 @@ return {
 
     {
         "atusy/tsnode-marker.nvim",
+        -- Does the same thing as headlines.nvim
+        enabled = false,
         lazy = true,
         init = function()
             vim.api.nvim_create_autocmd("FileType", {

@@ -46,9 +46,10 @@ return {
                 },
             },
             quickfix_filters = { -- example:
-                -- ["rust_analyzer"] = {
-                --   ["E0433"] = "Import",
-                -- },
+                ["rust_analyzer"] = {
+                    ["E0433"] = "Import",
+                    ["E0369"] = "Restrict bounds",
+                },
                 -- ["lua_ls"] = {
                 --   ["unused-local"] = "Disable diagnostics on this line",
                 -- },
