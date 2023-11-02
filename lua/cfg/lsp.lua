@@ -76,7 +76,8 @@ function on_attach(client, bufnr)
     -- }, bufnr)
     --
     -- TODO: Consider this in contrast to manual toggle
-    if client.server_capabilities.inlayHintProvider then
+    --
+    if client.server_capabilities.inlayHintProvider and vim.fn.has("nvim-0.10") == 1 then
         vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
         vim.g.inlay_hints_supported = true
         vim.api.nvim_create_augroup("lsp_augroup", { clear = true })

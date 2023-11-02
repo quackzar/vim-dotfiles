@@ -213,7 +213,7 @@ return {
     {
         "Bekaboo/dropbar.nvim",
         lazy = false, -- lazy-loading is done by the plugin itself
-        enabled = true, -- vim.fn.has("nvim-0.10") == 1,
+        enabled = vim.fn.has("nvim-0.10") == 1,
         opts = {
             icons = {
                 kinds = {

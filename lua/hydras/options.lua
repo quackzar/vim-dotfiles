@@ -45,7 +45,7 @@ end
 
 local function typehintopt()
     if not vim.g.inlay_hints_supported then
-        return "[!]"
+        return "[?]"
     end
     if vim.g.inlay_hints then
         return "[x]"
