@@ -89,6 +89,7 @@ return {
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {
+                ft_ignore = { "NeogitStatus", "NeogitPopup", "NeogitCommitMessage" },
                 setopt = true,
                 seperator = true,
                 relculright = true,
