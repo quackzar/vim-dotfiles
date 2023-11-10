@@ -117,7 +117,6 @@ return {
         lazy = true,
         cmd = "Neogit",
         init = function()
-            -- BUG: dropbar breaks with not finding a 'NeogitCommitMessage' TS parser
             vim.api.nvim_create_augroup("neogit-additions", {})
             vim.api.nvim_create_autocmd("FileType", {
                 group = "neogit-additions",
@@ -126,8 +125,6 @@ return {
             })
         end,
     },
-
-    { "fredeeb/tardis.nvim", config = true },
 
     {
         "FabijanZulj/blame.nvim",

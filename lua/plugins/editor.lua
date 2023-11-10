@@ -15,24 +15,6 @@ return {
         },
     },
 
-    "LudoPinelli/comment-box.nvim", -- Maybe hydra? Also the venn diagram one
-
-    {
-        "monaqa/dial.nvim",
-        config = function()
-            -- Using lazy to set them apparantly doesn't work
-            vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), { noremap = true, desc = "Dial up" })
-            vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), { noremap = true, desc = "Diap down" })
-            vim.keymap.set("n", "g<C-a>", require("dial.map").inc_gnormal(), { noremap = true }) -- TODO: add desc. to rest
-            vim.keymap.set("n", "g<C-x>", require("dial.map").dec_gnormal(), { noremap = true })
-            vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual(), { noremap = true })
-            vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual(), { noremap = true })
-            vim.keymap.set("v", "g<C-a>", require("dial.map").inc_gvisual(), { noremap = true })
-            vim.keymap.set("v", "g<C-x>", require("dial.map").dec_gvisual(), { noremap = true })
-        end,
-        keys = { "<C-a>", { "<C-x>", mode = "n" } },
-    },
-
     {
         "kylechui/nvim-surround",
         event = "VeryLazy",
@@ -62,8 +44,6 @@ return {
         },
     },
 
-    "Konfekt/vim-sentence-chopper",
-
     {
         "chrisgrieser/nvim-various-textobjs",
         -- maybe consider https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
@@ -72,17 +52,6 @@ return {
             vim.keymap.del("x", "r")
             vim.keymap.del("x", "R")
         end,
-    },
-
-    {
-        -- NOTE: Unused?
-        "ThePrimeagen/refactoring.nvim",
-        dependencies = {
-            { "nvim-lua/plenary.nvim" },
-            { "nvim-treesitter/nvim-treesitter" },
-        },
-        config = true,
-        lazy = true,
     },
 
     {
@@ -163,17 +132,6 @@ return {
             })
         end,
     },
-
-    -- {
-    --     'huy-hng/anyline.nvim',
-    --     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    --     config = {
-    --         ft_ignore = {"help", "alpha", "neo-tree", "OverseerList", "text", "aerial"}
-    --     },
-    --     event = 'VeryLazy',
-    -- },
-
-    "reedes/vim-litecorrect", -- autocorrection! Fixes stupid common mistakes
 
     {
         "kevinhwang91/nvim-bqf",

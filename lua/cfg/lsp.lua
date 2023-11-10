@@ -117,6 +117,24 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "]d", function()
         vim.diagnostic.goto_next { float = false }
     end, { buffer = bufnr, desc = "next diagnostic" })
+    vim.keymap.set("n", "[e", function()
+        vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.ERROR }
+    end, { buffer = bufnr, desc = "prev error" })
+    vim.keymap.set("n", "]e", function()
+        vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.ERROR }
+    end, { buffer = bufnr, desc = "next error" })
+    vim.keymap.set("n", "[w", function()
+        vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.WARN }
+    end, { buffer = bufnr, desc = "prev warning" })
+    vim.keymap.set("n", "]w", function()
+        vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.WARN }
+    end, { buffer = bufnr, desc = "next warning" })
+    vim.keymap.set("n", "[h", function()
+        vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.HINT }
+    end, { buffer = bufnr, desc = "prev hint" })
+    vim.keymap.set("n", "]h", function()
+        vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.HINT }
+    end, { buffer = bufnr, desc = "next hint" })
 
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
 

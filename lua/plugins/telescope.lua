@@ -27,20 +27,12 @@ return {
 
     -- "nvim-telescope/telescope-z.nvim",
 
-    { "Marskey/telescope-sg" },
-
     {
 
         "ziontee113/icon-picker.nvim",
         config = function()
             require("icon-picker")
         end,
-    },
-
-    {
-        "max397574/colortils.nvim",
-        cmd = "Colortils",
-        config = true,
     },
 
     -- }}}

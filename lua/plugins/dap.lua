@@ -58,25 +58,5 @@ return {
         lazy = false,
     },
 
-    -- FIX: BROKEN
-    --
-    -- {
-    --     "rcarriga/cmp-dap",
-    --     dependencies = { "mfussenegger/nvim-dap",  "hrsh7th/nvim-cmp" },
-    --     setup = function ()
-    --         require("cmp").setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-    --             sources = {
-    --                 { name = "dap" },
-    --             },
-    --         })
-    --     end
-    -- },
-
-    -- {
-    --     "mfussenegger/nvim-dap-python",
-    --     ft = { "python" },
-    --     dependencies = { "mfussenegger/nvim-dap" },
-    -- },
-    --
     "HUAHUAI23/telescope-dapzzzz",
 }

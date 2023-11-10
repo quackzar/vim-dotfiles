@@ -214,18 +214,6 @@ return {
     },
 
     {
-        "p00f/godbolt.nvim",
-        lazy = true,
-        cmd = { "Godbolt", "GodboltCompiler" },
-        opts = {
-            quickfix = {
-                enable = true, -- whether to populate the quickfix list in case of errors
-                auto_open = true, -- whether to open the quickfix list in case of errors
-            },
-        },
-    },
-
-    {
         "andythigpen/nvim-coverage",
         -- See: https://github.com/mozilla/grcov#usage
         -- TODO: Hydra

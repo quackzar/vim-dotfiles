@@ -92,6 +92,20 @@ vim.o.colorcolumn = "+0"
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 
+-- if vim.fn.has('nvim-0.10') then
+--     vim.g.clipboard = {
+--         name = 'OSC 52',
+--         copy = {
+--             ['+'] = require('vim.clipboard.osc52').copy,
+--             ['*'] = require('vim.clipboard.osc52').copy,
+--         },
+--         paste = {
+--             ['+'] = require('vim.clipboard.osc52').paste,
+--             ['*'] = require('vim.clipboard.osc52').paste,
+--         },
+--     }
+-- end
+
 -- some pluginless keymaps
 vim.keymap.set({ "n", "x" }, "Q", "<nop>")
 vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })

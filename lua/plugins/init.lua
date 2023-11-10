@@ -102,34 +102,6 @@ return {
         },
     },
 
-    {
-        -- NOTE: Unused?
-        "rgroli/other.nvim",
-        main = "other-nvim",
-        opts = {
-            mappings = {
-                -- Default
-                "livewire",
-                "angular",
-                "laravel",
-                "rails",
-                "golang",
-                -- C(++)
-                { pattern = "(.*).c$", target = "%1.h", context = "header" },
-                { pattern = "(.*).h$", target = "%1.c", context = "source" },
-                { pattern = "(.*).cpp$", target = "%1.hpp", context = "header" },
-                { pattern = "(.*).hpp$", target = "%1.cpp", context = "source" },
-            },
-        },
-        keys = { -- TODO: Make relevant hydra?
-            { "<leader>ll", "<cmd>Other<cr>", { desc = "Other" } },
-            { "<leader>lp", "<cmd>OtherSplit<cr>", { desc = "Other split" } },
-            { "<leader>lv", "<cmd>OtherVSplit<cr>", { desc = "Other v-split" } },
-            { "<leader>lc", "<cmd>OtherClear<cr>", { desc = "Other clear" } },
-        },
-        cmd = { "Other", "OtherSplit", "OtherVSplit", "OtherClear" },
-    },
-
     -- {
     --     'tzachar/local-highlight.nvim',
     --     config = function()
@@ -223,7 +195,6 @@ return {
     },
 
     -- ==========  C  ==========
-    "justinmk/vim-syntax-extra",
     "shirk/vim-gas",
     "ARM9/arm-syntax-vim",
     -- {'p00f/clangd_extensions.nvim'},
@@ -292,12 +263,6 @@ return {
 
     -- ==========  fish  ==========
     { "mtoohey31/cmp-fish", ft = "fish" },
-
-    -- ======== GRAPHVIZ ========
-    { "liuchengxu/graphviz.vim", ft = "dot" },
-
-    -- ======= OCAML ======
-    { "ELLIOTTCABLE/vim-menhir", ft = { "ocaml", "reasonml" } },
 
     -- ====== LLVM ====
     { "rhysd/vim-llvm", ft = "llvm" },

@@ -85,21 +85,6 @@ return {
         keys = { { "gJ", "<cmd>TSJToggle<cr>", desc = "toggle join/split" } },
     },
 
-    {
-        "ckolkey/ts-node-action",
-        dependencies = { "nvim-treesitter" },
-        config = function() -- Optional
-            require("ts-node-action").setup {}
-            vim.keymap.set(
-                { "n" },
-                "<leader>l",
-                require("ts-node-action").node_action,
-                { desc = "Trigger Node Action" }
-            )
-        end,
-        keys = { "<localleader>t" },
-    },
-
     { "windwp/nvim-ts-autotag" },
 
     {

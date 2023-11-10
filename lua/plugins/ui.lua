@@ -110,7 +110,7 @@ return {
                         text = { builtin.lnumfunc, " " },
                         click = "v:lua.ScLa",
                     },
-                    { -- BUG: Since gitsigns now by default uses extmark it doesn't work.
+                    {
                         sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = true },
                         click = "v:lua.ScSa",
                     },
@@ -121,9 +121,8 @@ return {
 
     {
         "miversen33/sunglasses.nvim",
-        enabled = false,
+        enabled = vim.fn.has("nvim-0.10") == 1,
         config = true,
-        event = "UIEnter",
         opts = {
             filter_type = "SHADE",
             filter_percent = 0.05,
@@ -241,6 +240,7 @@ return {
             filetypes = {
                 "*", -- Highlight all files, but customize some others.
                 cmp_docs = { always_update = true },
+                typst = { always_update = true, rgb_fn = true },
                 -- Ignore these always
                 "!lazy",
                 "!neo-tree",
@@ -404,7 +404,7 @@ return {
 
     {
         "kevinhwang91/nvim-hlslens",
-        enabled = false,
+        enabled = true,
         lazy = true,
         config = true,
         init = function()
