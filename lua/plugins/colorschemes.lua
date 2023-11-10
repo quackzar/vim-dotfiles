@@ -2,6 +2,8 @@ return {
     -- Should probably start hoarding less colorschemes, but a system to lazyload while still be
     -- available in the 'colorscheme' command or in Telescope would be nice.
     -- Although, loadtimes of colorschemes should be pretty low.
+    --
+    -- TODO: Lazy-load colorschemes, but load them on `Telescope colorschemes`
     {
         "folke/tokyonight.nvim",
         priority = 1000,

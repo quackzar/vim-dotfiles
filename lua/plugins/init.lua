@@ -102,15 +102,6 @@ return {
         },
     },
 
-    -- {
-    --     'tzachar/local-highlight.nvim',
-    --     config = function()
-    --         require('local-highlight').setup({
-    --             file_types = {'python', 'cpp', 'c', 'rust', 'lua'}
-    --         })
-    --     end
-    -- },
-
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
@@ -194,11 +185,6 @@ return {
         config = true,
     },
 
-    -- ==========  C  ==========
-    "shirk/vim-gas",
-    "ARM9/arm-syntax-vim",
-    -- {'p00f/clangd_extensions.nvim'},
-
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
@@ -239,28 +225,6 @@ return {
         ft = "markdown",
     },
 
-    -- ======== ASCIIDOC =======
-    {
-        "habamax/vim-asciidoctor",
-        ft = "asciidoc",
-        config = function()
-            vim.g.asciidoctor_fenced_languages = {
-                "go",
-                "c",
-                "python",
-                "tex",
-                "sh",
-                "fish",
-                "javascript",
-                "vim",
-                "html",
-                "java",
-            }
-            vim.g.asciidoctor_syntax_conceal = 1
-            vim.g.asciidoctor_folding = 1
-        end,
-    },
-
     -- ==========  fish  ==========
     { "mtoohey31/cmp-fish", ft = "fish" },
 
@@ -274,9 +238,6 @@ return {
     -- === kitty ===
     "fladson/vim-kitty",
 
-    -- === GLSL ===
-    "tikhomirov/vim-glsl",
-
     -- === rust ===
     { "simrat39/rust-tools.nvim" },
     {
@@ -284,36 +245,6 @@ return {
         dependencies = { { "nvim-lua/plenary.nvim" } },
         event = { "BufRead Cargo.toml" },
         ft = "rust",
-    },
-
-    -- == rest client ===
-    {
-        -- NOTE: Unused?
-        "NTBBloodbath/rest.nvim",
-        lazy = true,
-        dependencies = { "nvim-lua/plenary.nvim" },
-        opts = {
-            -- Open request results in a horizontal split
-            result_split_horizontal = false,
-            -- Skip SSL verification, useful for unknown certificates
-            skip_ssl_verification = false,
-            -- Highlight request on run
-            highlight = {
-                enabled = true,
-                timeout = 150,
-            },
-            result = {
-                -- toggle showing URL, HTTP info, headers at top the of result window
-                show_url = true,
-                show_http_info = true,
-                show_headers = true,
-            },
-            -- Jump to request line on run
-            jump_to_request = false,
-            env_file = ".env",
-            custom_dynamic_variables = {},
-            yank_dry_run = true,
-        },
     },
 
     -- === text ===
