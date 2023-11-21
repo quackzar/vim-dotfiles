@@ -1,5 +1,3 @@
-local SymbolKind = vim.lsp.protocol.SymbolKind
-
 return {
 
     -- LSP + Snippets {{{

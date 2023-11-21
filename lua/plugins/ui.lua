@@ -122,7 +122,7 @@ return {
 
     {
         "miversen33/sunglasses.nvim",
-        enabled = vim.fn.has("nvim-0.10") == 1,
+        enabled = false, --vim.fn.has("nvim-0.10") == 1,
         config = true,
         opts = {
             filter_type = "SHADE",

@@ -57,6 +57,4 @@ return {
         config = true,
         lazy = false,
     },
-
-    "HUAHUAI23/telescope-dapzzzz",
 }

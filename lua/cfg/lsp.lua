@@ -67,31 +67,24 @@ function set_inlay_hl()
 end
 
 function on_attach(client, bufnr)
-    -- require("lsp_signature").on_attach({
-    --     toggle_key = "<C-S-k>",
-    --     bind = true, -- This is mandatory, otherwise border config won't get registered.
-    --     handler_opts = {
-    --         border = "rounded",
-    --     },
-    -- }, bufnr)
-    --
-    -- TODO: Consider this in contrast to manual toggle
-    --
     if client.server_capabilities.inlayHintProvider and vim.fn.has("nvim-0.10") == 1 then
+        vim.notify(
+            "Hello buddy! You seem to be on nvim-0.10 which has support for inlay hints, but it is currently not configured!"
+        )
         vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
         vim.g.inlay_hints_supported = true
         vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
         vim.api.nvim_create_autocmd("InsertEnter", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
+                -- vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
             end,
             group = "lsp_augroup",
         })
         vim.api.nvim_create_autocmd("InsertLeave", {
             buffer = bufnr,
             callback = function()
-                vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
+                -- vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
             end,
             group = "lsp_augroup",
         })
@@ -137,14 +130,6 @@ function on_attach(client, bufnr)
     end, { buffer = bufnr, desc = "next hint" })
 
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-
-    -- vim.keymap.set({ "n", "v" }, "<space>a", "<cmd>CodeActionMenu<cr>", { buffer = bufnr, desc = "Code action (lsp)" })
-    -- vim.keymap.set({ "v", "n" }, "<space>a", require("actions-preview").code_actions, {
-    --     buffer = bufnr,
-    --     desc = "Code action",
-    -- })
-
-    -- vim.keymap.set({"n", "v"}, "<space>a", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code action" })
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
