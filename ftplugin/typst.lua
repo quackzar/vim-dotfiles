@@ -1,4 +1,8 @@
 vim.keymap.set("n", "<localleader>ll", "<cmd>TypstWatch<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lv", function()
+    local filename = vim.fn.expand("%:t:r")
+    vim.cmd("!open " .. filename .. ".pdf")
+end, { buffer = true })
 vim.bo.spelllang = "en"
 vim.wo.spell = true
 vim.bo.textwidth = 100
