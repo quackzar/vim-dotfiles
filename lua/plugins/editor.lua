@@ -17,8 +17,34 @@ return {
 
     {
         "kylechui/nvim-surround",
+        version = "*",
         event = "VeryLazy",
-        config = true,
+        config = function()
+            local surr_utils = require("nvim-surround.config")
+            require("nvim-surround").setup {
+                surrounds = {
+                    ["g"] = {
+                        add = function()
+                            local result = surr_utils.get_input("Enter the type name: ")
+                            if result then
+                                return { { result .. "<" }, { ">" } }
+                            end
+                        end,
+                        find = "[%w]+%b<>",
+                        delete = "^([%w]+<().-(%>)<>$",
+                        change = {
+                            target = "^([%w]+)().-()<>$",
+                            replacement = function()
+                                local result = surr_utils.get_input("Enter the type name: ")
+                                if result then
+                                    return { { result }, { "" } }
+                                end
+                            end,
+                        },
+                    },
+                },
+            }
+        end,
     },
 
     {

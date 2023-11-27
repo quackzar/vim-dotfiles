@@ -178,6 +178,12 @@ return {
             -- this will fallback to the lsp if there is no specific formatter
             vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
         end,
+        config = function(_, opts)
+            require("conform").setup(opts)
+            require("conform").formatters.rustfmt = {
+                prepend_args = { "--edition", "2021" }, -- Otherwise we can't use new syntax.
+            }
+        end,
     },
 
     {
