@@ -507,6 +507,8 @@ return {
                     -- '<localleader>'
                     { mode = "n", keys = "<localleader>" },
                     { mode = "x", keys = "<localleader>" },
+                    -- Snippets
+                    { mode = "i", keys = "<C-s>" },
                 },
 
                 clues = {
