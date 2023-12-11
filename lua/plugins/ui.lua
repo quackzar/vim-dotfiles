@@ -364,10 +364,10 @@ return {
     },
 
     {
-        "folke/drop.nvim",
+        "folke/drop.nvim", -- screensaver
         event = "VimEnter",
         config = true,
-        opts = { screensaver = false },
+        opts = { screensaver = false, theme = "snow" },
     },
 
     {
