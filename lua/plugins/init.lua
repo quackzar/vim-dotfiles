@@ -248,7 +248,6 @@ return {
     },
 
     -- === text ===
-    { "barreiroleo/ltex-extra.nvim" },
 
     -- TeX
     {
