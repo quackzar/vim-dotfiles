@@ -257,14 +257,15 @@ mason_lsp.setup_handlers { -- check if this actually works
                 ltex = {
                     language = "en-US",
                     checkFrequency = "save",
+                    completionEnabled = true,
                     additionalRules = {
-                        enablePickyRules = false,
+                        enablePickyRules = true,
                     },
                     disabledRules = {
                         ["en-US"] = {
                             "TYPOS",
-                            "MORFOLOGIK_RULE_EN",
-                            "MORFOLOGIK_RULE_EN_US",
+                            -- "MORFOLOGIK_RULE_EN",
+                            -- "MORFOLOGIK_RULE_EN_US",
                             "EN_QUOTES",
                             "PASSIVE_VOICE",
                         },
