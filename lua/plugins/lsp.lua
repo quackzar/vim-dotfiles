@@ -266,28 +266,26 @@ return {
 
     {
         "barreiroleo/ltex_extra.nvim",
-        enabled = false,
+        enabled = true,
         ft = { "markdown", "tex" },
         dependencies = { "neovim/nvim-lspconfig" },
         -- yes, you can use the opts field, just I'm showing the setup explicitly
         opts = {
-            require("ltex_extra").setup {
-                server_opts = {
-                    settings = {
-                        ltex = {
-                            checkFrequency = "save",
-                            language = "en-US",
-                            additionalRules = {
-                                enablePickyRules = false,
-                            },
-                            disabledRules = {
-                                ["en-US"] = {
-                                    "TYPOS",
-                                    "MORFOLOGIK_RULE_EN",
-                                    "MORFOLOGIK_RULE_EN_US",
-                                    "EN_QUOTES",
-                                    "PASSIVE_VOICE",
-                                },
+            server_opts = {
+                settings = {
+                    ltex = {
+                        checkFrequency = "save",
+                        language = "en-US",
+                        additionalRules = {
+                            enablePickyRules = false,
+                        },
+                        disabledRules = {
+                            ["en-US"] = {
+                                "TYPOS",
+                                "MORFOLOGIK_RULE_EN",
+                                "MORFOLOGIK_RULE_EN_US",
+                                "EN_QUOTES",
+                                "PASSIVE_VOICE",
                             },
                         },
                     },
