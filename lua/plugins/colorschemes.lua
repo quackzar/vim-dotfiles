@@ -1,3 +1,5 @@
+vim.api.nvim_exec_autocmds("User", { pattern = "LoadAllColorschemes" })
+
 return {
     -- Should probably start hoarding less colorschemes, but a system to lazyload while still be
     -- available in the 'colorscheme' command or in Telescope would be nice.
@@ -7,6 +9,8 @@ return {
     {
         "folke/tokyonight.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
         config = function()
             vim.g.tokyonight_style = "night"
         end,
@@ -15,6 +19,8 @@ return {
     {
         "tiagovla/tokyodark.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
         config = function()
             vim.g.tokyodark_transparent_background = false
         end,
@@ -23,6 +29,8 @@ return {
     {
         "meliora-theme/neovim",
         name = "melioria",
+        lazy = true,
+        event = "User LoadAllColorschemes",
         priority = 1000,
         dependencies = { "rktjmp/lush.nvim" },
     },
@@ -30,12 +38,16 @@ return {
     {
         "loctvl842/monokai-pro.nvim",
         priority = 1000,
+        event = "User LoadAllColorschemes",
+        lazy = true,
     },
 
     {
         "catppuccin/nvim",
         name = "catppuccin",
         priority = 1000,
+        event = "User LoadAllColorschemes",
+        lazy = true,
         config = function()
             require("catppuccin").setup {
                 flavour = "mocha",
@@ -70,17 +82,22 @@ return {
     {
         "mhartington/oceanic-next",
         priority = 1000,
+        event = "User LoadAllColorschemes",
+        lazy = true,
     },
 
     {
         "rose-pine/neovim",
         name = "rose-pine",
         priority = 1000,
+        event = "User LoadAllColorschemes",
+        lazy = true,
     },
 
     {
         "ribru17/bamboo.nvim",
-        lazy = false,
+        lazy = true,
+        event = "User LoadAllColorschemes",
         priority = 1000,
         config = function()
             require("bamboo").setup {
@@ -92,25 +109,38 @@ return {
     {
         "ellisonleao/gruvbox.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "ful1e5/onedark.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "sainnhe/everforest",
+        priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "sainnhe/sonokai",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "savq/melange-nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "EdenEast/nightfox.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
     {
         "rebelot/kanagawa.nvim",
@@ -118,16 +148,21 @@ return {
             compile = true,
         },
         build = ":KanagawaCompile",
+        event = "User LoadAllColorschemes",
         priority = 1000,
+        lazy = true,
     },
     {
         "shaunsingh/moonlight.nvim",
         priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
     },
 
     -- Remembers the last colorscheme set
     {
         "raddari/last-color.nvim",
         priority = 9999,
+        lazy = false,
     },
 }

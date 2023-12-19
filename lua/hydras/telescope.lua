@@ -50,9 +50,12 @@ Hydra {
         { "o", cmd("Telescope vim_options") },
         {
             "c",
-            cmd(
-                'lua require("telescope.builtin").colorscheme(require("telescope.themes").get_dropdown({enable_preview=true}))'
-            ),
+            function()
+                vim.api.nvim_exec_autocmds("User", { pattern = "LoadAllColorSchemes" })
+                require("telescope.builtin").colorscheme(
+                    require("telescope.themes").get_dropdown { enable_preview = true }
+                )
+            end,
             { desc = "Change colorscheme" },
         },
         -- { "<Enter>", cmd("Telescope"), { exit = true, desc = "List all pickers" } },

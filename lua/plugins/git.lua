@@ -176,6 +176,7 @@ return {
 
     {
         "Velrok/pr_status.nvim",
+        -- PERF: Unusued.
         opts = {
             auto_start = false,
             icons = {
