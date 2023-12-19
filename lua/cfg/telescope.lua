@@ -163,6 +163,16 @@ require("telescope").setup {
     },
 }
 
+-- Temporary pain relief:
+-- https://github.com/nvim-telescope/telescope.nvim/issues/2766#issuecomment-1848930714
+vim.api.nvim_create_autocmd("WinLeave", {
+    callback = function()
+        if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+        end
+    end,
+})
+
 -- require("telescope").load_extension("fzf")
 require("telescope").load_extension("fzy_native")
 
