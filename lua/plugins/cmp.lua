@@ -190,10 +190,6 @@ return {
                 sorting = {
                     priority_weight = 2,
                     comparators = {
-                        -- TODO: Handle them not existing
-                        -- require("copilot_cmp.comparators").prioritize,
-                        -- require("copilot_cmp.comparators").score,
-
                         -- Below is the default comparitor list and order for nvim-cmp
                         -- cmp.config.compare.offset,
                         -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
@@ -254,14 +250,12 @@ return {
                                 async_path = "[path]",
                                 cmp_git = "[git]",
                                 cmpline = "[cmd]",
-                                -- lsp
                                 nvim_lsp = "[lsp]",
-                                -- nvim_lsp_signature_help = "[lsp+]",
                                 nvim_lua = "[api]",
-                                -- weird things
-                                copilot = "[cop]",
                                 luasnip = "[snip]",
                                 omni = "[omni]",
+                                -- unused AI completion plugins
+                                copilot = "[cop]",
                                 cmp_tabnine = "[tab9]",
                                 codeium = "[  ]",
                             }
@@ -290,7 +284,7 @@ return {
                 experimental = {
                     ghost_text = {
                         hl_group = "CmpGhostText",
-                    }, -- incompatible with copilot
+                    },
                 },
             }
 

@@ -35,7 +35,7 @@ vim.keymap.set(
     '<cmd>lua require("luasnip.extras.otf").on_the_fly("s")<cr>',
     { desc = "on-the-fly snip" }
 )
--- TODO: Make generic register version
+
 local types = require("luasnip.util.types")
 
 vim.keymap.set({ "i" }, "<C-s>", "<nop>")

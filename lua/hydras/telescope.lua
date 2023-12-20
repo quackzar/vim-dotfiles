@@ -17,8 +17,6 @@ local hint = [[
                  _<space>_: alternative        _<esc>_
 ]]
 
--- TODO: Needs a visual version
-
 Hydra {
     name = "Telescope",
     hint = hint,
