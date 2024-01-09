@@ -167,67 +167,66 @@ mason_lsp.setup_handlers { -- check if this actually works
             inlay_hints = { enabled = true },
         }
     end,
-    ["rust_analyzer"] = function()
-        local rt = require("rust-tools")
-        local extension_path = "/Users/mikkel/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/"
-        local codelldb_path = extension_path .. "adapter/codelldb"
-        local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib" -- TODO: switch on linux
-        rt.setup {
-            server = {
-                on_attach = function(client, bufnr)
-                    on_attach(client, bufnr)
-                    vim.keymap.set("n", "<localleader>a", rt.hover_actions.hover_actions, { buffer = bufnr })
-                    vim.keymap.set("n", "<RightMouse>", rt.hover_actions.hover_actions, { buffer = bufnr })
-                end,
-                capabilities = capabilities,
-                settings = {
-                    ["rust-analyzer"] = {
-                        assist = {
-                            importEnforceGranularity = true,
-                            importPrefix = "crate",
-                        },
-                        inlayHints = { locationLinks = false },
-                        diagnostics = {
-                            enable = true,
-                            experimental = {
-                                enable = true,
-                            },
-                        },
-                        cargo = {
-                            features = "all",
-                            buildScripts = { enable = true },
-                        },
-                        check = { command = "clippy" },
-                        checkOnSave = {
-                            command = "clippy",
-                        },
-                        completion = {
-                            fullFunctionSignatures = { enable = true },
-                        },
-                    },
-                },
-            },
-            dap = {
-                adapters = { require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path) },
-            },
-            tools = {
-                executor = require("rust-tools/executors").toggleterm,
-                hover_with_actions = false,
-                diagnostics = {
-                    disabled = {
-                        "inactive-code",
-                        "unused_variables",
-                    },
-                },
-                hover_actions = {
-                    auto_focus = true,
-                },
-                inlay_hints = {
-                    auto = false,
-                },
-            },
-        }
-    end,
+    -- ["rust_analyzer"] = function()
+    --     local extension_path = "/Users/mikkel/.vscode/extensions/vadimcn.vscode-lldb-1.8.1/"
+    --     local codelldb_path = extension_path .. "adapter/codelldb"
+    --     local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib" -- TODO: switch on linux
+    --     rt.setup {
+    --         server = {
+    --             on_attach = function(client, bufnr)
+    --                 on_attach(client, bufnr)
+    --                 vim.keymap.set("n", "<localleader>a", rt.hover_actions.hover_actions, { buffer = bufnr })
+    --                 vim.keymap.set("n", "<RightMouse>", rt.hover_actions.hover_actions, { buffer = bufnr })
+    --             end,
+    --             capabilities = capabilities,
+    --             settings = {
+    --                 ["rust-analyzer"] = {
+    --                     assist = {
+    --                         importEnforceGranularity = true,
+    --                         importPrefix = "crate",
+    --                     },
+    --                     inlayHints = { locationLinks = false },
+    --                     diagnostics = {
+    --                         enable = true,
+    --                         experimental = {
+    --                             enable = true,
+    --                         },
+    --                     },
+    --                     cargo = {
+    --                         features = "all",
+    --                         buildScripts = { enable = true },
+    --                     },
+    --                     check = { command = "clippy" },
+    --                     checkOnSave = {
+    --                         command = "clippy",
+    --                     },
+    --                     completion = {
+    --                         fullFunctionSignatures = { enable = true },
+    --                     },
+    --                 },
+    --             },
+    --         },
+    --         dap = {
+    --             adapters = { require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path) },
+    --         },
+    --         tools = {
+    --             executor = require("rust-tools/executors").toggleterm,
+    --             hover_with_actions = false,
+    --             diagnostics = {
+    --                 disabled = {
+    --                     "inactive-code",
+    --                     "unused_variables",
+    --                 },
+    --             },
+    --             hover_actions = {
+    --                 auto_focus = true,
+    --             },
+    --             inlay_hints = {
+    --                 auto = false,
+    --             },
+    --         },
+    --     }
+    -- end,
     ["typst_lsp"] = function()
         lspconfig.typst_lsp.setup {
             on_attach = on_attach,

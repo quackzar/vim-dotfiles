@@ -252,7 +252,14 @@ return {
     "fladson/vim-kitty",
 
     -- === rust ===
-    { "simrat39/rust-tools.nvim" },
+    -- { "simrat39/rust-tools.nvim" },
+    -- {
+    --     'mrcjkb/rustaceanvim',
+    --     version = '^3', -- Recommended
+    --     ft = { 'rust' },
+    -- },
+    { "vxpm/ferris.nvim", opts = { create_commands = true }, ft = "rust" },
+
     {
         "saecki/crates.nvim",
         dependencies = { { "nvim-lua/plenary.nvim" } },
