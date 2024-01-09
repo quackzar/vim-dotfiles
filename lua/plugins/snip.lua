@@ -15,4 +15,30 @@ return {
         keys = { "<c-s>" },
         event = "InsertEnter",
     },
+
+    {
+        "chrisgrieser/nvim-scissors",
+        dependencies = "nvim-telescope/telescope.nvim",
+        opts = {
+            snippetDir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets",
+            jsonFormatter = "jq",
+        },
+        keys = {
+            {
+                "<leader>se",
+                function()
+                    require("scissors").editSnippet()
+                end,
+                desc = "edit snippet",
+            },
+            {
+                "<leader>sa",
+                function()
+                    require("scissors").addNewSnippet()
+                end,
+                desc = "add new snippet",
+                mode = { "x", "n" },
+            },
+        },
+    },
 }
