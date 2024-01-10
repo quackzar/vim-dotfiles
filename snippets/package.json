@@ -1,0 +1,27 @@
+{
+    "contributes": {
+        "snippets": [
+            {
+                "language": "python",
+                "path": "./python.json"
+            },
+            {
+                "language": "rust",
+                "path": "./rust.json"
+            },
+            {
+                "language": "lua",
+                "path": "./project-specific/nvim-lua.json"
+            },
+            {
+                "language": "javascript",
+                "path": "./javascript.json"
+            },
+            {
+                "language": "all",
+                "path": "./all.json"
+            }
+        ]
+    },
+    "name": "my-snippets"
+}

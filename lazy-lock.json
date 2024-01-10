@@ -6,6 +6,7 @@
   "alpha-nvim": { "branch": "main", "commit": "29074eeb869a6cbac9ce1fbbd04f5f5940311b32" },
   "animation.nvim": { "branch": "main", "commit": "fb77091ab72ec9971aee0562e7081182527aaa6a" },
   "autolist.nvim": { "branch": "main", "commit": "5f70a5f99e96c8fe3069de042abd2a8ed2deb855" },
+  "backout.nvim": { "branch": "main", "commit": "3b6262bb13275430746b5cb3667c7c4f654c998f" },
   "bamboo.nvim": { "branch": "master", "commit": "827293c57eb3d25e6d9bd196d0decae9a0e0efb5" },
   "blame.nvim": { "branch": "main", "commit": "562661972085a273914c8f702b11924f8aa573ea" },
   "block.nvim": { "branch": "main", "commit": "6fb969ab12579e58b9379aa51933cad4a466cf75" },

@@ -62,10 +62,18 @@ return {
                 fast_wrap = {},
             }
             local Rule = require("nvim-autopairs.rule")
+            local cond = require("nvim-autopairs.conds")
             local npairs = require("nvim-autopairs")
             npairs.add_rule(Rule("\\(", "\\)", "tex"))
             npairs.add_rule(Rule("\\[", "\\]", "tex"))
             npairs.add_rule(Rule("\\left", "\\right", "tex"))
+            npairs.add_rules {
+                Rule("<", ">"):with_pair(cond.before_regex("%a+")):with_move(function(opts)
+                    return opts.char == ">"
+                end),
+            }
+            -- Sort of works, but screws with single `|`
+            --npairs.add_rules({Rule("|", "|", { "rust", "go", "lua" }):with_move(cond.after_regex("|")) })
         end,
     },
 
@@ -110,12 +118,25 @@ return {
                     { open = "\\(", close = "\\)" },
                     { open = "\\{", close = "\\}" },
                     { open = "\\[", close = "\\]" },
+                    { open = "|", close = "|" },
+                    { open = "<", close = ">" },
                 },
                 ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
                 exclude = {}, -- tabout will ignore these filetypes
             }
         end,
         dependencies = { "nvim-treesitter", "nvim-cmp" },
+    },
+
+    { -- Sort of alternative to tabout, but works a bit differently.
+        "AgusDOLARD/backout.nvim",
+        event = "InsertEnter",
+        opts = {},
+        keys = {
+            -- Define your keybinds
+            { "<M-b>", "<cmd>lua require('backout').back()<cr>", mode = { "i" } },
+            { "<M-n>", "<cmd>lua require('backout').out()<cr>", mode = { "i" } },
+        },
     },
 
     {

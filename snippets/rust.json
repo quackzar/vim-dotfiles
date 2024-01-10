@@ -1,0 +1,11 @@
+{
+  "lambda + la + ||": {
+    "body": "|${1}| ${1}",
+    "filetype": "rust",
+    "prefix": [
+      "lambda",
+      "la",
+      "||"
+    ]
+  }
+}
