@@ -6,9 +6,8 @@ require("nvim-treesitter.configs").setup {
         },
         -- Setting this to true or a list of languages will run `:h syntax` and tree-sitter at the same time.
         additional_vim_regex_highlighting = false,
-        disable = function(_, bufnr)
-            local ft = vim.bo[bufnr].filetype
-            if ft == "tex" then
+        disable = function(lang, bufnr)
+            if lang == "latex" then
                 return true
             end
 
@@ -39,6 +38,7 @@ require("nvim-treesitter.configs").setup {
     indent = {
         enable = false,
     },
+
     textsubjects = {
         enable = false,
         prev_selection = ",", -- (Optional) keymap to select the previous selection

@@ -93,16 +93,18 @@ return {
         "shellRaining/hlchunk.nvim",
         event = { "UIEnter" },
         opts = {
-            exclude_filtypes = {
-                "typst",
-                "help",
-                "packer",
-                "undotree",
-                "text",
-                "dashboard",
-                "man",
-            },
             chunk = {
+                exclude_filetypes = {
+                    typst = true,
+                    tex = true,
+                    vimdoc = true,
+                    help = true,
+                    packer = true,
+                    undotree = true,
+                    text = true,
+                    dashboard = true,
+                    man = true,
+                },
                 chars = {
                     horizontal_line = "─",
                     left_top = "╭",
