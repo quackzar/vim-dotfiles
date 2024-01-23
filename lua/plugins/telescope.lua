@@ -26,7 +26,7 @@ return {
     },
 
     {
-        "nvim-telescope/telescope-fzy-native.nvim"
+        "nvim-telescope/telescope-fzy-native.nvim",
     },
 
     -- "nvim-telescope/telescope-z.nvim",
@@ -34,6 +34,7 @@ return {
     {
 
         "ziontee113/icon-picker.nvim",
+        lazy = true, -- TODO: Used?
         config = function()
             require("icon-picker")
         end,

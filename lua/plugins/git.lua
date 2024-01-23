@@ -99,7 +99,6 @@ return {
     {
         "NeogitOrg/neogit",
         dependencies = "nvim-lua/plenary.nvim",
-        event = "VeryLazy",
         opts = {
             disable_commit_confirmation = true,
             disable_insert_on_commit = "auto",

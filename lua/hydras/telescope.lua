@@ -28,7 +28,7 @@ Hydra {
             border = "rounded",
         },
     },
-    mode = "n",
+    mode = { "n" },
     body = "<leader>f",
     heads = {
         { "r", cmd("Telescope resume") },
@@ -67,3 +67,6 @@ Hydra {
         { "<esc>", nil, { exit = true, nowait = true } },
     },
 }
+
+-- Not a hydra but could become one.
+vim.keymap.set("x", "<leader>f", cmd("Telescope grep_string"), { desc = "grep string" })

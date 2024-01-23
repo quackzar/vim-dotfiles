@@ -160,6 +160,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     callback = function()
         local modes = {
             ["n"] = vim.g.terminal_color_1, -- red
+            ["no"] = vim.g.terminal_color_1, -- red
             ["i"] = vim.g.terminal_color_2, -- green
             ["ti"] = vim.g.terminal_color_2, -- green
             ["tn"] = vim.g.terminal_color_1, -- green

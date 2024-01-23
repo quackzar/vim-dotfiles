@@ -531,6 +531,7 @@ return {
 
     {
         "mrjones2014/smart-splits.nvim", -- Used in a Hydra
+        lazy = true,
         config = true,
     },
 

@@ -104,6 +104,15 @@ require("telescope").setup {
                 mirror = false,
             },
         },
+        grep_string = {
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.9,
+                height = 0.9,
+                preview_cutoff = 1,
+                mirror = false,
+            },
+        },
         lsp_implementations = {
             layout_strategy = "vertical",
             layout_config = {
@@ -143,6 +152,7 @@ require("telescope").setup {
                 mirror = false,
             },
         },
+
         live_grep_args = {
             auto_quoting = true, -- enable/disable auto-quoting
             -- define mappings, e.g.

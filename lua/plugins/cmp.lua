@@ -4,8 +4,6 @@ return {
         event = "InsertEnter",
         dependencies = {
             "neovim/nvim-lspconfig",
-
-            "hrsh7th/cmp-nvim-lsp-document-symbol",
             "hrsh7th/cmp-nvim-lsp",
 
             {
@@ -61,7 +59,7 @@ return {
         keys = {
             { ":", mode = { "n", "v" } }, -- also trigger on cmdline
         },
-        opts = function()
+        config = function()
             local t = function(str)
                 return vim.api.nvim_replace_termcodes(str, true, true, true)
             end
@@ -310,7 +308,6 @@ return {
                 },
                 sources = {
                     { name = "buffer" },
-                    { name = "nvim_lsp_document_symbol" },
                 },
                 formatting = {
                     fields = { "kind", "abbr", "menu" },

@@ -20,7 +20,6 @@ local git_hydra = Hydra {
             border = "rounded",
         },
         on_enter = function()
-            gitsigns.toggle_signs(true)
             vim.cmd("mkview!")
             vim.cmd("silent! %foldopen!")
             gitsigns.toggle_linehl(true)
@@ -28,7 +27,6 @@ local git_hydra = Hydra {
             vim.cmd("UfoDetach")
         end,
         on_exit = function()
-            gitsigns.toggle_signs(false)
             local cursor_pos = vim.api.nvim_win_get_cursor(0)
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)

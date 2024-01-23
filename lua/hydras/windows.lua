@@ -1,5 +1,4 @@
 local Hydra = require("hydra")
-local splits = require("smart-splits")
 
 local cmd = require("hydra.keymap-util").cmd
 local pcmd = require("hydra.keymap-util").pcmd
@@ -79,25 +78,25 @@ Hydra {
         {
             "<C-h>",
             function()
-                splits.resize_left(2)
+                require("smart-splits").resize_left(2)
             end,
         },
         {
             "<C-j>",
             function()
-                splits.resize_down(2)
+                require("smart-splits").resize_down(2)
             end,
         },
         {
             "<C-k>",
             function()
-                splits.resize_up(2)
+                require("smart-splits").resize_up(2)
             end,
         },
         {
             "<C-l>",
             function()
-                splits.resize_right(2)
+                require("smart-splits").resize_right(2)
             end,
         },
         { "=", "<C-w>=", { desc = "equalize" } },
