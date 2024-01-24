@@ -34,6 +34,7 @@ return {
                 refactor_inline = { "<leader>ri", "refactor inline" },
                 refactor_extract = { "<leader>re", "refactor extract" },
                 refactor_rewrite = { "<leader>rw", "refactor rewrite" },
+                source = { "<leader>s", "apply source" },
                 actions = {
                     -- example:
                     ["rust_analyzer"] = {
@@ -81,6 +82,7 @@ return {
 
     {
         "folke/trouble.nvim",
+        lazy = true,
         opts = {
             use_diagnostic_signs = true,
         },

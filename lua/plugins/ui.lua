@@ -136,6 +136,8 @@ return {
             "anuvyklack/middleclass",
             "anuvyklack/animation.nvim",
         },
+        lazy = true,
+        cmd = { "WindowsMaximize", "WindowsMaximizeVertically", "WindowsMaximizeHorizontally", "WindowsEqualize" },
         config = function()
             vim.o.winwidth = 10
             vim.o.winminwidth = 10

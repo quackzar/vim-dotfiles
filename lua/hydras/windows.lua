@@ -109,8 +109,8 @@ Hydra {
         { "w", "<C-w>w", { exit = true, desc = false } },
         { "<C-w>", "<C-w>w", { exit = true, desc = false } },
 
-        { "z", cmd("WindowsMaximaze"), { exit = true, desc = "maximize" } },
-        { "<C-z>", cmd("WindowsMaximaze"), { exit = true, desc = false } },
+        { "z", cmd("WindowsMaximize"), { exit = true, desc = "maximize" } },
+        { "<C-z>", cmd("WindowsMaximize"), { exit = true, desc = false } },
 
         { "o", "<C-w>o", { exit = true, desc = "remain only" } },
         { "<C-o>", "<C-w>o", { exit = true, desc = false } },

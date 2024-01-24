@@ -12,7 +12,7 @@ return {
                 version = "^1.0.0",
             },
         },
-        event = "VimEnter",
+        cmd = "Telescope",
         config = function()
             require("cfg.telescope")
         end,

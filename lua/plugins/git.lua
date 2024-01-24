@@ -62,8 +62,8 @@ return {
 
     {
         "sindrets/diffview.nvim",
-        event = "VeryLazy",
         dependencies = "nvim-lua/plenary.nvim",
+        cmd = { "DiffviewFileHistory", "DiffviewOpen", "DiffviewLog" },
         opts = {
             enhanced_diff_hl = true,
             default_args = {

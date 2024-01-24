@@ -28,7 +28,7 @@ vim.o.formatoptions = "jcroqlnt" -- tcqj
 vim.o.jumpoptions = "stack,view"
 vim.o.autowrite = true
 
--- vim.o.title = true
+vim.o.title = true
 
 vim.o.virtualedit = "block,onemore"
 vim.o.ignorecase = true

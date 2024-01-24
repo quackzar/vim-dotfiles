@@ -229,7 +229,8 @@ return {
         -- Does the same thing as tsnode-marker
         "lukas-reineke/headlines.nvim",
         dependencies = "nvim-treesitter/nvim-treesitter",
-        config = true, -- or `opts = {}`
+        config = true,
+        ft = { "markdown", "norg", "org" },
     },
 
     {
