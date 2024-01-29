@@ -174,39 +174,6 @@ return {
     },
 
     {
-        "Velrok/pr_status.nvim",
-        -- PERF: Unusued.
-        opts = {
-            auto_start = false,
-            icons = {
-                gh_icon = " ",
-                unknown = "?",
-                running = " ",
-                failed = " ",
-                passed = " ",
-            },
-        },
-        init = function()
-            -- This simply checks if there are any workflows to show.
-            -- If not, then it doesn't a question mark or double zeroes.
-            vim.fn.jobstart("gh workflow list", {
-                stderr_buffered = true,
-                stdout_buffered = true,
-                on_stdout = function(_, lines, _)
-                    for _, line in ipairs(lines) do
-                        if line == "" then
-                            return
-                        end
-                        require("pr_status").start()
-                        return
-                    end
-                end,
-            })
-        end,
-        lazy = false,
-    },
-
-    {
         "lewis6991/satellite.nvim",
         enabled = vim.fn.has("nvim-0.10") == 1,
         event = "BufRead",

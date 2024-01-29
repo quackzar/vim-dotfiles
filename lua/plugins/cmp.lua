@@ -39,7 +39,7 @@ return {
                 },
             },
 
-            "hrsh7th/cmp-buffer",
+            -- "hrsh7th/cmp-buffer",
 
             "FelipeLema/cmp-async-path",
             "hrsh7th/cmp-omni",

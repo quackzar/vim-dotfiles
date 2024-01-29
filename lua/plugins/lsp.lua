@@ -15,6 +15,7 @@ return {
 
     {
         "luckasRanarison/clear-action.nvim",
+        event = "LspAttach",
         opts = {
             signs = {
                 icons = {
@@ -61,6 +62,7 @@ return {
         config = true,
         lazy = true,
         cmd = "Glance",
+        event = "LspAttach",
         init = function()
             -- TODO: This vs Telescope vs Quickfix + bqf
             vim.api.nvim_create_autocmd("LspAttach", {
@@ -77,6 +79,7 @@ return {
 
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        -- event = "LspAttach",
         config = true,
     },
 
@@ -167,6 +170,7 @@ return {
 
     {
         "stevearc/conform.nvim",
+        event = "BufEnter",
         opts = {
             formatters_by_ft = {
                 -- lua is better handled by the lsp

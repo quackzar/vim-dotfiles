@@ -184,4 +184,4 @@ vim.api.nvim_create_autocmd("WinLeave", {
     end,
 })
 
-require("telescope").load_extension("zf_native")
+require("telescope").load_extension("zf-native")

@@ -73,6 +73,7 @@ return {
 
     {
         "echasnovski/mini.align",
+        event = "BufEnter",
         opts = {
             mappings = {
                 start = "ga",

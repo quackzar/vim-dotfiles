@@ -179,25 +179,6 @@ basic.git_diff = {
     end,
 }
 
-local pr_status_active, pr_status = pcall(require, "pr_status")
-basic.git_pr_status = {
-    width = 10,
-    hl_colors = {
-        green = { "green", "black" },
-        red = { "red", "black" },
-        blue = { "blue", "black" },
-    },
-    text = function(bufnr)
-        if git_comps.is_git(bufnr) and pr_status_active then
-            local result = pr_status.get_last_result()
-            if result and result.summary then
-                return { { " " .. pr_status.get_last_result_string(), "blue" } }
-            end
-        end
-        return ""
-    end,
-}
-
 basic.logo = {
     hl_colors = {
         Normal = { "white", "red" },
@@ -298,7 +279,6 @@ local default = {
         basic.hydra,
         basic.divider,
         basic.git_diff,
-        basic.git_pr_status,
         -- TODO: This doesn't work?
         { git_rev.git_rev { format = "⇡%s⇣%s", interval = 10000 }, { "yellow", "black" }, 90 },
         { git_comps.git_branch { icon = " 󰊢 " }, { "green", "black" }, 90 },
