@@ -5,7 +5,7 @@ local gitsigns = require("gitsigns")
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
- ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _o_: open remote
+ ^ ^              _S_: stage buffer      _D_: diff this     _Y_: yank link      _o_: options
  ^ ^              _c_: commit            _H_: history       _L_: log
  ^ ^              _g_/_<enter>_: Neogit                     _<esc>_: exit
 ]]
@@ -87,7 +87,7 @@ local git_hydra = Hydra {
             end,
         },
         -- TODO: This one vvv does not work that well
-        { "o", "<cmd>!git open<cr>", { exit = true } }, -- show the base of the file
+        { "o", "<cmd>Gitsigns<cr>", { exit = true } }, -- show the base of the file
         { "c", "<cmd>Neogit commit<cr>", { exit = true } },
         { "<enter>", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
         { "g", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },

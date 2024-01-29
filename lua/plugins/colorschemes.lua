@@ -1,11 +1,9 @@
 vim.api.nvim_exec_autocmds("User", { pattern = "LoadAllColorschemes" })
 
 return {
-    -- Should probably start hoarding less colorschemes, but a system to lazyload while still be
-    -- available in the 'colorscheme' command or in Telescope would be nice.
-    -- Although, loadtimes of colorschemes should be pretty low.
-    --
-    -- TODO: Lazy-load colorschemes, but load them on `Telescope colorschemes`
+    -- These should be activated when the autocommand 'User LoadAllColorschemes' is triggered.
+    -- How to trigger it when calling the `:colorscheme` command , I don't know.
+    -- It is activated when using the telescope binding.
     {
         "folke/tokyonight.nvim",
         priority = 1000,
@@ -102,8 +100,16 @@ return {
         config = function()
             require("bamboo").setup {
                 -- optional configuration here
+                cmp_itemkind_reverse = true,
             }
         end,
+    },
+
+    {
+        "akinsho/horizon.nvim",
+        lazy = true,
+        event = "User LoadAllColorschemes",
+        version = "*",
     },
 
     {

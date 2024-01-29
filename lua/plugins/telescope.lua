@@ -18,15 +18,8 @@ return {
         end,
     },
 
-    "romgrk/fzy-lua-native", -- for use with wilder
-
     {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    },
-
-    {
-        "nvim-telescope/telescope-fzy-native.nvim",
+        "natecraddock/telescope-zf-native.nvim",
     },
 
     -- "nvim-telescope/telescope-z.nvim",
