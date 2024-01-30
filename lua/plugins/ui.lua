@@ -603,4 +603,10 @@ return {
         dependencies = { "winston0410/cmd-parser.nvim" },
         config = true,
     },
+
+    {
+        "0xAdk/full_visual_line.nvim",
+        keys = "V",
+        opts = {},
+    },
 }

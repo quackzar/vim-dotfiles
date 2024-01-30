@@ -62,11 +62,12 @@ require("neo-tree").setup {
             ["h"] = {
                 function(state)
                     local node = state.tree:get_node()
-                    if node.type == "directory" and node:is_expanded() then
-                        require("neo-tree.sources.filesystem").toggle_directory(state, node)
-                    else
-                        require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-                    end
+                    -- if node.type == "directory" and node:is_expanded() then
+                    --     require("neo-tree.sources.filesystem").toggle_directory(state, node)
+                    -- else
+                    --     require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+                    -- end
+                    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
                 end,
                 desc = "ascent",
             },
