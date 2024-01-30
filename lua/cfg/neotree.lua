@@ -1,6 +1,15 @@
 -- TODO: Move to ./lua/plugins/
 local commands = require("cfg.commands")
 
+local indexOf = function(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
+
 require("neo-tree").setup {
     sources = {
         "filesystem",
@@ -37,37 +46,50 @@ require("neo-tree").setup {
     window = {
         mappings = {
             ["z"] = "none",
-            ["zo"] = commands.open_fold,
-            ["zO"] = commands.open_folds_rec,
-            ["zc"] = commands.close_fold,
-            ["zC"] = commands.close_folds_rec,
-            ["za"] = commands.toggle_fold,
-            ["zA"] = commands.toggle_folds_rec,
-            ["zv"] = commands.fold_view_cursor,
-            ["zM"] = commands.close_all_folds,
-            ["zR"] = commands.expand_all_folds,
-            ["[z"] = commands.focus_fold_start,
-            ["]z"] = commands.focus_fold_end,
-            ["zj"] = commands.focus_next_fold_start,
-            ["zk"] = commands.focus_prev_fold_end,
-            ["h"] = function(state)
-                local node = state.tree:get_node()
-                if node.type == "directory" and node:is_expanded() then
-                    require("neo-tree.sources.filesystem").toggle_directory(state, node)
-                else
-                    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-                end
-            end,
-            ["l"] = function(state)
-                local node = state.tree:get_node()
-                if node.type == "directory" then
-                    if not node:is_expanded() then
+            ["zo"] = { commands.open_fold, desc = "open fold" },
+            ["zO"] = { commands.open_folds_rec, desc = "open fold rec." },
+            ["zc"] = { commands.close_fold, desc = "close fold" },
+            ["zC"] = { commands.close_folds_rec, desc = "close fold rec." },
+            ["za"] = { commands.toggle_fold, desc = "toggle fold" },
+            ["zA"] = { commands.toggle_folds_rec, desc = "toggle fold rec." },
+            ["zv"] = { commands.fold_view_cursor, desc = "view cursor" },
+            ["zM"] = { commands.close_all_folds, desc = "close all folds" },
+            ["zR"] = { commands.expand_all_folds, desc = "expand all" },
+            ["[z"] = { commands.focus_fold_start, desc = "prev fold" },
+            ["]z"] = { commands.focus_fold_end, desc = "next fold" },
+            ["zj"] = { commands.focus_next_fold_start, desc = "next sibling" },
+            ["zk"] = { commands.focus_prev_fold_end, desc = "prev sibling" },
+            ["h"] = {
+                function(state)
+                    local node = state.tree:get_node()
+                    if node.type == "directory" and node:is_expanded() then
+                        require("neo-tree.sources.filesystem").toggle_directory(state, node)
+                    else
+                        require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+                    end
+                end,
+                desc = "ascent",
+            },
+            ["l"] = {
+                function(state)
+                    local node = state.tree:get_node()
+                    if node.type == "directory" and not node:is_expanded() then
                         require("neo-tree.sources.filesystem").toggle_directory(state, node)
                     elseif node:has_children() then
                         require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+                    else
+                        -- Either next sibling or open file?
+                        local parent = state.tree:get_node(node:get_parent_id())
+                        local siblings = parent:get_child_ids()
+                        if not node.is_last_child then
+                            local currentIndex = indexOf(siblings, node.id)
+                            local nextIndex = siblings[currentIndex + 1]
+                            require("neo-tree.ui.renderer").focus_node(state, nextIndex)
+                        end
                     end
-                end
-            end,
+                end,
+                desc = "descent",
+            },
         },
     },
     buffers = {

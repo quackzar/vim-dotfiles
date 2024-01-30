@@ -268,7 +268,7 @@ return {
                 -- and nightly just sounds cooler.
                 --
                 -- Since we are nightly, we might want the modification date.
-                -- We could also use the git-hash, but that is harder to reason about.
+                -- We could also use the git-hash, but that does not say a lot by itself.
                 -- We also might actually find the executable which we run, instead of just assuming it's the one in PATH.
                 -- But given this will require looking up the current process and such,
                 -- and the usual invocated exe is the one in PATH, it seems niche.
