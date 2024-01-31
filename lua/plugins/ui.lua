@@ -100,19 +100,19 @@ return {
                     --     click = "v:lua.ScSa"
                     -- },
                     {
-                        sign = { name = ".*", maxwidth = 1, auto = true },
+                        sign = { name = ".*", maxwidth = 1, auto = true }, -- all other signs
                         click = "v:lua.ScSa",
                     },
                     {
-                        text = { builtin.foldfunc, " " },
+                        text = { builtin.foldfunc, " " }, -- fold signs
                         click = "v:lua.ScFa",
                     },
                     {
-                        text = { builtin.lnumfunc, " " },
+                        text = { builtin.lnumfunc, " " }, -- line numbers
                         click = "v:lua.ScLa",
                     },
                     {
-                        sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = true },
+                        sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = true }, -- git signs
                         click = "v:lua.ScSa",
                     },
                 },
@@ -156,8 +156,11 @@ return {
 
     {
         "folke/edgy.nvim",
-        enabled = false,
+        enabled = true,
         event = "VeryLazy",
+        init = function()
+            vim.opt.splitkeep = "screen"
+        end,
         opts = {
             animate = {
                 cps = 240,
@@ -197,10 +200,38 @@ return {
             left = {
                 {
                     ft = "neo-tree",
-                    title = "Neo-Tree",
-                    -- filter = function(buf)
-                    --     return vim.b[buf].neo_tree_source ~= "document_symbols"
-                    -- end,
+                    title = "Filesystem",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source == "filesystem"
+                    end,
+                    pinned = true,
+                },
+                {
+                    ft = "neo-tree",
+                    title = "Document Symbols",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source == "document_symbols"
+                    end,
+                    pinned = true,
+                    open = "Neotree position=top document_symbols",
+                },
+                {
+                    ft = "neo-tree",
+                    title = "Git Status",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source == "git_status"
+                    end,
+                    pinned = false,
+                    open = "Neotree position=right git_status",
+                },
+                {
+                    ft = "neo-tree",
+                    title = "Buffers",
+                    filter = function(buf)
+                        return vim.b[buf].neo_tree_source == "buffers"
+                    end,
+                    pinned = false,
+                    open = "Neotree position=top buffers",
                 },
                 -- {ft="DiffviewFiles"},
             },
