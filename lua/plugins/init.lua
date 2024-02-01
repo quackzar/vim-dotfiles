@@ -256,6 +256,7 @@ return {
     {
         "mrcjkb/rustaceanvim",
         version = "^4", -- Recommended
+        enabled = false,
         ft = { "rust" },
         config = function()
             local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"

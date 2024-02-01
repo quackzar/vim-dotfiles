@@ -29,6 +29,9 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { numhl = hl })
 end
 
+vim.keymap.set("n", "<space>K", function()
+    vim.diagnostic.open_float { float = false }
+end, { desc = "diagnostic hover" })
 vim.keymap.set("n", "[d", function()
     vim.diagnostic.goto_prev { float = false }
 end, { desc = "prev diagnostic" })
@@ -154,54 +157,45 @@ mason_lsp.setup_handlers { -- check if this actually works
             inlay_hints = { enabled = true },
         }
     end,
-    -- ["_rust_analyzer"] = function() -- Unused.
-    --     lspconfig.rust_analyzer.setup {
-    --         on_attach = on_attach,
-    --         capabilities = capabilities,
-    --         inlay_hints = { enabled = true },
-    --         settings = {
-    --             ["rust-analyzer"] = {
-    --                 assist = {
-    --                     importEnforceGranularity = true,
-    --                     importPrefix = "crate",
-    --                 },
-    --                 inlayHints = { locationLinks = true },
-    --                 diagnostics = {
-    --                     enable = true,
-    --                     experimental = {
-    --                         enable = true,
-    --                     },
-    --                     disabled = {
-    --                         "inactive-code",
-    --                         "unused_variables",
-    --                     },
-    --                 },
-    --                 cargo = {
-    --                     features = "all",
-    --                     buildScripts = { enable = true },
-    --                 },
-    --                 check = {
-    --                     command = "clippy",
-    --                 },
-    --                 checkOnSave = {
-    --                     command = "clippy",
-    --                 },
-    --                 completion = {
-    --                     fullFunctionSignatures = { enable = true },
-    --                 },
-    --                 procMacro = {
-    --                     ignored = {
-    --                         leptos_macro = {
-    --                             -- optional: --
-    --                             -- "component",
-    --                             "server",
-    --                         },
-    --                     },
-    --                 },
-    --             },
-    --         },
-    --     }
-    -- end,
+    ["rust_analyzer"] = function() -- Unused.
+        lspconfig.rust_analyzer.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            inlay_hints = { enabled = true },
+            settings = {
+                ["rust-analyzer"] = {
+                    assist = {
+                        importEnforceGranularity = true,
+                        importPrefix = "crate",
+                    },
+                    inlayHints = { locationLinks = true },
+                    diagnostics = {
+                        enable = true,
+                        experimental = {
+                            enable = true,
+                        },
+                        disabled = {
+                            "inactive-code",
+                            "unused_variables",
+                        },
+                    },
+                    cargo = {
+                        features = "all",
+                        buildScripts = { enable = true },
+                    },
+                    check = {
+                        command = "clippy",
+                    },
+                    checkOnSave = {
+                        command = "clippy",
+                    },
+                    completion = {
+                        fullFunctionSignatures = { enable = true },
+                    },
+                },
+            },
+        }
+    end,
     ["typst_lsp"] = function()
         lspconfig.typst_lsp.setup {
             on_attach = on_attach,
