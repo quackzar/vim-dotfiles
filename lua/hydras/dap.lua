@@ -122,10 +122,10 @@ local dap_hydra = Hydra {
                 local map = { -- Define special launchers
                     c = launch_codelldb,
                     cpp = launch_codelldb,
-                    rust = function()
-                        -- vim.cmd("RustDebuggables")
-                        vim.cmd("RustLastDebug")
-                    end,
+                    -- rust = function()
+                    --     -- vim.cmd("RustDebuggables")
+                    --     vim.cmd("RustLsp debuggables")
+                    -- end,
                 }
 
                 local fn = map[vim.bo.filetype]

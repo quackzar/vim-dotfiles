@@ -95,12 +95,12 @@ return {
                 relculright = true,
                 clickmod = "c", -- modifier used for certain actions in the builtin clickhandlers:
                 segments = {
-                    -- {
-                    --     sign = { name = { "Diagnostic" }, maxwidth = 1, auto = true },
-                    --     click = "v:lua.ScSa"
-                    -- },
                     {
-                        sign = { name = ".*", maxwidth = 1, auto = true }, -- all other signs
+                        sign = { name = { "Diagnostic" }, maxwidth = 0, auto = true },
+                        click = "v:lua.ScSa",
+                    },
+                    {
+                        sign = { name = { "Dap.*" }, maxwidth = 1, auto = true },
                         click = "v:lua.ScSa",
                     },
                     {
