@@ -47,7 +47,7 @@ vim.o.guicursor = table.concat({
     [[sm:block-blinkwait175-blinkoff150-blinkon175]],
 }, ",")
 
-vim.wo.signcolumn = "auto:1"
+-- vim.wo.signcolumn = "auto:1"
 
 vim.o.cursorlineopt = "number"
 vim.o.cursorline = true

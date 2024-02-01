@@ -95,6 +95,7 @@ return {
                 relculright = true,
                 clickmod = "c", -- modifier used for certain actions in the builtin clickhandlers:
                 segments = {
+                    -- TODO: Make Diagnostic, fold and Dap share a column
                     {
                         sign = { name = { "Diagnostic" }, maxwidth = 0, auto = true },
                         click = "v:lua.ScSa",

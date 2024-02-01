@@ -198,6 +198,21 @@ return {
         config = true,
     },
 
+    {
+        "rest-nvim/rest.nvim",
+        ft = "http",
+        dependencies = { { "nvim-lua/plenary.nvim" } },
+        opts = {
+            result_split_in_place = false,
+        },
+        config = true,
+        keys = {
+            { "<localleader>r", "<Plug>RestNvim" },
+            { "<localleader>p", "<Plug>RestNvimPreview" },
+            { "<localleader>l", "<Plug>RestNvimLast" },
+        },
+    },
+
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
