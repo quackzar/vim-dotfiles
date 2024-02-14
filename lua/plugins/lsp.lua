@@ -84,6 +84,13 @@ return {
     },
 
     {
+        -- Mouse over diagnostics (wow!)
+        "soulis-1256/eagle.nvim",
+        config = true,
+        -- event = "LspAttach",
+    },
+
+    {
         "folke/trouble.nvim",
         lazy = true,
         opts = {

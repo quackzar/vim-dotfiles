@@ -1,11 +1,5 @@
 ---@diagnostic disable: lowercase-global
 
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---     virtual_text = false,
---     underline = true,
---     sign = false,
--- })
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
 })
@@ -57,11 +51,15 @@ vim.keymap.set("n", "]h", function()
     vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.HINT }
 end, { desc = "next hint" })
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+})
+
 vim.diagnostic.config {
     underline = true,
     signs = true,
     virtual_text = false,
-    virtual_lines = { only_current_line = true, highlight_whole_line = false },
+    virtual_lines = true, -- { only_current_line = true, highlight_whole_line = false },
     float = {
         show_header = true,
         source = "if_many",
@@ -157,6 +155,14 @@ mason_lsp.setup_handlers { -- check if this actually works
             inlay_hints = { enabled = true },
         }
     end,
+    ["clangd"] = function()
+        lspconfig.clangd.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            inlay_hints = { enabled = true },
+            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        }
+    end,
     ["rust_analyzer"] = function() -- Unused.
         lspconfig.rust_analyzer.setup {
             on_attach = on_attach,
@@ -185,9 +191,11 @@ mason_lsp.setup_handlers { -- check if this actually works
                     },
                     check = {
                         command = "clippy",
+                        workspace = false,
                     },
                     checkOnSave = {
                         command = "clippy",
+                        workspace = false,
                     },
                     completion = {
                         fullFunctionSignatures = { enable = true },
