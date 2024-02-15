@@ -114,6 +114,23 @@ basic.lsp = {
     end),
 }
 
+basic.lint = {
+    width = 20,
+    hl_colors = {
+        green = { "green", "black", "bold" },
+    },
+    text = cache_utils.cache_on_buffer({ "BufWritePost", "BufEnter" }, "wl_lint_connection", function()
+        local lint_progress = function()
+            local linters = require("lint").get_running()
+            if #linters == 0 then
+                return ""
+            end
+            return " 󱉶 [" .. table.concat(linters, "|") .. "]"
+        end
+        return { { lint_progress, "green" } }
+    end),
+}
+
 basic.hydra = {
     hl_colors = {
         magenta = { "magenta", "black" },
@@ -274,6 +291,7 @@ local default = {
         { sep.right_rounded, { "black_light", "black" } },
         basic.macros,
         -- basic.macros,
+        basic.lint,
         basic.lsp,
         basic.lsp_diagnos,
         basic.hydra,

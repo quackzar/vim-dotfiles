@@ -206,7 +206,11 @@ return {
         event = "BufWritePost",
         config = function()
             require("lint").linters_by_ft = {
-                bash = "shellcheck",
+                markdown = { "vale" },
+                python = { "ruff" },
+                bash = { "shellcheck" },
+                c = { "compiler" },
+                -- lua = {'luacheck'},
             }
         end,
         init = function()
@@ -215,7 +219,16 @@ return {
                     require("lint").try_lint()
                 end,
             })
-        end,
+        end, -- TODO: Setup call to notify/noice
+    },
+
+    {
+        "rshkarin/mason-nvim-lint",
+        event = "BufWritePost",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "mfussenegger/nvim-lint",
+        },
     },
 
     {

@@ -51,14 +51,10 @@ vim.keymap.set("n", "]h", function()
     vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.HINT }
 end, { desc = "next hint" })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-})
-
 vim.diagnostic.config {
     underline = true,
     signs = true,
-    virtual_text = false,
+    virtual_text = true,
     virtual_lines = true, -- { only_current_line = true, highlight_whole_line = false },
     float = {
         show_header = true,
@@ -69,6 +65,10 @@ vim.diagnostic.config {
     update_in_insert = false, -- default to false
     severity_sort = true, -- default to false
 }
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -204,6 +204,26 @@ mason_lsp.setup_handlers { -- check if this actually works
             },
         }
     end,
+    ["pylsp"] = function()
+        lspconfig.pylsp.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                pylsp = {
+                    plugins = {
+                        pycodestyle = {
+                            ignore = { "E501", "E231", "W391" },
+                            maxLineLength = 120,
+                        },
+                        flake8 = {
+                            ignore = { "E501", "E231" },
+                            maxLineLength = 120,
+                        },
+                    },
+                },
+            },
+        }
+    end,
     ["typst_lsp"] = function()
         lspconfig.typst_lsp.setup {
             on_attach = on_attach,
@@ -240,10 +260,11 @@ mason_lsp.setup_handlers { -- check if this actually works
                     disabledRules = {
                         ["en-US"] = {
                             "TYPOS",
-                            -- "MORFOLOGIK_RULE_EN",
-                            -- "MORFOLOGIK_RULE_EN_US",
+                            "MORFOLOGIK_RULE_EN",
+                            "MORFOLOGIK_RULE_EN_US",
                             "EN_QUOTES",
                             "PASSIVE_VOICE",
+                            "WHITESPACE_RULE",
                         },
                     },
                 },
