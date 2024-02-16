@@ -192,6 +192,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     command = [[call mkdir(expand('<afile>:p:h'), 'p')]],
 })
 
+-- load custom options (non-standard vim globals)
+require("options")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {

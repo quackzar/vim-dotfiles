@@ -131,7 +131,7 @@ return {
         "dgagn/diagflow.nvim",
         event = "BufEnter",
         opts = {
-            enable = false,
+            enable = vim.g.diagflow,
             scope = "line",
             padding_right = 3,
         },

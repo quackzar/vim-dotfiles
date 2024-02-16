@@ -1,10 +1,11 @@
 local Hydra = require("hydra")
 
+-- TODO: Make submenu instead?
+
 local function diagnostic()
-    local state = vim.diagnostic.config().virtual_lines
-    if type(state) == "table" then
+    if not vim.g.virtual_lines then
         return "[-]"
-    elseif state then
+    elseif vim.g.virtual_lines then
         return "[x]"
     else
         return "[ ]"
@@ -12,23 +13,27 @@ local function diagnostic()
 end
 
 local function cycle_diagnostics()
-    local state = vim.diagnostic.config().virtual_lines
-    if type(state) == "table" then
-        vim.diagnostic.config {
-            virtual_lines = true,
-            signs = false,
-        }
-    elseif state then
-        vim.diagnostic.config {
-            virtual_lines = false,
-            signs = true,
-        }
+    if vim.g.virtual_lines then
+        vim.g.virtual_lines = false
+        vim.g.virtual_text = true
+        vim.g.diagflow = false
+    elseif vim.g.virtual_text then
+        vim.g.virtual_lines = false
+        vim.g.virtual_text = false
+        vim.g.diagflow = true
     else
-        vim.diagnostic.config {
-            virtual_lines = { only_current_line = true },
-            signs = true,
-        }
+        vim.g.virtual_lines = true
+        vim.g.virtual_text = false
+        vim.g.diagflow = false
     end
+
+    require("diagflow").config.enable = vim.g.diagflow
+    vim.diagnostic.config {
+        virtual_lines = vim.g.virtual_lines,
+        virtual_text = vim.g.virtual_text,
+        -- virtual_lines = { only_current_line = true },
+        signs = vim.g.diagnostic_signs,
+    }
 end
 
 local function cursorlineopt()

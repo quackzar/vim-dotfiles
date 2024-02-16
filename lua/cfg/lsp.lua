@@ -54,8 +54,8 @@ end, { desc = "next hint" })
 vim.diagnostic.config {
     underline = true,
     signs = true,
-    virtual_text = true,
-    virtual_lines = true, -- { only_current_line = true, highlight_whole_line = false },
+    virtual_text = vim.g.virtual_text,
+    virtual_lines = vim.g.virtual_lines,
     float = {
         show_header = true,
         source = "if_many",
@@ -66,9 +66,10 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-})
+-- This is wierd
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+--     virtual_text = true,
+-- })
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
