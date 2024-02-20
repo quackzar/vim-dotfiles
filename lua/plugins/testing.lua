@@ -8,7 +8,7 @@ return {
             "antoinemadec/FixCursorHold.nvim",
 
             -- Seperate test suites (should maybe be hot-loaded?)
-            "rouge8/neotest-rust",
+            -- "rouge8/neotest-rust",
             "nvim-neotest/neotest-python",
             "haydenmeade/neotest-jest",
             "Issafalcon/neotest-dotnet",
@@ -59,8 +59,8 @@ return {
                     overseer = require("neotest.consumers.overseer"),
                 },
                 adapters = {
-                    require("neotest-rust"),
-                    -- require("rustaceanvim.neotest"),
+                    -- require("neotest-rust"),
+                    require("rustaceanvim.neotest"),
                     require("neotest-python") {
                         dap = { justMyCode = false },
                     },

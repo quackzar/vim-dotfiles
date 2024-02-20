@@ -92,6 +92,7 @@ return {
 
     {
         "folke/trouble.nvim",
+        enabled = false,
         lazy = true,
         opts = {
             use_diagnostic_signs = true,

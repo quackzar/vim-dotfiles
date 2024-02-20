@@ -1,5 +1,5 @@
 local actions = require("telescope.actions")
-local trouble = require("trouble.providers.telescope")
+-- local trouble = require("trouble.providers.telescope")
 local lga_actions = require("telescope-live-grep-args.actions")
 
 local action_layout = require("telescope.actions.layout")
@@ -17,7 +17,7 @@ require("telescope").setup {
             i = {
                 ["<esc>"] = actions.close,
                 ["<C-u>"] = false,
-                ["<c-t>"] = trouble.open_with_trouble,
+                -- ["<c-t>"] = trouble.open_with_trouble,
                 -- map actions.which_key to <C-h> (default: <C-/>)
                 -- actions.which_key shows the mappings for your picker,
                 -- e.g. git_{create, delete, ...}_branch for the git_branches picker
@@ -27,7 +27,7 @@ require("telescope").setup {
                 ["<M-p>"] = action_layout.toggle_preview,
             },
             n = {
-                ["<c-t>"] = trouble.open_with_trouble,
+                -- ["<c-t>"] = trouble.open_with_trouble,
                 ["<M-p>"] = action_layout.toggle_preview,
             },
         },

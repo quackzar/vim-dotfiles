@@ -1,4 +1,4 @@
----@diagnostic disable: lowercase-global
+---@diagnostic disable: lowercase-global, redundant-parameter
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
@@ -50,6 +50,9 @@ end, { desc = "prev hint" })
 vim.keymap.set("n", "]h", function()
     vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.HINT }
 end, { desc = "next hint" })
+
+-- TODO: Add method to populate quickfix with workspace diagnostics
+vim.keymap.set("n", "<space>x", vim.diagnostic.setloclist, { desc = "Populate loclist" })
 
 vim.diagnostic.config {
     underline = true,
@@ -164,8 +167,10 @@ mason_lsp.setup_handlers { -- check if this actually works
             filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         }
     end,
-    ["rust_analyzer"] = function() -- Unused.
-        lspconfig.rust_analyzer.setup {
+    ["rust_analyzer"] = function()
+        lspconfig.rust_analyzer.setup = function() end
+        return
+            lspconfig.rust_analyzer.setup {
             on_attach = on_attach,
             capabilities = capabilities,
             inlay_hints = { enabled = true },
