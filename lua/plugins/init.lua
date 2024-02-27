@@ -304,7 +304,7 @@ return {
                             diagnostics = {
                                 enable = true,
                                 experimental = {
-                                    enable = true,
+                                    enable = false,
                                 },
                                 disabled = {
                                     "inactive-code",
@@ -332,13 +332,12 @@ return {
             }
         end,
     },
-    --{ "vxpm/ferris.nvim", opts = { create_commands = true }, ft = "rust" },
 
     {
         "saecki/crates.nvim",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        tag = "stable",
         event = { "BufRead Cargo.toml" },
-        ft = "rust",
+        config = true,
     },
 
     -- === text ===
