@@ -49,7 +49,7 @@ local function cursorlineopt()
 end
 
 local function typehintopt()
-    if not vim.g.inlay_hints_supported then
+    if not vim.fn.has("nvim-0.10") then
         return "[?]"
     end
     if vim.g.inlay_hints then
@@ -207,7 +207,7 @@ Hydra {
         {
             "t",
             function() -- TODO: Find a way to check if it's active
-                if not vim.g.inlay_hints_supported then
+                if not vim.fn.has("nvim-0.10") then
                     return
                 end
                 if vim.g.inlay_hints == true then
@@ -215,9 +215,9 @@ Hydra {
                 else
                     vim.g.inlay_hints = true
                 end
-                vim.lsp.inlay_hint(0, vim.g.inlay_hints)
+                vim.lsp.inlay_hint.enable(0, vim.g.inlay_hints)
             end,
-            { desc = "type hints" },
+            { desc = "inlay hints" },
         },
         { "<Esc>", nil, { exit = true } },
     },

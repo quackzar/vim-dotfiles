@@ -587,9 +587,11 @@ return {
             require("cfg.hydra")
         end,
         keys = {
-            "<space>f",
-            "<space>g",
-            "<space>t",
+            "<space>f", -- Telescope
+            "<space>g", -- Git
+            "<space>t", -- Tests
+            "<space>o", -- Options
+            "<space>d", -- Debug
         },
     },
 

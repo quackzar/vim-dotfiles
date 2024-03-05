@@ -84,27 +84,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 function on_attach(client, bufnr)
     vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
-    -- if client.server_capabilities.inlayHintProvider and vim.fn.has("nvim-0.10") == 1 then
-    --     vim.notify(
-    --         "Hello buddy! You seem to be on nvim-0.10 which has support for inlay hints, but it is currently not configured!"
-    --     )
-    --     vim.g.inlay_hints_supported = true
-    --     vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
-    --     vim.api.nvim_create_autocmd("InsertEnter", {
-    --         buffer = bufnr,
-    --         callback = function()
-    --             vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
-    --         end,
-    --         group = "lsp_augroup",
-    --     })
-    --     vim.api.nvim_create_autocmd("InsertLeave", {
-    --         buffer = bufnr,
-    --         callback = function()
-    --             vim.lsp.inlay_hint(bufnr, vim.g.inlay_hints)
-    --         end,
-    --         group = "lsp_augroup",
-    --     })
-    -- end
+    if vim.fn.has("nvim-0.10") == 1 then
+        vim.lsp.inlay_hint.enable(bufnr, vim.g.inlay_hints)
+    end
 
     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
