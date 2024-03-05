@@ -43,14 +43,14 @@ return {
     -- Navigation {{{
     {
         "sustech-data/wildfire.nvim",
-        event = "VeryLazy",
+        keys = { "<cr>" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = true,
     },
 
     {
         "nacro90/numb.nvim",
-        event = "VeryLazy",
+        keys = { ":" },
         config = true,
     },
 
@@ -406,6 +406,7 @@ return {
         build = "make install",
         lazy = true,
         config = true,
+        ft = "plist",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",

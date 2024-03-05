@@ -16,8 +16,10 @@ local git_hydra = Hydra {
         color = "pink",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "bottom",
-            border = "rounded",
         },
         on_enter = function()
             vim.cmd("mkview!")
@@ -107,8 +109,10 @@ local git_init_hydra = Hydra {
         color = "amaranth",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "bottom",
-            border = "rounded",
         },
         on_exit = function()
             local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")

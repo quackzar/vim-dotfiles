@@ -95,7 +95,9 @@ local dap_hydra = Hydra {
         invoke_on_body = true,
         hint = {
             position = "middle-right",
-            border = "rounded",
+            float_opts = {
+                border = "rounded",
+            },
             funcs = {
                 ["start"] = dap_start,
             },

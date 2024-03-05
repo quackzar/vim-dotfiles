@@ -9,11 +9,17 @@ return {
         },
     },
 
-    "windwp/windline.nvim",
+    {
+        "windwp/windline.nvim",
+        enabled = true,
+        init = function()
+            require("windline.bubblegum")
+        end,
+    },
 
     {
         "folke/noice.nvim",
-        enabled = true,
+        enabled = false,
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
@@ -86,6 +92,7 @@ return {
     {
         "luukvbaal/statuscol.nvim",
         lazy = false,
+        enabled = true,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {
@@ -157,7 +164,7 @@ return {
 
     {
         "folke/edgy.nvim",
-        enabled = true,
+        enabled = false,
         event = "VeryLazy",
         init = function()
             vim.opt.splitkeep = "screen"
@@ -285,8 +292,6 @@ return {
         config = true,
     },
 
-    "rktjmp/lush.nvim",
-
     {
         "goolord/alpha-nvim",
         event = "VimEnter",
@@ -400,12 +405,14 @@ return {
     {
         "folke/drop.nvim", -- screensaver
         event = "VimEnter",
+        enabled = false,
         config = true,
         opts = { screensaver = false, theme = "snow" },
     },
 
     {
         "rcarriga/nvim-notify",
+        enabled = false,
         opts = {
             render = "compact",
             background_colour = "#000000",
@@ -571,13 +578,19 @@ return {
     },
 
     {
-        "anuvyklack/hydra.nvim",
+        "nvimtools/hydra.nvim",
+        enabled = true,
         dependencies = "anuvyklack/keymap-layer.nvim", -- needed only for pink hydras
         lazy = true,
         -- Maybe clean this up a bit, and trigger regitration on keys?
         config = function()
             require("cfg.hydra")
         end,
+        keys = {
+            "<space>f",
+            "<space>g",
+            "<space>t",
+        },
     },
 
     {
@@ -618,11 +631,6 @@ return {
         "karb94/neoscroll.nvim",
         event = "VeryLazy",
         config = true,
-    },
-
-    {
-        "eandrju/cellular-automaton.nvim",
-        lazy = true,
     },
 
     {

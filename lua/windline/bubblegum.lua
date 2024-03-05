@@ -1,6 +1,5 @@
 local windline = require("windline")
 local helper = require("windline.helpers")
-local hydra = require("hydra.statusline")
 local sep = helper.separators
 local vim_components = require("windline.components.vim")
 local cache_utils = require("windline.cache_utils")
@@ -63,12 +62,15 @@ basic.vi_mode = {
         amaranthBefore = { "red_light", "black" },
     },
     text = function()
-        if hydra.is_active() and hydra.get_name() then
-            return {
-                { sep.left_rounded, hydra.get_color() .. "Before" },
-                ---@diagnostic disable-next-line: param-type-mismatch
-                { string.upper(hydra.get_name()) .. " ", hydra.get_color() },
-            }
+        if is_loaded("hydra") then
+            local hydra = require("hydra.statusline")
+            if hydra.is_active() and hydra.get_name() then
+                return {
+                    { sep.left_rounded, hydra.get_color() .. "Before" },
+                    ---@diagnostic disable-next-line: param-type-mismatch
+                    { string.upper(hydra.get_name()) .. " ", hydra.get_color() },
+                }
+            end
         end
         return {
             { sep.left_rounded, state.mode[2] .. "Before" },
@@ -136,9 +138,11 @@ basic.hydra = {
         magenta = { "magenta", "black" },
     },
     text = function(_)
-        local hint = require("hydra.statusline").get_hint()
-        if hint then
-            return " " .. hint
+        if is_loaded("hydra") then
+            local hint = require("hydra.statusline").get_hint()
+            if hint then
+                return " " .. hint
+            end
         end
         return ""
     end,
@@ -220,11 +224,14 @@ basic.logo = {
         amaranthBefore = { "red_light", "black" },
     },
     text = function()
-        if hydra.is_active() and hydra.get_name() then
-            return {
-                { sep.left_rounded, hydra.get_color() .. "Before" },
-                { "󰫤 ", hydra.get_color() },
-            }
+        if is_loaded("hydra") then
+            local hydra = require("hydra.statusline")
+            if hydra.is_active() and hydra.get_name() then
+                return {
+                    { sep.left_rounded, hydra.get_color() .. "Before" },
+                    { "󰫤 ", hydra.get_color() },
+                }
+            end
         else
             return {
                 { sep.left_rounded, state.mode[2] .. "Before" },

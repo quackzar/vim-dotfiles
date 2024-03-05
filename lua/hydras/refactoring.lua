@@ -39,7 +39,6 @@ Hydra {
         invoke_on_body = true,
         hint = {
             position = "bottom",
-            border = "rounded",
         },
     },
     mode = { "n" },
@@ -90,8 +89,10 @@ Hydra {
         color = "teal",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "bottom",
-            border = "rounded",
         },
     },
     mode = { "v" },

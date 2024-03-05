@@ -35,8 +35,10 @@ return Hydra {
         color = "teal",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "middle",
-            border = "rounded",
         },
     },
     mode = "n",

@@ -83,7 +83,9 @@ Hydra {
         color = "amaranth",
         invoke_on_body = true,
         hint = {
-            border = "rounded",
+            float_opts = {
+                border = "rounded",
+            },
             position = "middle",
             funcs = {
                 ["diag"] = diagnostic,

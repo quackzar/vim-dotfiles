@@ -50,6 +50,11 @@ return {
                         "⠋",
                     },
                 },
+                ---@diagnostic disable-next-line: missing-fields
+                summary = {
+                    open = "topleft vsplit | vertical resize 30",
+                },
+                log_level = 0,
                 status = {
                     enabled = true,
                     virtual_text = true,

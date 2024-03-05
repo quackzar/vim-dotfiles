@@ -13,8 +13,10 @@ local test_hydra = Hydra {
         color = "teal",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "bottom",
-            border = "rounded",
         },
     },
     name = "neogen",

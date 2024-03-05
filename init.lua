@@ -207,6 +207,7 @@ if not vim.loop.fs_stat(lazypath) then
     }
 end
 vim.opt.rtp:prepend(lazypath)
+require("functions")
 require("lazy").setup("plugins", {
     concurrency = 50,
     git = { timeout = 120 },
@@ -214,13 +215,10 @@ require("lazy").setup("plugins", {
 })
 -- loads all plugins
 
-require("functions")
-
 -- load specific configs
 require("mason").setup()
 require("cfg.lsp")
 require("ts-grammars")
-require("windline.bubblegum")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))

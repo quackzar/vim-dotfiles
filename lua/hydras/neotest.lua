@@ -5,9 +5,9 @@ local Hydra = require("hydra")
 
 local hint = [[
  ^ ^                  ^ ^    TESTING 󰙨
- _t_: test nearest    _a_: attach nearest    _o_: summary
- _f_: test file       _x_: stop nearest      _d_: debug nearest
- ^ ^                  _<esc>_: exit          _<cr>_: goto summary
+ _r_: run nearest     _a_: attach nearest    _w_: watch neatest
+ _f_: run file        _x_: stop nearest      _d_: debug nearest
+ _o_: summary         _<esc>_: exit          _<cr>_: goto summary
 ]]
 
 local test_hydra = Hydra {
@@ -16,8 +16,10 @@ local test_hydra = Hydra {
         color = "pink",
         invoke_on_body = true,
         hint = {
+            float_opts = {
+                border = "rounded",
+            },
             position = "bottom",
-            border = "rounded",
         },
         on_enter = function()
             vim.bo.modifiable = false
@@ -32,7 +34,7 @@ local test_hydra = Hydra {
     body = "<leader>t",
     heads = {
         {
-            "t",
+            "r",
             function()
                 require("neotest").run.run()
             end,
@@ -72,6 +74,13 @@ local test_hydra = Hydra {
             "o",
             function()
                 require("neotest").summary.toggle()
+            end,
+            { silent = true },
+        },
+        {
+            "w",
+            function()
+                require("neotest").watch.toggle()
             end,
             { silent = true },
         },
