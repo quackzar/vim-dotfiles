@@ -62,7 +62,7 @@ basic.vi_mode = {
         amaranthBefore = { "red_light", "black" },
     },
     text = function()
-        if is_loaded("hydra") then
+        if is_loaded("hydra.nvim") then
             local hydra = require("hydra.statusline")
             if hydra.is_active() and hydra.get_name() then
                 return {
@@ -138,7 +138,7 @@ basic.hydra = {
         magenta = { "magenta", "black" },
     },
     text = function(_)
-        if is_loaded("hydra") then
+        if is_loaded("hydra.nvim") then
             local hint = require("hydra.statusline").get_hint()
             if hint then
                 return " " .. hint
@@ -224,7 +224,7 @@ basic.logo = {
         amaranthBefore = { "red_light", "black" },
     },
     text = function()
-        if is_loaded("hydra") then
+        if is_loaded("hydra.nvim") then
             local hydra = require("hydra.statusline")
             if hydra.is_active() and hydra.get_name() then
                 return {
@@ -301,7 +301,7 @@ local default = {
         basic.lint,
         basic.lsp,
         basic.lsp_diagnos,
-        basic.hydra,
+        -- basic.hydra,
         basic.divider,
         basic.git_diff,
         -- TODO: This doesn't work?
