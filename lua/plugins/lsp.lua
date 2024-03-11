@@ -91,6 +91,41 @@ return {
     },
 
     {
+        "mizlan/delimited.nvim",
+        config = true,
+        keys = {
+            {
+                "[d",
+                function()
+                    require("delimited").goto_prev()
+                end,
+                desc = "prev diagnostic",
+            },
+            {
+                "]d",
+                function()
+                    require("delimited").goto_next()
+                end,
+                desc = "next diagnostic",
+            },
+            {
+                "[e",
+                function()
+                    require("delimited").goto_prev { severity = vim.diagnostic.severity.ERROR }
+                end,
+                desc = "prev error",
+            },
+            {
+                "]e",
+                function()
+                    require("delimited").goto_next { severity = vim.diagnostic.severity.ERROR }
+                end,
+                desc = "next error",
+            },
+        },
+    },
+
+    {
         "folke/trouble.nvim",
         enabled = false,
         lazy = true,

@@ -281,7 +281,7 @@ return {
                 },
                 experimental = {
                     ghost_text = {
-                        hl_group = "CmpGhostText",
+                        hl_group = "NonText",
                     },
                 },
             }
