@@ -3,9 +3,10 @@ return {
     { -- TODO: Setup mappings
         "rcarriga/neotest",
         dependencies = {
+            "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
             "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter",
 
             -- Seperate test suites (should maybe be hot-loaded?)
             -- "rouge8/neotest-rust",

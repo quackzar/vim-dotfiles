@@ -552,7 +552,6 @@ return {
                     -- Snippets
                     { mode = "i", keys = "<C-s>" },
                 },
-
                 clues = {
                     -- Enhance this by adding descriptions for <Leader> mapping groups
                     miniclue.gen_clues.builtin_completion(),

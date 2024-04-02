@@ -5,11 +5,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 })
 
 local signs = {
-    -- nonicons:
-    -- Error = " ",
-    -- Warn = " ",
-    -- Hint = " ",
-    -- Info = " ",
     -- nerdfont:
     Error = " ",
     Warn = " ",
@@ -106,6 +101,13 @@ function on_attach(client, bufnr)
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
 end
 
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+    callback = function(ev)
+        on_attach(ev.client, ev.buf)
+    end,
+})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
@@ -131,132 +133,55 @@ mason_lsp.setup {
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 }
 
--- lspconfig.sourcekit.setup {}
+lspconfig.clangd.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    inlay_hints = { enabled = true },
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+}
 
-mason_lsp.setup_handlers { -- check if this actually works
-    function(server_name)
-        lspconfig[server_name].setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            inlay_hints = { enabled = true },
-        }
-    end,
-    ["clangd"] = function()
-        lspconfig.clangd.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            inlay_hints = { enabled = true },
-            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-        }
-    end,
-    ["rust_analyzer"] = function()
-        lspconfig.rust_analyzer.setup = function() end
-        return
-            lspconfig.rust_analyzer.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            inlay_hints = { enabled = true },
-            settings = {
-                ["rust-analyzer"] = {
-                    assist = {
-                        importEnforceGranularity = true,
-                        importPrefix = "crate",
-                    },
-                    inlayHints = { locationLinks = true },
-                    diagnostics = {
-                        enable = true,
-                        experimental = {
-                            enable = true,
-                        },
-                        disabled = {
-                            "inactive-code",
-                            "unused_variables",
-                        },
-                    },
-                    cargo = {
-                        features = "all",
-                        buildScripts = { enable = true },
-                    },
-                    check = {
-                        command = "clippy",
-                        workspace = false,
-                    },
-                    checkOnSave = {
-                        command = "clippy",
-                        workspace = false,
-                    },
-                    completion = {
-                        fullFunctionSignatures = { enable = true },
-                    },
+lspconfig.typst_lsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        -- exportPdf = "onType",
+    },
+}
+
+lspconfig.ltex.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = {
+        "bib",
+        "gitcommit",
+        "markdown",
+        "org",
+        "plaintex",
+        "rst",
+        "rnoweb",
+        "tex",
+        "pandoc",
+        -- "typst",
+    },
+    settings = {
+        ltex = {
+            language = "en-US",
+            checkFrequency = "save",
+            completionEnabled = true,
+            additionalRules = {
+                enablePickyRules = true,
+            },
+            disabledRules = {
+                ["en-US"] = {
+                    "TYPOS",
+                    "MORFOLOGIK_RULE_EN",
+                    "MORFOLOGIK_RULE_EN_US",
+                    "EN_QUOTES",
+                    "PASSIVE_VOICE",
+                    "REP_PASSIVE_VOICE",
+                    "WHITESPACE_RULE",
                 },
             },
-        }
-    end,
-    ["pylsp"] = function()
-        lspconfig.pylsp.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                pylsp = {
-                    plugins = {
-                        pycodestyle = {
-                            ignore = { "E501", "E231", "W391" },
-                            maxLineLength = 120,
-                        },
-                        flake8 = {
-                            ignore = { "E501", "E231" },
-                            maxLineLength = 120,
-                        },
-                    },
-                },
-            },
-        }
-    end,
-    ["typst_lsp"] = function()
-        lspconfig.typst_lsp.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                -- exportPdf = "onType",
-            },
-        }
-    end,
-    ["ltex"] = function()
-        lspconfig.ltex.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            filetypes = {
-                "bib",
-                "gitcommit",
-                "markdown",
-                "org",
-                "plaintex",
-                "rst",
-                "rnoweb",
-                "tex",
-                "pandoc",
-                -- "typst",
-            },
-            settings = {
-                ltex = {
-                    language = "en-US",
-                    checkFrequency = "save",
-                    completionEnabled = true,
-                    additionalRules = {
-                        enablePickyRules = true,
-                    },
-                    disabledRules = {
-                        ["en-US"] = {
-                            "TYPOS",
-                            "MORFOLOGIK_RULE_EN",
-                            "MORFOLOGIK_RULE_EN_US",
-                            "EN_QUOTES",
-                            "PASSIVE_VOICE",
-                            "WHITESPACE_RULE",
-                        },
-                    },
-                },
-            },
-        }
-    end,
+        },
+    },
 }
