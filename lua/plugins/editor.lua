@@ -18,8 +18,9 @@ return {
 
     "aca/vidir.nvim",
 
-    {
+    { -- NOTE: This is half-redundant in nvim-0.10
         "numToStr/Comment.nvim",
+        enabled = not vim.fn.has("nvim-0.10"),
         event = "VeryLazy",
         opts = {
             ignore = "^$",
@@ -82,15 +83,7 @@ return {
         },
     },
 
-    {
-        "chrisgrieser/nvim-various-textobjs",
-        -- maybe consider https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
-        config = function()
-            require("various-textobjs").setup { useDefaultKeymaps = true }
-            vim.keymap.del("x", "r")
-            vim.keymap.del("x", "R")
-        end,
-    },
+    { "echasnovski/mini.ai", version = false },
 
     {
         "tzachar/highlight-undo.nvim",
