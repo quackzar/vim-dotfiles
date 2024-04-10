@@ -272,7 +272,16 @@ return {
     },
 
     {
+        "brenoprata10/nvim-highlight-colors",
+        opts = {
+            render = "virtual",
+            enable_named_colors = false,
+        },
+    },
+
+    {
         "NvChad/nvim-colorizer.lua",
+        enabled = false,
         opts = {
             user_default_options = {
                 names = false,

@@ -148,6 +148,21 @@ lspconfig.typst_lsp.setup {
     },
 }
 
+lspconfig.texlab.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+lspconfig.basedpyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        basedpyright = {
+            typeCheckingMode = "standard",
+        },
+    },
+}
+
 lspconfig.ltex.setup {
     on_attach = on_attach,
     capabilities = capabilities,
