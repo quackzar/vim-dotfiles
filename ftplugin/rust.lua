@@ -2,10 +2,6 @@ vim.bo.makeprg = "cargo build"
 vim.bo.textwidth = 100
 vim.bo.spelloptions = "camel"
 
--- vim.keymap.set("n", "<C-K>", require("rust-tools").hover_actions.hover_actions)
-
--- vim.keymap.set("v", "<C-K>", require("rust-tools").hover_range.hover_range)
-
 local unsafe_ray = false
 function toggle_unsafe_ray()
     unsafe_ray = not unsafe_ray
@@ -29,3 +25,29 @@ function toggle_unsafe_ray()
 end
 
 vim.keymap.set("n", "<localleader>le", toggle_unsafe_ray, { desc = "Toggle unsafe highligting" })
+
+local cmp_lsp_rs = require("cmp_lsp_rs")
+local comparators = cmp_lsp_rs.comparators
+
+local cmp = require("cmp")
+cmp.setup.buffer {
+    sorting = {
+        comparators = {
+            comparators.inscope_inherent_import,
+            comparators.sort_by_label_but_underscore_last,
+            cmp.config.compare.score,
+            cmp.config.compare.order,
+            cmp.config.compare.locality,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.length,
+            cmp.config.compare.sort_text,
+        },
+    },
+}
+
+vim.keymap.set(
+    "n",
+    "<leader>bc",
+    "<cmd>lua require'cmp_lsp_rs'.combo()<cr>",
+    { desc = "(nvim-cmp) switch comparators" }
+)

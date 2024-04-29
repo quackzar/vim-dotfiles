@@ -130,7 +130,7 @@ return {
 
     {
         "miversen33/sunglasses.nvim",
-        enabled = false, --vim.fn.has("nvim-0.10") == 1,
+        enabled = vim.fn.has("nvim-0.10") == 1,
         config = true,
         opts = {
             filter_type = "SHADE",
@@ -277,28 +277,6 @@ return {
             render = "virtual",
             enable_named_colors = false,
         },
-    },
-
-    {
-        "NvChad/nvim-colorizer.lua",
-        enabled = false,
-        opts = {
-            user_default_options = {
-                names = false,
-                RGB = false,
-                mode = "virtualtext", -- Set the display mode.
-            },
-            filetypes = {
-                "*", -- Highlight all files, but customize some others.
-                cmp_docs = { always_update = true },
-                typst = { always_update = true, rgb_fn = true },
-                -- Ignore these always
-                "!lazy",
-                "!neo-tree",
-            },
-        },
-        event = "BufEnter",
-        config = true,
     },
 
     {
@@ -640,6 +618,9 @@ return {
     {
         "karb94/neoscroll.nvim",
         event = "VeryLazy",
+        opts = {
+            performance_mode = true,
+        },
         config = true,
     },
 

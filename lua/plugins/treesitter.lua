@@ -70,6 +70,11 @@ return {
     },
 
     {
+        "yorickpeterse/nvim-tree-pairs",
+        config = true,
+    },
+
+    {
         "Wansmer/treesj",
         dependencies = { "nvim-treesitter" },
         config = function()

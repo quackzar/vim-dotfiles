@@ -66,14 +66,6 @@ return {
             vim.o.foldlevelstart = 99
             vim.o.foldenable = true
             vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-            local keymap = vim.keymap
-            keymap.amend = require("keymap-amend")
-            vim.keymap.amend("n", "l", function(fallback)
-                local winid = require("ufo").peekFoldedLinesUnderCursor()
-                if not winid then
-                    fallback()
-                end
-            end)
         end,
         keys = {
             {

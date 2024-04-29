@@ -1,7 +1,5 @@
 return {
     -- Meta {{{
-    "anuvyklack/keymap-amend.nvim",
-
     {
         "stevearc/stickybuf.nvim",
         config = true,
@@ -201,7 +199,7 @@ return {
     {
         "rest-nvim/rest.nvim",
         ft = "http",
-        dependencies = { { "nvim-lua/plenary.nvim" } },
+        dependencies = { "luarocks.nvim" },
         opts = {
             result_split_in_place = false,
         },

@@ -127,7 +127,7 @@ return {
 
     {
         "folke/trouble.nvim",
-        enabled = false,
+        enabled = true,
         lazy = true,
         opts = {
             use_diagnostic_signs = true,
@@ -172,24 +172,6 @@ return {
             padding_right = 3,
         },
     },
-
-    -- {
-    --     "Wansmer/symbol-usage.nvim",
-    --     event = "LspAttach",
-    --     opts = {
-    --         kinds = {
-    --             SymbolKind.Function,
-    --             SymbolKind.Method,
-    --             SymbolKind.Interface,
-    --         },
-    --         vt_position = "end_of_line",
-    --         hl = { link = "NonText" },
-    --         references = { enabled = true, include_declaration = false },
-    --         -- implementation = { enabled = true },
-    --         -- definition = { enabled = true },
-    --     },
-    --     config = true,
-    -- },
 
     {
         "chrisgrieser/nvim-rulebook",
@@ -246,7 +228,8 @@ return {
                 python = { "ruff" },
                 bash = { "shellcheck" },
                 c = { "compiler" },
-                -- lua = {'luacheck'},
+                yaml = { "actionlint" },
+                lua = { "luacheck" },
             }
         end,
         init = function()

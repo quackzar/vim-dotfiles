@@ -47,6 +47,12 @@ return {
             "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
 
+            {
+                "zjp-CN/nvim-cmp-lsp-rs", -- Rust specific sorting (see config in ftplugin/rust.lua)
+                ---@type cmp_lsp_rs.Opts
+                opts = {},
+            },
+
             -- specialty
             {
                 "KadoBOT/cmp-plugins",
@@ -172,18 +178,12 @@ return {
                 },
                 sources = cmp.config.sources {
                     { name = "nvim_lsp" },
-
-                    -- { name = "copilot", group_index = 2 },
                     { name = "luasnip" }, -- For luasnip users.
 
                     -- #### Consider setting these in filetype only ###
                     { name = "crates" },
                     { name = "plugins" },
                     { name = "nvim_lua" },
-
-                    -- OLD:
-                    -- { name = "codium" },
-                    -- { name = "cmp_tabnine", group_index = 1 },
                 },
                 sorting = {
                     priority_weight = 2,

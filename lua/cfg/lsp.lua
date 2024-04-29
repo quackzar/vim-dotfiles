@@ -64,6 +64,35 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
+local function on_attach(_client, bufnr)
+    vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
+    if vim.fn.has("nvim-0.10") == 1 then
+        vim.lsp.inlay_hint.enable(bufnr, vim.g.inlay_hints)
+    end
+
+    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+    -- Mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    vim.keymap.set("n", "K", function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+            vim.lsp.buf.hover()
+        end
+    end, { buffer = bufnr, desc = "hover (lsp)" })
+    vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition (lsp)" })
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration (lsp)" })
+    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "go to implementation (lsp)" })
+    vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "go to type definition (lsp)" })
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references (lsp)" })
+    vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "outgoing calls (lsp)" })
+    vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "incoming calls (lsp)" })
+
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol (lsp)" })
+end
+
 -- This is wierd
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 --     virtual_text = true,
@@ -76,30 +105,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         on_attach(nil, ev.buf)
     end,
 })
-
-function on_attach(client, bufnr)
-    vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
-    if vim.fn.has("nvim-0.10") == 1 then
-        vim.lsp.inlay_hint.enable(bufnr, vim.g.inlay_hints)
-    end
-
-    vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "hover (lsp)" })
-    vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition (lsp)" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration (lsp)" })
-    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "go to implementation (lsp)" })
-    vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "go to type definition (lsp)" })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references (lsp)" })
-    vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "outgoing calls (lsp)" })
-    vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "incoming calls (lsp)" })
-
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-end
 
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -157,8 +162,13 @@ lspconfig.basedpyright.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
+        python = {
+            venvPath = "~/.pyenv/versions/",
+        },
         basedpyright = {
-            typeCheckingMode = "standard",
+            analysis = {
+                typeCheckingMode = "strict",
+            },
         },
     },
 }
