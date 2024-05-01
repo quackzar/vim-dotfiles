@@ -92,7 +92,7 @@ local git_hydra = Hydra {
         { "o", "<cmd>Gitsigns<cr>", { exit = true } }, -- show the base of the file
         { "c", "<cmd>Neogit commit<cr>", { exit = true } },
         { "<enter>", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
-        { "g", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
+        { "g", "<cmd>Neogit<cr>", { exit = true, exit_before = true, nowait = true } },
         { "<esc>", nil, { exit = true, nowait = true } },
     },
 }

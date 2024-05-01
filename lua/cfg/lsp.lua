@@ -15,7 +15,7 @@ local signs = {
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    vim.fn.sign_define(hl, { numhl = hl })
+    -- vim.fn.sign_define(hl, { numhl = hl })
 end
 
 vim.keymap.set("n", "<space>K", function()
@@ -67,7 +67,7 @@ vim.diagnostic.config {
 local function on_attach(_client, bufnr)
     vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
     if vim.fn.has("nvim-0.10") == 1 then
-        vim.lsp.inlay_hint.enable(bufnr, vim.g.inlay_hints)
+        vim.lsp.inlay_hint.enable(vim.g.inlay_hints, { bufnr = bufnr })
     end
 
     vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -75,7 +75,12 @@ local function on_attach(_client, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     vim.keymap.set("n", "K", function()
-        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        local has_ufo, ufo = pcall(require, "ufo")
+        local winid = false
+        if has_ufo then
+            winid = ufo.peekFoldedLinesUnderCursor()
+        end
+
         if not winid then
             vim.lsp.buf.hover()
         end
@@ -138,6 +143,11 @@ mason_lsp.setup {
     automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
 }
 
+lspconfig.lua_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
 lspconfig.clangd.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -167,7 +177,7 @@ lspconfig.basedpyright.setup {
         },
         basedpyright = {
             analysis = {
-                typeCheckingMode = "strict",
+                typeCheckingMode = "standard",
             },
         },
     },

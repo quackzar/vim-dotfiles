@@ -215,7 +215,7 @@ Hydra {
                 else
                     vim.g.inlay_hints = true
                 end
-                vim.lsp.inlay_hint.enable(0, vim.g.inlay_hints)
+                vim.lsp.inlay_hint.enable(vim.g.inlay_hints, {})
             end,
             { desc = "inlay hints" },
         },
