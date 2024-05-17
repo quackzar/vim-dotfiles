@@ -1,48 +1,69 @@
 local luasnip = require("luasnip")
 
-vim.keymap.set({ "i", "s" }, "<C-s><C-o>", function()
+vim.keymap.set({ "i", "s" }, "<C-q><C-o>", function()
     require("luasnip.extras.select_choice")()
 end, { desc = "select snip-choice" })
 
-vim.keymap.set({ "i", "s" }, "<C-s><C-l>", "<Plug>luasnip-next-choice")
-vim.keymap.set({ "i", "s" }, "<C-s><C-h>", "<Plug>luasnip-prev-choice")
+vim.keymap.set({ "i", "s" }, "<C-q><C-l>", "<Plug>luasnip-next-choice")
+vim.keymap.set({ "i", "s" }, "<C-q><C-h>", "<Plug>luasnip-prev-choice")
 
-vim.keymap.set({ "i", "s" }, "<C-s><C-j>", function()
+vim.keymap.set({ "i", "s" }, "<C-q><C-j>", function()
     require("luasnip").expand()
 end, { desc = "expand snippet" })
 
-vim.keymap.set({ "i", "s", "n" }, "<C-s><C-n>", function()
+vim.keymap.set({ "i", "s", "n" }, "<C-q><C-n>", function()
     require("luasnip").jump(1)
 end, { desc = "jump next placeholder" })
 
-vim.keymap.set({ "i", "s", "n" }, "<C-s><C-p>", function()
+vim.keymap.set({ "i", "s", "n" }, "<C-q><C-p>", function()
     require("luasnip").jump(-1)
 end, { desc = "jump prev placeholder" })
 
-vim.keymap.set({ "i", "n", "v" }, "<C-s><C-l>", function()
+vim.keymap.set({ "i", "n", "v" }, "<C-q><C-l>", function()
     require("luasnip").unlink_current()
 end, { desc = "stop snippeting" })
 
+-- Overloading <C-n> and <C-p>.
+
+vim.keymap.set({ "i", "s", "n" }, "<C-n>", function()
+    local ls = require("luasnip")
+    if ls.in_snippet() then
+        ls.jump(1)
+    else
+        vim.nvim_feedkeys("<C-n>")
+    end
+end, { desc = "next" })
+
+vim.keymap.set({ "i", "s", "n" }, "<C-p>", function()
+    local ls = require("luasnip")
+    if ls.in_snippet() then
+        ls.jump(-1)
+    else
+        vim.nvim_feedkeys("<C-p>")
+        -- something
+    end
+end, { desc = "prev" })
+
 vim.keymap.set(
     { "v" },
-    "<C-s><C-f>",
+    "<C-q><C-f>",
     '"sc<cmd>lua require("luasnip.extras.otf").on_the_fly()<cr>',
     { desc = "on-the-fly snip" }
 )
 vim.keymap.set(
     { "i" },
-    "<C-s><C-f>",
+    "<C-q><C-f>",
     '<cmd>lua require("luasnip.extras.otf").on_the_fly("s")<cr>',
     { desc = "on-the-fly snip" }
 )
 
 local types = require("luasnip.util.types")
 
-vim.keymap.set({ "i" }, "<C-s>", "<nop>")
+vim.keymap.set({ "i" }, "<C-q>", "<nop>")
 
 luasnip.config.setup {
     enable_autosnippets = true,
-    store_selection_keys = "<c-s>",
+    store_selection_keys = "<c-k>",
     history = true,
     ext_opts = {
         [types.choiceNode] = {
@@ -106,7 +127,7 @@ luasnip.config.setup {
 }
 
 local select_next = false
-vim.keymap.set({ "i", "s", "n" }, "<C-s><C-s>", function()
+vim.keymap.set({ "i", "s", "n" }, "<C-q><C-q>", function()
     -- the meat of this mapping: call ls.activate_node.
     -- strict makes it so there is no fallback to activating any node in the
     -- snippet, and select controls whether the text associated with the node is

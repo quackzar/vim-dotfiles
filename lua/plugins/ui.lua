@@ -92,7 +92,6 @@ return {
     {
         "luukvbaal/statuscol.nvim",
         lazy = false,
-        enabled = true,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {
@@ -129,9 +128,9 @@ return {
     },
 
     {
-        "miversen33/sunglasses.nvim",
-        enabled = vim.fn.has("nvim-0.10") == 1,
-        config = true,
+        "miversen33/sunglasses.nvim", --  EVIL!!!
+        enabled = false,
+        config = false,
         opts = {
             filter_type = "SHADE",
             filter_percent = 0.05,
@@ -264,7 +263,7 @@ return {
         end,
     },
 
-    "famiu/bufdelete.nvim",
+    -- "famiu/bufdelete.nvim",
 
     {
         "tiagovla/scope.nvim", -- Makes tabs work like other editors
@@ -419,8 +418,8 @@ return {
 
     {
         "j-hui/fidget.nvim",
+        enabled = false,
         event = "BufEnter",
-        enabled = false, -- "Note; not currently used with noice"
         config = function()
             require("fidget").setup {
                 text = {
@@ -433,7 +432,6 @@ return {
 
     {
         "kevinhwang91/nvim-hlslens",
-        enabled = true,
         lazy = true,
         config = true,
         init = function()
@@ -537,7 +535,7 @@ return {
                     { mode = "n", keys = "<localleader>" },
                     { mode = "x", keys = "<localleader>" },
                     -- Snippets
-                    { mode = "i", keys = "<C-s>" },
+                    { mode = "i", keys = "<C-q>" },
                 },
                 clues = {
                     -- Enhance this by adding descriptions for <Leader> mapping groups
@@ -565,7 +563,6 @@ return {
 
     {
         "nvimtools/hydra.nvim",
-        enabled = true,
         dependencies = "anuvyklack/keymap-layer.nvim", -- needed only for pink hydras
         lazy = true,
         -- Maybe clean this up a bit, and trigger regitration on keys?
@@ -617,6 +614,7 @@ return {
 
     {
         "karb94/neoscroll.nvim",
+        enabled = true,
         event = "VeryLazy",
         opts = {
             performance_mode = true,

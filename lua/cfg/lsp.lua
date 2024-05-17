@@ -80,22 +80,32 @@ local function on_attach(_client, bufnr)
         if has_ufo then
             winid = ufo.peekFoldedLinesUnderCursor()
         end
-
         if not winid then
             vim.lsp.buf.hover()
         end
     end, { buffer = bufnr, desc = "hover (lsp)" })
+
     vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition (lsp)" })
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration (lsp)" })
     vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "go to implementation (lsp)" })
     vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "go to type definition (lsp)" })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references (lsp)" })
     vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "outgoing calls (lsp)" })
     vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "incoming calls (lsp)" })
 
+    -- redundant, as this is the default now!
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "references (lsp)" })
+
+    -- redundant, as this is mapped to crn
     vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename symbol (lsp)" })
+
+    -- redundant, as is now mapped to <C-s>
+    vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
+
+    -- hacky mapping to clear-action.nvim
+    vim.keymap.set("x", "<C-r><C-r>", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
+    vim.keymap.set("x", "<C-r>r", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
+    vim.keymap.set("n", "crr", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
 end
 
 -- This is wierd
@@ -144,6 +154,11 @@ mason_lsp.setup {
 }
 
 lspconfig.lua_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+lspconfig.tsserver.setup {
     on_attach = on_attach,
     capabilities = capabilities,
 }

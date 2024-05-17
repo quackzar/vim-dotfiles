@@ -26,6 +26,7 @@ return {
                 },
             },
             mappings = {
+                -- TODO: Somehow work the new default mapping `crr` and `<C-r>r` (<C-r><C-r>) into these.
                 code_action = { "<leader>a", "apply code action" },
                 quickfix = { "<leader>q", "apply quickfix" },
                 quickfix_next = { "]a", "apply next quickfix" },

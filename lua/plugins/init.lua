@@ -226,6 +226,7 @@ return {
     },
     {
         "plasticboy/vim-markdown",
+        enabled = false,
         ft = "markdown",
         config = function()
             vim.g.vim_markdown_frontmatter = 1
@@ -241,6 +242,7 @@ return {
     {
         -- Does the same thing as tsnode-marker
         "lukas-reineke/headlines.nvim",
+        enabled = false,
         dependencies = "nvim-treesitter/nvim-treesitter",
         config = true,
         ft = { "markdown", "norg", "org" },
