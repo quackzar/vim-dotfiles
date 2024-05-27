@@ -108,11 +108,6 @@ local function on_attach(_client, bufnr)
     vim.keymap.set("n", "crr", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
 end
 
--- This is wierd
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
---     virtual_text = true,
--- })
-
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
@@ -136,6 +131,10 @@ capabilities.textDocument.foldingRange = {
 
 local lspconfig = require("lspconfig")
 local mason_lsp = require("mason-lspconfig")
+mason_lsp.setup {
+    ensure_installed = { "lua_ls" },
+    automatic_installation = true,
+}
 require("neodev").setup {
     library = { plugins = { "neotest" }, types = true },
     settings = {
@@ -148,90 +147,92 @@ require("neodev").setup {
     },
 }
 
-mason_lsp.setup {
-    ensure_installed = { "lua_ls" }, -- ensure these servers are always installed
-    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-}
-
-lspconfig.lua_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
-lspconfig.clangd.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    inlay_hints = { enabled = true },
-    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-}
-
-lspconfig.typst_lsp.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        -- exportPdf = "onType",
-    },
-}
-
-lspconfig.texlab.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
-
-lspconfig.basedpyright.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        python = {
-            venvPath = "~/.pyenv/versions/",
-        },
-        basedpyright = {
-            analysis = {
-                typeCheckingMode = "standard",
+require("mason-lspconfig").setup_handlers {
+    function(server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        }
+    end,
+    ["rust_analyzer"] = function()
+        -- handled by rustaceanvim
+    end,
+    ["clangd"] = function()
+        lspconfig.clangd.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            inlay_hints = { enabled = true },
+            filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+        }
+    end,
+    ["typst_lsp"] = function()
+        lspconfig.typst_lsp.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                -- exportPdf = "onType",
             },
-        },
-    },
-}
-
-lspconfig.ltex.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    filetypes = {
-        "bib",
-        "gitcommit",
-        "markdown",
-        "org",
-        "plaintex",
-        "rst",
-        "rnoweb",
-        "tex",
-        "pandoc",
-        -- "typst",
-    },
-    settings = {
-        ltex = {
-            language = "en-US",
-            checkFrequency = "save",
-            completionEnabled = true,
-            additionalRules = {
-                enablePickyRules = true,
-            },
-            disabledRules = {
-                ["en-US"] = {
-                    "TYPOS",
-                    "MORFOLOGIK_RULE_EN",
-                    "MORFOLOGIK_RULE_EN_US",
-                    "EN_QUOTES",
-                    "PASSIVE_VOICE",
-                    "REP_PASSIVE_VOICE",
-                    "WHITESPACE_RULE",
+        }
+    end,
+    ["texlab"] = function()
+        lspconfig.texlab.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        }
+    end,
+    ["basedpyright"] = function()
+        lspconfig.basedpyright.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                python = {
+                    venvPath = "~/.pyenv/versions/",
+                },
+                basedpyright = {
+                    analysis = {
+                        typeCheckingMode = "standard",
+                    },
                 },
             },
-        },
-    },
+        }
+    end,
+    ["ltex"] = function()
+        lspconfig.ltex.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            filetypes = {
+                "bib",
+                "gitcommit",
+                "markdown",
+                "org",
+                "plaintex",
+                "rst",
+                "rnoweb",
+                "tex",
+                "pandoc",
+                -- "typst",
+            },
+            settings = {
+                ltex = {
+                    language = "en-US",
+                    checkFrequency = "save",
+                    completionEnabled = true,
+                    additionalRules = {
+                        enablePickyRules = true,
+                    },
+                    disabledRules = {
+                        ["en-US"] = {
+                            "TYPOS",
+                            "MORFOLOGIK_RULE_EN",
+                            "MORFOLOGIK_RULE_EN_US",
+                            "EN_QUOTES",
+                            "PASSIVE_VOICE",
+                            "REP_PASSIVE_VOICE",
+                            "WHITESPACE_RULE",
+                        },
+                    },
+                },
+            },
+        }
+    end,
 }

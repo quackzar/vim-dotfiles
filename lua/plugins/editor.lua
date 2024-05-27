@@ -20,11 +20,18 @@ return {
 
     { -- NOTE: This is half-redundant in nvim-0.10
         "numToStr/Comment.nvim",
-        enabled = not vim.fn.has("nvim-0.10"),
+        enabled = vim.fn.has("nvim-0.10") == 0,
         event = "VeryLazy",
         opts = {
             ignore = "^$",
         },
+    },
+
+    {
+        "folke/ts-comments.nvim",
+        opts = {},
+        event = "VeryLazy",
+        enabled = vim.fn.has("nvim-0.10.0") == 1,
     },
 
     {

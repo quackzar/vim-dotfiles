@@ -191,6 +191,7 @@ return {
             start_in_insert = false,
             winbar = { enabled = true },
         },
+        cmd = "ToggleTerm",
         keys = {
             { -- This fixes a hydra that switches windows, since it gets consumed halfway
                 "<C-\\>",

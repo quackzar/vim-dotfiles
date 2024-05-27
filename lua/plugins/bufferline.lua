@@ -75,10 +75,9 @@ local opts = {
 
 return {
     {
-        -- "akinsho/bufferline.nvim",
-        "Theyashsawarkar/bufferline.nvim",
+        "akinsho/bufferline.nvim",
         enabled = true,
-        version = "v3.*",
+        version = "v4.*",
         dependencies = "nvim-tree/nvim-web-devicons",
         priority = 1002,
         opts = function()

@@ -614,7 +614,7 @@ return {
 
     {
         "karb94/neoscroll.nvim",
-        enabled = true,
+        enabled = not vim.fn.exists("g:neovide"),
         event = "VeryLazy",
         opts = {
             performance_mode = true,

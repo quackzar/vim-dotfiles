@@ -4,7 +4,7 @@ vim.opt.shadafile = "NONE"
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 -- GUI options
-vim.o.guifont = "Cascadia Code,codicons,nonicons:h15"
+vim.o.guifont = "Monaspace Neon,DejaVuSansM Nerd Font,nonicons,codicon,LegacyComputing"
 -- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
 -- vim.o.guioptions = "ad" -- BUG: Breaks nvim from source
 vim.g.mapleader = " "
@@ -14,7 +14,15 @@ if vim.fn.exists("g:neovide") then
     vim.g.neovide_hide_mouse_when_typing = true
     vim.g.neovide_underline_automatic_scaling = true
     vim.g.neovide_scroll_animation_length = 0.4
-    vim.g.neovide_input_macos_alt_is_meta = true
+    --vim.keymap.set({"n", "v"}, "<C-z>", "<cmd>ToggleTerm size=50<cr><cmd>startinsert!<cr>", {desc = "Terminal"})
+    --vim.keymap.set("t", "<C-z>", "<cmd>ToggleTerm", { buffer = 0 })
+
+    vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
+    vim.keymap.set("v", "<D-c>", '"+y') -- Copy
+    vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
+    vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
+    vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
+    vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 end
 
 vim.o.mouse = "a"

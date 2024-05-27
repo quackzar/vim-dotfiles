@@ -40,7 +40,7 @@ local function dap_start()
     if require("dap").session() ~= nil then
         return "continue"
     else
-        return "start"
+        return "start   "
     end
 end
 
@@ -55,14 +55,14 @@ end
 -- terminate = ""
 
 local hint = [[
- ^ ^    DAP 
- _s_: %{start} 
- _p_: pause
- _r_: restart 
+ ^ ^    DAP        ^
+ _s_: %{start}   
+ _p_: pause      
+ _r_: restart    
  ^ ^
- _n_: step over 
- _i_: step into 
- _o_: step out  
+ _n_: step over  
+ _i_: step into  
+ _o_: step out   
  _c_: to cursor
  ^ ^
  _b_: breakpoint
@@ -124,10 +124,12 @@ local dap_hydra = Hydra {
                 local map = { -- Define special launchers
                     c = launch_codelldb,
                     cpp = launch_codelldb,
-                    -- rust = function()
-                    --     -- vim.cmd("RustDebuggables")
-                    --     vim.cmd("RustLsp debuggables")
-                    -- end,
+                    rust = function()
+                        vim.cmd.RustLsp("debug")
+
+                        -- Provide secondary keymap for this
+                        -- vim.cmd.RustLsp('debuggables')
+                    end,
                 }
 
                 local fn = map[vim.bo.filetype]
