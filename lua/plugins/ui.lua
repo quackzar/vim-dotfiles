@@ -575,6 +575,7 @@ return {
             "<space>t", -- Tests
             "<space>o", -- Options
             "<space>d", -- Debug
+            "<C-w>", -- windows
         },
     },
 

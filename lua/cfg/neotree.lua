@@ -17,6 +17,16 @@ require("neo-tree").setup {
         "git_status", -- NOTE: Sort of redundant?
         "document_symbols",
     },
+    default_component_configs = {
+        diagnostics = {
+            symbols = {
+                hint = " ",
+                info = " ",
+                warn = " ",
+                error = " ",
+            },
+        },
+    },
     source_selector = {
         winbar = false,
         truncation_character = "…",
