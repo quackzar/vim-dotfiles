@@ -19,6 +19,10 @@ return {
     },
 
     {
+        "jvgrootveld/telescope-zoxide",
+    },
+
+    {
         "natecraddock/telescope-zf-native.nvim",
     },
 

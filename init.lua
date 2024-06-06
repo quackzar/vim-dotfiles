@@ -4,7 +4,7 @@ vim.opt.shadafile = "NONE"
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
 -- GUI options
-vim.o.guifont = "Monaspace Neon,DejaVuSansM Nerd Font,nonicons,codicon,LegacyComputing"
+-- vim.o.guifont = "Monaspace Neon,DejaVuSansM Nerd Font,nonicons,codicon,LegacyComputing"
 -- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
 -- vim.o.guioptions = "ad" -- BUG: Breaks nvim from source
 vim.g.mapleader = " "

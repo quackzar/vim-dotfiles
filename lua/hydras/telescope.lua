@@ -7,7 +7,7 @@ end
 local hint = [[
                  _f_: files       _s_: document symbols
    🭇🬭🬭🬭🬭🬭🬭🬭🬭🬼    _b_: buffers     _w_: workspace symbols
-  🭉🭁🭠🭘    🭣🭕🭌🬾   _t_: ast-grep    _g_: live grep (_a_rgs)
+  🭉🭁🭠🭘    🭣🭕🭌🬾   _z_: zoxide      _g_: live grep (_a_rgs)
   🭅█ ▁     █🭐   _m_: marks       _/_: search in file
   ██🬿      🭊██
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀  _h_: vim help    _c_: colorscheme
@@ -38,7 +38,7 @@ Hydra {
         { "b", cmd("Telescope buffers") },
         { "g", cmd("Telescope live_grep") },
         { "a", cmd("Telescope live_grep_args") },
-        { "t", cmd("Telescope ast_grep") },
+        { "z", cmd("Telescope zoxide list theme=ivy"), { desc = "zoxide" } },
         { "h", cmd("Telescope help_tags"), { desc = "Vim help" } },
         { "m", cmd("Telescope marks"), { desc = "Marks" } },
         { "k", cmd("Telescope keymaps") },

@@ -321,6 +321,7 @@ return {
                 dashboard.button("s", "󰁯  Restore Session", [[:lua require("persistence").load() <cr>]]),
                 dashboard.button("SPC f f", "󰮗  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
+                dashboard.button("SPC f z", "󰈸  Zoxide"),
                 dashboard.button("e", "  New file", "<cmd>ene <bar> startinsert<CR>"),
                 dashboard.button(
                     "c",

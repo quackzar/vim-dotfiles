@@ -153,7 +153,6 @@ require("telescope").setup {
                 mirror = false,
             },
         },
-
         live_grep_args = {
             auto_quoting = true, -- enable/disable auto-quoting
             -- define mappings, e.g.
@@ -171,7 +170,11 @@ require("telescope").setup {
                 mirror = false,
             },
         },
+        zoxide = {
+            theme = "dropdown",
+        },
     },
 }
 
 require("telescope").load_extension("zf-native")
+require("telescope").load_extension("zoxide")
