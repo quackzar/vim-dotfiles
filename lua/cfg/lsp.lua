@@ -197,38 +197,40 @@ require("mason-lspconfig").setup_handlers {
         }
     end,
     ["ltex"] = function()
-        lspconfig.ltex.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            filetypes = {
-                "bib",
-                "gitcommit",
-                "markdown",
-                "org",
-                "plaintex",
-                "rst",
-                "rnoweb",
-                "tex",
-                "pandoc",
-                -- "typst",
-            },
-            settings = {
-                ltex = {
-                    language = "en-US",
-                    checkFrequency = "save",
-                    completionEnabled = true,
-                    additionalRules = {
-                        enablePickyRules = true,
-                    },
-                    disabledRules = {
-                        ["en-US"] = {
-                            "TYPOS",
-                            "MORFOLOGIK_RULE_EN",
-                            "MORFOLOGIK_RULE_EN_US",
-                            "EN_QUOTES",
-                            "PASSIVE_VOICE",
-                            "REP_PASSIVE_VOICE",
-                            "WHITESPACE_RULE",
+        require("ltex_extra").setup {
+            server_opts = {
+                on_attach = on_attach,
+                capabilities = capabilities,
+                filetypes = {
+                    "bib",
+                    "gitcommit",
+                    "markdown",
+                    "org",
+                    "plaintex",
+                    "rst",
+                    "rnoweb",
+                    "tex",
+                    "pandoc",
+                    -- "typst",
+                },
+                settings = {
+                    ltex = {
+                        language = "en-US",
+                        checkFrequency = "save",
+                        completionEnabled = true,
+                        additionalRules = {
+                            enablePickyRules = true,
+                        },
+                        disabledRules = {
+                            ["en-US"] = {
+                                "TYPOS",
+                                "MORFOLOGIK_RULE_EN",
+                                "MORFOLOGIK_RULE_EN_US",
+                                "EN_QUOTES",
+                                "PASSIVE_VOICE",
+                                "REP_PASSIVE_VOICE",
+                                "WHITESPACE_RULE",
+                            },
                         },
                     },
                 },

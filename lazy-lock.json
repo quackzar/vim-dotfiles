@@ -53,6 +53,7 @@
   "lint": { "branch": "master", "commit": "1a3a8d047bc01f1760ae4a0f5e80f111ea222e67" },
   "lsp_lines.nvim": { "branch": "main", "commit": "7d9e2748b61bff6ebba6e30adbc7173ccf21c055" },
   "lspkind-nvim": { "branch": "master", "commit": "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf" },
+  "ltex_extra.nvim": { "branch": "master", "commit": "3ee08af31bf826c6ae2ca2a294b79f688306c0be" },
   "lush.nvim": { "branch": "main", "commit": "7c0e27f50901481fe83b974493c4ea67a4296aeb" },
   "magic-bang.nvim": { "branch": "master", "commit": "d52237c328c0b6e6f7fa28dac5e57e677e4ab130" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "a4caa0d083aab56f6cd5acf2d42331b74614a585" },
