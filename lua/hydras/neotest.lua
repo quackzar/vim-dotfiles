@@ -21,13 +21,6 @@ local test_hydra = Hydra {
             },
             position = "bottom",
         },
-        on_enter = function()
-            vim.bo.modifiable = false
-            require("neotest").summary.open()
-        end,
-        on_exit = function()
-            -- require("neotest").summary.close()
-        end,
     },
     name = "test",
     mode = { "n", "x" },

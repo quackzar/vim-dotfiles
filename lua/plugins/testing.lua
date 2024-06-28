@@ -63,6 +63,7 @@ return {
                 },
                 consumers = {
                     overseer = require("neotest.consumers.overseer"),
+                    neotree = require("neotest.consumers.neo-tree"),
                 },
                 adapters = {
                     -- require("neotest-rust"),
@@ -127,6 +128,13 @@ return {
                 end,
                 desc = "prev failed test",
             },
+            {
+                "<leader>T",
+                function()
+                    require("neotest").summary.toggle()
+                end,
+                desc = "test summary",
+            },
         },
     },
 
@@ -187,6 +195,13 @@ return {
         "akinsho/toggleterm.nvim",
         version = "*",
         opts = {
+            size = function(term)
+                if term.direction == "horizontal" then
+                    return 20
+                elseif term.direction == "vertical" then
+                    return vim.o.columns * 0.4
+                end
+            end,
             shell = "fish",
             start_in_insert = false,
             winbar = { enabled = true },
@@ -213,7 +228,7 @@ return {
                 vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { buffer = 0 })
                 vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { buffer = 0 })
                 vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { buffer = 0 })
-                vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], { buffer = 0 })
+                --vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], { buffer = 0 })
             end
 
             -- if you only want these mappings for toggle term use term://*toggleterm#* instead

@@ -33,7 +33,7 @@ local git_hydra = Hydra {
             gitsigns.toggle_linehl(false)
             gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
-            vim.cmd("loadview")
+            pcall(vim.cmd, "loadview")
             vim.api.nvim_win_set_cursor(0, cursor_pos)
             vim.cmd("normal zv")
             vim.cmd("UfoAttach")

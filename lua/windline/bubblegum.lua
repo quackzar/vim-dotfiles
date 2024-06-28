@@ -109,10 +109,10 @@ basic.lsp = {
         end
         local names = {}
         for _, server in pairs(vim.lsp.get_active_clients { bufnr = bufnr }) do
-            table.insert(names, server.name)
+            table.insert(names, "󰠠 " .. server.name)
         end
         -- return {{'friend', 'default'}}
-        return { { "  [" .. table.concat(names, "|") .. "]", "green" } }
+        return { { " " .. table.concat(names, " "), "green" } }
     end),
 }
 
@@ -127,7 +127,10 @@ basic.lint = {
             if #linters == 0 then
                 return ""
             end
-            return " 󱉶 [" .. table.concat(linters, "|") .. "]"
+            table.foreach(linters, function(key, value)
+                linters[key] = "󰛿" .. value
+            end)
+            return " " .. table.concat(linters, " ")
         end
         return { { lint_progress, "green" } }
     end),
@@ -232,12 +235,11 @@ basic.logo = {
                     { "󰫤 ", hydra.get_color() },
                 }
             end
-        else
-            return {
-                { sep.left_rounded, state.mode[2] .. "Before" },
-                { "󰫤 ", state.mode[2] },
-            }
         end
+        return {
+            { sep.left_rounded, state.mode[2] .. "Before" },
+            { "󰫤 ", state.mode[2] },
+        }
     end,
 }
 

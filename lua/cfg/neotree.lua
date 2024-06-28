@@ -16,6 +16,7 @@ require("neo-tree").setup {
         "buffers",
         "git_status", -- NOTE: Sort of redundant?
         "document_symbols",
+        "neotest",
     },
     default_component_configs = {
         diagnostics = {
