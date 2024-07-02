@@ -2,30 +2,64 @@ local Hydra = require("hydra")
 
 -- TODO: Make submenu instead?
 
+local diag_state = 4
+
 local function diagnostic()
-    if not vim.g.virtual_lines then
-        return "[-]"
-    elseif vim.g.virtual_lines then
-        return "[x]"
-    else
-        return "[ ]"
-    end
+    local table = {
+        [4] = "[    |]",
+        [3] = "[   | ]",
+        [2] = "[  |  ]",
+        [1] = "[ |   ]",
+        [0] = "[|    ]",
+    }
+    return table[diag_state]
 end
 
 local function cycle_diagnostics()
-    if vim.g.virtual_lines then
-        vim.g.virtual_lines = false
-        vim.g.virtual_text = true
-        vim.g.diagflow = false
-    elseif vim.g.virtual_text then
-        vim.g.virtual_lines = false
-        vim.g.virtual_text = false
-        vim.g.diagflow = true
-    else
-        vim.g.virtual_lines = true
-        vim.g.virtual_text = false
-        vim.g.diagflow = false
+    diag_state = diag_state - 1
+    if diag_state <= 0 then
+        diag_state = 4
     end
+    local switch_table = {
+        [4] = function()
+            -- only virtual lines
+            vim.g.virtual_lines = true
+            vim.g.virtual_text = false
+            vim.g.diagflow = false
+            vim.g.diagflow = false
+        end,
+        [3] = function()
+            -- only text lines
+            vim.g.virtual_lines = false
+            vim.g.virtual_text = true
+            vim.g.diagflow = false
+            vim.g.diagflow = false
+        end,
+        [2] = function()
+            -- only tiny diag
+            vim.g.virtual_lines = false
+            vim.g.virtual_text = false
+            vim.g.diagflow = false
+            vim.g.tinydiag = true
+        end,
+        [1] = function()
+            -- only diag flow
+            vim.g.virtual_lines = false
+            vim.g.virtual_text = false
+            vim.g.diagflow = false
+            vim.g.tinydiag = true
+        end,
+        [0] = function()
+            -- none
+            vim.g.virtual_lines = false
+            vim.g.virtual_text = false
+            vim.g.diagflow = false
+            vim.g.tinydiag = false
+        end,
+    }
+    switch_table[diag_state]()
+
+    -- invoke updates
 
     local has_diagflow, diagflow = pcall(require, "diagflow")
     if has_diagflow then
@@ -72,10 +106,11 @@ local hint = [[
   _c_ %{culopt} cursor line
   _n_ %{nu} number
   _r_ %{rnu} relative number
-  _l_ %{diag} diagnostics
-  _b_ [?] block
   _t_ %{hint} inlay hints
-  ^
+
+       _l_ diagnostics
+     less  %{diag}  more
+  ^ ^
        ^^^^                _<Esc>_
 ]]
 
@@ -199,13 +234,6 @@ Hydra {
                 cycle_diagnostics()
             end,
             { desc = "virtual line diagnostics" },
-        },
-        {
-            "b",
-            function() -- TODO: Find a way to check if it's active
-                require("block").toggle()
-            end,
-            { desc = "block highlighting" },
         },
         {
             "t",
