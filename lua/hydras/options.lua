@@ -27,7 +27,10 @@ local function cycle_diagnostics()
         vim.g.diagflow = false
     end
 
-    require("diagflow").config.enable = vim.g.diagflow
+    local has_diagflow, diagflow = pcall(require, "diagflow")
+    if has_diagflow then
+        diagflow.config.enable = vim.g.diagflow
+    end
     vim.diagnostic.config {
         virtual_lines = vim.g.virtual_lines,
         virtual_text = vim.g.virtual_text,

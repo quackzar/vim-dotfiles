@@ -92,6 +92,40 @@ return {
     },
 
     {
+        -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
+        -- however by itself I think it is pretty neat.
+        -- Might want to disable lsp_lines in cases where it is annoying?
+        -- Or might just add an option so this is on if it is off,
+        -- since it just displays the same thing.
+        -- BUT, lsp_lines does mess with virtual lines, and that can be jarring,
+        -- so maybe something between insert mode and normal mode?
+        "dgagn/diagflow.nvim",
+        event = "BufEnter",
+        enabled = false,
+        opts = {
+            enable = vim.g.diagflow,
+            scope = "line",
+            padding_right = 3,
+        },
+    },
+
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        config = function()
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                callback = function()
+                    local background = "CursorLine"
+                    local factor = 0.27
+                    require("tiny-inline-diagnostic").change(background, factor)
+                end,
+            })
+
+            require("tiny-inline-diagnostic").setup()
+        end,
+    },
+
+    {
         "mizlan/delimited.nvim",
         config = true,
         keys = {
@@ -154,23 +188,6 @@ return {
                 end,
                 desc = "prev trouble",
             },
-        },
-    },
-
-    {
-        -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
-        -- however by itself I think it is pretty neat.
-        -- Might want to disable lsp_lines in cases where it is annoying?
-        -- Or might just add an option so this is on if it is off,
-        -- since it just displays the same thing.
-        -- BUT, lsp_lines does mess with virtual lines, and that can be jarring,
-        -- so maybe something between insert mode and normal mode?
-        "dgagn/diagflow.nvim",
-        event = "BufEnter",
-        opts = {
-            enable = vim.g.diagflow,
-            scope = "line",
-            padding_right = 3,
         },
     },
 

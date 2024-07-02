@@ -204,7 +204,6 @@ return {
     {
         "rest-nvim/rest.nvim",
         ft = "http",
-        dependencies = { "luarocks.nvim" },
         opts = {
             result_split_in_place = false,
         },
