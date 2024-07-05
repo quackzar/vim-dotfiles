@@ -101,7 +101,7 @@ return {
         -- so maybe something between insert mode and normal mode?
         "dgagn/diagflow.nvim",
         event = "BufEnter",
-        enabled = false,
+        enabled = true,
         opts = {
             enable = vim.g.diagflow,
             scope = "line",

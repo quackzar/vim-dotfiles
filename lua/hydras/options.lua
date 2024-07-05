@@ -17,7 +17,7 @@ end
 
 local function cycle_diagnostics()
     diag_state = diag_state - 1
-    if diag_state <= 0 then
+    if diag_state < 0 then
         diag_state = 4
     end
     local switch_table = {
@@ -26,14 +26,14 @@ local function cycle_diagnostics()
             vim.g.virtual_lines = true
             vim.g.virtual_text = false
             vim.g.diagflow = false
-            vim.g.diagflow = false
+            vim.g.tinydiag = false
         end,
         [3] = function()
             -- only text lines
             vim.g.virtual_lines = false
             vim.g.virtual_text = true
             vim.g.diagflow = false
-            vim.g.diagflow = false
+            vim.g.tinydiag = false
         end,
         [2] = function()
             -- only tiny diag
@@ -46,8 +46,8 @@ local function cycle_diagnostics()
             -- only diag flow
             vim.g.virtual_lines = false
             vim.g.virtual_text = false
-            vim.g.diagflow = false
-            vim.g.tinydiag = true
+            vim.g.diagflow = true
+            vim.g.tinydiag = false
         end,
         [0] = function()
             -- none
@@ -63,8 +63,18 @@ local function cycle_diagnostics()
 
     local has_diagflow, diagflow = pcall(require, "diagflow")
     if has_diagflow then
+        diagflow.disable()
         diagflow.config.enable = vim.g.diagflow
     end
+    local has_tinydiag, tinydiag = pcall(require, "tiny-inline-diagnostic")
+    if has_tinydiag then
+        if vim.g.tinydiag then
+            tinydiag.enable()
+        else
+            tinydiag.disable()
+        end
+    end
+
     vim.diagnostic.config {
         virtual_lines = vim.g.virtual_lines,
         virtual_text = vim.g.virtual_text,
