@@ -253,7 +253,16 @@ return {
     },
 
     {
+        "OXY2DEV/markview.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+    },
+
+    {
         "AckslD/nvim-FeMaco.lua",
+        enabled = false,
         config = true,
         ft = "markdown",
     },

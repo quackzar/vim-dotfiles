@@ -10,4 +10,4 @@ hi def link todoCheckbox Todo
 
 highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
-setlocal cole=1
+setlocal cole=0
