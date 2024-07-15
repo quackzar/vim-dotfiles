@@ -15,11 +15,8 @@ local function diagnostic()
     return table[diag_state]
 end
 
-local function cycle_diagnostics()
-    diag_state = diag_state - 1
-    if diag_state < 0 then
-        diag_state = 4
-    end
+local function cycle_diagnostics(dir)
+    diag_state = (diag_state + dir) % 5
     local switch_table = {
         [4] = function()
             -- only virtual lines
@@ -118,8 +115,8 @@ local hint = [[
   _r_ %{rnu} relative number
   _t_ %{hint} inlay hints
 
-       _l_ diagnostics
-     less  %{diag}  more
+        diagnostics
+  _<_ less  %{diag}  more _>_
   ^ ^
        ^^^^                _<Esc>_
 ]]
@@ -239,11 +236,18 @@ Hydra {
             { desc = "cursor line" },
         },
         {
-            "l",
+            "<",
             function()
-                cycle_diagnostics()
+                cycle_diagnostics(-1)
             end,
-            { desc = "virtual line diagnostics" },
+            { desc = "less diagnostic" },
+        },
+        {
+            ">",
+            function()
+                cycle_diagnostics(1)
+            end,
+            { desc = "more diagnostics" },
         },
         {
             "t",
