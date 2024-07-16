@@ -467,7 +467,6 @@ return {
                     suggestions = 20, -- how many suggestions should be shown in the list?
                 },
                 presets = {
-                    operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
                     motions = false, -- adds help for motions
                     text_objects = false, -- help for text objects triggered after entering an operator
                     windows = false, -- default bindings on <c-w>
@@ -476,14 +475,8 @@ return {
                     g = false, -- bindings for prefixed with g
                 },
             },
-            hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ ", "<Plug>" }, -- hide mapping boilerplate
-            operators = { gc = "Comments" },
-            ignore_missing = true, -- fun if one decides to register everything
             disable = {
                 filetypes = { "neo-tree" },
-            },
-            triggers_blacklist = {
-                n = { "<leader>g", "<leader>d", "<leader>f" },
             },
         },
         event = "VeryLazy",
