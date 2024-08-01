@@ -41,7 +41,7 @@ return {
 
             -- "hrsh7th/cmp-buffer",
 
-            "FelipeLema/cmp-async-path",
+            "https://codeberg.org/FelipeLema/cmp-async-path.git",
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-cmdline",
             "f3fora/cmp-spell",

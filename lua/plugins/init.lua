@@ -8,10 +8,17 @@ return {
     "farmergreg/vim-lastplace",
 
     {
-        "folke/persistence.nvim",
-        event = "BufReadPre", -- this will only start session saving when an actual file was opened
-        module = "persistence",
-        config = true,
+        "rmagatti/auto-session",
+        lazy = false,
+        dependencies = {
+            "nvim-telescope/telescope.nvim", -- Only needed if you want to use sesssion lens
+        },
+        config = function()
+            require("auto-session").setup {
+                auto_restore_enabled = false,
+                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            }
+        end,
     },
 
     { -- autoclose unused buffers

@@ -318,7 +318,7 @@ return {
             theta.buttons.val = {
                 { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
                 { type = "padding", val = 1 },
-                dashboard.button("s", "󰁯  Restore Session", [[:lua require("persistence").load() <cr>]]),
+                dashboard.button("s", "󰁯  Restore Session", [[<cmd>SessionRestore<cr>]]),
                 dashboard.button("SPC f f", "󰮗  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
                 dashboard.button("SPC f z", "󰈸  Zoxide"),

@@ -32,6 +32,7 @@ require("neo-tree").setup {
         winbar = false,
         truncation_character = "…",
     },
+    auto_clean_after_session_restore = false,
     close_if_last_window = true,
     filesystem = {
         follow_current_file = { enabled = true },
