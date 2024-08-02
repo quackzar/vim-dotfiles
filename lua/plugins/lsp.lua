@@ -115,9 +115,17 @@ return {
         config = function()
             vim.api.nvim_create_autocmd("ColorScheme", {
                 callback = function()
-                    local background = "CursorLine"
-                    local factor = 0.27
-                    require("tiny-inline-diagnostic").change(background, factor)
+                    local highlights = {
+                        error = "DiagnosticError",
+                        warn = "DiagnosticWarn",
+                        info = "DiagnosticInfo",
+                        hint = "DiagnosticHint",
+                        arrow = "NonText",
+                        background = "CursorLine",
+                        mixing_color = "None",
+                    }
+                    local blend = { factor = 0.27 }
+                    require("tiny-inline-diagnostic").change(blend, highlights)
                 end,
             })
 
