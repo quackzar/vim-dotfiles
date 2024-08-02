@@ -44,6 +44,7 @@ return {
                 backend = "cmp",
                 relative = "editor",
             },
+            -- see: https://github.com/folke/noice.nvim/blob/main/lua/noice/config/routes.lua
             routes = {
                 {
                     filter = {
@@ -72,7 +73,6 @@ return {
                     view = "mini",
                     filter = {
                         event = "msg_show",
-                        kind = "",
                     },
                 },
             },
