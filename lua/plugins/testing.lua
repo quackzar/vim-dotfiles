@@ -63,7 +63,7 @@ return {
                 },
                 consumers = {
                     overseer = require("neotest.consumers.overseer"),
-                    neotree = require("neotest.consumers.neo-tree"),
+                    -- neotree = require("neotest.consumers.neo-tree"),
                 },
                 adapters = {
                     -- require("neotest-rust"),

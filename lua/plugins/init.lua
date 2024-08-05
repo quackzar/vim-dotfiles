@@ -124,11 +124,11 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
-            {
-                -- TODO:
-                name = "neo-tree-neotest",
-                dir = "~/Projects/misc/neo-tree-neotest",
-            },
+            -- {
+            --     -- TODO:
+            --     name = "neo-tree-neotest",
+            --     dir = "~/Projects/misc/neo-tree-neotest",
+            -- },
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
