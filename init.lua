@@ -133,6 +133,8 @@ vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { silent = true, desc = "next quickf
 vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { silent = true, desc = "prev quickfix" })
 vim.keymap.set("n", "]l", "<cmd>lnext<cr>", { silent = true, desc = "next locationlist" })
 vim.keymap.set("n", "[l", "<cmd>lprevious<cr>", { silent = true, desc = "prev locationlist" })
+vim.api.nvim_create_user_command("Diagnostics", vim.diagnostic.setqflist, {})
+vim.api.nvim_create_user_command("LocalDiagnostics", vim.diagnostic.setloclist, {})
 
 vim.keymap.set("n", "<localleader>pp", function()
     vim.notify("Started profilling")

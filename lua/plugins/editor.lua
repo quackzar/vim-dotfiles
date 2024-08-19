@@ -166,6 +166,13 @@ return {
     },
 
     {
+        "stevearc/quicker.nvim",
+        ---@module "quicker"
+        ---@type quicker.SetupOptions
+        opts = {},
+    },
+
+    {
         "folke/todo-comments.nvim",
         event = "BufRead",
         opts = { signs = false },

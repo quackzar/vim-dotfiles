@@ -175,6 +175,7 @@ return {
                     ["a"] = "<cmd>OverseerRun<cr>",
                     ["A"] = "<cmd>OverseerBuild<cr>",
                     ["<C-l>"] = "<cmd>lua require('notify').dismiss()<cr>",
+                    ["o"] = nil,
                 },
             },
             log = {

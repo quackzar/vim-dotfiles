@@ -18,6 +18,7 @@ return {
         event = "LspAttach",
         opts = {
             signs = {
+                position = "right_align",
                 icons = {
                     quickfix = "  ",
                     refactor = "  ",
@@ -175,8 +176,9 @@ return {
         opts = {
             use_diagnostic_signs = true,
         },
+        cmd = "Trouble",
         keys = {
-            { "<leader>xx", "<cmd>TroubleToggle<cr>", desc = "toggle trouble" },
+            { "<leader>xx", "<cmd>Trouble<cr>", desc = "toggle trouble" },
             { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "workspace diagnostics" },
             { "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", desc = "document diagnostics" },
             { "<leader>xl", "<cmd>Trouble loclist<cr>", desc = "location list" },
@@ -250,7 +252,7 @@ return {
         event = "BufWritePost",
         config = function()
             require("lint").linters_by_ft = {
-                python = { "ruff" },
+                -- python = { "ruff" },
                 bash = { "shellcheck" },
                 c = { "compiler" },
                 yaml = { "actionlint" },

@@ -215,9 +215,8 @@ require("mason-lspconfig").setup_handlers {
                 },
                 settings = {
                     ltex = {
-                        language = "en-US",
                         checkFrequency = "save",
-                        completionEnabled = true,
+                        completionEnabled = false,
                         additionalRules = {
                             enablePickyRules = true,
                         },

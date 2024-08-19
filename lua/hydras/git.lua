@@ -6,7 +6,7 @@ local hint = [[
  _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
  ^ ^              _S_: stage buffer      _D_: diff mode     _Y_: yank link      _o_: options
- ^ ^              _c_: commit            _H_: history       _L_: log
+ ^ ^              _c_: commit            _H_: history       _L_: log            _G_: graph
  ^ ^              _g_/_<enter>_: Neogit                     _<esc>_: exit
 ]]
 
@@ -77,6 +77,13 @@ local git_hydra = Hydra {
         { "D", "<cmd>DiffviewOpen -- % <cr>", { exit = true } },
         { "L", "<cmd>DiffviewFileHistory<cr>", { exit = true } },
         { "H", "<cmd>DiffviewFileHistory %<cr>", { exit = true } },
+        {
+            "G",
+            function()
+                require("gitgraph").draw({}, { all = true, max_count = 5000 })
+            end,
+            { exit = true },
+        },
         { "R", gitsigns.reset_buffer },
         { "Y", '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>' },
         { "p", gitsigns.preview_hunk },

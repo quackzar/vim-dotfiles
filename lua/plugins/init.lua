@@ -260,17 +260,39 @@ return {
     },
 
     {
+        "AckslD/nvim-FeMaco.lua",
+        config = true,
+        ft = "markdown",
+    },
+
+    {
         "OXY2DEV/markview.nvim",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
             "nvim-tree/nvim-web-devicons",
         },
+        opts = {
+            modes = { "n", "i", "no", "c" },
+            hybrid_modes = { "n", "i" }, -- Uses this feature on
+            callbacks = {
+                on_enable = function(_, win)
+                    vim.wo[win].conceallevel = 2
+                    vim.wo[win].conecalcursor = "nc"
+                end,
+            },
+        },
     },
 
     {
-        "AckslD/nvim-FeMaco.lua",
-        config = true,
-        ft = "markdown",
+        "OXY2DEV/helpview.nvim",
+        lazy = false, -- Recommended
+
+        -- In case you still want to lazy load
+        -- ft = "help",
+
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
     },
 
     -- ==========  fish  ==========

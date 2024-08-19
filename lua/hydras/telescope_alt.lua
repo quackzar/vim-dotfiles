@@ -22,7 +22,7 @@ local hint_alt = [[
   🭅█      █🭐     _g_: live grep args (under cursor)
   ██🬿  o   🭊██     _t_: tagstack
  🭋█🬝🮄🮄🮄🮄🮄🮄🮄🮄🬆█🭀    _j_: jump list
- 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙
+ 🭤🭒🬺🬹🬱🬭🬭🬭🬭🬵🬹🬹🭝🭙    _s_: smart
 
      _r_esume
                  _<enter>_: telescope         _<esc>_
@@ -60,6 +60,7 @@ return Hydra {
         { "c", cmd("Telescope grep_word_under_cursor") },
         { "t", cmd("Telescope tagstack") },
         { "j", cmd("Telescope jumplist") },
+        { "s", cmd("Telescope smart_open") },
         { "<enter>", cmd("Telescope") },
         { "<esc>", nil, { exit = true, nowait = true } },
     },
