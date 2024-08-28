@@ -3,35 +3,12 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
 
-    {
-        "johmsalas/text-case.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim" },
-        config = function()
-            require("textcase").setup {}
-            require("telescope").load_extension("textcase")
-        end,
-        keys = {
-            "ga", -- Default invocation prefix
-            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "v" }, desc = "Telescope" },
-        },
-    },
-
     "aca/vidir.nvim",
-
-    { -- NOTE: This is half-redundant in nvim-0.10
-        "numToStr/Comment.nvim",
-        enabled = vim.fn.has("nvim-0.10") == 0,
-        event = "VeryLazy",
-        opts = {
-            ignore = "^$",
-        },
-    },
 
     {
         "folke/ts-comments.nvim",
         opts = {},
         event = "VeryLazy",
-        enabled = vim.fn.has("nvim-0.10.0") == 1,
     },
 
     {
@@ -149,12 +126,7 @@ return {
     },
 
     {
-        "HampusHauffman/block.nvim",
-        enabled = false,
-        config = true,
-    },
-
-    {
+        -- quickfix improvements
         "kevinhwang91/nvim-bqf",
         opts = {
             auto_enable = true,
@@ -166,6 +138,7 @@ return {
     },
 
     {
+        -- quickfix improvements
         "stevearc/quicker.nvim",
         ---@module "quicker"
         ---@type quicker.SetupOptions

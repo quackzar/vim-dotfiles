@@ -16,8 +16,10 @@ return {
         event = "InsertEnter",
     },
 
+    -- Unused
     {
         "chrisgrieser/nvim-scissors",
+        enabled = false,
         dependencies = "nvim-telescope/telescope.nvim",
         opts = {
             -- snippetDir = vim.fn.stdpath("data") .. "/lazy/friendly-snippets",

@@ -86,13 +86,6 @@ return {
     },
 
     {
-        -- Mouse over diagnostics (wow!)
-        "soulis-1256/eagle.nvim",
-        config = true,
-        -- event = "LspAttach",
-    },
-
-    {
         -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
         -- however by itself I think it is pretty neat.
         -- Might want to disable lsp_lines in cases where it is annoying?
@@ -201,6 +194,7 @@ return {
         },
     },
 
+    -- NOTE: Unused
     {
         "chrisgrieser/nvim-rulebook",
         keys = {

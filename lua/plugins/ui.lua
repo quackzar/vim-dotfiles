@@ -128,16 +128,6 @@ return {
     },
 
     {
-        "miversen33/sunglasses.nvim", --  EVIL!!!
-        enabled = false,
-        config = false,
-        opts = {
-            filter_type = "SHADE",
-            filter_percent = 0.05,
-        },
-    },
-
-    {
         "anuvyklack/windows.nvim",
         dependencies = {
             "anuvyklack/middleclass",
@@ -392,7 +382,7 @@ return {
     {
         "folke/drop.nvim", -- screensaver
         event = "VimEnter",
-        enabled = false,
+        enabled = true,
         config = true,
         opts = { screensaver = false, theme = "snow" },
     },
@@ -606,16 +596,6 @@ return {
     --         max_length = 500,
     --     },
     -- },
-
-    {
-        "karb94/neoscroll.nvim",
-        enabled = not vim.fn.exists("g:neovide"),
-        event = "VeryLazy",
-        opts = {
-            performance_mode = true,
-        },
-        config = true,
-    },
 
     {
         "Bekaboo/deadcolumn.nvim",

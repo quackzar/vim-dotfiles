@@ -208,20 +208,6 @@ return {
         config = true,
     },
 
-    {
-        "rest-nvim/rest.nvim",
-        ft = "http",
-        opts = {
-            result_split_in_place = false,
-        },
-        config = true,
-        keys = {
-            { "<localleader>r", "<Plug>RestNvim" },
-            { "<localleader>p", "<Plug>RestNvimPreview" },
-            { "<localleader>l", "<Plug>RestNvimLast" },
-        },
-    },
-
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",
@@ -234,35 +220,6 @@ return {
             "typst",
         },
         config = true,
-    },
-    {
-        "plasticboy/vim-markdown",
-        enabled = false,
-        ft = "markdown",
-        config = function()
-            vim.g.vim_markdown_frontmatter = 1
-            vim.g.vim_markdown_math = 1
-            vim.g.vim_markdown_toml_frontmatter = 1
-            vim.g.vim_markdown_json_frontmatter = 1
-            vim.g.vim_markdown_math = 1
-            vim.g.vim_markdown_strikethrough = 1
-            -- vim.g.vim_markdown_fenced_languages = {'go', 'c', 'python', 'tex', 'bash=sh', 'sh', 'fish', 'javascript', 'viml=vim', 'html'}
-        end,
-    },
-
-    {
-        -- Does the same thing as tsnode-marker
-        "lukas-reineke/headlines.nvim",
-        enabled = false,
-        dependencies = "nvim-treesitter/nvim-treesitter",
-        config = true,
-        ft = { "markdown", "norg", "org" },
-    },
-
-    {
-        "AckslD/nvim-FeMaco.lua",
-        config = true,
-        ft = "markdown",
     },
 
     {
