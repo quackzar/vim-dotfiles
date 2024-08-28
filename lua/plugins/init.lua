@@ -311,7 +311,7 @@ return {
     -- === rust ===
     {
         "mrcjkb/rustaceanvim",
-        version = "^4", -- Recommended
+        version = "^5", -- Recommended
         enabled = true,
         ft = { "rust" },
         init = function()
@@ -335,17 +335,25 @@ return {
                     adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
                 },
                 server = {
-                    settings = {
+                    default_settings = {
                         ["rust-analyzer"] = {
                             assist = {
                                 importEnforceGranularity = true,
                                 importPrefix = "crate",
                             },
-                            inlayHints = { locationLinks = true },
+                            inlayHints = {
+                                maxLength = 10,
+                                locationLinks = true,
+                                discriminantHints = true,
+                                bindingModeHints = true,
+                                closureReturnTypeHints = true,
+                                implicitDrops = true,
+                                lifetimeElisionHints = true,
+                            },
                             diagnostics = {
                                 enable = true,
                                 experimental = {
-                                    enable = false,
+                                    enable = true,
                                 },
                                 disabled = {
                                     "inactive-code",

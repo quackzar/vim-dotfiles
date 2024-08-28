@@ -64,7 +64,7 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
-local function on_attach(_client, bufnr)
+function on_attach(_client, bufnr)
     vim.api.nvim_set_hl(0, "LspInlayHint", { link = "NonText" })
     if vim.fn.has("nvim-0.10") == 1 then
         vim.lsp.inlay_hint.enable(vim.g.inlay_hints, { bufnr = bufnr })
@@ -186,7 +186,7 @@ require("mason-lspconfig").setup_handlers {
             capabilities = capabilities,
             settings = {
                 python = {
-                    venvPath = "~/.pyenv/versions/",
+                    pythonPath = "~/.pyenv/versions/",
                 },
                 basedpyright = {
                     analysis = {

@@ -34,7 +34,7 @@ Hydra {
     body = "<leader>f",
     heads = {
         { "r", cmd("Telescope resume") },
-        { "f", cmd("Telescope find_files") },
+        { "f", cmd("Telescope smart_open") }, -- TEST:
         { "b", cmd("Telescope buffers") },
         { "g", cmd("Telescope live_grep") },
         { "a", cmd("Telescope live_grep_args") },

@@ -125,17 +125,6 @@ return {
         dependencies = { "nvim-treesitter", "nvim-cmp" },
     },
 
-    { -- Sort of alternative to tabout, but works a bit differently.
-        "AgusDOLARD/backout.nvim",
-        event = "InsertEnter",
-        opts = {},
-        keys = {
-            -- Define your keybinds
-            { "<M-b>", "<cmd>lua require('backout').back()<cr>", mode = { "i" } },
-            { "<M-n>", "<cmd>lua require('backout').out()<cr>", mode = { "i" } },
-        },
-    },
-
     {
         "danymat/neogen",
         lazy = true,
