@@ -70,6 +70,18 @@ return {
     { "echasnovski/mini.ai", version = false },
 
     {
+        "gbprod/substitute.nvim",
+        lazy = true,
+        opts = {},
+        init = function()
+            vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
+            vim.keymap.set("n", "ss", require("substitute").line, { noremap = true })
+            vim.keymap.set("n", "S", require("substitute").eol, { noremap = true })
+            vim.keymap.set("x", "s", require("substitute").visual, { noremap = true })
+        end,
+    },
+
+    {
         "tzachar/highlight-undo.nvim",
         config = true,
         keys = {
@@ -81,20 +93,21 @@ return {
     {
         "shellRaining/hlchunk.nvim",
         enabled = true,
-        event = { "UIEnter" },
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
+            exclude_filetypes = {
+                alpha = true,
+                tex = true,
+                vimdoc = true,
+                help = true,
+                packer = true,
+                undotree = true,
+                text = true,
+                dashboard = true,
+                man = true,
+            },
             chunk = {
-                exclude_filetypes = {
-                    typst = true,
-                    tex = true,
-                    vimdoc = true,
-                    help = true,
-                    packer = true,
-                    undotree = true,
-                    text = true,
-                    dashboard = true,
-                    man = true,
-                },
+                enable = true,
                 chars = {
                     horizontal_line = "─",
                     left_top = "╭",
