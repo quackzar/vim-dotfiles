@@ -196,6 +196,29 @@ require("mason-lspconfig").setup_handlers {
             },
         }
     end,
+    ["harper_ls"] = function()
+        lspconfig.harper_ls.setup {
+            filetypes = {
+                "bib",
+                "gitcommit",
+                "markdown",
+                "org",
+                "plaintex",
+                "rst",
+                "rnoweb",
+                "tex",
+                "pandoc",
+                "typst",
+            },
+            on_attach = on_attach,
+            capabilities = capabilities,
+            settings = {
+                linters = {
+                    spell_check = false,
+                },
+            },
+        }
+    end,
     ["ltex"] = function()
         require("ltex_extra").setup {
             server_opts = {

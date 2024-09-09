@@ -80,7 +80,7 @@ return {
 
     {
         "shellRaining/hlchunk.nvim",
-        enabled = false,
+        enabled = true,
         event = { "UIEnter" },
         opts = {
             chunk = {

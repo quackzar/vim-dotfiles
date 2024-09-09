@@ -186,30 +186,6 @@ vim.api.nvim_create_autocmd("UILeave", {
     end,
 })
 
-vim.api.nvim_create_autocmd("ModeChanged", {
-    callback = function()
-        local modes = {
-            ["n"] = vim.g.terminal_color_1, -- red
-            ["no"] = vim.g.terminal_color_1, -- red
-            ["i"] = vim.g.terminal_color_2, -- green
-            ["ti"] = vim.g.terminal_color_2, -- green
-            ["tn"] = vim.g.terminal_color_1, -- green
-            ["v"] = vim.g.terminal_color_3, -- yellow
-            ["V"] = vim.g.terminal_color_3, -- yellow
-            ["�"] = vim.g.terminal_color_3, -- yellow
-            ["s"] = vim.g.terminal_color_6, -- cyan
-            ["S"] = vim.g.terminal_color_6, -- cyan
-            ["R"] = vim.g.terminal_color_4, -- blue
-            ["c"] = vim.g.terminal_color_5, -- magenta
-        }
-        local colors = vim.api.nvim_get_hl_by_name("CursorLineNr", true)
-        vim.api.nvim_set_hl(0, "CursorLineNr", {
-            foreground = modes[vim.api.nvim_get_mode().mode] or nil,
-            background = colors.background,
-        })
-    end,
-})
-
 -- setup for ripgrep as grepper
 if vim.fn.executable("rg") then
     vim.o.grepprg = "rg --vimgrep -g='!*.pdf' -g='!*.eps' --no-heading --smart-case"

@@ -110,17 +110,6 @@ return {
     },
 
     {
-        -- But really cool though
-        "cbochs/portal.nvim",
-        lazy = true,
-        config = true,
-        keys = {
-            { "<C-S-o>", "<cmd>Portal jumplist backward<cr>", desc = "Portal backward" },
-            { "<C-S-i>", "<cmd>Portal jumplist forward<cr>", desc = "Portal forward" },
-        },
-    },
-
-    {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
@@ -400,17 +389,9 @@ return {
     -- Typst
     {
         "kaarmu/typst.vim",
-        commit = "e4d0721", -- BUG: https://github.com/kaarmu/typst.vim/issues/64
         ft = "typst",
         lazy = false,
     },
-    -- {
-    --     "MrPicklePinosaur/typst-conceal.vim",
-    --     init = function()
-    --         vim.g.typst_conceal_math = true
-    --         vim.g.typst_conceal_emoji = true
-    --     end,
-    -- },
 
     -- Mac OS / Xcode
     "darfink/vim-plist",

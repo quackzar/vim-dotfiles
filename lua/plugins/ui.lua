@@ -380,14 +380,6 @@ return {
     },
 
     {
-        "folke/drop.nvim", -- screensaver
-        event = "VimEnter",
-        enabled = true,
-        config = true,
-        opts = { screensaver = false, theme = "snow" },
-    },
-
-    {
         "rcarriga/nvim-notify",
         enabled = true,
         opts = {

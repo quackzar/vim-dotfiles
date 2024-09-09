@@ -8,11 +8,6 @@ return {
         "neovim/nvim-lspconfig",
     },
 
-    -- {
-    --     "hinell/lsp-timeout.nvim",
-    --     dependencies = { "neovim/nvim-lspconfig" },
-    -- },
-
     {
         "luckasRanarison/clear-action.nvim",
         event = "LspAttach",
