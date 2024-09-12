@@ -175,5 +175,7 @@ require("telescope").setup {
     },
 }
 
-require("telescope").load_extension("zf-native")
+if vim.env.USE_ZF_NATIVE then
+    require("telescope").load_extension("zf-native")
+end
 require("telescope").load_extension("zoxide")

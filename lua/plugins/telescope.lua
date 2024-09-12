@@ -23,6 +23,7 @@ return {
     },
 
     {
+        enabled = vim.env.USE_ZF_NATIVE,
         "natecraddock/telescope-zf-native.nvim",
     },
 
