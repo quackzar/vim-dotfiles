@@ -26,10 +26,6 @@ return {
 
     "nvim-treesitter/nvim-treesitter-textobjects",
 
-    -- "nvim-treesitter/nvim-treesitter-refactor",
-
-    { "nvim-treesitter/nvim-treesitter-angular", ft = { "html", "ts" } },
-
     {
         "RRethy/nvim-treesitter-endwise",
         event = "InsertEnter",
@@ -70,7 +66,10 @@ return {
     },
 
     {
+        -- Boosted '%'
+        -- Maybe redundant with vim-matchup (also uses treesitter)
         "yorickpeterse/nvim-tree-pairs",
+        enabled = false,
         config = true,
     },
 
@@ -90,7 +89,10 @@ return {
         keys = { { "gJ", "<cmd>TSJToggle<cr>", desc = "toggle join/split" } },
     },
 
-    { "windwp/nvim-ts-autotag" },
+    {
+        -- Auto rename HTML, XML and other kinds of tags
+        "windwp/nvim-ts-autotag",
+    },
 
     {
         "abecodes/tabout.nvim",
@@ -160,10 +162,10 @@ return {
     {
         "mizlan/iswap.nvim",
         keys = {
-            { "g:", "<cmd>ISwap<cr>", desc = "Swap" },
+            -- { "g:", "<cmd>ISwap<cr>", desc = "Swap" },
             { "g.", "<cmd>ISwapWith<cr>", desc = "Swap with" },
-            { "g<", "<cmd>ISwapWithLeft<cr>", desc = "Swap left" },
-            { "g>", "<cmd>ISwapWithRight<cr>", desc = "Swap right" },
+            -- { "g<", "<cmd>ISwapWithLeft<cr>", desc = "Swap left" },
+            -- { "g>", "<cmd>ISwapWithRight<cr>", desc = "Swap right" },
         },
     },
 

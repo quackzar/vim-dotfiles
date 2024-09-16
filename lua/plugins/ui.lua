@@ -308,7 +308,7 @@ return {
             theta.buttons.val = {
                 { type = "text", val = "Quick links", opts = { hl = "SpecialComment", position = "center" } },
                 { type = "padding", val = 1 },
-                dashboard.button("s", "󰁯  Restore Session", [[<cmd>SessionRestore<cr>]]),
+                dashboard.button("s", "󰁯  Restore Session", [[<cmd>lua require("persistence").load()<cr>]]),
                 dashboard.button("SPC f f", "󰮗  Find file"),
                 dashboard.button("SPC f g", "  Live grep"),
                 dashboard.button("SPC f z", "󰈸  Zoxide"),
@@ -552,28 +552,6 @@ return {
             "<space>o", -- Options
             "<space>d", -- Debug
             "<C-w>", -- windows
-        },
-    },
-
-    {
-        "folke/twilight.nvim",
-        lazy = true,
-        cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
-        config = true,
-    },
-
-    {
-        "folke/zen-mode.nvim",
-        cmd = "ZenMode",
-        lazy = true,
-        opts = {
-            plugins = {
-                wezterm = {
-                    enabled = false,
-                    -- can be either an absolute font size or the number of incremental steps
-                    font = "+4", -- (10% increase per step)
-                },
-            },
         },
     },
 

@@ -123,41 +123,6 @@ return {
     },
 
     {
-        "mizlan/delimited.nvim",
-        config = true,
-        keys = {
-            {
-                "[d",
-                function()
-                    require("delimited").goto_prev()
-                end,
-                desc = "prev diagnostic",
-            },
-            {
-                "]d",
-                function()
-                    require("delimited").goto_next()
-                end,
-                desc = "next diagnostic",
-            },
-            {
-                "[e",
-                function()
-                    require("delimited").goto_prev { severity = vim.diagnostic.severity.ERROR }
-                end,
-                desc = "prev error",
-            },
-            {
-                "]e",
-                function()
-                    require("delimited").goto_next { severity = vim.diagnostic.severity.ERROR }
-                end,
-                desc = "next error",
-            },
-        },
-    },
-
-    {
         "folke/trouble.nvim",
         enabled = true,
         lazy = true,
@@ -185,27 +150,6 @@ return {
                     require("trouble").previous { skip_groups = true, jump = true }
                 end,
                 desc = "prev trouble",
-            },
-        },
-    },
-
-    -- NOTE: Unused
-    {
-        "chrisgrieser/nvim-rulebook",
-        keys = {
-            {
-                "<leader>I",
-                function()
-                    require("rulebook").ignoreRule()
-                end,
-                desc = "ignore rule",
-            },
-            {
-                "<leader>L",
-                function()
-                    require("rulebook").lookupRule()
-                end,
-                desc = "lookup rule",
             },
         },
     },
