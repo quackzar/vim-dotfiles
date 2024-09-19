@@ -1,15 +1,5 @@
 local Hydra = require("hydra")
 
-require("hydras.git")
-require("hydras.windows")
-require("hydras.telescope")
-require("hydras.options")
-require("hydras.dap")
-require("hydras.neotest")
--- require("hydras.refactoring")
-require("hydras.neogen")
--- require("hydras.words")
-
 local highlighting = {
     HydraRed = { fg = "#FF5733" },
     HydraBlue = { fg = "#5EBCF6" },
@@ -38,3 +28,11 @@ Hydra {
         { "L", "zL", { desc = "half screen ←/→" } },
     },
 }
+
+require("hydras.telescope")
+require("hydras.windows")
+require("hydras.options")
+require("hydras.neotest")
+require("hydras.dap")
+require("hydras.git")
+require("hydras.neogen")
