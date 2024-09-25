@@ -1,4 +1,5 @@
 return {
+    -- TODO: Maybe do a hydra?
     "jake-stewart/multicursor.nvim",
     branch = "1.0",
     config = function()
@@ -7,34 +8,34 @@ return {
         mc.setup()
 
         -- Add cursors above/below the main cursor.
-        vim.keymap.set({ "n", "v" }, "<M-j>", function()
+        vim.keymap.set({ "n", "v" }, "<S-C-k>", function()
             mc.addCursor("k")
         end)
-        vim.keymap.set({ "n", "v" }, "<M-k>", function()
+        vim.keymap.set({ "n", "v" }, "<S-C-j>", function()
             mc.addCursor("j")
         end)
 
         -- Add a cursor and jump to the next word under cursor.
-        vim.keymap.set({ "n", "v" }, "<c-n>", function()
+        vim.keymap.set({ "n", "v" }, "<C-n>", function()
             mc.addCursor("*")
         end)
 
         -- Jump to the next word under cursor but do not add a cursor.
-        vim.keymap.set({ "n", "v" }, "<c-s>", function()
+        vim.keymap.set({ "n", "v" }, "<C-s>", function()
             mc.skipCursor("*")
         end)
 
         -- Rotate the main cursor.
-        vim.keymap.set({ "n", "v" }, "<M-l>", mc.nextCursor)
-        vim.keymap.set({ "n", "v" }, "<M-h>", mc.prevCursor)
+        vim.keymap.set({ "n", "v" }, "<S-C-l>", mc.nextCursor)
+        vim.keymap.set({ "n", "v" }, "<S-C-h>", mc.prevCursor)
 
         -- Delete the main cursor.
-        vim.keymap.set({ "n", "v" }, "<leader>x", mc.deleteCursor)
+        vim.keymap.set({ "n", "v" }, "<S-C-x>", mc.deleteCursor)
 
         -- Add and remove cursors with control + left click.
         vim.keymap.set("n", "<c-leftmouse>", mc.handleMouse)
 
-        vim.keymap.set({ "n", "v" }, "<c-q>", function()
+        vim.keymap.set({ "n", "v" }, "<S-C-q>", function()
             if mc.cursorsEnabled() then
                 -- Stop other cursors from moving.
                 -- This allows you to reposition the main cursor.
@@ -68,10 +69,10 @@ return {
         vim.keymap.set("v", "M", mc.matchCursors)
 
         -- Rotate visual selection contents.
-        vim.keymap.set("v", "<leader>t", function()
+        vim.keymap.set("v", "<S-C-t>", function()
             mc.transposeCursors(1)
         end)
-        vim.keymap.set("v", "<leader>T", function()
+        vim.keymap.set("v", "<S-C-T>", function()
             mc.transposeCursors(-1)
         end)
 

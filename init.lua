@@ -227,4 +227,5 @@ require("ts-grammars")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))
+
 -- vim: foldmethod=marker sw=4
