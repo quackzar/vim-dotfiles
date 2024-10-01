@@ -112,7 +112,6 @@ return {
             --     dir = "~/Projects/misc/neo-tree-neotest",
             -- },
             "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
             {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
@@ -208,7 +207,6 @@ return {
         "OXY2DEV/markview.nvim",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
-            "nvim-tree/nvim-web-devicons",
         },
         opts = {
             modes = { "n", "i", "no", "c" },

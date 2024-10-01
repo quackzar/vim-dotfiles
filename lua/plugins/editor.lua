@@ -3,6 +3,8 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
 
+    { "echasnovski/mini.bracketed", version = "*" },
+
     "aca/vidir.nvim",
 
     {
@@ -13,6 +15,8 @@ return {
 
     {
         "kylechui/nvim-surround",
+        -- consider `echasnovski/mini.surround` for sandwich-like bindings
+        -- Sandwich like bidnings conflict with `substitute`
         version = "*",
         event = "VeryLazy",
         config = function()
@@ -70,7 +74,7 @@ return {
     { "echasnovski/mini.ai", version = false },
 
     {
-        "gbprod/substitute.nvim",
+        "gbprod/substitute.nvim", -- sort of a 'paste, but backwards'
         lazy = true,
         opts = {},
         init = function()

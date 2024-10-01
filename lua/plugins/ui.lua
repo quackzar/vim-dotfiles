@@ -9,6 +9,8 @@ return {
         },
     },
 
+    { "echasnovski/mini.icons", version = "*" },
+
     {
         "windwp/windline.nvim",
         enabled = true,
