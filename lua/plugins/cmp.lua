@@ -41,11 +41,13 @@ return {
 
             -- "hrsh7th/cmp-buffer",
 
+            "amarakon/nvim-cmp-buffer-lines",
             "https://codeberg.org/FelipeLema/cmp-async-path.git",
             "hrsh7th/cmp-omni",
             "hrsh7th/cmp-cmdline",
             "f3fora/cmp-spell",
             "saadparwaiz1/cmp_luasnip",
+            "lukas-reineke/cmp-rg",
 
             {
                 "zjp-CN/nvim-cmp-lsp-rs", -- Rust specific sorting (see config in ftplugin/rust.lua)
@@ -90,6 +92,23 @@ return {
                         },
                         { "i", "c" }
                     ),
+                    ["<C-x><C-l>"] = cmp.mapping(
+                        cmp.mapping.complete {
+                            config = {
+                                sources = {
+                                    { name = "buffer-lines" },
+                                },
+                            },
+                        },
+                        { "i" }
+                    ),
+                    ["<C-x><C-i>"] = cmp.mapping(cmp.mapping.complete {
+                        config = {
+                            sources = {
+                                { name = "rg" },
+                            },
+                        },
+                    } { "i" }),
                     ["<C-x><C-s>"] = cmp.mapping(
                         cmp.mapping.complete {
                             config = {
