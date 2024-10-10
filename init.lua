@@ -93,7 +93,7 @@ vim.o.foldnestmax = 5
 vim.o.foldlevel = 99
 
 vim.o.scrolloff = 10
-vim.o.sessionoptions = "buffers,blank,curdir,folds,help,tabpages,winsize,terminal,localoptions"
+vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal,localoptions"
 
 vim.o.laststatus = 3
 

@@ -21,18 +21,18 @@ end
 vim.keymap.set("n", "<space>K", function()
     vim.diagnostic.open_float { float = false }
 end, { desc = "diagnostic hover" })
--- vim.keymap.set("n", "[d", function()
---     vim.diagnostic.goto_prev { float = false }
--- end, { desc = "prev diagnostic" })
--- vim.keymap.set("n", "]d", function()
---     vim.diagnostic.goto_next { float = false }
--- end, { desc = "next diagnostic" })
--- vim.keymap.set("n", "[e", function()
---     vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.ERROR }
--- end, { desc = "prev error" })
--- vim.keymap.set("n", "]e", function()
---     vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.ERROR }
--- end, { desc = "next error" })
+vim.keymap.set("n", "[d", function()
+    vim.diagnostic.goto_prev { float = false }
+end, { desc = "prev diagnostic" })
+vim.keymap.set("n", "]d", function()
+    vim.diagnostic.goto_next { float = false }
+end, { desc = "next diagnostic" })
+vim.keymap.set("n", "[e", function()
+    vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.ERROR }
+end, { desc = "prev error" })
+vim.keymap.set("n", "]e", function()
+    vim.diagnostic.goto_next { float = false, severity = vim.diagnostic.severity.ERROR }
+end, { desc = "next error" })
 vim.keymap.set("n", "[w", function()
     vim.diagnostic.goto_prev { float = false, severity = vim.diagnostic.severity.WARN }
 end, { desc = "prev warning" })

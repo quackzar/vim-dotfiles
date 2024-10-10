@@ -165,6 +165,9 @@ return {
                 rust = { "rustfmt" },
                 bash = { "shellcheck" },
             },
+            default_format_opts = {
+                lsp_format = "fallback",
+            },
         },
         init = function()
             -- this will fallback to the lsp if there is no specific formatter
@@ -176,6 +179,14 @@ return {
                 prepend_args = { "--edition", "2021" }, -- Otherwise we can't use new syntax.
             }
         end,
+    },
+
+    {
+        "zapling/mason-conform.nvim",
+        dependencies = {
+            "williamboman/mason.nvim",
+            "stevearc/conform.nvim",
+        },
     },
 
     {
