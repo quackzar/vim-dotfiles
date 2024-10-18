@@ -1,11 +1,10 @@
 return {
     {
-        "hrsh7th/nvim-cmp", -- TODO: https://github.com/hrsh7th/nvim-cmp/pull/1094
-        event = "InsertEnter",
+        "hrsh7th/nvim-cmp",
+        event = "VeryLazy",
         dependencies = {
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
-
             {
                 "ofirgall/cmp-lspkind-priority",
                 opts = {

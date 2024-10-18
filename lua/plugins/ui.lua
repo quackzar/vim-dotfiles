@@ -13,8 +13,9 @@ return {
 
     {
         "windwp/windline.nvim",
+        event = "VeryLazy",
         enabled = true,
-        init = function()
+        config = function()
             require("windline.bubblegum")
         end,
     },

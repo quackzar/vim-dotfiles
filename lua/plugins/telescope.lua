@@ -23,13 +23,14 @@ return {
     },
 
     {
-        enabled = vim.env.USE_ZF_NATIVE == '1',
+        enabled = vim.env.USE_ZF_NATIVE == "1",
         "natecraddock/telescope-zf-native.nvim",
     },
 
     {
         "danielfalk/smart-open.nvim",
         branch = "0.2.x",
+        lazy = true,
         config = function()
             require("telescope").load_extension("smart_open")
         end,

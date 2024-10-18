@@ -1,6 +1,7 @@
 return {
     -- TODO: Maybe do a hydra?
     "jake-stewart/multicursor.nvim",
+    event = "VeryLazy",
     branch = "1.0",
     config = function()
         local mc = require("multicursor-nvim")
