@@ -201,6 +201,8 @@ return {
                 c = { "compiler" },
                 yaml = { "actionlint" },
                 lua = { "luacheck" },
+                typescript = { "eslint_d" },
+                javascript = { "eslint_d" },
             }
         end,
         init = function()

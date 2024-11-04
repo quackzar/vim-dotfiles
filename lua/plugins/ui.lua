@@ -586,4 +586,6 @@ return {
         keys = "V",
         opts = {},
     },
+
+    { "meznaric/key-analyzer.nvim", opts = {} },
 }

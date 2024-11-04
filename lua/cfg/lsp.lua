@@ -196,6 +196,39 @@ require("mason-lspconfig").setup_handlers {
             },
         }
     end,
+    ["ts_ls"] = function()
+        local mason_registry = require("mason-registry")
+        local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+            .. "/node_modules/@vue/language-server"
+        lspconfig.ts_ls.setup {
+            init_options = {
+                plugins = {
+                    {
+                        -- Name of the TypeScript plugin for Vue
+                        name = "@vue/typescript-plugin",
+
+                        -- Location of the Vue language server module (path defined in step 1)
+                        location = vue_language_server_path,
+
+                        -- Specify the languages the plugin applies to (in this case, Vue files)
+                        languages = { "vue" },
+                    },
+                },
+            },
+            filetypes = {
+                "typescript",
+                "javascript",
+                "javascriptreact",
+                "typescriptreact",
+                "vue",
+            },
+        }
+    end,
+    ["volar"] = function()
+        lspconfig.volar.setup {
+            filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+        }
+    end,
     ["harper_ls"] = function()
         lspconfig.harper_ls.setup {
             filetypes = {
