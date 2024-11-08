@@ -1,5 +1,4 @@
 return {
-    -- Meta {{{
     {
         "stevearc/stickybuf.nvim",
         config = true,
@@ -37,8 +36,6 @@ return {
         },
     },
 
-    -- }}}
-    -- Navigation {{{
     {
         "sustech-data/wildfire.nvim",
         keys = { "<cr>" },
@@ -50,56 +47,6 @@ return {
         "nacro90/numb.nvim",
         keys = { ":" },
         config = true,
-    },
-
-    {
-        "folke/flash.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        ---@type Flash.Config
-        opts = {
-            highlight = {
-                backdrop = true,
-            },
-            modes = {
-                search = {
-                    enabled = false,
-                },
-            },
-        },
-        keys = {
-            {
-                "s",
-                mode = { "n", "x", "o" },
-                function()
-                    -- default options: exact mode, multi window, all directions, with a backdrop
-                    require("flash").jump {
-                        search = { forward = true, wrap = false, multi_window = false },
-                    }
-                end,
-            },
-            {
-                "S",
-                mode = {
-                    "n", --[[ "x", "o" ]]
-                },
-                function()
-                    -- default options: exact mode, multi window, all directions, with a backdrop
-                    require("flash").jump {
-                        search = { forward = false, wrap = false, multi_window = false },
-                    }
-                end,
-            },
-            {
-                -- This is really cool but the keymap 'S' conflicts with surround in [ox] mode
-                -- hopefully '.' isn't used for anything.
-                ".",
-                mode = { "o", "x" },
-                function()
-                    require("flash").treesitter()
-                end,
-            },
-        },
     },
 
     {
@@ -173,15 +120,42 @@ return {
 
     {
         "gbprod/stay-in-place.nvim",
-        config = function()
-            require("stay-in-place").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end,
+        --  is a Neovim plugin that prevent the cursor from moving when using shift and filter actions.
+        config = true,
     },
-    -- }}}
+
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        ---@type snacks.Config
+        opts = {
+            words = { enabled = false },
+
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+        },
+        keys = {
+            {
+                "<c-/>",
+                function()
+                    Snacks.terminal("fish")
+                end,
+                desc = "Toggle Terminal",
+            },
+            {
+                "<c-_>",
+                function()
+                    Snacks.terminal("fish")
+                end,
+                desc = "which_key_ignore",
+            },
+            -- { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
+            -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
+        },
+    },
+
     -- Language Specific Plugins {{{
 
     {
@@ -382,6 +356,15 @@ return {
         "kaarmu/typst.vim",
         ft = "typst",
         lazy = false,
+    },
+
+    {
+        "chomosuke/typst-preview.nvim",
+        lazy = false, -- or ft = 'typst'
+        version = "1.*",
+        build = function()
+            require("typst-preview").update()
+        end,
     },
 
     -- Mac OS / Xcode

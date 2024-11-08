@@ -88,7 +88,7 @@ require("nvim-treesitter.configs").setup {
                 ["]f"] = { query = "@function.outer", desc = "next function" },
                 ["]o"] = { query = "@loop.*", desc = "next loop" },
                 -- ["]]"] = "@class.outer",
-                ["]]"] = { query = "@scope", query_group = "locals", desc = "next scope" },
+                -- ["]]"] = { query = "@scope", query_group = "locals", desc = "next scope" },
             },
             goto_next_end = {
                 ["]F"] = "@function.outer",
@@ -96,7 +96,7 @@ require("nvim-treesitter.configs").setup {
             goto_previous_start = {
                 ["[f"] = { query = "@function.outer", desc = "prev function" },
                 ["[o"] = { query = "@loop.*", desc = "prev loop" },
-                ["[["] = { query = "@scope", query_group = "locals", desc = "prev scope" },
+                -- ["[["] = { query = "@scope", query_group = "locals", desc = "prev scope" },
                 -- ["[["] = "@class.outer",
             },
             goto_previous_end = {

@@ -1,8 +1,13 @@
-vim.keymap.set("n", "<localleader>ll", "<cmd>TypstWatch<cr>", { buffer = true })
-vim.keymap.set("n", "<localleader>lv", function()
+vim.keymap.set("n", "<localleader>LL", "<cmd>TypstWatch<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>LV", function()
     local filename = vim.fn.expand("%:t:r")
     vim.cmd("!open " .. filename .. ".pdf")
 end, { buffer = true })
+
+vim.keymap.set("n", "<localleader>ll", "<cmd>TypstPreviewToggle<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lv", "<cmd>TypstPreviewSyncCursor<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lf", "<cmd>TypstPreviewFollowCursorToggle<cr>", { buffer = true })
+
 vim.bo.spelllang = "en"
 vim.wo.spell = true
 vim.bo.textwidth = 100
