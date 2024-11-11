@@ -174,6 +174,21 @@ require("mason-lspconfig").setup_handlers {
             },
         }
     end,
+    ["tinymist"] = function()
+        lspconfig.tinymist.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            offset_encoding = "utf-8",
+            single_file_support = true,
+            root_dir = function()
+                return vim.fn.getcwd()
+            end,
+            settings = {
+                formatterMode = "typstyle",
+                exportPdf = "onSave",
+            },
+        }
+    end,
     ["texlab"] = function()
         lspconfig.texlab.setup {
             on_attach = on_attach,
@@ -241,7 +256,6 @@ require("mason-lspconfig").setup_handlers {
                 "rnoweb",
                 "tex",
                 "pandoc",
-                "typst",
             },
             on_attach = on_attach,
             capabilities = capabilities,

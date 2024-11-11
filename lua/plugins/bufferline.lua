@@ -1,7 +1,7 @@
 local opts = {
     options = {
         numbers = "ordinal",
-        -- close_command = "Bdelete! %d",
+        close_command = "lua Snacks.bufdelete()",
         -- right_mouse_command = "bdelete! %d",
         left_mouse_command = "buffer %d",
         middle_mouse_command = nil,
