@@ -124,38 +124,6 @@ return {
         config = true,
     },
 
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
-        lazy = false,
-        ---@type snacks.Config
-        opts = {
-            words = { enabled = false },
-
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
-        keys = {
-            {
-                "<c-/>",
-                function()
-                    Snacks.terminal("fish")
-                end,
-                desc = "Toggle Terminal",
-            },
-            {
-                "<c-_>",
-                function()
-                    Snacks.terminal("fish")
-                end,
-                desc = "which_key_ignore",
-            },
-            -- { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
-            -- { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
-        },
-    },
-
     -- Language Specific Plugins {{{
 
     {

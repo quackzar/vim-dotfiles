@@ -273,6 +273,7 @@ return {
 
     {
         "goolord/alpha-nvim",
+        enabled = false,
         event = "VimEnter",
         opts = function()
             local theta = require("alpha.themes.theta")
