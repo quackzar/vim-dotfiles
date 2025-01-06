@@ -165,15 +165,6 @@ require("mason-lspconfig").setup_handlers {
             filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         }
     end,
-    ["typst_lsp"] = function()
-        lspconfig.typst_lsp.setup {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            settings = {
-                -- exportPdf = "onType",
-            },
-        }
-    end,
     ["tinymist"] = function()
         lspconfig.tinymist.setup {
             on_attach = on_attach,
