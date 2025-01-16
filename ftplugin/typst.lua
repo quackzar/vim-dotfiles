@@ -6,7 +6,8 @@ end, { buffer = true })
 
 vim.keymap.set("n", "<localleader>ll", "<cmd>TypstPreviewToggle<cr>", { buffer = true })
 vim.keymap.set("n", "<localleader>lv", "<cmd>TypstPreviewSyncCursor<cr>", { buffer = true })
-vim.keymap.set("n", "<localleader>lf", "<cmd>TypstPreviewFollowCursorToggle<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lf", "<cmd>TypstPreviewFollowCursor<cr>", { buffer = true })
+vim.keymap.set("n", "<localleader>lF", "<cmd>TypstPreviewNoFollowCursor<cr>", { buffer = true })
 
 vim.bo.spelllang = "en"
 vim.wo.spell = true

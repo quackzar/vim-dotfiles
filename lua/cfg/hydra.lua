@@ -32,7 +32,8 @@ Hydra {
 require("hydras.telescope")
 require("hydras.windows")
 require("hydras.options")
-require("hydras.neotest")
-require("hydras.dap")
+-- pink layer seems to be broken on NIGHTLY
 require("hydras.git")
 require("hydras.neogen")
+require("hydras.neotest")
+-- require("hydras.dap")

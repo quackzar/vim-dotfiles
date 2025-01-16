@@ -28,6 +28,7 @@ return {
         ---@type snacks.Config
         opts = {
             words = { enabled = false },
+            toggle = { enabled = false },
             dashboard = {
                 enabled = true,
                 sections = {

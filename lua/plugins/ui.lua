@@ -131,6 +131,11 @@ return {
     },
 
     {
+        "karb94/neoscroll.nvim",
+        opts = {},
+    },
+
+    {
         "anuvyklack/windows.nvim",
         dependencies = {
             "anuvyklack/middleclass",

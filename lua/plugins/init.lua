@@ -328,8 +328,13 @@ return {
 
     {
         "chomosuke/typst-preview.nvim",
-        lazy = false, -- or ft = 'typst'
+        ft = "typst",
         version = "1.*",
+        opts = {
+            dependencies_bin = {
+                ["tinymist"] = "tinymist", -- from Mason
+            },
+        },
         build = function()
             require("typst-preview").update()
         end,
