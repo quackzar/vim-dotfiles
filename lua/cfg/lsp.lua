@@ -175,8 +175,12 @@ require("mason-lspconfig").setup_handlers {
                 return vim.fn.getcwd()
             end,
             settings = {
+                compileStatus = "enable",
                 formatterMode = "typstyle",
                 exportPdf = "onSave",
+                preview = {
+                    cursorIndicator = true,
+                },
             },
         }
     end,

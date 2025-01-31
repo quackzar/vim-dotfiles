@@ -150,16 +150,42 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
         },
-        opts = {
-            modes = { "n", "i", "no", "c" },
-            hybrid_modes = { "n", "i" }, -- Uses this feature on
-            callbacks = {
-                on_enable = function(_, win)
-                    vim.wo[win].conceallevel = 2
-                    vim.wo[win].conecalcursor = "nc"
-                end,
-            },
-        },
+        lazy = false,
+        opts = function()
+            local presets = require("markview.presets")
+            return {
+                preview = {
+                    icon_provider = "mini",
+                    modes = { "n", "i", "no", "c" },
+                    hybrid_modes = { "n", "i" }, -- Uses this feature on
+                    callbacks = {
+                        on_enable = function(_, win)
+                            vim.wo[win].conceallevel = 2
+                            vim.wo[win].conecalcursor = "nc"
+                        end,
+                    },
+                },
+                markdown = {
+                    headings = presets.headings.arrowed,
+                },
+                typst = {
+                    enable = false,
+                    code_blocks = {
+                        enable = false,
+                        style = "simple",
+                        text = "",
+                        pad_amount = 0,
+                        width = 80,
+                    },
+                    labels = { enable = false },
+                    reference_links = { enable = false },
+                    list_items = { enable = false },
+                    headings = {
+                        enable = false,
+                    },
+                },
+            }
+        end,
     },
 
     {
