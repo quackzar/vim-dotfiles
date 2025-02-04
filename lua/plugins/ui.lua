@@ -459,6 +459,7 @@ return {
                     suggestions = 20, -- how many suggestions should be shown in the list?
                 },
                 presets = {
+                    operators = true,
                     motions = true, -- adds help for motions
                     text_objects = true, -- help for text objects triggered after entering an operator
                     windows = true, -- default bindings on <c-w>
@@ -468,7 +469,7 @@ return {
                 },
             },
             disable = {
-                filetypes = { "neo-tree" },
+                ft = { "neo-tree" },
             },
         },
         event = "VeryLazy",
