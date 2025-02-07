@@ -7,7 +7,7 @@ end, { desc = "select snip-choice" })
 vim.keymap.set({ "i", "s" }, "<C-q><C-l>", "<Plug>luasnip-next-choice")
 vim.keymap.set({ "i", "s" }, "<C-q><C-h>", "<Plug>luasnip-prev-choice")
 
-vim.keymap.set({ "i", "s" }, "<C-q><C-j>", function()
+vim.keymap.set({ "i", "s" }, "<C-q><C-y>", function()
     require("luasnip").expand()
 end, { desc = "expand snippet" })
 

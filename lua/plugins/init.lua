@@ -357,6 +357,7 @@ return {
         ft = "typst",
         version = "1.*",
         opts = {
+            port = 65000,
             dependencies_bin = {
                 ["tinymist"] = "tinymist", -- from Mason
             },
