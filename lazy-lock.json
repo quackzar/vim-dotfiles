@@ -133,6 +133,7 @@
   "stickybuf.nvim": { "branch": "master", "commit": "61ec81b9de2a76bfcfaa579f16bf88395b58b814" },
   "substitute.nvim": { "branch": "main", "commit": "97f49d16f8eea7967d41db4f657dd63af53eeba1" },
   "telescope-dap.nvim": { "branch": "master", "commit": "783366bd6c1e7fa0a5c59c07db37f49c805a28df" },
+  "telescope-hierarchy.nvim": { "branch": "main", "commit": "9975619f4361b57708496d6ffc7c86c5487e9ca0" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope-zf-native.nvim": { "branch": "master", "commit": "5721be27df11a19b9cd95e6a4887f16f26599802" },
   "telescope-zoxide": { "branch": "main", "commit": "54bfe630bad08dc9891ec78c7cf8db38dd725c97" },
