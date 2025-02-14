@@ -136,8 +136,8 @@ return {
             integrations = {
                 diffview = true,
             },
-            graph_style = "kitty",
-            process_spinner = true,
+            graph_style = "unicode",
+            process_spinner = false,
             signs = {
                 -- { CLOSED, OPENED }
                 section = { "", "" },
