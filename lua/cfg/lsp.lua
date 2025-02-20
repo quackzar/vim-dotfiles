@@ -276,7 +276,7 @@ require("mason-lspconfig").setup_handlers {
                     "rnoweb",
                     "tex",
                     "pandoc",
-                    -- "typst",
+                    --"typst",
                 },
                 settings = {
                     ltex = {

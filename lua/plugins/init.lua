@@ -1,11 +1,5 @@
 return {
     {
-        "luiscassih/AniMotion.nvim",
-        event = "VeryLazy",
-        config = true,
-    },
-
-    {
         "stevearc/stickybuf.nvim",
         config = true,
     },
