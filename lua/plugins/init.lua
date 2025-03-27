@@ -168,6 +168,9 @@ return {
                 markdown = {
                     headings = presets.headings.arrowed,
                 },
+                latex = {
+                    enable = false,
+                },
                 typst = {
                     enable = false,
                     code_blocks = {
