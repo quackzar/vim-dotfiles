@@ -219,7 +219,7 @@ return {
     -- === rust ===
     {
         "mrcjkb/rustaceanvim",
-        version = "^5", -- Recommended
+        version = "^6", -- Recommended
         enabled = true,
         ft = { "rust" },
         init = function()
@@ -382,6 +382,11 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
         },
+    },
+
+    {
+        "tamarin-prover/editors",
+        name = "tamarin",
     },
     -- }}}
 }
