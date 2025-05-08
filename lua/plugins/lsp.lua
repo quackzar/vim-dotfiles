@@ -3,7 +3,6 @@ return {
     -- LSP + Snippets {{{
     {
         "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
         "jayp0521/mason-nvim-dap.nvim",
         "neovim/nvim-lspconfig",
     },

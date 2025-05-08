@@ -78,11 +78,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 local lspconfig = require("lspconfig")
-local mason_lsp = require("mason-lspconfig")
-mason_lsp.setup {
-    ensure_installed = { "lua_ls" },
-    automatic_installation = true,
-}
 require("neodev").setup {
     library = { plugins = { "neotest" }, types = true },
     settings = {
