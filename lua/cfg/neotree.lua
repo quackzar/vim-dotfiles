@@ -13,6 +13,7 @@ end
 require("neo-tree").setup {
     sources = {
         "filesystem",
+        "netman.ui.neo-tree",
         "buffers",
         "git_status", -- NOTE: Sort of redundant?
         "document_symbols",

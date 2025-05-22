@@ -77,7 +77,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-local lspconfig = require("lspconfig")
 require("neodev").setup {
     library = { plugins = { "neotest" }, types = true },
     settings = {
@@ -90,75 +89,6 @@ require("neodev").setup {
     },
 }
 
-lspconfig.clangd.setup {
-    inlay_hints = { enabled = true },
-    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-}
-lspconfig.tinymist.setup {
-    offset_encoding = "utf-8",
-    single_file_support = true,
-    root_dir = function()
-        return vim.fn.getcwd()
-    end,
-    settings = {
-        compileStatus = "enable",
-        formatterMode = "typstyle",
-        exportPdf = "onSave",
-        preview = {
-            cursorIndicator = true,
-        },
-    },
-}
-lspconfig.basedpyright.setup {
-    settings = {
-        basedpyright = {
-            analysis = {
-                typeCheckingMode = "standard",
-            },
-        },
-    },
-}
-lspconfig.ts_ls.setup {
-    init_options = {
-        plugins = {
-            {
-                -- Name of the TypeScript plugin for Vue
-                name = "@vue/typescript-plugin",
-
-                -- Location of the Vue language server module (path defined in step 1)
-                -- location = vue_language_server_path,
-
-                -- Specify the languages the plugin applies to (in this case, Vue files)
-                languages = { "vue" },
-            },
-        },
-    },
-    filetypes = {
-        "typescript",
-        "javascript",
-        "javascriptreact",
-        "typescriptreact",
-        "vue",
-    },
-}
-lspconfig.harper_ls.setup {
-    filetypes = {
-        "bib",
-        "gitcommit",
-        "markdown",
-        "org",
-        "plaintex",
-        "rst",
-        "rnoweb",
-        "tex",
-        "pandoc",
-    },
-    settings = {
-        linters = {
-            spell_check = false,
-        },
-    },
-}
 require("ltex_extra").setup {
     server_opts = {
         filetypes = {

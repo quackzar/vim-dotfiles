@@ -13,6 +13,11 @@ return {
         config = true,
     },
 
+    {
+        "miversen33/netman.nvim",
+        lazy = false,
+    },
+
     { -- autoclose unused buffers
         "axkirillov/hbac.nvim",
         config = true,

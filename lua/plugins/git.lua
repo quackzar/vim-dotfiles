@@ -33,6 +33,9 @@ return {
             },
             update_debounce = 100,
             status_formatter = nil, -- Use default
+            diff_opts = {
+                vertical = false,
+            },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
