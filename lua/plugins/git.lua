@@ -76,6 +76,16 @@ return {
         "sindrets/diffview.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         cmd = { "DiffviewFileHistory", "DiffviewOpen", "DiffviewLog" },
+        init = function()
+            vim.opt.fillchars:append("diff:╱")
+
+            if vim.fn.executable("nvr") == 1 then
+                local nvr = "nvr --servername " .. vim.v.servername .. " "
+                vim.env.GIT_EDITOR = nvr .. "-cc split +'setl bh=delete' --remote-wait"
+                vim.env.EDITOR = nvr .. "-l --remote" -- (Optional)
+                vim.env.VISUAL = nvr .. "-l --remote" -- (Optional)
+            end
+        end,
         opts = {
             enhanced_diff_hl = true,
             default_args = {
