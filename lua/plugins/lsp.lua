@@ -8,6 +8,22 @@ return {
     },
 
     {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {
+            automatic_enable = {
+                exclude = {
+                    "rust_analyzer",
+                    "harper_ls",
+                },
+            },
+        },
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+    },
+
+    {
         "luckasRanarison/clear-action.nvim",
         enabled = false,
         event = "LspAttach",
