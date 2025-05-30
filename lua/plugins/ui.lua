@@ -261,11 +261,29 @@ return {
         end,
     },
 
-    -- "famiu/bufdelete.nvim",
-
     {
         "tiagovla/scope.nvim", -- Makes tabs work like other editors
         config = true,
+    },
+
+    { "nvzone/volt", lazy = true },
+    {
+        "nvzone/menu",
+        lazy = true,
+        init = function()
+            vim.keymap.set({ "n", "v" }, "<RightMouse>", function()
+                require("menu.utils").delete_old_menus()
+
+                vim.cmd.exec('"normal! \\<RightMouse>"')
+
+                -- clicked buf
+                local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+                local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+                -- TODO: Impl. neo-tree bindings
+
+                require("menu").open(options, { mouse = true })
+            end, {})
+        end,
     },
 
     {
