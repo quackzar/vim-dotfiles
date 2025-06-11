@@ -134,6 +134,7 @@
   "stickybuf.nvim": { "branch": "master", "commit": "0c1e5f1a3eb36eea2cea57083828269cc62c58e4" },
   "substitute.nvim": { "branch": "main", "commit": "9db749a880e3dd3b0eb57f698aa8f1e1630e1f25" },
   "symbol-usage.nvim": { "branch": "main", "commit": "e07c07dfe7504295a369281e95a24e1afa14b243" },
+  "taglist": { "branch": "master", "commit": "97b001b3c00079671c03889eb62ba055395a4ca3" },
   "tamarin": { "branch": "master", "commit": "758966ca920c17fc227b7b05a6225e8c5914b7ca" },
   "telescope-dap.nvim": { "branch": "master", "commit": "783366bd6c1e7fa0a5c59c07db37f49c805a28df" },
   "telescope-hierarchy.nvim": { "branch": "main", "commit": "2ba4840d8ba9288ca85dc34b01cf946aee0b8fca" },

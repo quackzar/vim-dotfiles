@@ -160,6 +160,10 @@ return {
     },
 
     {
+        "yegappan/taglist", -- Like document-symbols or vista but for tags
+    },
+
+    {
         "folke/edgy.nvim",
         enabled = false,
         event = "VeryLazy",

@@ -127,6 +127,14 @@ require("ltex_extra").setup {
 }
 
 require("lspconfig").harper_ls.setup {
+    server_opts = {
+        filetypes = {
+            "typst",
+            "tex",
+            "markdown",
+            "rust",
+        },
+    },
     settings = {
         ["harper-ls"] = {
             userDictPath = "",
