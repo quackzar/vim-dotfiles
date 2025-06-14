@@ -1,15 +1,5 @@
 ---@diagnostic disable: lowercase-global, redundant-parameter
 
-local signs = {
-    -- nerdfont:
-}
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    -- vim.fn.sign_define(hl, { numhl = hl })
-end
-
 -- TODO: Add method to populate quickfix with workspace diagnostics
 vim.keymap.set("n", "<space>x", vim.diagnostic.setloclist, { desc = "Populate loclist" })
 
@@ -164,3 +154,6 @@ require("lspconfig").harper_ls.setup {
         },
     },
 }
+
+require("lspconfig").sourcekit.setup {}
+
