@@ -79,37 +79,43 @@ require("neodev").setup {
     },
 }
 
-require("ltex_extra").setup {
-    server_opts = {
-        filetypes = {
-            "bib",
-            "gitcommit",
-            "markdown",
-            "org",
-            "plaintex",
-            "rst",
-            "rnoweb",
-            "tex",
-            "pandoc",
-            --"typst",
-        },
-        settings = {
-            ltex = {
-                checkFrequency = "save",
-                completionEnabled = false,
-                additionalRules = {
-                    enablePickyRules = true,
+require("lspconfig").ltex.setup {
+    autostart = false,
+    on_attach = function(_client, _bufnr)
+        -- rest of your on_attach process.
+        require("ltex_extra").setup {
+            server_opts = {
+                filetypes = {
+                    "bib",
+                    "gitcommit",
+                    "markdown",
+                    "org",
+                    "plaintex",
+                    "rst",
+                    "rnoweb",
+                    "tex",
+                    "pandoc",
+                    --"typst",
                 },
-                disabledRules = {
-                    ["en-US"] = {
-                        "TYPOS",
-                        "MORFOLOGIK_RULE_EN",
-                        "MORFOLOGIK_RULE_EN_US",
-                        "EN_QUOTES",
-                        "PASSIVE_VOICE",
-                        "REP_PASSIVE_VOICE",
-                        "WHITESPACE_RULE",
-                    },
+            }
+        }
+    end,
+    settings = {
+        ltex = {
+            checkFrequency = "save",
+            completionEnabled = false,
+            additionalRules = {
+                enablePickyRules = true,
+            },
+            disabledRules = {
+                ["en-US"] = {
+                    "TYPOS",
+                    "MORFOLOGIK_RULE_EN",
+                    "MORFOLOGIK_RULE_EN_US",
+                    "EN_QUOTES",
+                    "PASSIVE_VOICE",
+                    "REP_PASSIVE_VOICE",
+                    "WHITESPACE_RULE",
                 },
             },
         },
@@ -117,6 +123,7 @@ require("ltex_extra").setup {
 }
 
 require("lspconfig").harper_ls.setup {
+    autostart = false,
     server_opts = {
         filetypes = {
             "typst",
@@ -154,6 +161,5 @@ require("lspconfig").harper_ls.setup {
         },
     },
 }
-
 require("lspconfig").sourcekit.setup {}
 
