@@ -116,9 +116,6 @@ require("nvim-treesitter.configs").setup {
         enable = true,
         include_match_words = true,
     },
-    autotag = {
-        enable = true,
-    },
     playground = { enable = false },
 }
 

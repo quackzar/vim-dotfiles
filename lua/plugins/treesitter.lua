@@ -50,6 +50,7 @@ return {
                 check_ts = true,
                 enable_check_bracket_line = true,
                 fast_wrap = {},
+                map_c_w = true,
             }
             local Rule = require("nvim-autopairs.rule")
             local cond = require("nvim-autopairs.conds")
@@ -57,13 +58,29 @@ return {
             npairs.add_rule(Rule("\\(", "\\)", "tex"))
             npairs.add_rule(Rule("\\[", "\\]", "tex"))
             npairs.add_rule(Rule("\\left", "\\right", "tex"))
-            npairs.add_rules {
-                Rule("<", ">"):with_pair(cond.before_regex("%a+")):with_move(function(opts)
-                    return opts.char == ">"
-                end),
-            }
             -- Sort of works, but screws with single `|`
+            --
             --npairs.add_rules({Rule("|", "|", { "rust", "go", "lua" }):with_move(cond.after_regex("|")) })
+
+            -- Very nice!
+            npairs.add_rule(Rule("<", ">", {
+                -- if you use nvim-ts-autotag, you may want to exclude these filetypes from this rule
+                -- so that it doesn't conflict with nvim-ts-autotag
+                "-html",
+                "-svelte",
+                "-vue",
+                "-xml",
+                "-javascriptreact",
+                "-typescriptreact",
+            }):with_pair(
+                -- regex will make it so that it will auto-pair on
+                -- `a<` but not `a <`
+                -- The `:?:?` part makes it also
+                -- work on Rust generics like `some_func::<T>()`
+                cond.before_regex("%a+:?:?$", 3)
+            ):with_move(function(opts)
+                return opts.char == ">"
+            end))
         end,
     },
 
@@ -94,6 +111,10 @@ return {
     {
         -- Auto rename HTML, XML and other kinds of tags
         "windwp/nvim-ts-autotag",
+        lazy = false,
+        config = function()
+            require("nvim-ts-autotag").setup()
+        end,
     },
 
     {
