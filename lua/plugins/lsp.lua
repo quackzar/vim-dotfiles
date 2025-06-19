@@ -188,7 +188,7 @@ return {
             local function h(name)
                 return vim.api.nvim_get_hl(0, { name = name })
             end
-            vim.api.nvim_create_autocmd("ColorScheme", {
+            vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
                 group = vim.api.nvim_create_augroup("set_symbol_usage_colors", { clear = true }),
                 callback = function()
                     vim.api.nvim_set_hl(0, "SymbolUsageRounding", { fg = h("CursorLine").bg, italic = true })
