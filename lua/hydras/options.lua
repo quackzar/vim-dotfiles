@@ -103,12 +103,18 @@ local function typehintopt()
     end
 end
 
+local function concealhintopt()
+    local lvl = vim.o.conceallevel
+    return "[" .. lvl .. "]"
+end
+
 local hint = [[
   ^ ^        Options
   ^
   _v_ %{ve} virtual edit
   _i_ %{list} invisible characters
   _s_ %{spell} spell
+  _o_ %{conceal} conceal level
   _w_ %{wrap} wrap
   _c_ %{culopt} cursor line
   _n_ %{nu} number
@@ -136,6 +142,7 @@ Hydra {
                 ["diag"] = diagnostic,
                 ["culopt"] = cursorlineopt,
                 ["hint"] = typehintopt,
+                ["conceal"] = concealhintopt,
             },
         },
     },
@@ -188,6 +195,13 @@ Hydra {
             { desc = "show invisible" },
         },
         {
+            "o",
+            function()
+                vim.o.conceallevel = (vim.o.conceallevel + 1) % 3
+            end,
+            { desc = "cycle conceal level" },
+        },
+        {
             "s",
             function()
                 if vim.o.spell == true then
@@ -216,9 +230,14 @@ Hydra {
                         return vim.v.count > 0 and "j" or "gj"
                     end, { expr = true, desc = "j or gj" })
                 else
+                    -- reset to default
                     vim.o.wrap = false
-                    vim.keymap.del("n", "k")
-                    vim.keymap.del("n", "j")
+                    if vim.fn.mapcheck("k") then
+                        vim.keymap.del("n", "k")
+                    end
+                    if vim.fn.mapcheck("j") then
+                        vim.keymap.del("n", "j")
+                    end
                 end
             end,
             { desc = "wrap" },
