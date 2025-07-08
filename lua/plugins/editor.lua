@@ -14,9 +14,16 @@ return {
     },
 
     {
+        "echasnovski/mini.surround",
+        event = "VeryLazy",
+        enabled = false,
+        version = "*",
+    },
+
+    {
         "kylechui/nvim-surround",
         -- consider `echasnovski/mini.surround` for sandwich-like bindings
-        -- Sandwich like bidnings conflict with `substitute`
+        -- Sandwich like bindings conflict with `substitute`
         version = "*",
         event = "VeryLazy",
         config = function()

@@ -47,23 +47,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
             if not winid then
                 vim.lsp.buf.hover()
             end
-        end, { buffer = bufnr, desc = "hover (lsp)" })
+        end, { buffer = bufnr, desc = "hover" })
+        -- Defaults:
+        -- grn: rename
+        -- gra: code action
+        -- grr: references
+        -- gri: implementation
+        -- gO: document_symbol
+        -- Insert mode
+        -- <C-S>: signature help
+        vim.keymap.set("n", "grr", vim.lsp.buf.references, { buffer = bufnr, desc = "go to references" })
+        vim.keymap.set("n", "gri", vim.lsp.buf.implementation, { buffer = bufnr, desc = "go to implementation" })
+        vim.keymap.set("n", "grn", vim.lsp.buf.rename, { buffer = bufnr, desc = "rename" })
+        vim.keymap.set("n", "gO", vim.lsp.buf.document_symbol, { buffer = bufnr, desc = "document symbol" })
 
-        vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition (lsp)" })
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration (lsp)" })
-        vim.keymap.set("n", "gI", vim.lsp.buf.implementation, { buffer = bufnr, desc = "go to implementation (lsp)" })
-        vim.keymap.set("n", "gT", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "go to type definition (lsp)" })
-        vim.keymap.set("n", "gO", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "outgoing calls (lsp)" })
-        vim.keymap.set("n", "go", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "incoming calls (lsp)" })
+        vim.keymap.set("n", "grd", vim.lsp.buf.definition, { buffer = bufnr, desc = "go to definition" })
+        vim.keymap.set("n", "grD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "go to declaration" })
+        vim.keymap.set("n", "grt", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "go to type definition" })
+        vim.keymap.set("n", "gro", vim.lsp.buf.outgoing_calls, { buffer = bufnr, desc = "outgoing calls" })
+        vim.keymap.set("n", "grO", vim.lsp.buf.incoming_calls, { buffer = bufnr, desc = "incoming calls" })
 
-        -- redundant, as is now mapped to <C-s>
-        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "signature help" })
-
-        -- hacky mapping to clear-action.nvim
-        vim.keymap.set("x", "<C-r><C-r>", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
-        vim.keymap.set("x", "<C-r>r", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
-        vim.keymap.set("n", "crr", "<leader>a", { buffer = bufnr, desc = "code action", remap = true })
+        vim.keymap.set("n", "gra", function()
+            require("tiny-code-action").code_action()
+        end, { buffer = bufnr, desc = "code action", remap = true })
+        vim.keymap.set("i", "<C-x><C-a>", function()
+            require("tiny-code-action").code_action()
+        end, { buffer = bufnr, desc = "code action", remap = true })
     end,
 })
 
@@ -97,7 +106,7 @@ require("lspconfig").ltex.setup {
                     "pandoc",
                     --"typst",
                 },
-            }
+            },
         }
     end,
     settings = {
@@ -163,3 +172,13 @@ require("lspconfig").harper_ls.setup {
 }
 require("lspconfig").sourcekit.setup {}
 
+require("lspconfig").tinymist.setup {
+    autostart = false,
+    settings = {
+        tinymist = {
+            lint = {
+                enabled = true,
+            },
+        },
+    },
+}

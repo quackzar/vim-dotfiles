@@ -94,27 +94,18 @@ return {
         cmd = "Glance",
         event = "LspAttach",
         init = function()
-            -- TODO: This vs Telescope vs Quickfix + bqf
             vim.api.nvim_create_autocmd("LspAttach", {
                 callback = function()
-                    -- Consider using the regular mappings
-                    vim.keymap.set("n", "gD", "<CMD>Glance definitions<CR>")
-                    vim.keymap.set("n", "gR", "<CMD>Glance references<CR>")
-                    vim.keymap.set("n", "gY", "<CMD>Glance type_definitions<CR>")
-                    vim.keymap.set("n", "gM", "<CMD>Glance implementations<CR>")
+                    vim.keymap.set("n", "gRD", "<CMD>Glance definitions<CR>", { desc = "glance definitions" })
+                    vim.keymap.set("n", "gRR", "<CMD>Glance references<CR>", { desc = "glance references" })
+                    vim.keymap.set("n", "gRT", "<CMD>Glance type_definitions<CR>", { desc = "glance type" })
+                    vim.keymap.set("n", "gRI", "<CMD>Glance implementations<CR>", { desc = "glance implementations" })
                 end,
             })
         end,
     },
 
     {
-        -- TODO: Consider this in relation to lsp_lines, quickfix and trouble
-        -- however by itself I think it is pretty neat.
-        -- Might want to disable lsp_lines in cases where it is annoying?
-        -- Or might just add an option so this is on if it is off,
-        -- since it just displays the same thing.
-        -- BUT, lsp_lines does mess with virtual lines, and that can be jarring,
-        -- so maybe something between insert mode and normal mode?
         "dgagn/diagflow.nvim",
         event = "BufEnter",
         enabled = true,

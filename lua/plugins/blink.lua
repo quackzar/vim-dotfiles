@@ -82,10 +82,9 @@ return {
                             return sort.label(a, b)
                         end
                     end,
-                    -- This is the normal default order, which we fall back to
-                    "score",
-                    "kind",
-                    "label",
+                    "score", -- First what we searched for
+                    "sort_text", -- This is the good one. Ensures functions > methods.
+                    "kind", -- This is just for consistency
                 },
             },
             -- Default list of enabled providers defined so that you can extend it
