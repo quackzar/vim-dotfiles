@@ -1,5 +1,6 @@
 return {
     "jake-stewart/multicursor.nvim",
+    enable = false,
     event = "VeryLazy",
     branch = "1.0",
     config = function()

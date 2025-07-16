@@ -106,7 +106,7 @@ require("lspconfig").ltex.setup {
                     "pandoc",
                     --"typst",
                 },
-            },
+            }
         }
     end,
     settings = {
