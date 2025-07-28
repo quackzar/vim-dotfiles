@@ -4,8 +4,8 @@ return {
         -- optional: provides snippets for the snippet source
         dependencies = {
             { "L3MON4D3/LuaSnip", version = "v2.*" },
-            { "Kaiser-Yang/blink-cmp-dictionary" },
             { "ribru17/blink-cmp-spell" },
+            { "archie-judd/blink-cmp-words" },
         },
         version = "*",
         init = function()
@@ -29,6 +29,9 @@ return {
 
             vim.keymap.set("i", "<C-x><C-k>", function()
                 require("blink.cmp").show { providers = { "dictionary" } }
+            end, { silent = false, desc = "Dictionary complete [blink]" })
+            vim.keymap.set("i", "<C-x><C-t>", function()
+                require("blink.cmp").show { providers = { "thesaurus" } }
             end, { silent = false, desc = "Dictionary complete [blink]" })
 
             vim.keymap.set("i", "<C-x><C-p>", function()
@@ -99,31 +102,51 @@ return {
                             max_entries = 12,
                         },
                     },
+                    -- dictionary = {
+                    --     module = "blink-cmp-dictionary",
+                    --     name = "Dict",
+                    --     min_keyword_length = 4,
+                    --     dictionary_files = { vim.fn.expand('/usr/share/dict/words.txt') },
+                    --     opts = {
+                    --         documentation = {
+                    --             enable = true, -- enable documentation to show the definition of the word
+                    --             get_command = {
+                    --                 "wn", -- make sure this command is available in your system
+                    --                 "${word}", -- this will be replaced by the word to search
+                    --                 "-over",
+                    --             },
+                    --         },
+                    --     },
+                    -- },
                     dictionary = {
-                        module = "blink-cmp-dictionary",
-                        name = "Dict",
-                        --- @module 'blink-cmp-dictionary'
-                        --- @type blink-cmp-dictionary.Options
+                        name = "blink-cmp-words",
+                        module = "blink-cmp-words.dictionary",
+                        -- All available options
                         opts = {
-                            get_command = {
-                                "rg", -- make sure this command is available in your system
-                                "--color=never",
-                                "--no-line-number",
-                                "--no-messages",
-                                "--no-filename",
-                                "--ignore-case",
-                                "--",
-                                "${prefix}", -- this will be replaced by the result of 'get_prefix' function
-                                vim.fn.expand("/usr/share/dict/words"), -- where you dictionary is
-                            },
-                            documentation = {
-                                enable = true, -- enable documentation to show the definition of the word
-                                get_command = {
-                                    "wn", -- make sure this command is available in your system
-                                    "${word}", -- this will be replaced by the word to search
-                                    "-over",
-                                },
-                            },
+                            -- The number of characters required to trigger completion.
+                            -- Set this higher if completion is slow, 3 is default.
+                            dictionary_search_threshold = 3,
+
+                            -- See above
+                            score_offset = 0,
+
+                            -- See above
+                            pointer_symbols = { "!", "&", "^" },
+                        },
+                    },
+                    thesaurus = {
+                        name = "blink-cmp-words",
+                        module = "blink-cmp-words.thesaurus",
+                        -- All available options
+                        opts = {
+                            -- A score offset applied to returned items.
+                            -- By default the highest score is 0 (item 1 has a score of -1, item 2 of -2 etc..).
+                            score_offset = 0,
+
+                            -- Default pointers define the lexical relations listed under each definition,
+                            -- see Pointer Symbols below.
+                            -- Default is as below ("antonyms", "similar to" and "also see").
+                            pointer_symbols = { "!", "&", "^" },
                         },
                     },
                 },
