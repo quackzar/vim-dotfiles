@@ -470,13 +470,14 @@ return {
 
     {
         "folke/which-key.nvim",
-        -- Only use for marks and spelling
+        enabled = true,
         opts = {
             preset = "helix",
             plugins = {
                 marks = true, -- shows a list of your marks on ' and `
                 registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
                 spelling = {
+                    -- Borked?
                     enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
                     suggestions = 20, -- how many suggestions should be shown in the list?
                 },

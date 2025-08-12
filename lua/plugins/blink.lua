@@ -100,6 +100,8 @@ return {
                         module = "blink-cmp-spell",
                         opts = {
                             max_entries = 12,
+                            keep_all_entries = true,
+                            use_cmp_spell_sorting = false,
                         },
                     },
                     -- dictionary = {

@@ -4,7 +4,10 @@ return {
         config = true,
     },
 
-    "farmergreg/vim-lastplace",
+    {
+        lazy = false,
+        "farmergreg/vim-lastplace",
+    },
 
     {
         "folke/persistence.nvim",
@@ -152,10 +155,8 @@ return {
 
     {
         "OXY2DEV/markview.nvim",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-        },
         lazy = false,
+        priority = 49,
         opts = function()
             local presets = require("markview.presets")
             return {
@@ -306,6 +307,7 @@ return {
 
     {
         "barreiroleo/ltex_extra.nvim",
+        enabled = false,
         lazy = true,
         dependencies = { "neovim/nvim-lspconfig" },
         -- yes, you can use the opts field, just I'm showing the setup explicitly
