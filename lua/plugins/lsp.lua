@@ -14,6 +14,7 @@ return {
                 exclude = {
                     "rust_analyzer",
                     "harper_ls",
+                    "ltex_plus",
                 },
             },
         },

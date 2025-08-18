@@ -306,13 +306,13 @@ return {
     -- === text ===
 
     {
-        "barreiroleo/ltex_extra.nvim",
-        enabled = false,
-        lazy = true,
-        dependencies = { "neovim/nvim-lspconfig" },
-        -- yes, you can use the opts field, just I'm showing the setup explicitly
+        "jhofscheier/ltex-utils.nvim",
+        dependencies = {
+            "neovim/nvim-lspconfig",
+            "nvim-telescope/telescope.nvim",
+        },
+        opts = {},
     },
-
     -- TeX
     {
         "lervag/vimtex",
