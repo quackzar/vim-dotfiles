@@ -102,13 +102,6 @@ return {
     },
 
     {
-        "SunnyTamang/select-undo.nvim",
-        config = function()
-            require("select-undo").setup()
-        end,
-    },
-
-    {
         "shellRaining/hlchunk.nvim",
         enabled = true,
         event = { "BufReadPre", "BufNewFile" },
