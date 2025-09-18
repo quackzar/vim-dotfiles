@@ -66,6 +66,7 @@ return {
             --     name = "neo-tree-neotest",
             --     dir = "~/Projects/misc/neo-tree-neotest",
             -- },
+            "TimCreasman/neo-tree-tests-source.nvim",
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
             {

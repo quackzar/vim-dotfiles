@@ -30,7 +30,7 @@ require("neo-tree").setup {
         },
     },
     source_selector = {
-        winbar = false,
+        winbar = true,
         truncation_character = "…",
     },
     auto_clean_after_session_restore = false,

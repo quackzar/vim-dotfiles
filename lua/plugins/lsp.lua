@@ -393,8 +393,19 @@ return {
     },
 
     {
+        "antosha417/nvim-lsp-file-operations",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-neo-tree/neo-tree.nvim",
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+
+    {
         "linux-cultist/venv-selector.nvim",
-        branch = "regexp", -- This is the regexp branch, use this for the new version
+        branch = "main",
         dependencies = { "neovim/nvim-lspconfig", "nvim-telescope/telescope.nvim", "mfussenegger/nvim-dap-python" },
         opts = {
             -- Your options go here

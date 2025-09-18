@@ -228,6 +228,19 @@ return {
                     enable = true,
                     show_builtins = true,
                 },
+                diagnostic = {
+                    --signs = { '⠐','⠨', '⠸'}
+                    signs = { "᎐", "᎓", "፧" },
+                },
+                gitsigns = {
+                    enable = true,
+                    signs = { -- can only be a single character (multibyte is okay)
+                        add = "│",
+                        change = "│",
+                        delete = "⏴",
+                    },
+                },
+                --
             },
         },
     },

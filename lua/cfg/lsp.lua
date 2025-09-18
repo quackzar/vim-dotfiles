@@ -25,6 +25,19 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
+local lspconfig = require("lspconfig")
+
+-- Set global defaults for all servers
+lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        -- returns configured operations if setup() was already called
+        -- or default operations if not
+        require("lsp-file-operations").default_capabilities()
+    ),
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
     callback = function(ev)
@@ -116,6 +129,10 @@ require("lspconfig").ltex_plus.setup {
                 enablePickyRules = true,
             },
             disabledRules = {
+                ["da-DK"] = {
+                    "COMMA_PARENTHESIS_WHITESPACE",
+                    "UPPERCASE_SENTENCE_START",
+                },
                 ["en-US"] = {
                     "TYPOS",
                     "MORFOLOGIK_RULE_EN",
