@@ -25,10 +25,8 @@ vim.diagnostic.config {
     severity_sort = true, -- default to false
 }
 
-local lspconfig = require("lspconfig")
-
 -- Set global defaults for all servers
-lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
+vim.lsp.config("*", {
     capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
@@ -101,7 +99,7 @@ require("neodev").setup {
     },
 }
 
-require("lspconfig").ltex_plus.setup {
+vim.lsp.config.ltex_plus = {
     autostart = true,
     server_opts = {
         filetypes = {
@@ -147,7 +145,7 @@ require("lspconfig").ltex_plus.setup {
     },
 }
 
-require("lspconfig").harper_ls.setup {
+vim.lsp.config.harper_ls = {
     autostart = false,
     server_opts = {
         filetypes = {
@@ -186,9 +184,8 @@ require("lspconfig").harper_ls.setup {
         },
     },
 }
-require("lspconfig").sourcekit.setup {}
 
-require("lspconfig").tinymist.setup {
+vim.lsp.config.tinymist = {
     autostart = false,
     settings = {
         tinymist = {

@@ -36,6 +36,9 @@ return {
             diff_opts = {
                 vertical = false,
             },
+            preview_config = {
+                border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+            },
             on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
