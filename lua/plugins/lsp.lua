@@ -25,53 +25,6 @@ return {
     },
 
     {
-        "luckasRanarison/clear-action.nvim",
-        enabled = false,
-        event = "LspAttach",
-        opts = {
-            signs = {
-                position = "right_align",
-                icons = {
-                    quickfix = "  ",
-                    refactor = "  ",
-                    source = "  ",
-                    combined = "  ", -- used when combine is set to true
-                },
-            },
-            mappings = {
-                -- TODO: Somehow work the new default mapping `crr` and `<C-r>r` (<C-r><C-r>) into these.
-                code_action = { "<leader>a", "apply code action" },
-                quickfix = { "<leader>q", "apply quickfix" },
-                quickfix_next = { "]a", "apply next quickfix" },
-                quickfix_prev = { "[a", "apply prev quickfix" }, -- tries to fix the previous diagnostic
-                -- Consider this as a Hydra or prefixed with a 'refactor' mapping.
-                refactor = { "<leader>rr", "apply refactor" },
-                refactor_inline = { "<leader>ri", "refactor inline" },
-                refactor_extract = { "<leader>re", "refactor extract" },
-                refactor_rewrite = { "<leader>rw", "refactor rewrite" },
-                source = { "<leader>s", "apply source" },
-                actions = {
-                    -- example:
-                    ["rust_analyzer"] = {
-                        -- ["Inline"] = "<leader>ai"
-                        ["Add braces"] = { "<leader>rb", "Add braces" },
-                        ["Insert explicit type"] = { "<leader>rt", "Explicit type" },
-                    },
-                },
-            },
-            quickfix_filters = { -- example:
-                ["rust_analyzer"] = {
-                    ["E0433"] = "Import",
-                    ["E0369"] = "Restrict bounds",
-                },
-                -- ["lua_ls"] = {
-                --   ["unused-local"] = "Disable diagnostics on this line",
-                -- },
-            },
-        },
-    },
-
-    {
         "rachartier/tiny-code-action.nvim",
         dependencies = {
             { "nvim-lua/plenary.nvim" },
@@ -175,6 +128,8 @@ return {
 
     {
         "Wansmer/symbol-usage.nvim",
+        -- Alternative to consider?
+        -- https://github.com/oribarilan/lensline.nvim
         event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
         config = function()
             local function setup_colors()

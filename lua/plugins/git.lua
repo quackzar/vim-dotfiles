@@ -7,8 +7,14 @@ return {
             signs = {
                 add = { text = "🮇" },
                 change = { text = "🮇" },
-                delete = { text = "◢" },
-                topdelete = { text = "◥" },
+                delete = {
+                    text = "◢",
+                    show_count = false,
+                },
+                topdelete = {
+                    text = "◥",
+                    show_count = false,
+                },
                 changedelete = { text = "🮇" },
                 untracked = { text = " " },
             },
@@ -20,6 +26,7 @@ return {
                 changedelete = { text = "🮇" },
                 untracked = { text = " " },
             },
+            count_chars = { "¹", "²", "³", "⁴", "⁵", "⁶", "⁷", "⁸", "⁹", ["+"] = "⁺" },
             signs_staged_enable = true,
             numhl = false,
             linehl = false,
@@ -94,6 +101,11 @@ return {
             default_args = {
                 DiffviewOpen = { "--imply-local" },
             },
+            view = {
+                merge_tool = {
+                    layout = "diff4_mixed",
+                },
+            },
             keymaps = {
                 file_panel = {
                     { "n", "c", "<cmd>Neogit commit<cr>", { desc = "Commit..." } },
@@ -130,11 +142,12 @@ return {
     {
         "akinsho/git-conflict.nvim",
         version = "*",
-        event = "VeryLazy",
+        event = "BufEnter",
         config = function()
             require("git-conflict").setup {
-                default_mappings = true, -- disable buffer local mapping created by this plugin
-                disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
+                default_commands = false,
+                default_mappings = true,
+                disable_diagnostics = true,
                 highlights = { -- They must have background color, otherwise the default color will be used
                     incoming = "DiffText",
                     current = "DiffAdd",
@@ -171,16 +184,6 @@ return {
                 command = "silent! set filetype=gitcommit",
             })
         end,
-    },
-
-    {
-        "FabijanZulj/blame.nvim",
-        lazy = true,
-        opts = {
-            date_format = "%Y-%m-%d",
-            merge_consecutive = false,
-        },
-        cmd = "ToggleBlame",
     },
 
     {
