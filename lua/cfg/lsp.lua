@@ -5,14 +5,7 @@ vim.keymap.set("n", "<space>x", vim.diagnostic.setloclist, { desc = "Populate lo
 
 vim.diagnostic.config {
     underline = true,
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = " ",
-            [vim.diagnostic.severity.WARN] = " ",
-            [vim.diagnostic.severity.HINT] = " ",
-            [vim.diagnostic.severity.INFO] = " ",
-        },
-    },
+    signs = vim.g.diagnostic_signs,
     virtual_text = vim.g.virtual_text,
     virtual_lines = vim.g.virtual_lines,
     float = {

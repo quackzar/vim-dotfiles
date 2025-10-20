@@ -95,6 +95,29 @@ return {
     {
         "luukvbaal/statuscol.nvim",
         lazy = false,
+        init = function()
+            vim.o.signcolumn = "number"
+            local ERROR = vim.diagnostic.severity.ERROR
+            local WARN = vim.diagnostic.severity.WARN
+            local HINT = vim.diagnostic.severity.HINT
+            local INFO = vim.diagnostic.severity.INFO
+            vim.diagnostic.config {
+                signs = {
+                    text = {
+                        [ERROR] = "",
+                        [WARN] = "",
+                        [HINT] = "",
+                        [INFO] = "",
+                    },
+                    numhl = {
+                        [ERROR] = "DiffDelete",
+                        [WARN] = "DiffChanged",
+                        [HINT] = "DiffAdd",
+                        [INFO] = "DiagnosticSignInfo",
+                    },
+                },
+            }
+        end,
         config = function()
             local builtin = require("statuscol.builtin")
             require("statuscol").setup {
@@ -104,25 +127,28 @@ return {
                 relculright = true,
                 clickmod = "c", -- modifier used for certain actions in the builtin clickhandlers:
                 segments = {
-                    -- TODO: Make Diagnostic, fold and Dap share a column
-                    {
-                        sign = { name = { "Diagnostic" }, maxwidth = 0, auto = true },
-                        click = "v:lua.ScSa",
-                    },
                     {
                         sign = { name = { "Dap.*" }, maxwidth = 1, auto = true },
                         click = "v:lua.ScSa",
                     },
+                    { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
                     {
-                        text = { builtin.foldfunc, " " }, -- fold signs
-                        click = "v:lua.ScFa",
-                    },
-                    {
-                        text = { builtin.lnumfunc, " " }, -- line numbers
+                        text = { builtin.lnumfunc },
+                        sign = {
+                            namespace = { "diagnostic" },
+                            maxwidth = 1,
+                            foldclosed = true,
+                        },
                         click = "v:lua.ScLa",
                     },
                     {
-                        sign = { namespace = { "gitsign*" }, maxwidth = 1, colwidth = 1, auto = true }, -- git signs
+                        sign = {
+                            namespace = { "gitsign*" },
+                            maxwidth = 1,
+                            colwidth = 1,
+                            auto = true,
+                            wrap = true,
+                        }, -- git signs
                         click = "v:lua.ScSa",
                     },
                 },

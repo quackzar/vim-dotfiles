@@ -264,6 +264,7 @@ return {
                                 closureReturnTypeHints = true,
                                 implicitDrops = true,
                                 lifetimeElisionHints = true,
+                                closureCaptureHints = true,
                             },
                             diagnostics = {
                                 enable = true,

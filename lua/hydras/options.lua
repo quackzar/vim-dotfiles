@@ -28,7 +28,7 @@ local function cycle_diagnostics(dir)
         [3] = function()
             -- only text lines
             vim.g.virtual_lines = false
-            vim.g.virtual_text = true
+            vim.g.virtual_text = vim.g.virtual_text_default
             vim.g.diagflow = false
             vim.g.tinydiag = false
         end,
