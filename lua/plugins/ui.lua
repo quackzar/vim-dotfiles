@@ -157,6 +157,22 @@ return {
     },
 
     {
+        "rachartier/tiny-glimmer.nvim",
+        event = "VeryLazy",
+        priority = 10, -- Needs to be a really low priority, to catch others plugins keybindings.
+        opts = {
+            overwrite = {
+                auto_map = true,
+                yank = { enabled = true },
+                search = { enabled = true },
+                paste = { enabled = true },
+                undo = { enabled = true },
+                redo = { enabled = true },
+            },
+        },
+    },
+
+    {
         "karb94/neoscroll.nvim",
         opts = {},
     },
@@ -296,25 +312,25 @@ return {
         config = true,
     },
 
-    { "nvzone/volt", lazy = true },
-    {
-        "nvzone/menu",
-        lazy = true,
-        init = function()
-            vim.keymap.set({ "n", "v" }, "<RightMouse>", function()
-                require("menu.utils").delete_old_menus()
-
-                vim.cmd.exec('"normal! \\<RightMouse>"')
-
-                -- clicked buf
-                local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
-                local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
-                -- TODO: Impl. neo-tree bindings
-
-                require("menu").open(options, { mouse = true })
-            end, {})
-        end,
-    },
+    -- { "nvzone/volt", lazy = true },
+    -- {
+    --     "nvzone/menu",
+    --     lazy = true,
+    --     init = function()
+    --         vim.keymap.set({ "n", "v" }, "<RightMouse>", function()
+    --             require("menu.utils").delete_old_menus()
+    --
+    --             vim.cmd.exec('"normal! \\<RightMouse>"')
+    --
+    --             -- clicked buf
+    --             local buf = vim.api.nvim_win_get_buf(vim.fn.getmousepos().winid)
+    --             local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+    --             -- TODO: Impl. neo-tree bindings
+    --
+    --             require("menu").open(options, { mouse = true })
+    --         end, {})
+    --     end,
+    -- },
 
     {
         "brenoprata10/nvim-highlight-colors",
@@ -339,7 +355,8 @@ return {
                 --
                 -- Since we are nightly, we might want the modification date.
                 -- We could also use the git-hash, but that does not say a lot by itself.
-                -- We also might actually find the executable which we run, instead of just assuming it's the one in PATH.
+                -- We also might actually find the executable which we run,
+                -- instead of just assuming it's the one in PATH.
                 -- But given this will require looking up the current process and such,
                 -- and the usual invocated exe is the one in PATH, it seems niche.
                 local timestamp =

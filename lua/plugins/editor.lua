@@ -93,15 +93,6 @@ return {
     },
 
     {
-        "tzachar/highlight-undo.nvim",
-        config = true,
-        keys = {
-            { "u" },
-            { "<C-r>" },
-        },
-    },
-
-    {
         "shellRaining/hlchunk.nvim",
         enabled = true,
         event = { "BufReadPre", "BufNewFile" },

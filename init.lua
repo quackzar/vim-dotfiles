@@ -146,12 +146,14 @@ vim.keymap.set("n", "<localleader>pq", function()
     vim.notify("Stopped profilling")
 end, { desc = "plenary stop profile" })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
-    callback = function()
-        vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
-    end,
-})
+-- NOTE: Handled by tiny-glimmer
+--
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+--     group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+--     callback = function()
+--         vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = { ".qf", "help" },

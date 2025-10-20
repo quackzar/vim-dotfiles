@@ -33,6 +33,12 @@ return {
         event = "LspAttach",
         opts = {
             backend = "delta",
+            backend_opts = {
+                args = {
+                    "--syntax-theme=kanagawa",
+                    "--line-numbers",
+                },
+            },
         },
         init = function()
             vim.keymap.set("n", "<leader>a", function()
@@ -90,7 +96,17 @@ return {
                 end,
             })
 
-            require("tiny-inline-diagnostic").setup()
+            require("tiny-inline-diagnostic").setup {
+                options = {
+                    show_source = {
+                        if_many = true,
+                    },
+                    break_line = {
+                        enabled = true,
+                        after = 30,
+                    },
+                },
+            }
         end,
     },
 
