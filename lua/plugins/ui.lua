@@ -110,10 +110,10 @@ return {
                         [INFO] = "",
                     },
                     numhl = {
-                        [ERROR] = "DiffDelete",
-                        [WARN] = "DiffChanged",
-                        [HINT] = "DiffAdd",
-                        [INFO] = "DiagnosticSignInfo",
+                        [ERROR] = "DiagnosticVirtualTextError",
+                        [WARN] = "DiagnosticVirtualTextWarn",
+                        [HINT] = "DiagnosticVirtualTextHint",
+                        [INFO] = "DiagnosticVirtualTextInfo",
                     },
                 },
             }
@@ -146,7 +146,7 @@ return {
                             namespace = { "gitsign*" },
                             maxwidth = 1,
                             colwidth = 1,
-                            auto = true,
+                            auto = false,
                             wrap = true,
                         }, -- git signs
                         click = "v:lua.ScSa",
