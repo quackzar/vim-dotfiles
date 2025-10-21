@@ -101,9 +101,13 @@ return {
                     show_source = {
                         if_many = true,
                     },
-                    break_line = {
+                    softwrap = 40,
+                    -- break_line = {
+                    --     enabled = true,
+                    --     after = 90,
+                    -- },
+                    multiline = {
                         enabled = true,
-                        after = 30,
                     },
                 },
             }

@@ -97,6 +97,18 @@ return {
         lazy = false,
         init = function()
             vim.o.signcolumn = "number"
+            -- vim.api.nvim_create_autocmd({ "ColorScheme", "UIEnter" }, {
+            --     group = vim.api.nvim_create_augroup("set_diagnostic_sign_colors", { clear = true }),
+            --     callback = function()
+            --         local function h(name)
+            --             return vim.api.nvim_get_hl(0, { name = name })
+            --         end
+            --         vim.api.nvim_set_hl(0, "DiagnosticSignError", { bg = h("DiagnosticVirtualTextError").bg, bold = true })
+            --         vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { bg = h("DiagnosticVirtualTextWarn").bg, bold = true})
+            --         vim.api.nvim_set_hl(0, "DiagnosticSignHint", { bg = h("DiagnosticVirtualTextHint").bg, bold = true})
+            --         vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { bg = h("DiagnosticVirtualTextInfo").bg, bold = true})
+            --     end,
+            -- })
             local ERROR = vim.diagnostic.severity.ERROR
             local WARN = vim.diagnostic.severity.WARN
             local HINT = vim.diagnostic.severity.HINT
@@ -114,6 +126,10 @@ return {
                         [WARN] = "DiagnosticVirtualTextWarn",
                         [HINT] = "DiagnosticVirtualTextHint",
                         [INFO] = "DiagnosticVirtualTextInfo",
+                        -- [ERROR] = "DiagnosticSignError",
+                        -- [WARN] = "DiagnosticSignWarn",
+                        -- [HINT] = "DiagnosticSignHint",
+                        -- [INFO] = "DiagnosticSignInfo",
                     },
                 },
             }
@@ -139,7 +155,7 @@ return {
                             maxwidth = 1,
                             foldclosed = true,
                         },
-                        click = "v:lua.ScLa",
+                        click = "v:lua.ScSa", -- Use diagnostic callback
                     },
                     {
                         sign = {
@@ -148,7 +164,7 @@ return {
                             colwidth = 1,
                             auto = false,
                             wrap = true,
-                        }, -- git signs
+                        },
                         click = "v:lua.ScSa",
                     },
                 },

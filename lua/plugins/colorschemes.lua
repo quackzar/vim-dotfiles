@@ -15,16 +15,6 @@ return {
     },
 
     {
-        "tiagovla/tokyodark.nvim",
-        priority = 1000,
-        lazy = true,
-        event = "User LoadAllColorschemes",
-        config = function()
-            vim.g.tokyodark_transparent_background = false
-        end,
-    },
-
-    {
         "meliora-theme/neovim",
         name = "melioria",
         lazy = true,
