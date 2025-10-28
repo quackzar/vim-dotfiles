@@ -152,7 +152,6 @@ return {
                         text = { builtin.lnumfunc },
                         sign = {
                             namespace = { "diagnostic" },
-                            maxwidth = 1,
                             foldclosed = true,
                         },
                         click = "v:lua.ScSa", -- Use diagnostic callback
@@ -167,6 +166,9 @@ return {
                         },
                         click = "v:lua.ScSa",
                     },
+                },
+                clickhanlders = {
+                    Lnum = builtin.diagnostic_click,
                 },
             }
         end,
@@ -559,7 +561,7 @@ return {
 
     {
         "echasnovski/mini.clue",
-        enabled = false,
+        enabled = true,
         version = false,
         event = "VimEnter",
         config = function()

@@ -14,10 +14,10 @@ vim.g.diagnostic_signs_default = {
         [INFO] = "",
     },
     numhl = {
-        [ERROR] = "DiffDelete",
-        [WARN] = "DiffChanged",
-        [HINT] = "DiffAdd",
-        [INFO] = "DiagnosticSignInfo",
+        [ERROR] = "DiagnosticVirtualTextError",
+        [WARN] = "DiagnosticVirtualTextWarn",
+        [HINT] = "DiagnosticVirtualTextHint",
+        [INFO] = "DiagnosticVirtualTextInfo",
     },
 }
 
