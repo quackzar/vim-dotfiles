@@ -30,7 +30,7 @@ require("neo-tree").setup {
         },
     },
     source_selector = {
-        winbar = true,
+        winbar = false,
         truncation_character = "…",
     },
     auto_clean_after_session_restore = false,
@@ -134,12 +134,3 @@ require("neo-tree").setup {
         },
     },
 }
-
--- doesn't work
--- vim.api.nvim_create_autocmd('FileType', {
---     group = vim.api.nvim_create_augroup("neo-tree-settings", { clear = true}),
---     pattern = 'neo-tree',
---     command = 'setlocal cursorlineopt=line',
--- })
-
--- vim foldmethod=marker

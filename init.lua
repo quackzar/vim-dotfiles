@@ -26,6 +26,7 @@ if vim.fn.exists("g:neovide") then
 end
 
 vim.o.mouse = "a"
+vim.o.mousemoveevent = true
 vim.o.wrap = false
 vim.o.linebreak = true
 vim.o.number = true

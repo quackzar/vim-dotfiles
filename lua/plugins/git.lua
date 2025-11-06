@@ -143,16 +143,22 @@ return {
         "akinsho/git-conflict.nvim",
         version = "*",
         event = "BufEnter",
-        config = function()
-            require("git-conflict").setup {
-                default_commands = false,
-                default_mappings = true,
-                disable_diagnostics = true,
-                highlights = { -- They must have background color, otherwise the default color will be used
-                    incoming = "DiffText",
-                    current = "DiffAdd",
-                },
-            }
+        opts = {
+            default_commands = false,
+            default_mappings = false,
+            disable_diagnostics = true,
+            highlights = { -- They must have background color, otherwise the default color will be used
+                incoming = "DiffText",
+                current = "DiffAdd",
+            },
+        },
+        init = function()
+            vim.keymap.set("n", "co", "<Plug>(git-conflict-ours)")
+            vim.keymap.set("n", "ct", "<Plug>(git-conflict-theirs)")
+            vim.keymap.set("n", "cb", "<Plug>(git-conflict-both)")
+            vim.keymap.set("n", "c0", "<Plug>(git-conflict-none)")
+            vim.keymap.set("n", "[x", "<Plug>(git-conflict-prev-conflict)")
+            vim.keymap.set("n", "]x", "<Plug>(git-conflict-next-conflict)")
         end,
     },
     {
@@ -208,19 +214,6 @@ return {
             }
             vim.keymap.del("n", "<leader>gy", {}) -- so we just remove it here
         end,
-    },
-
-    {
-        "pwntester/octo.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        opts = {
-            enable_builtin = true,
-        },
-        config = true,
-        cmd = { "Octo" },
     },
 
     {

@@ -11,9 +11,9 @@ local opts = {
         indicator = {
             icon = "▎",
         },
-        buffer_close_icon = "󰅖",
+        --buffer_close_icon = "󰅖",
+        --close_icon = "",
         modified_icon = "●",
-        close_icon = "",
         left_trunc_marker = "",
         right_trunc_marker = "",
         --- name_formatter can be used to change the buffer's label in the bufferline.
@@ -33,7 +33,7 @@ local opts = {
         diagnostics_update_in_insert = false,
         -- NOTE: this will be called a lot so don't do any heavy processing here
         offsets = {
-            { filetype = "neo-tree", text = "Explorer 󱁕 ", text_align = "center" },
+            { filetype = "neo-tree", text = "Neo-tree", text_align = "center" },
             { filetype = "DiffviewFiles", text = "Source Control  ", text_align = "center" },
             { filetype = "aerial", text = "Aerial  ", text_align = "center" },
             { filetype = "Outline", text = "Symbols  ", text_align = "center" },
@@ -77,7 +77,7 @@ return {
     {
         "akinsho/bufferline.nvim",
         enabled = true,
-        version = "v4.*",
+        version = "*",
         dependencies = "nvim-tree/nvim-web-devicons",
         priority = 1002,
         opts = function()
@@ -105,6 +105,11 @@ return {
                 end
                 Offset.edgy = true
             end
+            local bufferline = require("bufferline")
+            opts.options.style_preset = {
+                bufferline.style_preset.no_italic,
+                bufferline.style_preset.no_bold,
+            }
             return opts
         end,
         event = "BufEnter",
