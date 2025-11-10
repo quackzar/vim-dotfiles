@@ -114,6 +114,11 @@ return {
             },
             chunk = {
                 enable = true,
+                style = {
+                    { fg = "#88aaaa" },
+                    { fg = "#c21f30" },
+                },
+                duration = 150,
                 chars = {
                     horizontal_line = "─",
                     left_top = "╭",
@@ -121,6 +126,7 @@ return {
                     left_bottom = "╰",
                     right_arrow = "─",
                 },
+                textobject = "ic",
             },
             indent = {
                 enable = true,
@@ -173,7 +179,7 @@ return {
     },
 
     {
-        "ethersync/ethersync-nvim",
+        "teamtype/teamtype-nvim",
         keys = { { "<leader>j", "<cmd>EthersyncJumpToCursor<cr>" } },
         lazy = false,
     },
