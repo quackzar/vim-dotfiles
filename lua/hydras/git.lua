@@ -1,13 +1,14 @@
 local Hydra = require("hydra")
 local gitsigns = require("gitsigns")
+local gitportal = require("gitportal")
 
 -- try not to map p, y, w, b, i, a,
 local hint = [[
- _J_: next hunk   _s_: stage hunk        _r_: reset hunk    _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo stage hunk   _R_: reset buffer  _p_: preview hunk   _B_: blame buffer
- ^ ^              _S_: stage buffer      _D_: diff mode     _Y_: yank link      _o_: options
- ^ ^              _c_: commit            _H_: history       _L_: log            _G_: graph
- ^ ^              _g_/_<enter>_: Neogit                     _<esc>_: exit
+^ _s_: stage hunk        _r_: reset hunk    _K_: preview hunk   _b_: blame line   ^
+^ _u_: undo stage hunk   _R_: reset buffer  _Y_: yank link      _B_: blame buffer ^
+^ _S_: stage buffer      _D_: diff mode     _P_: open link      _o_: options      ^
+^ _c_: commit            _H_: history       _L_: log            _G_: graph        ^
+^ ^ ^         _g_/_<enter>_: Neogit                    _<esc>_: exit
 ]]
 
 local git_hydra = Hydra {
@@ -44,32 +45,6 @@ local git_hydra = Hydra {
     mode = { "n", "x" },
     body = "<leader>g",
     heads = {
-        {
-            "J",
-            function()
-                if vim.wo.diff then
-                    return "]c"
-                end
-                vim.schedule(function()
-                    gitsigns.next_hunk()
-                end)
-                return "<Ignore>"
-            end,
-            { expr = true },
-        },
-        {
-            "K",
-            function()
-                if vim.wo.diff then
-                    return "[c"
-                end
-                vim.schedule(function()
-                    gitsigns.prev_hunk()
-                end)
-                return "<Ignore>"
-            end,
-            { expr = true },
-        },
         { "s", gitsigns.stage_hunk },
         { "u", gitsigns.undo_stage_hunk },
         { "S", gitsigns.stage_buffer },
@@ -85,9 +60,11 @@ local git_hydra = Hydra {
             { exit = true },
         },
         { "R", gitsigns.reset_buffer },
-        { "Y", '<cmd>lua require"gitlinker".get_buf_range_url("n")<cr>' },
-        { "p", gitsigns.preview_hunk },
-        { "d", gitsigns.toggle_deleted, { nowait = true } },
+        { "K", gitsigns.preview_hunk },
+        { "Y", gitportal.copy_link_to_clipboard },
+        { "P", gitportal.open_file_in_neovim, { exit = true } },
+        -- { "O", gitportal.open_file_in_browser },
+        -- { "d", gitsigns.toggle_deleted, { nowait = true } },
         { "b", gitsigns.blame_line },
         {
             "B",
@@ -109,7 +86,7 @@ local git_init_hydra = Hydra {
     hint = [[
                      Git has not been intilizalied in this directory                       ^
                                                                                            ^
-                               Initlize git repo? _y_/_n_                                  ^
+                               Initalize git repo? _y_/_n_                                 ^
                                                                                            ^
     ]],
     config = {

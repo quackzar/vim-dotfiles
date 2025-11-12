@@ -228,7 +228,6 @@ return {
         "mrcjkb/rustaceanvim",
         version = "^6", -- Recommended
         enabled = true,
-        ft = { "rust" },
         init = function()
             local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
             local codelldb_path = extension_path .. "adapter/codelldb"
@@ -281,10 +280,7 @@ return {
                                 buildScripts = { enable = true },
                             },
                             check = {
-                                command = "clippy",
-                                workspace = false,
-                            },
-                            checkOnSave = {
+                                allTargets = false,
                                 command = "clippy",
                                 workspace = false,
                             },

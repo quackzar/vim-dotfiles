@@ -195,6 +195,7 @@ return {
     {
         "ruifm/gitlinker.nvim",
         lazy = true,
+        enabled = false,
         config = function()
             require("gitlinker").setup {
                 mappings = nil, -- this doesn't work
@@ -214,6 +215,13 @@ return {
             }
             vim.keymap.del("n", "<leader>gy", {}) -- so we just remove it here
         end,
+    },
+
+    {
+        "trevorhauter/gitportal.nvim",
+        opts = {
+            always_include_current_line = true,
+        },
     },
 
     {

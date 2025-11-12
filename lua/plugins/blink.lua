@@ -6,14 +6,13 @@ return {
             { "L3MON4D3/LuaSnip", version = "v2.*" },
             { "ribru17/blink-cmp-spell" },
             { "archie-judd/blink-cmp-words" },
+            { "xzbdmw/colorful-menu.nvim" },
         },
         version = "*",
         init = function()
             vim.keymap.set("i", "<C-x><C-o>", function()
                 require("blink.cmp").show()
-                require("blink.cmp").show_documentation()
-                require("blink.cmp").hide_documentation()
-            end, { silent = false, desc = "Omni complete [blink]" })
+            end, { silent = false, desc = "Lsp complete [blink]" })
 
             vim.keymap.set("i", "<C-x><C-s>", function()
                 require("blink.cmp").show { providers = { "spell" } }
@@ -43,15 +42,20 @@ return {
         opts = {
             keymap = {
                 preset = "none",
-                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                 ["<C-e>"] = { "hide" },
                 ["<C-y>"] = { "select_and_accept" },
                 ["<Up>"] = { "select_prev", "fallback" },
                 ["<Down>"] = { "select_next", "fallback" },
                 ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
                 ["<C-n>"] = { "select_next", "fallback_to_mappings" },
+
+                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                 ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+
                 ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+                ["<C-u>"] = { "scroll_signature_up", "fallback" },
+                ["<C-d>"] = { "scroll_signature_down", "fallback" },
             },
             snippets = {
                 expand = function(snippet)
@@ -77,20 +81,46 @@ return {
                 nerd_font_variant = "mono",
             },
             completion = {
+                trigger = {
+                    show_on_trigger_character = true,
+                    show_on_keyword = false,
+                },
+                list = {
+                    selection = {
+                        preselect = false,
+                        auto_insert = false,
+                    },
+                },
                 accept = { auto_brackets = { enabled = true } },
                 documentation = { auto_show = false, auto_show_delay_ms = 500 },
                 ghost_text = {
                     enabled = true,
-                    show_with_menu = false,
+                    show_with_menu = true,
                 },
                 menu = {
-                    auto_show = false,
+                    auto_show = true,
                     draw = {
-                        treesitter = { "lsp" },
+                        -- NOTE: uses colorful-menu.nvim
+                        columns = { { "kind_icon" }, { "label", gap = 1 } },
+                        components = {
+                            label = {
+                                text = function(ctx)
+                                    return require("colorful-menu").blink_components_text(ctx)
+                                end,
+                                highlight = function(ctx)
+                                    return require("colorful-menu").blink_components_highlight(ctx)
+                                end,
+                            },
+                        },
+                        -- columns = {
+                        --     { "kind_icon", "label", "label_description", gap = 1 }, { "kind" },
+                        -- },
+                        -- treesitter = { "lsp" },
                     },
                 },
             },
             fuzzy = {
+                implementation = "rust",
                 sorts = {
                     function(a, b)
                         local sort = require("blink.cmp.fuzzy.sort")
@@ -106,7 +136,7 @@ return {
             -- Default list of enabled providers defined so that you can extend it
             -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
-                default = { "lsp" },
+                default = { "lsp", "path", "snippets", "buffer" },
                 providers = {
                     spell = {
                         name = "Spell",
@@ -117,22 +147,6 @@ return {
                             use_cmp_spell_sorting = false,
                         },
                     },
-                    -- dictionary = {
-                    --     module = "blink-cmp-dictionary",
-                    --     name = "Dict",
-                    --     min_keyword_length = 4,
-                    --     dictionary_files = { vim.fn.expand('/usr/share/dict/words.txt') },
-                    --     opts = {
-                    --         documentation = {
-                    --             enable = true, -- enable documentation to show the definition of the word
-                    --             get_command = {
-                    --                 "wn", -- make sure this command is available in your system
-                    --                 "${word}", -- this will be replaced by the word to search
-                    --                 "-over",
-                    --             },
-                    --         },
-                    --     },
-                    -- },
                     dictionary = {
                         name = "blink-cmp-words",
                         module = "blink-cmp-words.dictionary",

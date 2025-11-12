@@ -241,7 +241,6 @@ return {
 
     {
         "stevearc/conform.nvim",
-        event = "BufEnter",
         opts = {
             formatters_by_ft = {
                 -- lua is better handled by the lsp
