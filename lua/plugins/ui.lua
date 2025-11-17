@@ -355,6 +355,9 @@ return {
         opts = {
             render = "virtual",
             enable_named_colors = false,
+            exclude_filetypes = {
+                "xxd",
+            },
         },
     },
 

@@ -140,6 +140,12 @@ return {
         config = true,
     },
 
+    -- ==== Hex ===
+    {
+        "RaafatTurki/hex.nvim",
+        config = true,
+    },
+
     -- ======== MARKDOWN ========
     {
         "gaoDean/autolist.nvim",

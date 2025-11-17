@@ -126,7 +126,7 @@ return {
                     left_bottom = "╰",
                     right_arrow = "─",
                 },
-                textobject = "ic",
+                textobject = "ix",
             },
             indent = {
                 enable = true,

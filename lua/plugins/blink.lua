@@ -7,6 +7,7 @@ return {
             { "ribru17/blink-cmp-spell" },
             { "archie-judd/blink-cmp-words" },
             { "xzbdmw/colorful-menu.nvim" },
+            { "krissen/blink-cmp-bibtex" },
         },
         version = "*",
         init = function()
@@ -32,7 +33,9 @@ return {
             vim.keymap.set("i", "<C-x><C-t>", function()
                 require("blink.cmp").show { providers = { "thesaurus" } }
             end, { silent = false, desc = "Dictionary complete [blink]" })
-
+            vim.keymap.set("i", "<C-x><C-t>", function()
+                require("blink.cmp").show { providers = { "bibtex" } }
+            end, { silent = false, desc = "BibTeX complete [blink]" })
             vim.keymap.set("i", "<C-x><C-p>", function()
                 require("blink.cmp").show { providers = { "path" } }
             end, { silent = false, desc = "Path complete [blink]" })
@@ -83,7 +86,7 @@ return {
             completion = {
                 trigger = {
                     show_on_trigger_character = true,
-                    show_on_keyword = false,
+                    show_on_keyword = true,
                 },
                 list = {
                     selection = {
@@ -136,7 +139,7 @@ return {
             -- Default list of enabled providers defined so that you can extend it
             -- elsewhere in your config, without redefining it, due to `opts_extend`
             sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
+                default = { "lsp", "snippets", "buffer" },
                 providers = {
                     spell = {
                         name = "Spell",
@@ -177,6 +180,13 @@ return {
                             -- Default is as below ("antonyms", "similar to" and "also see").
                             pointer_symbols = { "!", "&", "^" },
                         },
+                    },
+                    bibtex = {
+                        module = "blink-cmp-bibtex",
+                        name = "BibTeX",
+                        min_keyword_length = 2,
+                        score_offset = 10,
+                        async = true,
                     },
                 },
             },
