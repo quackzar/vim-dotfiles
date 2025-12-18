@@ -228,7 +228,7 @@ require("lazy").setup("plugins", {
 -- load specific configs
 require("mason").setup()
 require("cfg.lsp")
-require("ts-grammars")
+--require("ts-grammars")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))

@@ -21,20 +21,6 @@ require("nvim-treesitter.configs").setup {
             return false
         end,
     },
-    -- refactor = { -- TODO: Reanble when fixed.
-    --     highlight_definitions = {
-    --         enable = true,
-    --         -- Set to false if you have an `updatetime` of ~100.
-    --         clear_on_cursor_move = true,
-    --     },
-    --     navigation = {
-    --         enable = true,
-    --         keymaps = {
-    --             goto_next_usage = "<c-n>",
-    --             goto_previous_usage = "<c-p>",
-    --         },
-    --     },
-    -- },
     indent = {
         enable = false,
     },

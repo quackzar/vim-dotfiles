@@ -3,10 +3,9 @@ return {
 
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
-        config = function()
-            require("cfg.treesitter")
-        end,
     },
 
     {
@@ -24,9 +23,8 @@ return {
         end,
     },
 
-    "RRethy/nvim-treesitter-textsubjects",
-
-    "nvim-treesitter/nvim-treesitter-textobjects",
+    -- "RRethy/nvim-treesitter-textsubjects",
+    -- "nvim-treesitter/nvim-treesitter-textobjects",
 
     {
         -- For some sensible treesitter based navigation
@@ -45,13 +43,6 @@ return {
     {
         "RRethy/nvim-treesitter-endwise",
         event = "InsertEnter",
-        config = function()
-            require("nvim-treesitter.configs").setup {
-                endwise = {
-                    enable = true,
-                },
-            }
-        end,
     },
 
     {
