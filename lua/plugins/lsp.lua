@@ -245,8 +245,8 @@ return {
             formatters_by_ft = {
                 -- lua is better handled by the lsp
                 python = { "isort", "black" },
-                javascript = { { "prettierd", "prettier" } },
-                rust = { "rustfmt" },
+                javascript = { "prettierd", "prettier", stop_after_first = true },
+                rust = { "rustfmt", lsp_format = "fallback" },
                 bash = { "shellcheck" },
             },
             default_format_opts = {
@@ -259,9 +259,6 @@ return {
         end,
         config = function(_, opts)
             require("conform").setup(opts)
-            require("conform").formatters.rustfmt = {
-                prepend_args = { "--edition", "2021" }, -- Otherwise we can't use new syntax.
-            }
         end,
     },
 

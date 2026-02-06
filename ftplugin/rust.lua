@@ -1,6 +1,7 @@
 vim.bo.makeprg = "cargo build"
 vim.bo.textwidth = 100
 vim.bo.spelloptions = "camel"
+vim.treesitter.start()
 
 -- local cmp_lsp_rs = require("cmp_lsp_rs")
 -- local comparators = cmp_lsp_rs.comparators

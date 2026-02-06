@@ -28,3 +28,5 @@ vim.wo.colorcolumn = "100"
 
 vim.keymap.set("n", "<localleader>lt", "<cmd>LspStart ltex<cr>", { buffer = true })
 vim.keymap.set("n", "<localleader>lT", "<cmd>LspStop ltex<cr>", { buffer = true })
+
+vim.treesitter.start()
