@@ -216,9 +216,6 @@ return {
         },
     },
 
-    -- ==========  fish  ==========
-    { "mtoohey31/cmp-fish", ft = "fish" },
-
     -- ====== LLVM ====
     { "rhysd/vim-llvm", ft = "llvm" },
     { "cespare/vim-toml", ft = "toml" },
@@ -232,7 +229,7 @@ return {
     -- === rust ===
     {
         "mrcjkb/rustaceanvim",
-        version = "^6", -- Recommended
+        version = "^8", -- Recommended
         enabled = true,
         init = function()
             local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
@@ -279,6 +276,7 @@ return {
                                 disabled = {
                                     "inactive-code",
                                     "unused_variables",
+                                    "dead_code",
                                 },
                             },
                             cargo = {
@@ -286,9 +284,9 @@ return {
                                 buildScripts = { enable = true },
                             },
                             check = {
-                                allTargets = false,
+                                allTargets = true,
                                 command = "clippy",
-                                workspace = false,
+                                workspace = true,
                             },
                             completion = {
                                 fullFunctionSignatures = { enable = true },
@@ -300,13 +298,29 @@ return {
         end,
     },
 
+    -- {
+    --     'cordx56/rustowl',
+    --     version = '*', -- Latest stable version
+    --     -- build = 'cargo install rustowl',
+    --     lazy = false,  -- This plugin is already lazy
+    --     opts = {
+    --         -- colors = {
+    --         --     lifetime = '#98BB6C',   -- Lime green
+    --         --     imm_borrow = '#A3D4D5', -- Royal blue
+    --         --     mut_borrow = '#D27E99', -- Hot pink
+    --         --     move = '#FFA066',       -- Orange
+    --         --     call = '#E6C384',       -- Gold
+    --         --     outlive = '#FF5D62',    -- Crimson
+    --         -- },
+    --     },
+    -- },
+
     {
         "saecki/crates.nvim",
         tag = "stable",
         event = { "BufRead Cargo.toml" },
         config = true,
     },
-
     -- === text ===
 
     {

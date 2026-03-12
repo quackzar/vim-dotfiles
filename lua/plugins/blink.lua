@@ -8,57 +8,82 @@ return {
             { "archie-judd/blink-cmp-words" },
             { "xzbdmw/colorful-menu.nvim" },
             { "krissen/blink-cmp-bibtex" },
+            { "mikavilpas/blink-ripgrep.nvim" },
         },
         version = "*",
-        init = function()
-            vim.keymap.set("i", "<C-x><C-o>", function()
-                require("blink.cmp").show()
-            end, { silent = false, desc = "Lsp complete [blink]" })
-
-            vim.keymap.set("i", "<C-x><C-s>", function()
-                require("blink.cmp").show { providers = { "spell" } }
-            end, { silent = false, desc = "Spell complete [blink]" })
-
-            vim.keymap.set("i", "<C-x>s", function()
-                require("blink.cmp").show { providers = { "spell" } }
-            end, { silent = false, desc = "Spell complete [blink]" })
-
-            vim.keymap.set("i", "<C-x><C-i>", function()
-                require("blink.cmp").show { providers = { "rg" } }
-            end, { silent = false, desc = "rg complete [blink]" })
-
-            vim.keymap.set("i", "<C-x><C-k>", function()
-                require("blink.cmp").show { providers = { "dictionary" } }
-            end, { silent = false, desc = "Dictionary complete [blink]" })
-            vim.keymap.set("i", "<C-x><C-t>", function()
-                require("blink.cmp").show { providers = { "thesaurus" } }
-            end, { silent = false, desc = "Dictionary complete [blink]" })
-            vim.keymap.set("i", "<C-x><C-t>", function()
-                require("blink.cmp").show { providers = { "bibtex" } }
-            end, { silent = false, desc = "BibTeX complete [blink]" })
-            vim.keymap.set("i", "<C-x><C-p>", function()
-                require("blink.cmp").show { providers = { "path" } }
-            end, { silent = false, desc = "Path complete [blink]" })
-        end,
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
         opts = {
             keymap = {
                 preset = "none",
-                ["<C-e>"] = { "hide" },
-                ["<C-y>"] = { "select_and_accept" },
+                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<C-e>"] = { "hide", "fallback" },
+                ["<C-y>"] = { "select_and_accept", "fallback" },
+
                 ["<Up>"] = { "select_prev", "fallback" },
                 ["<Down>"] = { "select_next", "fallback" },
                 ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
                 ["<C-n>"] = { "select_next", "fallback_to_mappings" },
 
-                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                 ["<C-b>"] = { "scroll_documentation_up", "fallback" },
                 ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
                 ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
                 ["<C-u>"] = { "scroll_signature_up", "fallback" },
                 ["<C-d>"] = { "scroll_signature_down", "fallback" },
+
+                ["<C-x><C-o>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "lsp" } }
+                    end,
+                },
+                ["<C-x><C-f>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "path" } }
+                    end,
+                },
+                ["<C-x><C-n>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "buffer" } }
+                    end,
+                },
+                ["<C-x><C-g>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "ripgrep" } }
+                    end,
+                },
+                ["<C-x><C-t>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "thesaurus" } }
+                    end,
+                },
+                ["<C-x><C-k>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "dictionary" } }
+                    end,
+                },
+                ["<C-x><C-s>"] = {
+                    function(cmp)
+                        cmp.show { providers = { "spell" } }
+                    end,
+                },
+                ["<C-x>s"] = {
+                    function(cmp)
+                        cmp.show { providers = { "spell" } }
+                    end,
+                },
+                ["<C-x>t"] = {
+                    function(cmp)
+                        cmp.show { providers = { "bibtex" } }
+                    end,
+                },
+                ["<C-x><C-d>"] = {
+                    function(cmp)
+                        cmp.show {
+                            providers = { "lsp" },
+                        }
+                    end,
+                },
             },
             snippets = {
                 expand = function(snippet)
@@ -150,10 +175,22 @@ return {
                     elseif vim.bo.filetype == "typst" then
                         return { "lsp" }
                     else
-                        return { "lsp", "snippets", "buffer" }
+                        return { "lsp", "snippets" }
                     end
                 end,
                 providers = {
+                    path = {
+                        min_keyword_length = 0,
+                    },
+                    ripgrep = {
+                        opts = {
+                            ["backend.use"] = "gitgrep-or-ripgrep",
+                        },
+                        async = true,
+                        min_keyword_length = 0,
+                        module = "blink-ripgrep",
+                        name = "Ripgrep",
+                    },
                     spell = {
                         name = "Spell",
                         module = "blink-cmp-spell",

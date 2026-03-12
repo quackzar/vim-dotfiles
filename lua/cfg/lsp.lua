@@ -113,7 +113,7 @@ vim.lsp.config.ltex_plus = {
     end,
     settings = {
         ltex = {
-            language = "da-DK",
+            language = "en-US",
             checkFrequency = "save",
             completionEnabled = false,
             additionalRules = {
@@ -184,6 +184,7 @@ vim.lsp.config.tinymist = {
         tinymist = {
             lint = {
                 enabled = true,
+                when = "onType",
             },
         },
     },
