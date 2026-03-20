@@ -83,7 +83,7 @@ return {
     },
 
     {
-        "sindrets/diffview.nvim",
+        "dlyongemallo/diffview.nvim",
         dependencies = "nvim-lua/plenary.nvim",
         cmd = { "DiffviewFileHistory", "DiffviewOpen", "DiffviewLog" },
         init = function()
@@ -119,9 +119,16 @@ return {
     },
 
     {
+        "https://github.com/kokusenz/deltaview.nvim.git",
+        dependencies = {
+            "https://github.com/kokusenz/delta.lua",
+        },
+    },
+
+    {
         "isakbm/gitgraph.nvim",
         lazy = true,
-        dependencies = { "sindrets/diffview.nvim" },
+        -- dependencies = { "sindrets/diffview.nvim" },
         ---@type I.GGConfig
         opts = {
             hooks = {

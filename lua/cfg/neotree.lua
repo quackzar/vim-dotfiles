@@ -72,6 +72,12 @@ require("neo-tree").setup {
             ["]z"] = { commands.focus_fold_end, desc = "next fold" },
             ["zj"] = { commands.focus_next_fold_start, desc = "next sibling" },
             ["zk"] = { commands.focus_prev_fold_end, desc = "prev sibling" },
+
+            ["]]"] = { commands.focus_next_fold_start, desc = "next sibling" },
+            ["[["] = { commands.focus_prev_fold_end, desc = "prev sibling" },
+            ["]["] = { commands.focus_fold_start, desc = "child" },
+            ["[]"] = { commands.focus_fold_end, desc = "parent" },
+
             ["h"] = {
                 function(state)
                     local node = state.tree:get_node()

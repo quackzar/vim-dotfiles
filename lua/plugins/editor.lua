@@ -1,7 +1,6 @@
 return {
     -- Generic Editor Plugins {{{
     "tpope/vim-repeat",
-    "tpope/vim-eunuch", -- Basic (Delete, Move, Rename unix commands
 
     { "nvim-mini/mini.bracketed", version = "*" },
 
@@ -23,41 +22,6 @@ return {
     },
 
     {
-        "kylechui/nvim-surround",
-        -- consider `echasnovski/mini.surround` for sandwich-like bindings
-        -- Sandwich like bindings conflict with `substitute`
-        enabled = false,
-        version = "*",
-        event = "VeryLazy",
-        config = function()
-            local surr_utils = require("nvim-surround.config")
-            require("nvim-surround").setup {
-                surrounds = {
-                    ["g"] = {
-                        add = function()
-                            local result = surr_utils.get_input("Enter the type name: ")
-                            if result then
-                                return { { result .. "<" }, { ">" } }
-                            end
-                        end,
-                        find = "[%w]+%b<>",
-                        delete = "^([%w]+<().-(%>)<>$",
-                        change = {
-                            target = "^([%w]+)().-()<>$",
-                            replacement = function()
-                                local result = surr_utils.get_input("Enter the type name: ")
-                                if result then
-                                    return { { result }, { "" } }
-                                end
-                            end,
-                        },
-                    },
-                },
-            }
-        end,
-    },
-
-    {
         "andymass/vim-matchup",
         event = "BufReadPre",
         config = function()
@@ -68,6 +32,31 @@ return {
             vim.g.matchup_matchparen_deferred = 1
             vim.g.matchup_matchparen_offscreen = { method = "popup" }
         end,
+    },
+
+    {
+        "saghen/blink.pairs",
+        version = "*",
+        dependencies = "saghen/blink.download",
+        opts = {
+            mappings = {
+                enabled = true,
+                cmdline = true,
+            },
+            highlights = { -- TODO: Consider rainbows
+                enabled = false,
+            },
+        },
+    },
+
+    {
+        "nvim-mini/mini.jump2d",
+        opts = {
+            mappings = {
+                start_jumping = "S",
+            },
+        },
+        version = false,
     },
 
     {
@@ -82,19 +71,6 @@ return {
     },
 
     { "nvim-mini/mini.ai", version = false },
-
-    {
-        "gbprod/substitute.nvim", -- sort of a 'paste, but backwards'
-        enabled = false, -- never use it anyway.
-        lazy = true,
-        opts = {},
-        init = function()
-            vim.keymap.set("n", "s", require("substitute").operator, { noremap = true })
-            vim.keymap.set("n", "ss", require("substitute").line, { noremap = true })
-            vim.keymap.set("n", "S", require("substitute").eol, { noremap = true })
-            vim.keymap.set("x", "s", require("substitute").visual, { noremap = true })
-        end,
-    },
 
     {
         "shellRaining/hlchunk.nvim",

@@ -189,3 +189,11 @@ vim.lsp.config.tinymist = {
         },
     },
 }
+
+vim.lsp.config.kotlin_language_server = {
+    autostart = false,
+}
+
+vim.lsp.config.java_language_server = {
+    autostart = false,
+}

@@ -110,8 +110,8 @@ return {
             },
             completion = {
                 trigger = {
-                    show_on_trigger_character = true,
-                    show_on_keyword = true,
+                    -- show_on_trigger_character = true,
+                    -- show_on_keyword = true,
                 },
                 list = {
                     selection = {
@@ -129,7 +129,7 @@ return {
                     auto_show = true,
                     draw = {
                         -- NOTE: uses colorful-menu.nvim
-                        columns = { { "kind_icon" }, { "label", gap = 1 } },
+                        columns = { { "kind_icon" }, { "label", gap = 1 }, { "source_name" } },
                         components = {
                             label = {
                                 text = function(ctx)

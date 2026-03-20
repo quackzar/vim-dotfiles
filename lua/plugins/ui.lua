@@ -611,6 +611,10 @@ return {
                     { mode = "x", keys = "<localleader>" },
                     -- Snippets
                     { mode = "i", keys = "<C-q>" },
+
+                    -- Selections
+                    { mode = "x", keys = "i" },
+                    { mode = "x", keys = "a" },
                 },
                 clues = {
                     -- Enhance this by adding descriptions for <Leader> mapping groups

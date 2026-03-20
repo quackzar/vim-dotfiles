@@ -1,16 +1,19 @@
 return {
+    -- Redundant with 'winfixbuf'
+    -- {
+    --     "stevearc/stickybuf.nvim",
+    --     config = true,
+    -- },
+
     {
-        "stevearc/stickybuf.nvim",
+        "vladdoster/remember.nvim",
+        lazy = false,
         config = true,
     },
 
     {
-        lazy = false,
-        "farmergreg/vim-lastplace",
-    },
-
-    {
         "folke/persistence.nvim",
+        enabled = true,
         event = "BufReadPre", -- this will only start session saving when an actual file was opened
         module = "persistence",
         config = true,
@@ -46,7 +49,14 @@ return {
 
     {
         "sustech-data/wildfire.nvim",
-        keys = { "<cr>" },
+        keys = { "<CR>" },
+        opts = {
+            keymaps = {
+                init_selection = "<CR>",
+                node_incremental = "<CR>",
+                node_decremental = "<S-CR>",
+            },
+        },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         config = true,
     },
@@ -61,11 +71,6 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x",
         dependencies = {
-            -- {
-            --     -- TODO:
-            --     name = "neo-tree-neotest",
-            --     dir = "~/Projects/misc/neo-tree-neotest",
-            -- },
             "TimCreasman/neo-tree-tests-source.nvim",
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",

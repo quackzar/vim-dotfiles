@@ -31,12 +31,18 @@ return {
         "aaronik/treewalker.nvim",
         opts = {},
         keys = {
-            -- Parent/children
-            { "[[", "<cmd>Treewalker Left<cr>", "tree walk left", mode = { "v", "n" }, desc = "tree walk left" },
-            { "]]", "<cmd>Treewalker Right<cr>", "tree walk right", mode = { "v", "n" }, desc = "tree walk right" },
             -- Siblings
-            { "][", "<cmd>Treewalker Up<cr>", "tree walk up", mode = { "v", "n" }, desc = "tree walk up" },
-            { "[]", "<cmd>Treewalker Down<cr>", "tree walk down", mode = { "v", "n" }, desc = "tree walk down" },
+            { "[[", "<cmd>Treewalker Up<cr>", mode = { "v", "n" }, desc = "tree walk up" },
+            { "]]", "<cmd>Treewalker Down<cr>", mode = { "v", "n" }, desc = "tree walk down" },
+
+            { "s[[", "<cmd>Treewalker SwapUp<cr>", mode = { "v", "n" }, desc = "tree swap up" },
+            { "s]]", "<cmd>Treewalker SwapDown<cr>", mode = { "v", "n" }, desc = "tree swap down" },
+            -- Parent/children
+            { "][", "<cmd>Treewalker Left<cr>", mode = { "v", "n" }, desc = "tree walk left" },
+            { "[]", "<cmd>Treewalker Right<cr>", mode = { "v", "n" }, desc = "tree walk right" },
+
+            { "s][", "<cmd>Treewalker SwapLeft<cr>", mode = { "v", "n" }, desc = "tree swap left" },
+            { "s[]", "<cmd>Treewalker SwapRight<cr>", mode = { "v", "n" }, desc = "tree swap right" },
         },
     },
 
@@ -45,57 +51,49 @@ return {
         event = "InsertEnter",
     },
 
-    {
-        "windwp/nvim-autopairs",
-        lazy = true,
-        event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup {
-                disable_filetype = { "TelescopePrompt", "guihua", "guihua_rust", "clap_input" },
-                check_ts = true,
-                enable_check_bracket_line = true,
-                fast_wrap = {},
-                map_c_w = true,
-            }
-            local Rule = require("nvim-autopairs.rule")
-            local cond = require("nvim-autopairs.conds")
-            local npairs = require("nvim-autopairs")
-            npairs.add_rule(Rule("\\(", "\\)", "tex"))
-            npairs.add_rule(Rule("\\[", "\\]", "tex"))
-            npairs.add_rule(Rule("\\left", "\\right", "tex"))
-            -- Sort of works, but screws with single `|`
-            --
-            --npairs.add_rules({Rule("|", "|", { "rust", "go", "lua" }):with_move(cond.after_regex("|")) })
-
-            -- Very nice!
-            npairs.add_rule(Rule("<", ">", {
-                -- if you use nvim-ts-autotag, you may want to exclude these filetypes from this rule
-                -- so that it doesn't conflict with nvim-ts-autotag
-                "-html",
-                "-svelte",
-                "-vue",
-                "-xml",
-                "-javascriptreact",
-                "-typescriptreact",
-            }):with_pair(
-                -- regex will make it so that it will auto-pair on
-                -- `a<` but not `a <`
-                -- The `:?:?` part makes it also
-                -- work on Rust generics like `some_func::<T>()`
-                cond.before_regex("%a+:?:?$", 3)
-            ):with_move(function(opts)
-                return opts.char == ">"
-            end))
-        end,
-    },
-
-    {
-        -- Boosted '%'
-        -- Maybe redundant with vim-matchup (also uses treesitter)
-        "yorickpeterse/nvim-tree-pairs",
-        enabled = false,
-        config = true,
-    },
+    -- {
+    --     "windwp/nvim-autopairs",
+    --     lazy = true,
+    --     event = "InsertEnter",
+    --     config = function()
+    --         require("nvim-autopairs").setup {
+    --             disable_filetype = { "TelescopePrompt", "guihua", "guihua_rust", "clap_input" },
+    --             check_ts = true,
+    --             enable_check_bracket_line = true,
+    --             fast_wrap = {},
+    --             map_c_w = true,
+    --         }
+    --         local Rule = require("nvim-autopairs.rule")
+    --         local cond = require("nvim-autopairs.conds")
+    --         local npairs = require("nvim-autopairs")
+    --         npairs.add_rule(Rule("\\(", "\\)", "tex"))
+    --         npairs.add_rule(Rule("\\[", "\\]", "tex"))
+    --         npairs.add_rule(Rule("\\left", "\\right", "tex"))
+    --         -- Sort of works, but screws with single `|`
+    --         --
+    --         --npairs.add_rules({Rule("|", "|", { "rust", "go", "lua" }):with_move(cond.after_regex("|")) })
+    --
+    --         -- Very nice!
+    --         npairs.add_rule(Rule("<", ">", {
+    --             -- if you use nvim-ts-autotag, you may want to exclude these filetypes from this rule
+    --             -- so that it doesn't conflict with nvim-ts-autotag
+    --             "-html",
+    --             "-svelte",
+    --             "-vue",
+    --             "-xml",
+    --             "-javascriptreact",
+    --             "-typescriptreact",
+    --         }):with_pair(
+    --             -- regex will make it so that it will auto-pair on
+    --             -- `a<` but not `a <`
+    --             -- The `:?:?` part makes it also
+    --             -- work on Rust generics like `some_func::<T>()`
+    --             cond.before_regex("%a+:?:?$", 3)
+    --         ):with_move(function(opts)
+    --             return opts.char == ">"
+    --         end))
+    --     end,
+    -- },
 
     {
         "Wansmer/treesj",
@@ -158,16 +156,6 @@ return {
                 },
             }
         end,
-    },
-
-    {
-        "mizlan/iswap.nvim",
-        keys = {
-            -- { "g:", "<cmd>ISwap<cr>", desc = "Swap" },
-            { "g.", "<cmd>ISwapWith<cr>", desc = "Swap with" },
-            -- { "g<", "<cmd>ISwapWithLeft<cr>", desc = "Swap left" },
-            -- { "g>", "<cmd>ISwapWithRight<cr>", desc = "Swap right" },
-        },
     },
 
     -- }}}
