@@ -2,26 +2,11 @@ return {
 
     -- LSP + Snippets {{{
     {
-        "williamboman/mason.nvim",
-        "jayp0521/mason-nvim-dap.nvim",
-        "neovim/nvim-lspconfig",
+        "mason-org/mason.nvim",
     },
 
     {
-        "mason-org/mason-lspconfig.nvim",
-        opts = {
-            automatic_enable = {
-                exclude = {
-                    "rust_analyzer",
-                    "harper_ls",
-                    "ltex_plus",
-                },
-            },
-        },
-        dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
-            "neovim/nvim-lspconfig",
-        },
+        "jayp0521/mason-nvim-dap.nvim",
     },
 
     {

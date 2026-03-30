@@ -39,6 +39,10 @@ require("neo-tree").setup {
         follow_current_file = { enabled = true },
         use_libuv_file_watcher = true,
         group_empty_dirs = true,
+        filtered_items = {
+            hide_gitignored = false,
+            hide_ignored = false,
+        },
         window = {
             mappings = {
                 ["o"] = "system_open",

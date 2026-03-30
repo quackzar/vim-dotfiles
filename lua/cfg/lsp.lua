@@ -190,6 +190,10 @@ vim.lsp.config.tinymist = {
     },
 }
 
+vim.lsp.config.lua_ls = {
+    autostart = true,
+}
+
 vim.lsp.config.kotlin_language_server = {
     autostart = false,
 }
