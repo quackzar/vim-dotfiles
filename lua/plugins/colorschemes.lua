@@ -161,6 +161,11 @@ return {
                     TelescopePreviewNormal = { bg = theme.ui.bg_dim },
                     TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
 
+                    Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+                    PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+                    PmenuSbar = { bg = theme.ui.bg_m1 },
+                    PmenuThumb = { bg = theme.ui.bg_p2 },
+
                     DiagnosticVirtualTextHint = makeDiagnosticColor(theme.diag.hint),
                     DiagnosticVirtualTextInfo = makeDiagnosticColor(theme.diag.info),
                     DiagnosticVirtualTextWarn = makeDiagnosticColor(theme.diag.warning),
@@ -172,6 +177,9 @@ return {
                     -- GitSignsAddLnInline = { bg = colors.palette.winterGreen },
                     -- GitSignsChangeLnInline= { bg = colors.palette.winterYellow },
                     -- GitSignsDeleteLnInline = { bg = colors.palette.winterRed },
+
+                    -- WinBar = { fg = theme.ui.shade0 },
+                    -- WinBarNC = { fg = theme.ui.shade0 },
                 }
             end,
         },
