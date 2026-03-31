@@ -100,41 +100,7 @@ return {
     },
 
     {
-        "folke/trouble.nvim",
-        enabled = true,
-        lazy = true,
-        opts = {
-            use_diagnostic_signs = true,
-        },
-        cmd = "Trouble",
-        keys = {
-            { "<leader>xx", "<cmd>Trouble<cr>", desc = "toggle trouble" },
-            { "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", desc = "workspace diagnostics" },
-            { "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", desc = "document diagnostics" },
-            { "<leader>xl", "<cmd>Trouble loclist<cr>", desc = "location list" },
-            { "<leader>xq", "<cmd>Trouble quickfix<cr>", desc = "quickfix" },
-            { "<leader>xc", "<cmd>TroubleClose<cr>", desc = "close" },
-            {
-                "]x",
-                function()
-                    require("trouble").next { skip_groups = true, jump = true }
-                end,
-                desc = "next trouble",
-            },
-            {
-                "[x",
-                function()
-                    require("trouble").previous { skip_groups = true, jump = true }
-                end,
-                desc = "prev trouble",
-            },
-        },
-    },
-
-    {
         "Wansmer/symbol-usage.nvim",
-        -- Alternative to consider?
-        -- https://github.com/oribarilan/lensline.nvim
         event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
         config = function()
             local function setup_colors()
@@ -250,7 +216,7 @@ return {
     {
         "zapling/mason-conform.nvim",
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-nvim/mason.nvim",
             "stevearc/conform.nvim",
         },
     },
@@ -286,65 +252,6 @@ return {
         dependencies = {
             "williamboman/mason.nvim",
             "mfussenegger/nvim-lint",
-        },
-    },
-
-    {
-        "onsails/lspkind-nvim",
-        config = function()
-            require("lspkind").init {
-                preset = "codicons",
-            }
-        end,
-    },
-
-    {
-        "Bekaboo/dropbar.nvim",
-        lazy = false, -- lazy-loading is done by the plugin itself
-        enabled = vim.fn.has("nvim-0.10") == 1,
-        opts = {
-            icons = {
-                kinds = {
-                    symbols = {
-                        -- Folder icons are implicit
-                        Folder = "",
-                    },
-                },
-                ui = {
-                    menu = { separator = " " },
-                    bar = { separator = "  " },
-                },
-            },
-        },
-        config = function(_, opts)
-            require("dropbar").setup(opts)
-
-            -- setup so it looks like `https://github.com/utilyre/barbecue.nvim`
-            vim.api.nvim_create_autocmd("ColorScheme", {
-                group = vim.api.nvim_create_augroup("set_dropbar_colors", { clear = true }),
-                callback = function()
-                    local hl = vim.api.nvim_get_hl(0, { name = "Conceal", link = false })
-                    local foreground = string.format("#%06x", hl["fg"] or 0)
-                    vim.api.nvim_set_hl(0, "DropBarIconUISeparator", { foreground = foreground })
-                    vim.api.nvim_set_hl(0, "DropBarKindFolder", { foreground = foreground })
-                end,
-            })
-        end,
-        keys = {
-            {
-                "<leader>p",
-                function()
-                    require("dropbar.api").pick()
-                end,
-                desc = "Dropbar pick",
-            },
-            {
-                "<leader>P",
-                function()
-                    require("dropbar.api").select_next_context()
-                end,
-                desc = "Dropbar pick neighbour",
-            },
         },
     },
 

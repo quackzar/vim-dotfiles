@@ -103,8 +103,6 @@ local dap_hydra = Hydra {
             },
         },
         on_enter = function()
-            require("neo-tree.sources.manager").close_all()
-            require("dapui").open()
             require("nvim-dap-virtual-text").enable()
             vim.bo.modifiable = false
         end,
@@ -257,7 +255,6 @@ local dap_hydra = Hydra {
                 -- if there is no active session, we can just close
                 if require("dap").session() == nil then
                     require("nvim-dap-virtual-text").refresh()
-                    require("dapui").close()
                 end
             end,
             { silent = true, exit = true },
