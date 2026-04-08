@@ -184,8 +184,17 @@ return {
             end
 
             require("symbol-usage").setup {
-                vt_position = "end_of_line",
+                --vt_position = "end_of_line",
                 text_format = text_format,
+                symbol_filter = function(ctx)
+                    return function(symbol)
+                        if ctx.method == vim.lsp.protocol.Methods.textDocument_references then
+                            return string.find(symbol.uri, "tests") == nil
+                        else
+                            return true
+                        end
+                    end
+                end,
             }
         end,
     },

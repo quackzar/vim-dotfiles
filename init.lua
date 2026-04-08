@@ -3,10 +3,6 @@ vim.opt.shadafile = "NONE"
 
 vim.o.shell = "/bin/zsh"
 vim.o.termguicolors = true
--- GUI options
--- vim.o.guifont = "Monaspace Neon,DejaVuSansM Nerd Font,nonicons,codicon,LegacyComputing"
--- vim.o.guifont = "JetBrainsMono Nerd Font:h13,codicons,nonicons,Iosevka"
--- vim.o.guioptions = "ad" -- BUG: Breaks nvim from source
 vim.g.mapleader = " "
 
 if vim.fn.exists("g:neovide") then
@@ -104,20 +100,6 @@ vim.o.colorcolumn = "+0"
 
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
-
--- if vim.fn.has('nvim-0.10') then
---     vim.g.clipboard = {
---         name = 'OSC 52',
---         copy = {
---             ['+'] = require('vim.clipboard.osc52').copy,
---             ['*'] = require('vim.clipboard.osc52').copy,
---         },
---         paste = {
---             ['+'] = require('vim.clipboard.osc52').paste,
---             ['*'] = require('vim.clipboard.osc52').paste,
---         },
---     }
--- end
 
 -- some pluginless keymaps
 vim.keymap.set({ "n", "x" }, "Q", "<nop>")
@@ -227,7 +209,8 @@ require("lazy").setup("plugins", {
 
 -- load specific configs
 require("mason").setup()
-require("cfg.lsp")
+require("lsp")
+require("treesitter")
 --require("ts-grammars")
 
 local theme = require("last-color").recall() or "kanagawa"
