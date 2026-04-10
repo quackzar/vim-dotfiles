@@ -1,10 +1,4 @@
 return {
-    -- Redundant with 'winfixbuf'
-    -- {
-    --     "stevearc/stickybuf.nvim",
-    --     config = true,
-    -- },
-
     {
         "vladdoster/remember.nvim",
         lazy = false,
@@ -65,65 +59,6 @@ return {
         "nacro90/numb.nvim",
         keys = { ":" },
         config = true,
-    },
-
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        dependencies = {
-            "TimCreasman/neo-tree-tests-source.nvim",
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
-            {
-                -- only needed if you want to use the commands with "_with_window_picker" suffix
-                "s1n7ax/nvim-window-picker",
-                version = "1.*",
-                opts = {
-                    autoselect_one = true,
-                    include_current = false,
-                    filter_rules = {
-                        -- filter using buffer options
-                        bo = {
-                            -- if the file type is one of following, the window will be ignored
-                            filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-
-                            -- if the buffer type is one of following, the window will be ignored
-                            buftype = { "terminal", "nofile" },
-                        },
-                    },
-                    other_win_hl_color = "#e35e4f",
-                },
-            },
-        },
-        config = function()
-            require("cfg.neotree")
-            local group = vim.api.nvim_create_augroup("refresh-neotree", { clear = true })
-            -- This ensures neo-tree is updated after <C-z> or other things that could change things.
-            -- This is mostly an issue with git commands that stage or unstage things, as file changes are detected.
-            vim.api.nvim_create_autocmd({ "FocusGained", "VimResume", "TermLeave" }, {
-                group = group,
-                callback = function()
-                    require("neo-tree.sources.manager").refresh()
-                end,
-            })
-            -- This ensures that neo-tree is updated whenever neo-git does 'something'.
-            -- Usually this means staging/unstaging files will be reflected immediately.
-            vim.api.nvim_create_autocmd({ "User" }, {
-                pattern = "NeogitStatusRefreshed",
-                group = group,
-                callback = function()
-                    require("neo-tree.sources.manager").refresh()
-                end,
-            })
-        end,
-        lazy = true,
-        cmd = "Neotree",
-        init = function()
-            vim.keymap.set("n", "<leader>z", "<cmd>Neotree focus last<cr>", { desc = "Focus neo tree" })
-            vim.keymap.set("n", "<leader>Z", "<cmd>Neotree toggle last<cr>", { desc = "Toggle neo tree" })
-            vim.keymap.set("n", "<leader>v", "<cmd>Neotree focus document_symbols<cr>", { desc = "Focus symbols" })
-            vim.keymap.set("n", "<leader>V", "<cmd>Neotree toggle document_symbols<cr>", { desc = "Toggle symbols" })
-        end,
     },
 
     {
@@ -321,6 +256,7 @@ return {
         },
         opts = {},
     },
+
     -- TeX
     {
         "lervag/vimtex",
@@ -397,11 +333,6 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
         },
-    },
-
-    {
-        "tamarin-prover/editors",
-        name = "tamarin",
     },
     -- }}}
 }

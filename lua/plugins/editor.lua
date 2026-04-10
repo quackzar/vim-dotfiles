@@ -35,21 +35,6 @@ return {
     },
 
     {
-        "saghen/blink.pairs",
-        version = "*",
-        dependencies = "saghen/blink.download",
-        opts = {
-            mappings = {
-                enabled = true,
-                cmdline = true,
-            },
-            highlights = { -- TODO: Consider rainbows
-                enabled = false,
-            },
-        },
-    },
-
-    {
         "nvim-mini/mini.jump2d",
         opts = {
             mappings = {

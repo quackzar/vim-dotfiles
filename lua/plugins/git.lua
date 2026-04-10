@@ -238,7 +238,6 @@ return {
 
     {
         "lewis6991/satellite.nvim",
-        enabled = false, -- vim.fn.has("nvim-0.10") == 1,
         event = "BufRead",
         opts = {
             current_only = true,
