@@ -13,7 +13,6 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
-        "TimCreasman/neo-tree-tests-source.nvim",
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
         {
@@ -46,7 +45,6 @@ return {
             "buffers",
             "git_status", -- NOTE: Sort of redundant?
             "document_symbols",
-            "tests",
         },
         default_component_configs = {
             diagnostics = {

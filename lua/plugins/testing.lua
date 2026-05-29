@@ -7,7 +7,6 @@ return {
             "nvim-lua/plenary.nvim",
             "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
-
             -- Seperate test suites (should maybe be hot-loaded?)
             -- "rouge8/neotest-rust",
             "nvim-neotest/neotest-python",
@@ -20,7 +19,7 @@ return {
             require("neotest").setup {
                 icons = {
                     passed = " ",
-                    running = " ",
+                    running = " ",
                     failed = " ",
                     skipped = " ",
                     unknown = " ",
@@ -61,10 +60,6 @@ return {
                     virtual_text = true,
                     signs = false,
                 },
-                consumers = {
-                    overseer = require("neotest.consumers.overseer"),
-                    -- neotree = require("neotest.consumers.neo-tree"),
-                },
                 adapters = {
                     -- require("neotest-rust"),
                     require("rustaceanvim.neotest"),
@@ -82,7 +77,10 @@ return {
             local highlighting = {
                 NeotestPassed = { link = "GitSignsAdd" },
                 NeotestRunning = { link = "GitSignsChange" },
-                NeotestFailed = { link = "GitSignsDelete" },
+                -- NeotestFailed = { link = "GitSignsDelete" },
+                -- NeotestPassed = { link = "DiagnosticHint" },
+                -- NeotestRunning = { link = "DiagnosticInfo" },
+                NeotestFailed = { link = "DiagnosticError" },
                 NeotestSkipped = { link = "DiagnosticWarn" },
                 NeotestUnknown = { link = "DiagnosticInfo" },
             }
