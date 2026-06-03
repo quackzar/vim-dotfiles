@@ -57,13 +57,6 @@ return {
                     },
                 },
                 pickers = {
-                    -- Default configuration for builtin pickers goes here:
-                    -- picker_name = {
-                    --   picker_config_key = value,
-                    --   ...
-                    -- }
-                    -- Now the picker_config_key will be applied every time you call this
-                    -- builtin picker
                     buffers = {
                         mappings = {
                             i = {
@@ -146,6 +139,9 @@ return {
                     },
                 },
                 extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown {},
+                    },
                     aerial = {
                         theme = "dropdown",
                     },
@@ -193,6 +189,7 @@ return {
                 require("telescope").load_extension("zf-native")
             end
             require("telescope").load_extension("zoxide")
+            require("telescope").load_extension("ui-select")
         end,
     },
 
@@ -216,6 +213,8 @@ return {
             "kkharji/sqlite.lua",
         },
     },
+
+    { "nvim-telescope/telescope-ui-select.nvim" },
 
     {
         "jmacadie/telescope-hierarchy.nvim",
