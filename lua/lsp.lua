@@ -20,6 +20,7 @@ vim.diagnostic.config {
 
 -- Set global defaults for all servers
 vim.lsp.config("*", {
+    root_markers = { ".git" },
     capabilities = vim.tbl_deep_extend(
         "force",
         vim.lsp.protocol.make_client_capabilities(),
@@ -80,33 +81,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-require("neodev").setup {
-    library = { plugins = { "neotest" }, types = true },
-    settings = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            hint = {
-                enable = true,
-            },
-        },
-    },
-}
-
 vim.lsp.config.ltex_plus = {
     autostart = true,
-    server_opts = {
-        filetypes = {
-            "bib",
-            "gitcommit",
-            "markdown",
-            "org",
-            "plaintex",
-            "rst",
-            "rnoweb",
-            "tex",
-            "pandoc",
-            "typst",
-        },
+    filetypes = {
+        "bib",
+        "gitcommit",
+        "markdown",
+        "org",
+        "plaintex",
+        "rst",
+        "rnoweb",
+        "tex",
+        "pandoc",
+        "typst",
     },
     on_attach = function(_, bufnr)
         require("ltex-utils").on_attach(bufnr)
@@ -139,14 +126,13 @@ vim.lsp.config.ltex_plus = {
 }
 
 vim.lsp.config.harper_ls = {
+    cmd = { "harper-ls", "--stdio" },
     autostart = false,
-    server_opts = {
-        filetypes = {
-            "typst",
-            "tex",
-            "markdown",
-            "rust",
-        },
+    filetypes = {
+        "typst",
+        "tex",
+        "markdown",
+        "rust",
     },
     settings = {
         ["harper-ls"] = {
@@ -179,6 +165,7 @@ vim.lsp.config.harper_ls = {
 }
 
 vim.lsp.config.tinymist = {
+    cmd = "tinymist",
     autostart = false,
     settings = {
         tinymist = {
@@ -191,6 +178,8 @@ vim.lsp.config.tinymist = {
 }
 
 vim.lsp.config.lua_ls = {
+    cmd = { "lua-language-server" },
+    filetypes = { "lua" },
     autostart = true,
 }
 
@@ -200,4 +189,13 @@ vim.lsp.config.kotlin_language_server = {
 
 vim.lsp.config.java_language_server = {
     autostart = false,
+}
+
+vim.lsp.config.typescript_ls = {
+    cmd = { "typescript-language-server", "--stdio" },
+    autostart = true,
+    filetypes = {
+        "typescript",
+        "typescriptreact",
+    },
 }
