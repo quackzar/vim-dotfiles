@@ -165,8 +165,9 @@ vim.lsp.config.harper_ls = {
 }
 
 vim.lsp.config.tinymist = {
-    cmd = "tinymist",
-    autostart = false,
+    cmd = { "tinymist" },
+    filetypes = { "typst" },
+    single_file_support = true,
     settings = {
         tinymist = {
             lint = {
@@ -197,5 +198,20 @@ vim.lsp.config.typescript_ls = {
     filetypes = {
         "typescript",
         "typescriptreact",
+    },
+}
+
+vim.lsp.config.basedpyright = {
+    cmd = { "basedpyright-langserver", "--stdio" },
+    filetypes = { "python" },
+    single_file_support = true,
+    settings = {
+        basedpyright = {
+            analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "openFilesOnly",
+            },
+        },
     },
 }
