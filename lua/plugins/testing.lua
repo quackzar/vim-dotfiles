@@ -9,9 +9,10 @@ return {
             "nvim-treesitter/nvim-treesitter",
             -- Seperate test suites (should maybe be hot-loaded?)
             -- "rouge8/neotest-rust",
-            "nvim-neotest/neotest-python",
-            "haydenmeade/neotest-jest",
-            "Issafalcon/neotest-dotnet",
+            -- (Not used currently)
+            -- "nvim-neotest/neotest-python",
+            -- "haydenmeade/neotest-jest",
+            -- "Issafalcon/neotest-dotnet",
         },
         lazy = true,
         config = function()

@@ -33,24 +33,6 @@ return {
     },
 
     {
-        "dnlhc/glance.nvim",
-        config = true,
-        lazy = true,
-        cmd = "Glance",
-        event = "LspAttach",
-        init = function()
-            vim.api.nvim_create_autocmd("LspAttach", {
-                callback = function()
-                    vim.keymap.set("n", "gRD", "<CMD>Glance definitions<CR>", { desc = "glance definitions" })
-                    vim.keymap.set("n", "gRR", "<CMD>Glance references<CR>", { desc = "glance references" })
-                    vim.keymap.set("n", "gRT", "<CMD>Glance type_definitions<CR>", { desc = "glance type" })
-                    vim.keymap.set("n", "gRI", "<CMD>Glance implementations<CR>", { desc = "glance implementations" })
-                end,
-            })
-        end,
-    },
-
-    {
         "dgagn/diagflow.nvim",
         event = "BufEnter",
         enabled = true,
@@ -101,7 +83,7 @@ return {
 
     {
         "Wansmer/symbol-usage.nvim",
-        event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+        event = "LspAttach",
         config = function()
             local function setup_colors()
                 local function h(name)
