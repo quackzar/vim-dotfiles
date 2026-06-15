@@ -10,6 +10,9 @@ return {
             { "krissen/blink-cmp-bibtex" },
             { "mikavilpas/blink-ripgrep.nvim" },
         },
+        build = function()
+            require("blink.cmp").build():pwait()
+        end,
         version = "*",
         ---@module 'blink.cmp'
         ---@type blink.cmp.Config
@@ -247,8 +250,11 @@ return {
 
     {
         "saghen/blink.pairs",
+        build = function()
+            require("blink.pairs").build():pwait(60000)
+        end,
+        dependencies = "saghen/blink.lib",
         version = "*",
-        dependencies = "saghen/blink.download",
         opts = {
             mappings = {
                 enabled = true,

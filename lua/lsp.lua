@@ -190,6 +190,9 @@ vim.lsp.config.kotlin_language_server = {
 
 vim.lsp.config.java_language_server = {
     autostart = false,
+    cmd = { "java-language-server" },
+    filetypes = { "java" },
+    root_markers = { "build.gradle", "build.gradle.kts", "pom.xml", ".git" },
 }
 
 vim.lsp.config.typescript_ls = {

@@ -83,9 +83,15 @@ return {
     },
 
     {
-        "dlyongemallo/diffview.nvim",
+        "dlyongemallo/diffview-plus.nvim",
         dependencies = "nvim-lua/plenary.nvim",
-        cmd = { "DiffviewFileHistory", "DiffviewOpen", "DiffviewLog" },
+        cmd = {
+            "DiffviewOpen",
+            "DiffviewToggle",
+            "DiffviewFileHistory",
+            "DiffviewDiffFiles",
+            "DiffviewLog",
+        },
         init = function()
             vim.opt.fillchars:append("diff:╱")
 
@@ -120,9 +126,10 @@ return {
 
     {
         "https://github.com/kokusenz/deltaview.nvim.git",
-        dependencies = {
-            "https://github.com/kokusenz/delta.lua",
-        },
+    },
+
+    {
+        "barrettruth/diffs.nvim",
     },
 
     {
