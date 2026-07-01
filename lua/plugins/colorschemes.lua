@@ -191,6 +191,13 @@ return {
         event = "User LoadAllColorschemes",
     },
 
+    {
+        "vossenwout/guts.nvim",
+        priority = 1000,
+        lazy = true,
+        event = "User LoadAllColorschemes",
+    },
+
     -- Remembers the last colorscheme set
     {
         "raddari/last-color.nvim",
