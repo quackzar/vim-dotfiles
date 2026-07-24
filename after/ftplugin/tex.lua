@@ -1,7 +1,5 @@
 vim.bo.omnifunc = "vimtex#complete#omnifunc"
 
-local lspkind = require("lspkind")
-
 -- TODO: find a method to set this for this buffer only
 -- vim.diagnostic.config {
 --     virtual_lines = false,

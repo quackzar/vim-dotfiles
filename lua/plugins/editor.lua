@@ -58,6 +58,11 @@ return {
     { "nvim-mini/mini.ai", version = false },
 
     {
+        "sunnytamang/select-undo.nvim",
+        opts = {},
+    },
+
+    {
         "shellRaining/hlchunk.nvim",
         enabled = true,
         event = { "BufReadPre", "BufNewFile" },

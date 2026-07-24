@@ -79,12 +79,15 @@ local hint = [[
      _<esc>_
    exit mode
 
- ^ ^  Watches 
- ^e^: edit
- ^r^: repl
- ^o^: open
- ^d^: remove
- ^t^: toggle
+ ^ ^  Views 
+ _B_: breakpoints
+ _S_: scopes
+ _E_: exceptions
+ _W_: watches
+ _T_: threads
+ _R_: repl
+ _K_: session
+ _C_: console
 ]]
 
 local dap_hydra = Hydra {
@@ -103,8 +106,10 @@ local dap_hydra = Hydra {
             },
         },
         on_enter = function()
-            require("nvim-dap-virtual-text").enable()
-            vim.bo.modifiable = false
+            vim.cmd("DapViewVirtualTextEnable")
+        end,
+        on_exit = function()
+            vim.cmd("DapViewVirtualTextDisable")
         end,
     },
     mode = { "n", "x" },
@@ -238,9 +243,10 @@ local dap_hydra = Hydra {
         {
             "u",
             function()
-                require("dapui").toggle()
+                --require("dapui").toggle()
+                vim.cmd("DapViewToggle")
             end,
-            { desc = "Toggle DAP UI" },
+            { desc = "Toggle DAP views" },
         },
         {
             "q",
@@ -253,12 +259,20 @@ local dap_hydra = Hydra {
             "<esc>",
             function()
                 -- if there is no active session, we can just close
-                if require("dap").session() == nil then
-                    require("nvim-dap-virtual-text").refresh()
-                end
             end,
             { silent = true, exit = true },
         },
+        { "B", "<cmd>DapViewShow breakpoints<cr>" },
+        { "S", "<cmd>DapViewShow scopes<cr>" },
+        { "E", "<cmd>DapViewShow exceptions<cr>" },
+        { "W", "<cmd>DapViewShow watches<cr>" },
+        { "T", "<cmd>DapViewShow threads<cr>" },
+        { "R", "<cmd>DapViewShow repl<cr>" },
+        { "K", "<cmd>DapViewShow sessions<cr>" },
+        { "C", "<cmd>DapViewShow console<cr>" },
+
+        { "w", "<cmd>DapViewWatch<cr>" },
+
         -- {
         --     "q",
         --     function()

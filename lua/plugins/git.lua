@@ -124,9 +124,9 @@ return {
         },
     },
 
-    {
-        "https://github.com/kokusenz/deltaview.nvim.git",
-    },
+    -- {
+    --     "https://github.com/kokusenz/deltaview.nvim.git",
+    -- },
 
     {
         "barrettruth/diffs.nvim",

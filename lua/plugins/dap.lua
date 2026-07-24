@@ -19,23 +19,6 @@ return {
     },
 
     {
-        "theHamsta/nvim-dap-virtual-text",
-        dependencies = { "mfussenegger/nvim-dap" },
-        lazy = true,
-        opts = {
-            highlight_changed_variables = true,
-            show_stop_reason = true, -- show stop reason when stopped for exceptions
-        },
-    },
-
-    -- {
-    --     "rcarriga/nvim-dap-ui",
-    --     dependencies = { "mfussenegger/nvim-dap" },
-    --     config = true,
-    --     lazy = true, -- Triggered by Hydra
-    -- },
-
-    {
         "igorlfs/nvim-dap-view",
         -- let the plugin lazy load itself
         lazy = false,
@@ -65,6 +48,7 @@ return {
         dependencies = "igorlfs/nvim-dap-view",
         opts = {
             dapview_register = true,
+            auto_toggle = true,
         },
     },
 
