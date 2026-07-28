@@ -229,7 +229,7 @@ return {
                     ft = "toggleterm",
                     size = { height = 0.4 },
                     -- exclude floating windows
-                    filter = function(buf, win)
+                    filter = function(_, win)
                         return vim.api.nvim_win_get_config(win).relative == ""
                     end,
                 },

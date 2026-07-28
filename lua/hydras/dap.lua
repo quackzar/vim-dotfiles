@@ -78,18 +78,21 @@ local hint = [[
  _q_: stop
 
      _<esc>_
-   exit mode
+    exit mode
 
- ^ ^  Views 
- _B_: breakpoints
- _S_: scopes
- _E_: exceptions
- _W_: watches
- _T_: threads
- _R_: repl
- _K_: session
- _C_: console
+     ^ ^ ui
+     _]v_ _[v_
 ]]
+
+-- ^ ^  Views 
+-- _B_: breakpoints
+-- _S_: scopes
+-- _E_: exceptions
+-- _W_: watches
+-- _T_: threads
+-- _R_: repl
+-- _K_: session
+-- _C_: console
 
 local dap_hydra = Hydra {
     name = "debug",
@@ -251,6 +254,22 @@ local dap_hydra = Hydra {
             { desc = "Toggle DAP views" },
         },
         {
+            "[v",
+            function()
+                --require("dapui").toggle()
+                vim.cmd("DapViewNavigate! -1")
+            end,
+            { desc = "Toggle DAP views" },
+        },
+        {
+            "]v",
+            function()
+                --require("dapui").toggle()
+                vim.cmd("DapViewNavigate! 1")
+            end,
+            { desc = "Toggle DAP views" },
+        },
+        {
             "q",
             function()
                 require("dap").terminate()
@@ -264,14 +283,14 @@ local dap_hydra = Hydra {
             end,
             { silent = true, exit = true },
         },
-        { "B", "<cmd>DapViewShow breakpoints<cr>" },
-        { "S", "<cmd>DapViewShow scopes<cr>" },
-        { "E", "<cmd>DapViewShow exceptions<cr>" },
-        { "W", "<cmd>DapViewShow watches<cr>" },
-        { "T", "<cmd>DapViewShow threads<cr>" },
-        { "R", "<cmd>DapViewShow repl<cr>" },
-        { "K", "<cmd>DapViewShow sessions<cr>" },
-        { "C", "<cmd>DapViewShow console<cr>" },
+        -- { "B", "<cmd>DapViewShow breakpoints<cr>" },
+        -- { "S", "<cmd>DapViewShow scopes<cr>" },
+        -- { "E", "<cmd>DapViewShow exceptions<cr>" },
+        -- { "W", "<cmd>DapViewShow watches<cr>" },
+        -- { "T", "<cmd>DapViewShow threads<cr>" },
+        -- { "R", "<cmd>DapViewShow repl<cr>" },
+        -- { "K", "<cmd>DapViewShow sessions<cr>" },
+        -- { "C", "<cmd>DapViewShow console<cr>" },
 
         -- {
         --     "q",

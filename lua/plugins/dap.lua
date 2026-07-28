@@ -9,7 +9,10 @@ return {
                 { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" }
             )
             vim.fn.sign_define("DapLogPoint", { text = " ", texthl = "GitSignsChange", linehl = "", numhl = "" })
-            vim.fn.sign_define("DapStopped", { text = " ", texthl = "GitSignsAdd", linehl = "", numhl = "" })
+            vim.fn.sign_define(
+                "DapStopped",
+                { text = " ", texthl = "GitSignsAdd", linehl = "GitSignsAddInline", numhl = "" }
+            )
             vim.fn.sign_define(
                 "DapBreakpointRejected",
                 { text = "󰔶 ", texthl = "GitSignsDelete", linehl = "", numhl = "" }
