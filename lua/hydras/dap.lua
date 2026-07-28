@@ -65,14 +65,15 @@ local hint = [[
  _o_: step out   
  _c_: to cursor
  ^ ^
- _b_: breakpoint
+ _d_: breakpoint
  _a_: logpoint
- _e_: exceptions
+ _x_: exceptions
  ^ ^
  _<_: up stack
  _>_: down stack
  _._: focus frame
  ^ ^
+ _v_: watch
  _u_: toggle UI
  _q_: stop
 
@@ -196,7 +197,7 @@ local dap_hydra = Hydra {
 
         -- Breakpoints and Exceptions
         {
-            "b",
+            "d",
             function()
                 require("dap").toggle_breakpoint()
             end,
@@ -209,7 +210,7 @@ local dap_hydra = Hydra {
             end,
         },
         {
-            "e",
+            "x",
             function()
                 require("dap").set_exception_breakpoints()
             end,
@@ -239,6 +240,7 @@ local dap_hydra = Hydra {
             { silent = true },
         },
 
+        { "v", "<cmd>DapViewWatch<cr>" },
         -- Stopping, quitting and just exiting
         {
             "u",
@@ -270,8 +272,6 @@ local dap_hydra = Hydra {
         { "R", "<cmd>DapViewShow repl<cr>" },
         { "K", "<cmd>DapViewShow sessions<cr>" },
         { "C", "<cmd>DapViewShow console<cr>" },
-
-        { "w", "<cmd>DapViewWatch<cr>" },
 
         -- {
         --     "q",

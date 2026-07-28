@@ -174,8 +174,8 @@ return {
         init = function()
             local cfg = require("rustaceanvim.config")
 
-            local codelldb_path = vim.env.HOME .. "/.local/share/nvim/mason/bin/codelldb"
-            local liblldb_path = vim.env.HOME .. "/.local/share/nvim/mason/bin/liblldb"
+            -- local codelldb_path = vim.env.HOME .. "/.local/share/nvim/mason/bin/codelldb"
+            -- local liblldb_path = vim.env.HOME .. "/.local/share/nvim/mason/bin/liblldb"
             vim.g.rustaceanvim = {
                 server = {
                     default_settings = {

@@ -290,6 +290,24 @@ basic.macros = {
     end,
 }
 
+basic.dap = {
+    hl_colors = {
+        default = { "red", "black" },
+        sep_before = { "black_light", "black" },
+        sep_after = { "black_light", "black" },
+    },
+    text = function()
+        local status = require("dap").status()
+        if status ~= "" then
+            return {
+                { "  ", "default" },
+                { status, "default" },
+                { " ", "default" },
+            }
+        end
+    end,
+}
+
 local default = {
     filetypes = { "default" },
     active = {
@@ -299,7 +317,7 @@ local default = {
         { vim_components.search_count(), { "red", "black_light" } },
         { sep.right_rounded, { "black_light", "black" } },
         basic.macros,
-        -- basic.macros,
+        basic.dap,
         basic.lint,
         basic.lsp,
         basic.lsp_diagnos,
