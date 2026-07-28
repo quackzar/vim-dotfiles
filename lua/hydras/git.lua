@@ -99,8 +99,8 @@ local git_init_hydra = Hydra {
             position = "bottom",
         },
         on_exit = function()
-            local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
-            if err_code == 0 then
+            local res = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait()
+            if res.code == 0 then
                 git_hydra:activate()
             end
         end,
@@ -131,10 +131,8 @@ local git_init_hydra = Hydra {
 }
 
 local function activate_git_hydra()
-    -- check whether we are in a git repo, otherwise it's going to be awkward.
-    -- If there is a more elegant way of checking it, let me know.
-    local err_code = os.execute("git rev-parse --show-toplevel 2> /dev/null")
-    if err_code == 0 then
+    local res = vim.system({ "git", "rev-parse", "--show-toplevel" }):wait()
+    if res.code == 0 then
         git_hydra:activate()
     else
         git_init_hydra:activate()
