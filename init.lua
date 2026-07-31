@@ -101,6 +101,9 @@ vim.o.colorcolumn = "+0"
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrw = 1
 
+-- I control my own mappings, thank you.
+vim.g.no_plugin_maps = true
+
 -- some pluginless keymaps
 vim.keymap.set({ "n", "x" }, "Q", "<nop>")
 vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })

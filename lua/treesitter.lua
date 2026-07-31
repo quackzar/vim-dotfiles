@@ -15,3 +15,10 @@ vim.keymap.set({ "x", "o", "n" }, "<A-i>", function()
         vim.lsp.buf.selection_range(-vim.v.count1)
     end
 end, { desc = "Select child treesitter node or inner incremental lsp selections" })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "<filetype>" },
+    callback = function()
+        vim.treesitter.start()
+    end,
+})

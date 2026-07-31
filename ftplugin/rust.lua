@@ -24,7 +24,7 @@ vim.keymap.set(
     function()
         vim.cmd.RustLsp("relatedDiagnostics")
     end,
-    { silent = true, buffer = bufnr, desc = "Explain error" }
+    { silent = true, buffer = bufnr, desc = "Related diagnostics" }
 )
 
 vim.keymap.set(
