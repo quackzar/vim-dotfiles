@@ -178,7 +178,7 @@ return {
                     elseif vim.bo.filetype == "typst" then
                         return { "lsp" }
                     else
-                        return { "lsp", "snippets" }
+                        return { "lsp", "snippets", "lazydev" }
                     end
                 end,
                 providers = {
@@ -240,6 +240,11 @@ return {
                         min_keyword_length = 2,
                         score_offset = 10,
                         async = true,
+                    },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
                     },
                 },
             },

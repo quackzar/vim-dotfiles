@@ -290,6 +290,27 @@ basic.macros = {
     end,
 }
 
+local ns = vim.api.nvim_create_namespace("nvim.multicursor")
+
+basic.multicursor = {
+    hl_colors = {
+        default = { "red", "black" },
+        sep_before = { "black_light", "black" },
+        sep_after = { "black_light", "black" },
+    },
+    text = function()
+        -- local cursors = vim.api.nvim_buf_get_extmarks(0, ns, 0, -1);
+        --
+        -- if #cursors > 0 then
+        --     return {
+        --         { " ", "default" },
+        --         { "cursors +" .. #cursors, "default" },
+        --         { " ", "default" },
+        --     }
+        -- end
+    end,
+}
+
 basic.dap = {
     hl_colors = {
         default = { "red", "black" },
@@ -317,6 +338,8 @@ local default = {
         { vim_components.search_count(), { "red", "black_light" } },
         { sep.right_rounded, { "black_light", "black" } },
         basic.macros,
+        basic.multicursor,
+        basic.noice,
         basic.dap,
         basic.lint,
         basic.lsp,

@@ -204,6 +204,28 @@ vim.lsp.config.typescript_ls = {
     },
 }
 
+vim.lsp.config.jdtls = {
+    autostart = false,
+    on_attach = function()
+        -- nnoremap <A-o> <Cmd>lua require'jdtls'.organize_imports()<CR>
+        -- nnoremap crv <Cmd>lua require('jdtls').extract_variable()<CR>
+        -- vnoremap crv <Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>
+        -- nnoremap crc <Cmd>lua require('jdtls').extract_constant()<CR>
+        -- vnoremap crc <Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>
+        -- vnoremap crm <Esc><Cmd>lua require('jdtls').extract_method(true)<CR>
+        vim.keymap.set("n", "crv", "<Cmd>lua require('jdtls').extract_variable()<CR>")
+        vim.keymap.set("v", "crv", "<Cmd>lua require('jdtls').extract_variable(true)<CR>")
+        vim.keymap.set("n", "crc", "<Cmd>lua require('jdtls').extract_constant()<CR>")
+        vim.keymap.set("v", "crc", "<Cmd>lua require('jdtls').extract_constant(true)<CR>")
+        vim.keymap.set("v", "crc", "<Cmd>lua require('jdtls').extract_method(true)<CR>")
+    end,
+    settings = {
+        java = {
+            args = {},
+        },
+    },
+}
+
 vim.lsp.config.basedpyright = {
     cmd = { "basedpyright-langserver", "--stdio" },
     filetypes = { "python" },

@@ -133,7 +133,11 @@ return {
         "stevearc/quicker.nvim",
         ---@module "quicker"
         ---@type quicker.SetupOptions
-        opts = {},
+        opts = {
+            follow = {
+                enabled = true,
+            },
+        },
     },
 
     {

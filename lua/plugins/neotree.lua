@@ -1,4 +1,5 @@
 local commands = require("cfg.commands")
+--local commands = require("cfg.neotree-cmds")
 
 local indexOf = function(array, value)
     for i, v in ipairs(array) do
@@ -43,7 +44,7 @@ return {
             "filesystem",
             "netman.ui.neo-tree",
             "buffers",
-            "git_status", -- NOTE: Sort of redundant?
+            "git_status", -- Sort of redundant?
             "document_symbols",
         },
         default_component_configs = {
@@ -64,7 +65,7 @@ return {
         close_if_last_window = true,
         filesystem = {
             follow_current_file = { enabled = true },
-            use_libuv_file_watcher = true,
+            use_libuv_file_watcher = false,
             group_empty_dirs = true,
             filtered_items = {
                 hide_gitignored = false,
@@ -90,6 +91,20 @@ return {
         window = {
             mappings = {
                 ["z"] = "none",
+
+                -- ["zo"] = commands.zo,
+                -- ["zO"] = commands.zO,
+                -- ["zc"] = commands.zc,
+                -- ["zC"] = commands.zC,
+                -- ["za"] = commands.za,
+                -- ["zA"] = commands.zA,
+                -- ["zx"] = commands.zx,
+                -- ["zX"] = commands.zX,
+                -- ["zm"] = commands.zm,
+                -- ["zM"] = commands.zM,
+                -- ["zr"] = commands.zr,
+                -- ["zR"] = commands.zR,
+
                 ["zo"] = { commands.open_fold, desc = "open fold" },
                 ["zO"] = { commands.open_folds_rec, desc = "open fold rec." },
                 ["zc"] = { commands.close_fold, desc = "close fold" },
@@ -190,8 +205,8 @@ return {
                 require("neo-tree.sources.manager").refresh()
             end,
         })
-        vim.keymap.set("n", "<leader>z", "<cmd>Neotree focus last<cr>", { desc = "Focus neo tree" })
-        vim.keymap.set("n", "<leader>Z", "<cmd>Neotree toggle last<cr>", { desc = "Toggle neo tree" })
+        vim.keymap.set("n", "<leader>z", "<cmd>Neotree focus filesystem<cr>", { desc = "Focus neo tree" })
+        vim.keymap.set("n", "<leader>Z", "<cmd>Neotree toggle filesystem<cr>", { desc = "Toggle neo tree" })
         vim.keymap.set("n", "<leader>v", "<cmd>Neotree focus document_symbols<cr>", { desc = "Focus symbols" })
         vim.keymap.set("n", "<leader>V", "<cmd>Neotree toggle document_symbols<cr>", { desc = "Toggle symbols" })
     end,

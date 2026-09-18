@@ -150,8 +150,14 @@ return {
                             enable = true,
                         },
                         generic = {
-                            enable = true,
+                            enable = false,
                         },
+                    },
+                    fzf = {
+                        fuzzy = true,
+                        override_generic_sorter = true,
+                        override_file_sorter = false,
+                        case_mode = "smart_case",
                     },
                     ast_grep = {
                         layout_strategy = "vertical",
@@ -214,6 +220,7 @@ return {
         },
     },
 
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-ui-select.nvim" },
 
     {

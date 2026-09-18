@@ -23,22 +23,20 @@ local git_hydra = Hydra {
             position = "bottom",
         },
         on_enter = function()
-            vim.cmd("mkview!")
-            vim.cmd("silent! %foldopen!")
+            -- vim.cmd("mkview!")
+            -- vim.cmd("silent! %foldopen!")
             gitsigns.toggle_linehl(true)
             gitsigns.toggle_word_diff(true)
             vim.cmd("UfoDetach")
         end,
         on_exit = function()
-            local cursor_pos = vim.api.nvim_win_get_cursor(0)
+            -- local cursor_pos = vim.api.nvim_win_get_cursor(0)
             gitsigns.toggle_linehl(false)
-            gitsigns.toggle_deleted(false)
             gitsigns.toggle_word_diff(false)
-            pcall(vim.cmd, "loadview")
-            vim.api.nvim_win_set_cursor(0, cursor_pos)
-            vim.cmd("normal zv")
+            -- pcall(vim.cmd, "loadview")
+            -- vim.api.nvim_win_set_cursor(0, cursor_pos)
+            -- vim.cmd("normal zv")
             vim.cmd("UfoAttach")
-            vim.cmd("echo") -- clear the echo area
         end,
     },
     name = "git",
@@ -74,9 +72,27 @@ local git_hydra = Hydra {
         },
         -- TODO: This one vvv does not work that well
         { "o", "<cmd>Gitsigns<cr>", { exit = true } }, -- show the base of the file
-        { "c", "<cmd>Neogit commit<cr>", { exit = true } },
-        { "<enter>", "<cmd>Neogit<cr>", { exit = true, exit_before = true } },
-        { "g", "<cmd>Neogit<cr>", { exit = true, exit_before = true, nowait = true } },
+        {
+            "c",
+            function()
+                require("neogit").open { "commit" }
+            end,
+            { exit = true },
+        },
+        {
+            "<enter>",
+            function()
+                require("neogit").open()
+            end,
+            { exit = true, exit_before = true },
+        },
+        {
+            "g",
+            function()
+                require("neogit").open()
+            end,
+            { exit = true, exit_before = true, nowait = true },
+        },
         { "<esc>", nil, { exit = true, nowait = true } },
     },
 }

@@ -105,11 +105,10 @@ vim.g.loaded_netrw = 1
 vim.g.no_plugin_maps = true
 
 -- some pluginless keymaps
-vim.keymap.set({ "n", "x" }, "Q", "<nop>")
 vim.keymap.set("n", "<c-w>q", ":close<cr>", { silent = true })
 vim.keymap.set({ "n", "x" }, "x", '"_x')
 vim.keymap.set({ "n", "x" }, "X", '"_X')
-vim.keymap.set({ "n", "x", "i" }, "<C-l>", "<cmd>noh|diffupdate|normal! <C-l><cr>", { silent = true })
+--vim.keymap.set({ "n", "x", "i" }, "<C-l>", "<cmd>noh|diffupdate|normal! <C-l><cr>", { silent = true })
 vim.keymap.set("i", "<C-l>", "<C-o><cmd>noh|diffupdate|normal! <C-l><cr>", { silent = true })
 vim.keymap.set("v", "@", ":normal @")
 vim.keymap.set("t", "<C-z>", "<C-\\><C-n>")
@@ -214,7 +213,7 @@ require("lazy").setup("plugins", {
 require("mason").setup()
 require("lsp")
 require("treesitter")
---require("ts-grammars")
+require("ts-grammars")
 
 local theme = require("last-color").recall() or "kanagawa"
 vim.cmd(("colorscheme %s"):format(theme))

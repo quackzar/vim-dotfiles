@@ -101,9 +101,29 @@ return {
                 vim.env.EDITOR = nvr .. "-l --remote" -- (Optional)
                 vim.env.VISUAL = nvr .. "-l --remote" -- (Optional)
             end
+
+            -- TODO: Make hydra? Requires I find out to check if I am in visual mode
+            vim.keymap.set(
+                "v",
+                "<leader>g",
+                "<Esc><cmd>'<,'>DiffviewFileHistory --follow<CR>",
+                { desc = "Range history" }
+            )
+
+            vim.api.nvim_create_autocmd("User", {
+                pattern = "DiffviewSelectionChanged",
+                callback = function()
+                    local sel = require("diffview.api").selections
+                    local paths = sel.get_paths()
+                    vim.notify(
+                        #paths > 0 and ("Reviewed: " .. table.concat(paths, ", ")) or "No files marked as reviewed"
+                    )
+                end,
+            })
         end,
         opts = {
             enhanced_diff_hl = true,
+            persist_selections = { enabled = true },
             default_args = {
                 DiffviewOpen = { "--imply-local" },
             },
@@ -111,6 +131,10 @@ return {
                 merge_tool = {
                     layout = "diff4_mixed",
                 },
+            },
+            file_panel = {
+                show_branch_name = true,
+                always_show_sections = true,
             },
             keymaps = {
                 file_panel = {
@@ -130,6 +154,13 @@ return {
 
     {
         "barrettruth/diffs.nvim",
+        init = function()
+            vim.g.diffs = {
+                integrations = {
+                    neogit = true,
+                },
+            }
+        end,
     },
 
     {
@@ -244,6 +275,5 @@ return {
             },
         },
     },
-
     --- }}}
 }

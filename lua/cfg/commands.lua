@@ -125,6 +125,7 @@ commands.open_fold = function(state)
         return
     end
     state.commands.toggle_node(state)
+    vim.wait(50) -- required for correct operation (?)
 
     if tree.cursor_node and tree.cursor_node:get_id() ~= node:get_id() then
         local curnode = tree.cursor_node

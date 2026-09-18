@@ -164,21 +164,21 @@ return {
         end,
     },
 
-    {
-        "rachartier/tiny-glimmer.nvim",
-        event = "VeryLazy",
-        priority = 10, -- Needs to be a really low priority, to catch others plugins keybindings.
-        opts = {
-            overwrite = {
-                auto_map = true,
-                yank = { enabled = true },
-                search = { enabled = true },
-                paste = { enabled = true },
-                undo = { enabled = true },
-                redo = { enabled = true },
-            },
-        },
-    },
+    -- {
+    --     "rachartier/tiny-glimmer.nvim",
+    --     event = "VeryLazy",
+    --     priority = 10, -- Needs to be a really low priority, to catch others plugins keybindings.
+    --     opts = {
+    --         overwrite = {
+    --             auto_map = true,
+    --             yank = { enabled = true },
+    --             search = { enabled = true },
+    --             paste = { enabled = true },
+    --             undo = { enabled = true },
+    --             redo = { enabled = true },
+    --         },
+    --     },
+    -- },
 
     {
         "karb94/neoscroll.nvim",
@@ -344,6 +344,7 @@ return {
             vim.notify = require("notify")
         end,
         init = function()
+            -- TODO: Also clear the multicursors!
             vim.keymap.set({ "n", "i", "x" }, "<C-l>", function()
                 require("notify").dismiss()
                 vim.cmd("noh")
@@ -421,7 +422,7 @@ return {
 
     {
         "nvim-mini/mini.clue",
-        enabled = true,
+        enabled = false, -- breaks multicursor in 0.13-nightly
         version = false,
         event = "VimEnter",
         config = function()
